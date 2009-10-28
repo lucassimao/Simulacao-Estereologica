@@ -1,0 +1,863 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Lucas Simão</author>
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>852</width>
+    <height>609</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Caixa de Grãos</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../../../Qt/2009.02/share/pixmaps/qtcreator_logo_24.png</normaloff>../../../../Qt/2009.02/share/pixmaps/qtcreator_logo_24.png</iconset>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="sizeIncrement">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>245</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="title">
+         <string>Opções </string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>221</width>
+           <height>501</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Tipo de grão</string>
+            </property>
+            <property name="buddy">
+             <cstring>comboBoxTipoGrao</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBoxTipoGrao">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <item>
+             <property name="text">
+              <string>Esfera</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Paralelepípedo</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Prisma Triangular</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Prisma Triangular (Mesh)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Prisma Hexagonal</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Cápsula</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Cilindro</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Cuboctaedro</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Octaedro Truncado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Cone</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Cubo</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Número de Grãos</string>
+            </property>
+            <property name="buddy">
+             <cstring>textNumeroGraos</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QLineEdit" name="textNumeroGraos"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnAdicionar">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Adicionar</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>120</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBoxTamanhoGraoAleatorio">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Tamanho de Grão Aleatório</string>
+            </property>
+            <property name="tristate">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Raio da Esfera</string>
+              </property>
+              <property name="buddy">
+               <cstring>textRaioEsfera</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="textRaioEsfera">
+              <property name="text">
+               <string>0.9</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>108</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QPushButton" name="btnParar">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Pausar</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnLimpar">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Limpar</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>94</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBoxVistaSuperior">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Vista Superior</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Zoom (%):</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinBoxZoom">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBoxMostrarCaixa">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Mostrar Caixa</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBoxCaixaSemTampa">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Caixa Sem Tampa</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBoxGravidade">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Gravidade</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="QPushButton" name="btnNovoPlanodeCorte">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Novo Plano de Corte</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QPushButton" name="btnPlanovsGraos">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Plano Vs Grãos</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnAmostra">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Amostra</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <widget class="QPushButton" name="btnGraosInterceptos">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Grãos Interceptos</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnExibirInterceptos">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Exibir Interceptos</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBoxExibirPlanoDeCorte">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Exibir Plano de Corte</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBoxExibirRetasTeste">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Exibir Retas Teste</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBoxExibirPontosTeste">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Exibir Pontos Teste</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>852</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuArquivo">
+    <property name="title">
+     <string>Arquivo</string>
+    </property>
+    <addaction name="actionSalvar_Figura"/>
+    <addaction name="actionSalvar_resultados"/>
+    <addaction name="actionSalvar_cena"/>
+    <addaction name="actionAbrir_cena"/>
+    <addaction name="separator"/>
+    <addaction name="actionSair"/>
+   </widget>
+   <widget class="QMenu" name="menuOp_es">
+    <property name="title">
+     <string>Opções</string>
+    </property>
+    <addaction name="actionEsferas_id_nticas"/>
+    <addaction name="actionEsferas_aleat_rias"/>
+    <addaction name="actionPercola_o"/>
+    <addaction name="actionCores_dos_gr_os"/>
+    <addaction name="actionPosi_o"/>
+    <addaction name="actionGrade_de_pontos_e_linha_teste"/>
+    <addaction name="actionPlano_de_corte"/>
+    <addaction name="actionExibir_resultados"/>
+    <addaction name="actionDistribui_o_de_gr_os"/>
+    <addaction name="actionAglomerados"/>
+    <addaction name="actionPlano_de_fundo"/>
+   </widget>
+   <widget class="QMenu" name="menuPoros_CellUnit">
+    <property name="title">
+     <string>Poros CellUnit</string>
+    </property>
+    <addaction name="actionTetaedro"/>
+    <addaction name="actionEctaedro"/>
+    <addaction name="actionCubo_simples"/>
+    <addaction name="actionC_bico_de_corpo_centrado"/>
+    <addaction name="separator"/>
+    <addaction name="actionCores"/>
+   </widget>
+   <widget class="QMenu" name="menuAjuda">
+    <property name="title">
+     <string>Ajuda</string>
+    </property>
+    <addaction name="actionAjuda"/>
+    <addaction name="actionSobre"/>
+   </widget>
+   <addaction name="menuArquivo"/>
+   <addaction name="menuOp_es"/>
+   <addaction name="menuPoros_CellUnit"/>
+   <addaction name="menuAjuda"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="statusTip">
+    <string/>
+   </property>
+   <property name="sizeGripEnabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <action name="actionSalvar_Figura">
+   <property name="text">
+    <string>Salvar figura</string>
+   </property>
+  </action>
+  <action name="actionSalvar_resultados">
+   <property name="text">
+    <string>Salvar resultados</string>
+   </property>
+  </action>
+  <action name="actionSalvar_cena">
+   <property name="text">
+    <string>Salvar cena</string>
+   </property>
+  </action>
+  <action name="actionAbrir_cena">
+   <property name="text">
+    <string>Abrir cena</string>
+   </property>
+  </action>
+  <action name="actionSair">
+   <property name="text">
+    <string>Sair</string>
+   </property>
+  </action>
+  <action name="actionEsferas_id_nticas">
+   <property name="text">
+    <string>Esferas idênticas</string>
+   </property>
+  </action>
+  <action name="actionEsferas_aleat_rias">
+   <property name="text">
+    <string>Esferas aleatórias</string>
+   </property>
+  </action>
+  <action name="actionPercola_o">
+   <property name="text">
+    <string>Percolação</string>
+   </property>
+  </action>
+  <action name="actionCores_dos_gr_os">
+   <property name="text">
+    <string>Cores dos grãos</string>
+   </property>
+  </action>
+  <action name="actionPosi_o">
+   <property name="text">
+    <string>Posição</string>
+   </property>
+  </action>
+  <action name="actionGrade_de_pontos_e_linha_teste">
+   <property name="text">
+    <string>Grade de pontos e linha teste</string>
+   </property>
+  </action>
+  <action name="actionPlano_de_corte">
+   <property name="text">
+    <string>Plano de corte</string>
+   </property>
+  </action>
+  <action name="actionExibir_resultados">
+   <property name="text">
+    <string>Exibir resultados</string>
+   </property>
+  </action>
+  <action name="actionDistribui_o_de_gr_os">
+   <property name="text">
+    <string>Distribuição de grãos</string>
+   </property>
+  </action>
+  <action name="actionAglomerados">
+   <property name="text">
+    <string>Aglomerados</string>
+   </property>
+  </action>
+  <action name="actionPlano_de_fundo">
+   <property name="text">
+    <string>Cor de fundo</string>
+   </property>
+  </action>
+  <action name="actionTetaedro">
+   <property name="text">
+    <string>Tetaedro</string>
+   </property>
+  </action>
+  <action name="actionEctaedro">
+   <property name="text">
+    <string>Octaedro</string>
+   </property>
+  </action>
+  <action name="actionCubo_simples">
+   <property name="text">
+    <string>Cúbico simples</string>
+   </property>
+  </action>
+  <action name="actionC_bico_de_corpo_centrado">
+   <property name="text">
+    <string>Cúbico de corpo centrado</string>
+   </property>
+  </action>
+  <action name="actionCores">
+   <property name="text">
+    <string>Cores</string>
+   </property>
+  </action>
+  <action name="actionAjuda">
+   <property name="text">
+    <string>Ajuda</string>
+   </property>
+  </action>
+  <action name="actionSobre">
+   <property name="text">
+    <string>Sobre ...</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>btnAdicionar</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>adicionarObjetos()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>136</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnParar</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>pararSimulacao()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>59</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnLimpar</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>limparSimulacao()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>140</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnNovoPlanodeCorte</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>novoPlanoDeCorte()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>369</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSair</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBoxTamanhoGraoAleatorio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>usarTamanhoDeGraoAleatorio(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>158</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBoxMostrarCaixa</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>mostrarCaixa(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>293</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBoxGravidade</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>usarGravidade(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>341</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBoxExibirPlanoDeCorte</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>exibirPlanoDeCorte(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>458</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnPlanovsGraos</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>exibirGraosInterceptados()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>400</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>adicionarObjetos()</slot>
+  <slot>pararSimulacao()</slot>
+  <slot>limparSimulacao()</slot>
+  <slot>novoPlanoDeCorte()</slot>
+  <slot>exibirSobre()</slot>
+  <slot>usarTamanhoDeGraoAleatorio(bool)</slot>
+  <slot>mostrarCaixa(bool)</slot>
+  <slot>usarGravidade(bool)</slot>
+  <slot>exibirPlanoDeCorte(bool)</slot>
+  <slot>exibirGraosInterceptados()</slot>
+ </slots>
+</ui>

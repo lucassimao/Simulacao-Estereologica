@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Simulacao", "Simulacao.vcproj", "{214465DC-922D-3E89-BDC8-F6C0E7736415}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug - v2.7.3|Win32 = Debug - v2.7.3|Win32
+		Debug - v2.8.0|Win32 = Debug - v2.8.0|Win32
+		Release - v2.7.3|Win32 = Release - v2.7.3|Win32
+		Release - v2.8.0|Win32 = Release - v2.8.0|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{214465DC-922D-3E89-BDC8-F6C0E7736415}.Debug - v2.7.3|Win32.ActiveCfg = Debug|Win32
+		{214465DC-922D-3E89-BDC8-F6C0E7736415}.Debug - v2.7.3|Win32.Build.0 = Debug|Win32
+		{214465DC-922D-3E89-BDC8-F6C0E7736415}.Debug - v2.8.0|Win32.ActiveCfg = Debug - v2.8.0|Win32
+		{214465DC-922D-3E89-BDC8-F6C0E7736415}.Debug - v2.8.0|Win32.Build.0 = Debug - v2.8.0|Win32
+		{214465DC-922D-3E89-BDC8-F6C0E7736415}.Release - v2.7.3|Win32.ActiveCfg = Release|Win32
+		{214465DC-922D-3E89-BDC8-F6C0E7736415}.Release - v2.7.3|Win32.Build.0 = Release|Win32
+		{214465DC-922D-3E89-BDC8-F6C0E7736415}.Release - v2.8.0|Win32.ActiveCfg = Release - v2.8.0|Win32
+		{214465DC-922D-3E89-BDC8-F6C0E7736415}.Release - v2.8.0|Win32.Build.0 = Release - v2.8.0|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
