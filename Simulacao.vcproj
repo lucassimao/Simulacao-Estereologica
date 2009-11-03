@@ -432,6 +432,42 @@
 					RelativePath="src\model\SimulacaoSimples.cpp"
 					>
 				</File>
+				<Filter
+					Name="atores"
+					>
+					<File
+						RelativePath=".\src\model\atores\Ator.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\Caixa.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\Capsula.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\Cone.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\Cubo.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\Esfera.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\PlanoDeCorte.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\PrismaTriangular.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="canvas"
@@ -440,42 +476,6 @@
 					RelativePath=".\src\canvas\CaixaGraosGLWidget.cpp"
 					>
 				</File>
-				<Filter
-					Name="atores"
-					>
-					<File
-						RelativePath="src\canvas\atores\Ator.cpp"
-						>
-					</File>
-					<File
-						RelativePath="src\canvas\atores\Caixa.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\canvas\atores\Capsula.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\canvas\atores\Cone.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\canvas\atores\Cubo.cpp"
-						>
-					</File>
-					<File
-						RelativePath="src\canvas\atores\Esfera.cpp"
-						>
-					</File>
-					<File
-						RelativePath="src\canvas\atores\PlanoDeCorte.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\canvas\atores\PrismaTriangular.cpp"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="gui"
@@ -554,6 +554,42 @@
 					RelativePath="src\model\SimulacaoSimples.h"
 					>
 				</File>
+				<Filter
+					Name="atores"
+					>
+					<File
+						RelativePath=".\src\model\atores\Ator.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\Caixa.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\Capsula.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\Cone.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\Cubo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\Esfera.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\PlanoDeCorte.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\PrismaTriangular.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="canvas"
@@ -606,42 +642,6 @@
 						/>
 					</FileConfiguration>
 				</File>
-				<Filter
-					Name="atores"
-					>
-					<File
-						RelativePath="src\canvas\atores\Ator.h"
-						>
-					</File>
-					<File
-						RelativePath="src\canvas\atores\Caixa.h"
-						>
-					</File>
-					<File
-						RelativePath=".\src\canvas\atores\Capsula.h"
-						>
-					</File>
-					<File
-						RelativePath=".\src\canvas\atores\Cone.h"
-						>
-					</File>
-					<File
-						RelativePath=".\src\canvas\atores\Cubo.h"
-						>
-					</File>
-					<File
-						RelativePath="src\canvas\atores\Esfera.h"
-						>
-					</File>
-					<File
-						RelativePath="src\canvas\atores\PlanoDeCorte.h"
-						>
-					</File>
-					<File
-						RelativePath=".\src\canvas\atores\PrismaTriangular.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="gui"

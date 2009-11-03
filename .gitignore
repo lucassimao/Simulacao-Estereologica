@@ -1,7 +1,10 @@
 *.exe
 *.obj
 Debug - v2.8.0/*
+Release - v2.7.3/*
+Release - v2.8.0/*
 *.htm
 *.html
 *.pdb
 *.ncb
+*.idb

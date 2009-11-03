@@ -1,11 +1,11 @@
 #include <QtDebug>
 #include <NxPhysics.h>
 #include "SimulacaoCaixa.h"
-#include "../canvas/atores/Capsula.h"
-#include "../canvas/atores/Cubo.h"
-#include "../canvas/atores/Esfera.h"
-#include "../canvas/atores/PrismaTriangular.h"
-#include "../canvas/atores/Ator.h"
+#include "atores/Capsula.h"
+#include "atores/Cubo.h"
+#include "atores/Esfera.h"
+#include "atores/PrismaTriangular.h"
+#include "atores/Ator.h"
 #include "../draw/Stream.h"
 #include "../draw/cooking.h"
 
