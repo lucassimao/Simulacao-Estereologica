@@ -1,25 +1,25 @@
 #ifndef H_SIMULACAO
 #define H_SIMULACAO
 
+
+#include "..\defs.h"
 #include <NxPhysics.h>
 #include <stdexcept>
-#include "../defs.h"
 
 
 using std::exception;
-
 
 /**
 * Definição abstrata de uma simulação
 *
 */
+
 namespace simulacao{
 
 	namespace model{
 
 		class Simulacao
 		{
-
 		protected:
 			const static NxVec3 gravidadeDefault;
 
@@ -38,6 +38,12 @@ namespace simulacao{
 
 			virtual void initPhysicsSDK() throw (exception);
 
+			NxPhysicsSDK* getSDK() const{
+				return physicsSDK;
+			}
+			NxScene *getCena() const{
+				return this->cena;
+			}
 		public:
 			Simulacao(void);
 			~Simulacao(void);
@@ -67,7 +73,6 @@ namespace simulacao{
 			void setZoom(NxF32);
 			NxF32 getZoom() const;
 
-			void setQtdeObjetos(NxI64);
 			NxI64 getQtdeObjetos() const;
 
 			void setGravidade(NxVec3 *);
@@ -79,13 +84,6 @@ namespace simulacao{
 			void setPontoDeVisualizacao(NxVec3 *);
 			NxVec3 *getPontoDeVisualizacao() const;
 
-			NxPhysicsSDK* getSDK() const{
-				return physicsSDK;
-			}
-			NxScene *getCena() const{
-				return this->cena;
-			}
-
 			bool isModoDepuracao(){
 				return this->modoDepuracao;
 			}
@@ -93,6 +91,7 @@ namespace simulacao{
 
 			NxActor *getAtorCorrente(){ return atorCorrente;};
 			void setAtorCorrente(NxActor *actor){ this->atorCorrente = actor; }
+			NxActor **getAtores(){ return this->cena->getActors();};
 
 			bool isSimulacaoEmHardware() const{
 				return this->simulacaoEmHardware;

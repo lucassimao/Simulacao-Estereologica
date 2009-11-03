@@ -4,6 +4,7 @@
 	Version="9,00"
 	Name="Simulacao"
 	ProjectGUID="{214465DC-922D-3E89-BDC8-F6C0E7736415}"
+	RootNamespace="Simulacao"
 	Keyword="Qt4VSv1.0"
 	TargetFrameworkVersion="0"
 	>
@@ -484,6 +485,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="utils"
+				>
+				<File
+					RelativePath=".\src\utils\MeshFactory.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -684,6 +693,14 @@
 							Outputs="release\moc_MainWindow.cpp"
 						/>
 					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="utils"
+				>
+				<File
+					RelativePath=".\src\utils\MeshFactory.h"
+					>
 				</File>
 			</Filter>
 		</Filter>

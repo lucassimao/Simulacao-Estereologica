@@ -3,6 +3,7 @@
 
 #include <NxPhysics.h>
 #include "../defs.h"
+#include "../utils/MeshFactory.h"
 #include "Simulacao.h"
 
 /**
@@ -10,6 +11,8 @@
 * objetos idênticos
 *
 */
+using namespace simulacao::utils;
+
 namespace simulacao{
 	namespace model{
 
@@ -22,6 +25,7 @@ namespace simulacao{
 			bool exibirTampaCaixa;
 			bool usarGraosAleatorios;
 			NxActor *caixa;
+			MeshFactory *meshFactory;
 			NxActor *atorPlanoDeCorte;
 			NxPlane *shapePlanoDeCorte;
 			NxActor *criarCaixa();
@@ -51,7 +55,6 @@ namespace simulacao{
 			void novoPlanoDeCorte();
 			void selecionarGraosInterceptados();
 			void removerGraos();
-			NxTriangleMesh *criarMesh(int numVertices,int numTriangles,NxVec3 *points,NxU32 *triangles);
 		};
 
 	}

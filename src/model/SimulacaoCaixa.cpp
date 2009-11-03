@@ -4,9 +4,10 @@
 #include "../canvas/atores/Capsula.h"
 #include "../canvas/atores/Cubo.h"
 #include "../canvas/atores/Esfera.h"
+#include "../canvas/atores/PrismaTriangular.h"
 #include "../canvas/atores/Ator.h"
-#include "../draw/cooking.h"
 #include "../draw/Stream.h"
+#include "../draw/cooking.h"
 
 using namespace simulacao::model;
 using namespace simulacao::model::atores;
@@ -14,50 +15,22 @@ NxCCDSkeleton * ccds;
 
 SimulacaoCaixa::SimulacaoCaixa(void)
 {
-	this->caixa = criarCaixa();
+	this->meshFactory = new MeshFactory(this->physicsSDK);
 	this->atorPlanoDeCorte = 0;
 	this->shapePlanoDeCorte = 0;
 	this->exibirCaixa = true;
 	this->exibirPontosTeste = false;
 	this->exibirRetasTeste = false;
 	this->exibirTampaCaixa =  true;
+	this->caixa = criarCaixa();
 	criarCCDS();
+
 
 }
 
 SimulacaoCaixa::~SimulacaoCaixa(void)
 {
-
-}
-
-NxTriangleMesh * SimulacaoCaixa::criarMesh(int numVertices,int numTriangles,NxVec3 *points,NxU32 *triangles){
-	
-	bool status = InitCooking();
-	if (!status) {
-		printf("\nError: Unable to initialize the cooking library. Please make sure that you have correctly installed the latest version of the AGEIA PhysX SDK.\n\n");
-		exit(1);
-	}
-
-	NxTriangleMeshDesc meshDesc;
-	meshDesc.numVertices = numVertices;
-	meshDesc.numTriangles = numTriangles;
-	meshDesc.pointStrideBytes = sizeof(NxVec3);
-	meshDesc.triangleStrideBytes = 3 * sizeof(NxU32);
-	meshDesc.points = points;
-	meshDesc.triangles = triangles;
-	MemoryWriteBuffer buf;
-	
-	status = CookTriangleMesh(meshDesc, buf);
-	
-	if (!status) {
-		printf("Unable to cook a triangle mesh.");
-		exit(1);
-	}
-	
-	MemoryReadBuffer readBuffer(buf.data);
-	CloseCooking();
-	return physicsSDK->createTriangleMesh(readBuffer);
-
+	removerGraos();
 }
 
 void SimulacaoCaixa::criarCCDS(){
@@ -143,7 +116,7 @@ NxActor * SimulacaoCaixa::criarCaixa(){
 	actorDesc.globalPose.t = NxVec3(0,15,0);// Define a altura dos objetos no eixo y
 	NxTriangleMeshShapeDesc meshShapeDesc;
 
-	meshShapeDesc.meshData = criarMesh(8,12,vertices,triangulos);
+	meshShapeDesc.meshData = this->meshFactory->criarMesh(8,12,vertices,triangulos);
 	actorDesc.shapes.pushBack(&meshShapeDesc);
 	return  cena->createActor(actorDesc);
 
@@ -165,6 +138,11 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 		case CUBO:
 			for(long l=0;l<qtde;++l){
 				new Cubo(cena,ccds);
+			}
+			break;
+		case PRISMA_TRIANGULAR:
+			for(long l=0;l<qtde;++l){
+				new PrismaTriangular(cena,3,3,NULL,meshFactory);
 			}
 			break;
 	}
@@ -224,7 +202,7 @@ void SimulacaoCaixa::selecionarGraosInterceptados(){
 }
 
 void SimulacaoCaixa::removerGraos(){
-NxU32 qtdeAtores = getCena()->getNbActors();
+	NxU32 qtdeAtores = getCena()->getNbActors();
 	NxActor** atores = getCena()->getActors();
 
 	while (qtdeAtores--)

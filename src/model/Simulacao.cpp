@@ -88,5 +88,9 @@ void Simulacao::GetPhysicsResults()
 }
 
 
+NxI64 Simulacao::getQtdeObjetos() const{
+	return cena->getNbActors();
+}
+
 
 

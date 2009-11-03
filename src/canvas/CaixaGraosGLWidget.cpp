@@ -103,8 +103,8 @@ void CaixaGraosGLWidget::draw()
 
 void CaixaGraosGLWidget::RenderActors(){
 
-	NxU32 nbActors = simulacao->getCena()->getNbActors();
-	NxActor** actors = simulacao->getCena()->getActors();
+	NxU32 nbActors = simulacao->getQtdeObjetos();
+	NxActor** actors = simulacao->getAtores();
 
 	while (nbActors--)
 	{

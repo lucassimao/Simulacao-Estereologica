@@ -67,6 +67,9 @@ void MainWindow::adicionarObjetos(){
 	case 0:
 		simulacao->adicionarObjeto(ESFERA,qtde);
 		break;
+	case 2:
+		simulacao->adicionarObjeto(PRISMA_TRIANGULAR,qtde);
+		break;
 	case 5:
 		simulacao->adicionarObjeto(CAPSULA,qtde);
 		break;
@@ -139,6 +142,6 @@ void MainWindow::exibirGraosInterceptados(){
 }
 
 void MainWindow::atualizarQuantidadeDeGraosEmCena(){
-	long qtde_total_objetos = simulacao->getCena()->getNbActors() - 2; // -2 remove a caixa e o plano 
+	long qtde_total_objetos = simulacao->getQtdeObjetos() - 2; // -2 remove a caixa e o plano 
 	statusQtdeObjetos->setText(tr("%1 Objetos").arg(qtde_total_objetos));
 }
