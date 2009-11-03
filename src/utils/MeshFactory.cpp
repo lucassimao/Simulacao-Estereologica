@@ -7,7 +7,7 @@ MeshFactory::MeshFactory(NxPhysicsSDK *physicsSDK){
 	this->physicsSDK = physicsSDK;
 }
 
-NxTriangleMesh * MeshFactory::criarMesh(int numVertices,int numTriangles,NxVec3 *points,NxU32 *triangles){
+NxTriangleMesh * MeshFactory::criarTriangleMesh(int numVertices,int numTriangles,NxVec3 *points,NxU32 *triangles){
 	bool status = InitCooking();
 
 	if (!status) {
@@ -27,10 +27,30 @@ NxTriangleMesh * MeshFactory::criarMesh(int numVertices,int numTriangles,NxVec3 
 
 	if (!status) {
 		throw runtime_error("Unable to cook a triangle mesh.");
-		exit(1);
 	}
 
 	MemoryReadBuffer readBuffer(buf.data);
 	CloseCooking();
 	return physicsSDK->createTriangleMesh(readBuffer);
+}
+
+NxConvexMesh * MeshFactory::criarConvexMesh(NxConvexMeshDesc* convexDesc){
+	
+	bool status = InitCooking();
+
+	if (!status) {
+		throw runtime_error("\nError: Unable to initialize the cooking library. Please make sure that you have correctly installed the latest version of the AGEIA PhysX SDK.\n\n");
+	}
+
+	MemoryWriteBuffer buf;
+	status = CookConvexMesh(*convexDesc, buf);
+
+	if (!status) {
+		throw runtime_error("Unable to cook a convex mesh.");
+	}
+
+	MemoryReadBuffer readBuffer(buf.data);
+	CloseCooking();
+	
+	return physicsSDK->createConvexMesh(readBuffer);
 }

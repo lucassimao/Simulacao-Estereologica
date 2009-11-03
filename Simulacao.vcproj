@@ -440,10 +440,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\src\model\atores\Caixa.cpp"
-						>
-					</File>
-					<File
 						RelativePath=".\src\model\atores\Capsula.cpp"
 						>
 					</File>
@@ -559,10 +555,6 @@
 					>
 					<File
 						RelativePath=".\src\model\atores\Ator.h"
-						>
-					</File>
-					<File
-						RelativePath=".\src\model\atores\Caixa.h"
 						>
 					</File>
 					<File

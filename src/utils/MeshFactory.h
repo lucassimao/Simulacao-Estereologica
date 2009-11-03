@@ -8,7 +8,10 @@
 
 
 
-
+/**
+ * Essa é uma classe especialista que "sabe" como
+ * utilizar um objeto do tipo NxPhysicsSDK para criar meshes
+*/
 namespace simulacao{
 
 	namespace utils{
@@ -18,7 +21,8 @@ namespace simulacao{
 			NxPhysicsSDK *physicsSDK;
 		public:
 			MeshFactory(NxPhysicsSDK *physicsSDK);
-			NxTriangleMesh *criarMesh(int numVertices,int numTriangles,NxVec3 *points,NxU32 *triangles);
+			NxTriangleMesh *criarTriangleMesh(int numVertices,int numTriangles,NxVec3 *points,NxU32 *triangles);
+			NxConvexMesh *criarConvexMesh(NxConvexMeshDesc* convexDesc);
 			
 
 		};

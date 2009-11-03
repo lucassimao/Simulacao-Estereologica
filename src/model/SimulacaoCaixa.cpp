@@ -1,5 +1,6 @@
 #include <QtDebug>
 #include <NxPhysics.h>
+#include <NxExportedUtils.h>
 #include "SimulacaoCaixa.h"
 #include "atores/Capsula.h"
 #include "atores/Cubo.h"
@@ -8,6 +9,7 @@
 #include "atores/Ator.h"
 #include "../draw/Stream.h"
 #include "../draw/cooking.h"
+
 
 using namespace simulacao::model;
 using namespace simulacao::model::atores;
@@ -116,7 +118,7 @@ NxActor * SimulacaoCaixa::criarCaixa(){
 	actorDesc.globalPose.t = NxVec3(0,15,0);// Define a altura dos objetos no eixo y
 	NxTriangleMeshShapeDesc meshShapeDesc;
 
-	meshShapeDesc.meshData = this->meshFactory->criarMesh(8,12,vertices,triangulos);
+	meshShapeDesc.meshData = this->meshFactory->criarTriangleMesh(8,12,vertices,triangulos);
 	actorDesc.shapes.pushBack(&meshShapeDesc);
 	return  cena->createActor(actorDesc);
 
