@@ -470,6 +470,10 @@
 						RelativePath="src\canvas\atores\PlanoDeCorte.cpp"
 						>
 					</File>
+					<File
+						RelativePath=".\src\canvas\atores\PrismaTriangular.cpp"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -624,6 +628,10 @@
 						RelativePath="src\canvas\atores\PlanoDeCorte.h"
 						>
 					</File>
+					<File
+						RelativePath=".\src\canvas\atores\PrismaTriangular.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -685,26 +693,6 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			>
 			<File
-				RelativePath="release\moc_CaixaGraosGLWidget.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug - v2.8.0|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="debug\moc_CaixaGraosGLWidget.cpp"
 				>
 				<FileConfiguration
@@ -725,7 +713,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="release\moc_MainWindow.cpp"
+				RelativePath="release\moc_CaixaGraosGLWidget.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -757,6 +745,26 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release - v2.8.0|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="release\moc_MainWindow.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug - v2.8.0|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool

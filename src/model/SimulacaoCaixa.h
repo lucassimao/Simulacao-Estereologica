@@ -24,9 +24,8 @@ namespace simulacao{
 			NxActor *caixa;
 			NxActor *atorPlanoDeCorte;
 			NxPlane *shapePlanoDeCorte;
-			NxTriangleMesh * staticTriangleMesh;
 			NxActor *criarCaixa();
-			void CreateMeshes();
+			void criarCCDS();
 
 		public:
 			NxActor* getCaixa(){
@@ -52,6 +51,7 @@ namespace simulacao{
 			void novoPlanoDeCorte();
 			void selecionarGraosInterceptados();
 			void removerGraos();
+			NxTriangleMesh *criarMesh(int numVertices,int numTriangles,NxVec3 *points,NxU32 *triangles);
 		};
 
 	}

@@ -75,6 +75,7 @@ void CaixaGraosGLWidget::resizeGL(int width, int height)
 	GLfloat x = GLfloat(width) / height;
 	glFrustum(-x, +x, -1.0, +1.0, 4.0, 15.0);
 	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	gCameraAspectRatio = float(width)/float(height);
 }
 

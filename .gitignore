@@ -1,5 +1,7 @@
 *.exe
 *.obj
+Debug - v2.8.0/*
 *.htm
 *.html
 *.pdb
+*.ncb
