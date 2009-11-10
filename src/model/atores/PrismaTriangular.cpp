@@ -1,24 +1,27 @@
 #include <NxPhysics.h>
 #include <QtDebug>
+#include <stdexcept>
+#include <cfloat>
 #include "PrismaTriangular.h"
 #include "../../draw/cooking.h"
-#include <NxExportedUtils.h>
 
+using std::runtime_error;
 using namespace simulacao::model::atores;
+typedef struct _Triangle { NxU32 p0; NxU32 p1; NxU32 p2; } Triangle;
 
 PrismaTriangular::PrismaTriangular(NxScene *cena,int h,int base,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
 	this->altura = h;
 	this->base  = base;
 
-	NxVec3 boxDim(2.2,1.5,4.5);
+	NxVec3 boxDim(1,2,1);
 
 
 	NxVec3 verts[6] = { NxVec3(-boxDim.x,boxDim.y*2,-boxDim.z), 
-						NxVec3(boxDim.x,boxDim.y*2,-boxDim.z), 
-						NxVec3(boxDim.x,-boxDim.y*2,-boxDim.z), 
-						NxVec3(-boxDim.x,-boxDim.y*2,-boxDim.z), 
-						NxVec3(boxDim.x,-boxDim.y*2,--boxDim.z/2), 
-						NxVec3(boxDim.x,boxDim.y*2,--boxDim.z/2)
+		NxVec3(boxDim.x,boxDim.y*2,-boxDim.z), 
+		NxVec3(boxDim.x,-boxDim.y*2,-boxDim.z), 
+		NxVec3(-boxDim.x,-boxDim.y*2,-boxDim.z), 
+		NxVec3(boxDim.x,-boxDim.y*2,boxDim.z/2), 
+		NxVec3(boxDim.x,boxDim.y*2,boxDim.z/2)
 	};
 
 
@@ -55,7 +58,40 @@ PrismaTriangular::~PrismaTriangular(){
 
 }
 bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
-	return false;
+	NxShape *mesh =  this->ator->getShapes()[0];
+	NxVec3 pos = ator->getGlobalPosition();
+
+	if( mesh->userData == NULL ) {
+		throw runtime_error("Atenção: O atributo userData em PrismaTriangular é nulo!");
+	}
+
+	NxMat34 pose = mesh->getGlobalPose();
+
+	NxConvexMeshDesc meshDesc;
+	mesh->isConvexMesh()->getConvexMesh().saveToDesc(meshDesc); 
+
+	NxU32 nbVerts = meshDesc.numVertices;	
+	NxVec3* points = (NxVec3 *)meshDesc.points;
+
+
+	//qDebug()<<pos.y << " " << planoGlobalPosition.y <<"\n";
+	// alto e baixo em termos da coordenada Y
+	NxReal verticeMaisAlto=_FPCLASS_NINF, verticeMaisBaixo=_FPCLASS_PINF;
+
+
+	for(int i=0;i<nbVerts;++i){
+		NxVec3 vertice = (pose.M * points[i] + pose.t);
+		//qDebug()<< vertice.x <<" "<< vertice.y<<" "<< vertice.z <<"\n";
+
+		if ( verticeMaisAlto < vertice.y)
+			verticeMaisAlto = vertice.y;	
+		if (verticeMaisBaixo > vertice.y)
+			verticeMaisBaixo = vertice.y;			
+	}
+	//qDebug()<< verticeMaisAlto <<" "<< verticeMaisBaixo<<"\n";
+
+	return (verticeMaisAlto >= planoGlobalPosition.y && verticeMaisBaixo <= planoGlobalPosition.y);
+
 }
 
 void PrismaTriangular::draw(bool useShapeUserData){

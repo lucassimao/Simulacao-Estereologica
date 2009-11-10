@@ -20,7 +20,7 @@ int mx, my;
 
 
 CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao)
-: QGLWidget(parent),gCameraPos(NxVec3(0,20,-50.0))
+: QGLWidget(parent),gCameraPos(NxVec3(0,20,-60.0))
 {
 	srand(time(0));
 	setFormat(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer));
@@ -47,6 +47,7 @@ void CaixaGraosGLWidget::initializeGL()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
 	glEnable(GL_LIGHTING);
@@ -199,6 +200,7 @@ void CaixaGraosGLWidget::SetupCamera(){
 	gluLookAt(gCameraPos.x,gCameraPos.y,gCameraPos.z,gCameraPos.x + gCameraForward.x, 
 		gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z, 0.0f,1.0f, 0.0f);
 
+	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
@@ -244,124 +246,3 @@ void CaixaGraosGLWidget::mouseMoveEvent(QMouseEvent *event)
 	mx = event->x();
 	my = event->y();
 }
-
-
-/*
-
-void CaixaGraosGLWidget::CreateMeshes(){
-	NxVec3 dim(10,10,10);// vetor que determina o tamanho da caixa
-	NxVec3 dim1(0.5f, 0.5f , 0.5f);
-
-	NxU32 triangles[3 * 12] = { 
-		0,1,3,
-		0,3,2,
-		3,7,6,
-		3,6,2,
-		1,5,7,
-		1,7,3,
-		4,6,7,
-		4,7,5,
-		1,0,4,
-		5,1,4,
-		4,0,2,
-		4,2,6
-	};
-	NxVec3 points[8];
-
-
-	//static mesh
-	points[0].set( dim.x, -dim.y, -dim.z);
-	points[1].set( dim.x, -dim.y,  dim.z);
-	points[2].set( dim.x,  dim.y, -dim.z);
-	points[3].set( dim.x,  dim.y,  dim.z);
-
-	points[4].set(-dim.x, -dim.y, -dim.z);
-	points[5].set(-dim.x, -dim.y,  dim.z);
-	points[6].set(-dim.x,  dim.y, -dim.z);
-	points[7].set(-dim.x,  dim.y,  dim.z);
-
-	bool status = InitCooking();
-	if (!status) {
-		printf("\nError: Unable to initialize the cooking library. Please make sure that you have correctly installed the latest version of the AGEIA PhysX SDK.\n\n");
-		exit(1);
-	}
-
-	NxTriangleMeshDesc		meshDesc;
-	meshDesc.numVertices = 8;
-	meshDesc.numTriangles = 12;
-	meshDesc.pointStrideBytes = sizeof(NxVec3);
-	meshDesc.triangleStrideBytes = 3 * sizeof(NxU32);
-	meshDesc.points = points;
-	meshDesc.triangles = triangles;
-	MemoryWriteBuffer buf;
-	status = CookTriangleMesh(meshDesc, buf);
-	if (!status) {
-		printf("Unable to cook a triangle mesh.");
-		exit(1);
-	}
-	MemoryReadBuffer readBuffer(buf.data);
-	staticTriangleMesh = simulacao->getSDK()->createTriangleMesh(readBuffer);
-
-	dim = dim1;
-	points[0].set( dim.x, -dim.y, -dim.z);
-	points[1].set( dim.x, -dim.y,  dim.z);
-	points[2].set( dim.x,  dim.y, -dim.z);
-	points[3].set( dim.x,  dim.y,  dim.z);
-
-	points[4].set(-dim.x, -dim.y, -dim.z);
-	points[5].set(-dim.x, -dim.y,  dim.z);
-	points[6].set(-dim.x,  dim.y, -dim.z);
-	points[7].set(-dim.x,  dim.y,  dim.z);
-
-	NxConvexMeshDesc convexDesc;
-	convexDesc.numVertices = 8;
-	convexDesc.numTriangles = 0;
-	convexDesc.pointStrideBytes = sizeof(NxVec3);
-	convexDesc.points = points;
-	convexDesc.flags |= NX_CF_COMPUTE_CONVEX;
-
-	buf.clear();
-	status = CookConvexMesh(convexDesc, buf);
-	if (!status) {
-		printf("Unable to cook a convex mesh.");
-		exit(1);
-	}
-	{
-		MemoryReadBuffer readBuffer(buf.data);
-		simulacao->getSDK()->createConvexMesh(readBuffer);
-	}
-
-	NxSimpleTriangleMesh stm;
-	stm.numVertices = 8;
-	stm.numTriangles = 12;
-	stm.pointStrideBytes = sizeof(NxVec3);
-	stm.triangleStrideBytes = sizeof(NxU32)*3;
-
-	for (NxU32 i = 0; i < 8; i++)
-		points[i].arrayMultiply(points[i], NxVec3(0.8f, 0.8f, 0.9f));
-
-	stm.points = points;
-	stm.triangles = triangles;
-	stm.flags |= NX_MF_FLIPNORMALS;
-	ccds = simulacao->getSDK()->createCCDSkeleton(stm);
-
-	CloseCooking();
-}
-
-
-NxActor * CaixaGraosGLWidget::criarCaixa(){
-
-	NxBodyDesc bodyDesc;
-	CreateMeshes();
-	NxActorDesc actorDesc;
-	actorDesc.body = &bodyDesc;
-	actorDesc.density = 100.0f;
-	actorDesc.globalPose.t = NxVec3(0,15,0);// Define a altura dos objetos no eixo y
-	NxTriangleMeshShapeDesc meshShapeDesc;
-
-	meshShapeDesc.meshData = staticTriangleMesh;
-	actorDesc.shapes.pushBack(&meshShapeDesc);
-	return  simulacao->getCena()->createActor(actorDesc);
-
-
-}*/

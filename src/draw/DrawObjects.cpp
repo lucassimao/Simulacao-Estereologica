@@ -12,6 +12,7 @@
 
 #include <GL/glut.h>
 #include <iostream>
+#include <QtDebug>
 
 using namespace std;
 
@@ -720,6 +721,8 @@ void DrawConvex(NxShape* mesh, bool useShapeUserData)
 
 	Point* points = (Point *)meshDesc.points;
 	Triangle* triangles = (Triangle *)meshDesc.triangles;
+
+
 
 	glPushMatrix();
 

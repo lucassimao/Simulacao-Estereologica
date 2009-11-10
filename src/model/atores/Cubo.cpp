@@ -41,11 +41,13 @@ bool Cubo::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	// método que retorna os vértices da caixa
 	NxComputeBoxPoints(box,vertices);
 
+
+
 	for(int i=0;i<8;++i){
 		//distância da altura do centro do cubo para a altura do plano
 		NxReal distancia_Y2 = abs(pos.y - planoGlobalPosition.y);
 		//distância da altura do centro do cubo para o vértice
-		NxReal distancia_Y3 = abs(pos.y - vertices[0].y);
+		NxReal distancia_Y3 = abs(pos.y - vertices[i].y);
 		if (distancia_Y2 <= distancia_Y3)
 			return true;
 	}
