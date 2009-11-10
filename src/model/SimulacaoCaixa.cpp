@@ -132,11 +132,6 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 				new Esfera(cena,ccds);
 			}
 			break;
-		case CAPSULA:
-			for(long l=0;l<qtde;++l){
-				new Capsula(cena);
-			}
-			break;
 		case CUBO:
 			for(long l=0;l<qtde;++l){
 				new Cubo(cena,ccds);

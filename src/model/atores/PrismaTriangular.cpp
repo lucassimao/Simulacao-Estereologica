@@ -7,13 +7,12 @@
 
 using std::runtime_error;
 using namespace simulacao::model::atores;
-typedef struct _Triangle { NxU32 p0; NxU32 p1; NxU32 p2; } Triangle;
 
 PrismaTriangular::PrismaTriangular(NxScene *cena,int h,int base,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
 	this->altura = h;
 	this->base  = base;
 
-	NxVec3 boxDim(1,2,1);
+	NxVec3 boxDim(1,1,2);
 
 
 	NxVec3 verts[6] = { NxVec3(-boxDim.x,boxDim.y*2,-boxDim.z), 

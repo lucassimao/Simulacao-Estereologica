@@ -33,6 +33,7 @@ namespace simulacao	{
 			void novoPlanoDeCorte();
 			void exibirSobre();
 			void exibirGraosInterceptados();
+			void configurarParametros();
 
 			void exibirPlanoDeCorte(bool);
 			void usarGravidade(bool);

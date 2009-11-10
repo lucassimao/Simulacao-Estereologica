@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'gui.ui'
 **
-** Created: Tue 10. Nov 14:36:56 2009
+** Created: Tue 10. Nov 17:18:59 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -66,7 +66,10 @@ public:
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
     QLabel *label;
+    QHBoxLayout *horizontalLayout_10;
     QComboBox *comboBoxTipoGrao;
+    QPushButton *btnParametros;
+    QSpacerItem *horizontalSpacer_6;
     QLabel *label_2;
     QHBoxLayout *horizontalLayout_3;
     QLineEdit *textNumeroGraos;
@@ -194,7 +197,7 @@ public:
         groupBox->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         verticalLayoutWidget = new QWidget(groupBox);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(10, 20, 221, 501));
+        verticalLayoutWidget->setGeometry(QRect(10, 20, 235, 501));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -203,11 +206,26 @@ public:
 
         verticalLayout->addWidget(label);
 
+        horizontalLayout_10 = new QHBoxLayout();
+        horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
         comboBoxTipoGrao = new QComboBox(verticalLayoutWidget);
         comboBoxTipoGrao->setObjectName(QString::fromUtf8("comboBoxTipoGrao"));
         comboBoxTipoGrao->setCursor(QCursor(Qt::PointingHandCursor));
 
-        verticalLayout->addWidget(comboBoxTipoGrao);
+        horizontalLayout_10->addWidget(comboBoxTipoGrao);
+
+        btnParametros = new QPushButton(verticalLayoutWidget);
+        btnParametros->setObjectName(QString::fromUtf8("btnParametros"));
+        btnParametros->setCursor(QCursor(Qt::PointingHandCursor));
+
+        horizontalLayout_10->addWidget(btnParametros);
+
+        horizontalSpacer_6 = new QSpacerItem(120, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_10->addItem(horizontalSpacer_6);
+
+
+        verticalLayout->addLayout(horizontalLayout_10);
 
         label_2 = new QLabel(verticalLayoutWidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
@@ -469,6 +487,7 @@ public:
         QObject::connect(checkBoxGravidade, SIGNAL(toggled(bool)), MainWindow, SLOT(usarGravidade(bool)));
         QObject::connect(checkBoxExibirPlanoDeCorte, SIGNAL(toggled(bool)), MainWindow, SLOT(exibirPlanoDeCorte(bool)));
         QObject::connect(btnPlanovsGraos, SIGNAL(clicked()), MainWindow, SLOT(exibirGraosInterceptados()));
+        QObject::connect(btnParametros, SIGNAL(clicked()), MainWindow, SLOT(configurarParametros()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -504,17 +523,11 @@ public:
         comboBoxTipoGrao->clear();
         comboBoxTipoGrao->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "Esfera", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Paralelep\303\255pedo", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("MainWindow", "Prisma Triangular", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Prisma Triangular (Mesh)", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Prisma Hexagonal", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "C\303\241psula", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Cilindro", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Cuboctaedro", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Octaedro Truncado", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Cone", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("MainWindow", "Prismas Triangular Truncado", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("MainWindow", "Cubo", 0, QApplication::UnicodeUTF8)
         );
+        btnParametros->setText(QApplication::translate("MainWindow", "Par\303\242metros", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("MainWindow", "N\303\272mero de Gr\303\243os", 0, QApplication::UnicodeUTF8));
         btnAdicionar->setText(QApplication::translate("MainWindow", "Adicionar", 0, QApplication::UnicodeUTF8));
         checkBoxTamanhoGraoAleatorio->setText(QApplication::translate("MainWindow", "Tamanho de Gr\303\243o Aleat\303\263rio", 0, QApplication::UnicodeUTF8));

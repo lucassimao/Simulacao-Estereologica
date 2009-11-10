@@ -95,7 +95,7 @@
           <rect>
            <x>10</x>
            <y>20</y>
-           <width>221</width>
+           <width>235</width>
            <height>501</height>
           </rect>
          </property>
@@ -111,66 +111,58 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBoxTipoGrao">
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
             <item>
-             <property name="text">
-              <string>Esfera</string>
-             </property>
+             <widget class="QComboBox" name="comboBoxTipoGrao">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <item>
+               <property name="text">
+                <string>Esfera</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Prisma Triangular</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Prismas Triangular Truncado</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Cubo</string>
+               </property>
+              </item>
+             </widget>
             </item>
             <item>
-             <property name="text">
-              <string>Paralelepípedo</string>
-             </property>
+             <widget class="QPushButton" name="btnParametros">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Parâmetros</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <property name="text">
-              <string>Prisma Triangular</string>
-             </property>
+             <spacer name="horizontalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>120</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
-            <item>
-             <property name="text">
-              <string>Prisma Triangular (Mesh)</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Prisma Hexagonal</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Cápsula</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Cilindro</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Cuboctaedro</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Octaedro Truncado</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Cone</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Cubo</string>
-             </property>
-            </item>
-           </widget>
+           </layout>
           </item>
           <item>
            <widget class="QLabel" name="label_2">
@@ -847,6 +839,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnParametros</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>configurarParametros()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>209</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>adicionarObjetos()</slot>
@@ -859,5 +867,6 @@
   <slot>usarGravidade(bool)</slot>
   <slot>exibirPlanoDeCorte(bool)</slot>
   <slot>exibirGraosInterceptados()</slot>
+  <slot>configurarParametros()</slot>
  </slots>
 </ui>

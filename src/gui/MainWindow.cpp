@@ -58,6 +58,9 @@ void MainWindow::criarCanvas(){
 	ui->horizontalLayout_2->addWidget(view);
 }
 
+void MainWindow::configurarParametros(){
+	exit(0);
+}
 void MainWindow::adicionarObjetos(){
 
 	long qtde =  ui->textNumeroGraos->text().toLong();
@@ -67,16 +70,13 @@ void MainWindow::adicionarObjetos(){
 	case 0:
 		simulacao->adicionarObjeto(ESFERA,qtde);
 		break;
-	case 2:
+	case 1:
 		simulacao->adicionarObjeto(PRISMA_TRIANGULAR,qtde);
 		break;
-	case 5:
-		simulacao->adicionarObjeto(CAPSULA,qtde);
+	case 2:
+		simulacao->adicionarObjeto(PRISMA_TRIANGULAR_TRUNCADO,qtde);
 		break;
-	case 9:
-		simulacao->adicionarObjeto(CONE,qtde);
-		break;
-	case 10:
+	case 3:
 		simulacao->adicionarObjeto(CUBO,qtde);
 		break;
 	}
