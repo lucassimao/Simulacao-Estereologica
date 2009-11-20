@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'gui.ui'
 **
-** Created: Thu 12. Nov 14:40:16 2009
+** Created: Fri 20. Nov 15:05:26 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -197,7 +197,7 @@ public:
         groupBox->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         verticalLayoutWidget = new QWidget(groupBox);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(10, 20, 235, 501));
+        verticalLayoutWidget->setGeometry(QRect(10, 20, 261, 501));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -488,6 +488,7 @@ public:
         QObject::connect(checkBoxExibirPlanoDeCorte, SIGNAL(toggled(bool)), MainWindow, SLOT(exibirPlanoDeCorte(bool)));
         QObject::connect(btnPlanovsGraos, SIGNAL(clicked()), MainWindow, SLOT(exibirGraosInterceptados()));
         QObject::connect(btnParametros, SIGNAL(clicked()), MainWindow, SLOT(configurarParametros()));
+        QObject::connect(btnExibirInterceptos, SIGNAL(clicked()), MainWindow, SLOT(exibirInterceptos()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

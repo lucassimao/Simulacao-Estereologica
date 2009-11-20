@@ -95,7 +95,7 @@
           <rect>
            <x>10</x>
            <y>20</y>
-           <width>235</width>
+           <width>261</width>
            <height>501</height>
           </rect>
          </property>
@@ -855,6 +855,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnExibirInterceptos</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>exibirInterceptos()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>208</x>
+     <y>436</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>adicionarObjetos()</slot>
@@ -868,5 +884,6 @@
   <slot>exibirPlanoDeCorte(bool)</slot>
   <slot>exibirGraosInterceptados()</slot>
   <slot>configurarParametros()</slot>
+  <slot>exibirInterceptos()</slot>
  </slots>
 </ui>

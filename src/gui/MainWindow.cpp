@@ -35,6 +35,11 @@ MainWindow::~MainWindow(){
 
 }
 
+void MainWindow::exibirInterceptos(){
+	simulacao->selecionarInterceptacoes();
+	atualizarQuantidadeDeGraosEmCena();
+}
+
 void MainWindow::criarCanvas(){
 
 	simulacao = new SimulacaoCaixa;

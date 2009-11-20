@@ -1,4 +1,5 @@
 #include <QtDebug>
+#include <vector>
 #include <NxPhysics.h>
 #include <NxExportedUtils.h>
 #include "SimulacaoCaixa.h"
@@ -11,6 +12,7 @@
 #include "../draw/cooking.h"
 
 
+using std::vector;
 using namespace simulacao::model;
 using namespace simulacao::model::atores;
 NxCCDSkeleton * ccds;
@@ -139,7 +141,7 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 			break;
 		case PRISMA_TRIANGULAR:
 			for(long l=0;l<qtde;++l){
-				new PrismaTriangular(cena,3,3,NULL,meshFactory);
+				new PrismaTriangular(cena,6,6,NULL,meshFactory);
 			}
 			break;
 	}
@@ -189,14 +191,37 @@ void SimulacaoCaixa::selecionarGraosInterceptados(){
 				if (!a->estaInterceptadoPeloPlano(atorPlanoDeCorte->getGlobalPosition())){
 					cena->releaseActor(*ator);
 					a = NULL;
-				}else{
-					a->getInterceptacoes(atorPlanoDeCorte->getGlobalPosition());
 				}
 			}
 
 		}
 
 	}
+}
+
+void SimulacaoCaixa::selecionarInterceptacoes(){
+	NxU32 qtdeAtores = getCena()->getNbActors();
+	NxActor** atores = getCena()->getActors();
+
+	while (qtdeAtores--)
+	{
+		NxActor* ator = *atores++;
+
+		{
+			if (ator != caixa && ator!=atorPlanoDeCorte){
+				Ator *a = (Ator *)ator->userData;
+				if (!a->estaInterceptadoPeloPlano(atorPlanoDeCorte->getGlobalPosition())){
+					cena->releaseActor(*ator);
+					a = NULL;
+				}else{
+					 vector<NxVec3> pontos = a->getInterceptacoes(atorPlanoDeCorte->getGlobalPosition());
+				}
+			}
+
+		}
+
+	}
+
 }
 
 void SimulacaoCaixa::removerGraos(){

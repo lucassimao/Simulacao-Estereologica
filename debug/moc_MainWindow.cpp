@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MainWindow.h'
 **
-** Created: Thu 12. Nov 14:40:18 2009
+** Created: Fri 20. Nov 15:02:42 2009
 **      by: The Qt Meta Object Compiler version 61 (Qt 4.5.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_simulacao__gui__MainWindow[] = {
        2,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   12, // methods
+      12,   12, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -37,9 +37,10 @@ static const uint qt_meta_data_simulacao__gui__MainWindow[] = {
      115,   27,   27,   27, 0x08,
      142,   27,   27,   27, 0x08,
      165,   27,   27,   27, 0x08,
-     190,   27,   27,   27, 0x08,
+     185,   27,   27,   27, 0x08,
      210,   27,   27,   27, 0x08,
-     229,   27,   27,   27, 0x08,
+     230,   27,   27,   27, 0x08,
+     249,   27,   27,   27, 0x08,
 
        0        // eod
 };
@@ -49,9 +50,9 @@ static const char qt_meta_stringdata_simulacao__gui__MainWindow[] = {
     "adicionarObjetos()\0pararSimulacao()\0"
     "limparSimulacao()\0novoPlanoDeCorte()\0"
     "exibirSobre()\0exibirGraosInterceptados()\0"
-    "configurarParametros()\0exibirPlanoDeCorte(bool)\0"
-    "usarGravidade(bool)\0mostrarCaixa(bool)\0"
-    "usarTamanhoDeGraoAleatorio(bool)\0"
+    "configurarParametros()\0exibirInterceptos()\0"
+    "exibirPlanoDeCorte(bool)\0usarGravidade(bool)\0"
+    "mostrarCaixa(bool)\0usarTamanhoDeGraoAleatorio(bool)\0"
 };
 
 const QMetaObject simulacao::gui::MainWindow::staticMetaObject = {
@@ -86,13 +87,14 @@ int simulacao::gui::MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void 
         case 4: exibirSobre(); break;
         case 5: exibirGraosInterceptados(); break;
         case 6: configurarParametros(); break;
-        case 7: exibirPlanoDeCorte((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 8: usarGravidade((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 9: mostrarCaixa((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 10: usarTamanhoDeGraoAleatorio((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 7: exibirInterceptos(); break;
+        case 8: exibirPlanoDeCorte((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 9: usarGravidade((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 10: mostrarCaixa((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 11: usarTamanhoDeGraoAleatorio((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 11;
+        _id -= 12;
     }
     return _id;
 }

@@ -1,5 +1,5 @@
 #include "SegmentoDeReta.h"
-
+#include <QDebug>
 
 SegmentoDeReta::SegmentoDeReta(Vetor &v0,Vetor &v1){
 	this->r0 = v0;
@@ -10,10 +10,9 @@ SegmentoDeReta::SegmentoDeReta(Vetor &v0,Vetor &v1){
 bool SegmentoDeReta::contemPonto(Ponto p){
 	Vetor v(p);
 	Vetor v1 = (v - this->r0);
-	Vetor v2 = (this->r1 - this->r0);
-	double t1 = v1.x/v2.x;
-	double t2 = v1.y/v2.y;
-	double t3 = v1.z/v2.z;
+	double t1 = v1.x/vetorDiretor.x;
+	double t2 = v1.y/vetorDiretor.y;
+	double t3 = v1.z/vetorDiretor.z;
 
 	return (0<= t1 == t2 == t3 <= 1) ;
 }

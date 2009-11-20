@@ -4,6 +4,8 @@
 #include <cfloat>
 #include "PrismaTriangular.h"
 #include "../../draw/cooking.h"
+#include "../../utils/SegmentoDeReta.h"
+#include "../../utils/Vetor.h"
 
 using std::runtime_error;
 using namespace simulacao::model::atores;
@@ -11,7 +13,7 @@ using namespace simulacao::model::atores;
 PrismaTriangular::PrismaTriangular(NxScene *cena,int h,int base,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
 	this->altura = h;
 	this->base  = base;
-	
+
 	const int raiz_de_3 = sqrt(3.0);
 
 	NxVec3 verts[6] = { 
@@ -31,7 +33,7 @@ PrismaTriangular::PrismaTriangular(NxScene *cena,int h,int base,NxCCDSkeleton *c
 	convexDesc->flags				= NX_CF_COMPUTE_CONVEX;
 
 	NxConvexShapeDesc convexShapeDesc;
-	convexShapeDesc.localPose.t = NxVec3(0,this->altura,0);
+	convexShapeDesc.localPose.t = NxVec3(0,0,0);
 	convexShapeDesc.userData = convexDesc;
 
 	convexShapeDesc.meshData = meshFactory->criarConvexMesh(convexDesc);
@@ -81,8 +83,8 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 		if ( verticeMaisAlto < vertice.y)
 			verticeMaisAlto = vertice.y;
 		else
-		if (verticeMaisBaixo > vertice.y)
-			verticeMaisBaixo = vertice.y;			
+			if (verticeMaisBaixo > vertice.y)
+				verticeMaisBaixo = vertice.y;			
 	}
 	//qDebug()<< verticeMaisAlto <<" "<< verticeMaisBaixo<<"\n";
 
@@ -106,21 +108,58 @@ vector<NxVec3> PrismaTriangular::getInterceptacoes(NxVec3 planoGlobalPosition){
 	// ver arquivo docs\prismaTriangularVertices.png para
 	// conhecer a ordem em que esses pontos estão definidos
 	NxVec3* points = (NxVec3 *)meshDesc.points;
+
+	// convertendo de posicionamento local p/ global
+	NxVec3 v0 = (pose.M * points[0] + pose.t);
+	NxVec3 v1 = (pose.M * points[1] + pose.t);
+	NxVec3 v2 = (pose.M * points[2] + pose.t);
+	NxVec3 v3 = (pose.M * points[3] + pose.t);
+	NxVec3 v4 = (pose.M * points[4] + pose.t);
+	NxVec3 v5 = (pose.M * points[5] + pose.t);
+
+	// ver arquivo docs\prismaTriangularVertices.png para
+	// conhecer a ordem em que esses segmentosestão definidos
+	SegmentoDeReta segmento1_2(Vetor(v1.x,v1.y,v1.z),Vetor(v2.x,v2.y,v2.z));
+	SegmentoDeReta segmento1_5(Vetor(v1.x,v1.y,v1.z),Vetor(v5.x,v5.y,v5.z));
+	SegmentoDeReta segmento2_5(Vetor(v2.x,v2.y,v2.z),Vetor(v5.x,v5.y,v5.z));
+
+	SegmentoDeReta segmento1_4(Vetor(v1.x,v1.y,v1.z),Vetor(v4.x,v4.y,v4.z));
+	SegmentoDeReta segmento4_0(Vetor(v2.x,v2.y,v2.z),Vetor(v0.x,v0.y,v0.z));
+	SegmentoDeReta segmento0_2(Vetor(v0.x,v0.y,v0.z),Vetor(v2.x,v2.y,v2.z));
+	SegmentoDeReta segmento5_3(Vetor(v5.x,v5.y,v5.z),Vetor(v3.x,v3.y,v3.z));
+
+	SegmentoDeReta segmento0_3(Vetor(v0.x,v0.y,v0.z),Vetor(v3.x,v3.y,v3.z));
+	SegmentoDeReta segmento4_3(Vetor(v4.x,v4.y,v4.z),Vetor(v3.x,v3.y,v3.z));
+
+	Ponto p;
+	if (segmento1_2.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
+		pontos.push_back(NxVec3(p.x,p.y,p.z));
+
+	if (segmento1_5.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
+		pontos.push_back(NxVec3(p.x,p.y,p.z));
+
+	if (segmento2_5.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
+		pontos.push_back(NxVec3(p.x,p.y,p.z));
+
+	if (segmento1_4.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
+		pontos.push_back(NxVec3(p.x,p.y,p.z));
+
+	if (segmento4_0.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
+		pontos.push_back(NxVec3(p.x,p.y,p.z));
+
+	if (segmento0_2.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
+		pontos.push_back(NxVec3(p.x,p.y,p.z));
+
+	if (segmento5_3.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
+		pontos.push_back(NxVec3(p.x,p.y,p.z));
 	
-	NxVec3 vertic1 = (pose.M * points[0] + pose.t);
-	NxVec3 vertic2 = (pose.M * points[1] + pose.t);
-	NxVec3 vertic3 = (pose.M * points[2] + pose.t);
-	NxVec3 vertic4 = (pose.M * points[3] + pose.t);
-	NxVec3 vertic5 = (pose.M * points[4] + pose.t);
-	NxVec3 vertic6 = (pose.M * points[5] + pose.t);
+	if (segmento0_3.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
+		pontos.push_back(NxVec3(p.x,p.y,p.z));
+	
+	if (segmento4_3.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
+		pontos.push_back(NxVec3(p.x,p.y,p.z));
 
 	return pontos;
 
-	
 
-
-
-
-
-	
 }

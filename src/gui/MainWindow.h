@@ -34,6 +34,7 @@ namespace simulacao	{
 			void exibirSobre();
 			void exibirGraosInterceptados();
 			void configurarParametros();
+			void exibirInterceptos();
 
 			void exibirPlanoDeCorte(bool);
 			void usarGravidade(bool);
