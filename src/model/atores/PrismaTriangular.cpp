@@ -11,16 +11,16 @@ using namespace simulacao::model::atores;
 PrismaTriangular::PrismaTriangular(NxScene *cena,int h,int base,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
 	this->altura = h;
 	this->base  = base;
+	
+	const int raiz_de_3 = sqrt(3.0);
 
-	NxVec3 boxDim(1,1,2);
-
-
-	NxVec3 verts[6] = { NxVec3(-boxDim.x,boxDim.y*2,-boxDim.z), 
-		NxVec3(boxDim.x,boxDim.y*2,-boxDim.z), 
-		NxVec3(boxDim.x,-boxDim.y*2,-boxDim.z), 
-		NxVec3(-boxDim.x,-boxDim.y*2,-boxDim.z), 
-		NxVec3(boxDim.x,-boxDim.y*2,boxDim.z/2), 
-		NxVec3(boxDim.x,boxDim.y*2,boxDim.z/2)
+	NxVec3 verts[6] = { 
+		NxVec3(0,h/2,base*raiz_de_3/2), 
+		NxVec3(base/2,h/2,0), 
+		NxVec3(base/2,-h/2,0), 
+		NxVec3(-base/2,-h/2,0), 
+		NxVec3(-base/2,h/2,0), 
+		NxVec3(0,-h/2,base *raiz_de_3/2)
 	};
 
 
@@ -31,7 +31,7 @@ PrismaTriangular::PrismaTriangular(NxScene *cena,int h,int base,NxCCDSkeleton *c
 	convexDesc->flags				= NX_CF_COMPUTE_CONVEX;
 
 	NxConvexShapeDesc convexShapeDesc;
-	convexShapeDesc.localPose.t = NxVec3(0,boxDim.y,0);
+	convexShapeDesc.localPose.t = NxVec3(0,this->altura,0);
 	convexShapeDesc.userData = convexDesc;
 
 	convexShapeDesc.meshData = meshFactory->criarConvexMesh(convexDesc);
