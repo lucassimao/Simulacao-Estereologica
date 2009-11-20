@@ -59,7 +59,7 @@ void MainWindow::criarCanvas(){
 }
 
 void MainWindow::configurarParametros(){
-	exit(0);
+
 }
 void MainWindow::adicionarObjetos(){
 

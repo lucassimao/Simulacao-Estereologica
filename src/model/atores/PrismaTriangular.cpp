@@ -60,10 +60,6 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	NxShape *mesh =  this->ator->getShapes()[0];
 	NxVec3 pos = ator->getGlobalPosition();
 
-	if( mesh->userData == NULL ) {
-		throw runtime_error("Atenção: O atributo userData em PrismaTriangular é nulo!");
-	}
-
 	NxMat34 pose = mesh->getGlobalPose();
 
 	NxConvexMeshDesc meshDesc;
@@ -83,7 +79,8 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 		//qDebug()<< vertice.x <<" "<< vertice.y<<" "<< vertice.z <<"\n";
 
 		if ( verticeMaisAlto < vertice.y)
-			verticeMaisAlto = vertice.y;	
+			verticeMaisAlto = vertice.y;
+		else
 		if (verticeMaisBaixo > vertice.y)
 			verticeMaisBaixo = vertice.y;			
 	}
@@ -95,4 +92,35 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 
 void PrismaTriangular::draw(bool useShapeUserData){
 
+}
+
+vector<NxVec3> PrismaTriangular::getInterceptacoes(NxVec3 planoGlobalPosition){
+	vector<NxVec3> pontos;
+
+	NxShape *mesh =  this->ator->getShapes()[0];
+	NxMat34 pose = mesh->getGlobalPose();
+	NxConvexMeshDesc meshDesc;
+	mesh->isConvexMesh()->getConvexMesh().saveToDesc(meshDesc); 
+
+	NxU32 nbVerts = meshDesc.numVertices;	
+	// ver arquivo docs\prismaTriangularVertices.png para
+	// conhecer a ordem em que esses pontos estão definidos
+	NxVec3* points = (NxVec3 *)meshDesc.points;
+	
+	NxVec3 vertic1 = (pose.M * points[0] + pose.t);
+	NxVec3 vertic2 = (pose.M * points[1] + pose.t);
+	NxVec3 vertic3 = (pose.M * points[2] + pose.t);
+	NxVec3 vertic4 = (pose.M * points[3] + pose.t);
+	NxVec3 vertic5 = (pose.M * points[4] + pose.t);
+	NxVec3 vertic6 = (pose.M * points[5] + pose.t);
+
+	return pontos;
+
+	
+
+
+
+
+
+	
 }

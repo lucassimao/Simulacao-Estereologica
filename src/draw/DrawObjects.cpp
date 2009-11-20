@@ -723,8 +723,21 @@ void DrawConvex(NxShape* mesh, bool useShapeUserData)
 
 	Point* points = (Point *)meshDesc.points;
 	Triangle* triangles = (Triangle *)meshDesc.triangles;
-
-
+	
+	//Colorização das bordas
+	/*
+	NxVec3 vertice = (pose.M * points[5] + pose.t);
+	NxVec3 vertice2 = (pose.M * points[2] + pose.t);
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glColor4f(1.0,0,0,1);
+	glLineWidth(10);
+	glBegin(GL_LINES);
+		glVertex3f(vertice.x,vertice.y,vertice.z);
+		glVertex3f(vertice2.x,vertice2.y,vertice2.z);
+	glEnd();
+	glPopAttrib();
+	*/
+	
 
 	glPushMatrix();
 

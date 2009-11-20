@@ -1,9 +1,12 @@
 #include "Ator.h"
 #include <GL/glut.h>
+#include <stdexcept>
+#include <NxPhysics.h>
 #include "../../draw/DrawObjects.h"
 #include "../../draw/UserData.h"
 
 using namespace simulacao::model::atores;
+using std::runtime_error;
 
 Ator::Ator()
 {
@@ -12,4 +15,9 @@ Ator::Ator()
 
 Ator::~Ator(void)
 {
+}
+
+vector<NxVec3> Ator::getInterceptacoes(NxVec3 planoGlobalPosition){
+	vector<NxVec3> vec(0);
+	return vec;
 }

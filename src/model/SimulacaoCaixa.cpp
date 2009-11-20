@@ -186,10 +186,11 @@ void SimulacaoCaixa::selecionarGraosInterceptados(){
 		{
 			if (ator != caixa && ator!=atorPlanoDeCorte){
 				Ator *a = (Ator *)ator->userData;
-				NxVec3 pos = ator->getGlobalPosition();
 				if (!a->estaInterceptadoPeloPlano(atorPlanoDeCorte->getGlobalPosition())){
 					cena->releaseActor(*ator);
 					a = NULL;
+				}else{
+					a->getInterceptacoes(atorPlanoDeCorte->getGlobalPosition());
 				}
 			}
 

@@ -9,4 +9,8 @@ enum Status{
 	PAUSADO, EXECUCAO
 };
 
+typedef struct{
+	double x,y,z;
+}Ponto;
+
 #endif

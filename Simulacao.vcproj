@@ -488,6 +488,14 @@
 					RelativePath=".\src\utils\MeshFactory.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\utils\SegmentoDeReta.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\utils\Vetor.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -692,6 +700,14 @@
 				>
 				<File
 					RelativePath=".\src\utils\MeshFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\utils\SegmentoDeReta.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\utils\Vetor.h"
 					>
 				</File>
 			</Filter>
