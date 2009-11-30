@@ -19,7 +19,6 @@ namespace simulacao{
 				PrismaTriangular(NxScene *cena,int h,int b,NxCCDSkeleton *ccds,MeshFactory *meshFactory);
 				~PrismaTriangular();
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
-				void draw(bool useShapeUserData);
 				vector<NxVec3> getInterceptacoes(NxVec3 planoGlobalPosition);
 			private:
 				int altura;

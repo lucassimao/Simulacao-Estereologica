@@ -141,7 +141,7 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 			break;
 		case PRISMA_TRIANGULAR:
 			for(long l=0;l<qtde;++l){
-				new PrismaTriangular(cena,6,6,NULL,meshFactory);
+				new PrismaTriangular(cena,5,2,NULL,meshFactory);
 			}
 			break;
 	}

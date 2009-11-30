@@ -53,8 +53,3 @@ bool Cubo::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	}
 	return false;
 }
-
-void Cubo::draw(bool useShapeUserData){
-
-}
-

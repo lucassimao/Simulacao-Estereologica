@@ -20,7 +20,6 @@ namespace simulacao{
 				Ator();
 				~Ator(void);
 
-				virtual void draw(bool useShapeUserData) = 0;
 				virtual bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition) = 0;
 				virtual vector<NxVec3> getInterceptacoes(NxVec3 planoGlobalPosition);
 

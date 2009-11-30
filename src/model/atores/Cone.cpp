@@ -13,6 +13,3 @@ Cone::~Cone(void)
 bool Cone::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	return true;
 }
-
-void Cone::draw(bool useShapeUserData){
-}

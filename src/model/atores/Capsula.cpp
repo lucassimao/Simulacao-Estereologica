@@ -37,6 +37,3 @@ Capsula::~Capsula(void)
 bool Capsula::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	return true;
 }
-
-void Capsula::draw(bool useShapeUserData){
-}

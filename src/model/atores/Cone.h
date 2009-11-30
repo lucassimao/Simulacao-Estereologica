@@ -13,7 +13,6 @@ namespace simulacao{
 				Cone(NxScene *);
 				~Cone(void);
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
-				void draw(bool useShapeUserData);
 
 
 			};

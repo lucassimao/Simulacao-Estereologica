@@ -16,7 +16,6 @@ namespace simulacao{
 				Capsula(NxScene *);
 				~Capsula(void);
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
-				void draw(bool useShapeUserData);
 
 
 			};

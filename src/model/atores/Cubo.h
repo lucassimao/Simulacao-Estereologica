@@ -15,7 +15,6 @@ namespace simulacao{
 				Cubo(NxScene *,NxCCDSkeleton *ccds);
 				~Cubo(void);
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
-				void draw(bool useShapeUserData);
 
 			};
 

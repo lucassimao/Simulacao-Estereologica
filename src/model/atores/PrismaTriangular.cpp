@@ -17,12 +17,12 @@ PrismaTriangular::PrismaTriangular(NxScene *cena,int h,int base,NxCCDSkeleton *c
 	const int raiz_de_3 = sqrt(3.0);
 
 	NxVec3 verts[6] = { 
-		NxVec3(0,h/2,base*raiz_de_3/2), 
-		NxVec3(base/2,h/2,0), 
-		NxVec3(base/2,-h/2,0), 
-		NxVec3(-base/2,-h/2,0), 
-		NxVec3(-base/2,h/2,0), 
-		NxVec3(0,-h/2,base *raiz_de_3/2)
+		NxVec3(0,h/2.0,base*raiz_de_3/2), 
+		NxVec3(base/2.0,h/2.0,0), 
+		NxVec3(base/2.0,-h/2.0,0), 
+		NxVec3(-base/2.0,-h/2.0,0), 
+		NxVec3(-base/2.0,h/2.0,0), 
+		NxVec3(0,-h/2.0,base *raiz_de_3/2)
 	};
 
 
@@ -89,10 +89,6 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	//qDebug()<< verticeMaisAlto <<" "<< verticeMaisBaixo<<"\n";
 
 	return (verticeMaisAlto >= planoGlobalPosition.y && verticeMaisBaixo <= planoGlobalPosition.y);
-
-}
-
-void PrismaTriangular::draw(bool useShapeUserData){
 
 }
 

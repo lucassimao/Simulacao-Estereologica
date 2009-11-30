@@ -15,7 +15,6 @@ namespace simulacao{
 				Esfera(NxScene *,NxCCDSkeleton *ccds);
 				~Esfera(void);
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
-				void draw(bool useShapeUserData);
 
 			};
 

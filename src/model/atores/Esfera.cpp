@@ -40,7 +40,3 @@ bool Esfera::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	return (this->raio - distanciaY) >=0;
 }
 
-void Esfera::draw(bool useShapeUserData){
-
-}
-
