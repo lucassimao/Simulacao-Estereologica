@@ -3,18 +3,21 @@
 #include <NxPhysics.h>
 #include <NxExportedUtils.h>
 #include "SimulacaoCaixa.h"
-#include "atores/Capsula.h"
 #include "atores/Cubo.h"
 #include "atores/Esfera.h"
 #include "atores/PrismaTriangular.h"
 #include "atores/Ator.h"
 #include "../draw/Stream.h"
 #include "../draw/cooking.h"
+#include "../canvas/interceptos/Intercepto.h"
+
 
 
 using std::vector;
 using namespace simulacao::model;
 using namespace simulacao::model::atores;
+using namespace simulacao::canvas::interceptos;
+
 NxCCDSkeleton * ccds;
 
 SimulacaoCaixa::SimulacaoCaixa(void)
@@ -23,9 +26,6 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->atorPlanoDeCorte = 0;
 	this->shapePlanoDeCorte = 0;
 	this->exibirCaixa = true;
-	this->exibirPontosTeste = false;
-	this->exibirRetasTeste = false;
-	this->exibirTampaCaixa =  true;
 	this->caixa = criarCaixa();
 	criarCCDS();
 
@@ -202,6 +202,7 @@ void SimulacaoCaixa::selecionarGraosInterceptados(){
 void SimulacaoCaixa::selecionarInterceptacoes(){
 	NxU32 qtdeAtores = getCena()->getNbActors();
 	NxActor** atores = getCena()->getActors();
+	vector<Intercepto*> interceptos;
 
 	while (qtdeAtores--)
 	{
@@ -210,12 +211,11 @@ void SimulacaoCaixa::selecionarInterceptacoes(){
 		{
 			if (ator != caixa && ator!=atorPlanoDeCorte){
 				Ator *a = (Ator *)ator->userData;
-				if (!a->estaInterceptadoPeloPlano(atorPlanoDeCorte->getGlobalPosition())){
-					cena->releaseActor(*ator);
-					a = NULL;
-				}else{
-					 vector<NxVec3> pontos = a->getInterceptacoes(atorPlanoDeCorte->getGlobalPosition());
-				}
+				if (a->estaInterceptadoPeloPlano(atorPlanoDeCorte->getGlobalPosition()))
+					interceptos.push_back(a->getIntercepto(atorPlanoDeCorte->getGlobalPosition()));
+				
+				cena->releaseActor(*ator);
+				a = NULL;
 			}
 
 		}

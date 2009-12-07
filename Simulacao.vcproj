@@ -440,14 +440,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\src\model\atores\Capsula.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\model\atores\Cone.cpp"
-						>
-					</File>
-					<File
 						RelativePath=".\src\model\atores\Cubo.cpp"
 						>
 					</File>
@@ -472,6 +464,34 @@
 					RelativePath=".\src\canvas\CaixaGraosGLWidget.cpp"
 					>
 				</File>
+				<Filter
+					Name="interceptos"
+					>
+					<File
+						RelativePath=".\src\canvas\interceptos\Disco.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\canvas\interceptos\Intercepto.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\canvas\interceptos\Poligono.cpp"
+						>
+					</File>
+					<Filter
+						Name="designer"
+						>
+						<File
+							RelativePath=".\src\canvas\interceptos\designer\DrawCommand.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\src\canvas\interceptos\designer\PoligonoDrawCommand.cpp"
+							>
+						</File>
+					</Filter>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="gui"
@@ -566,14 +586,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\src\model\atores\Capsula.h"
-						>
-					</File>
-					<File
-						RelativePath=".\src\model\atores\Cone.h"
-						>
-					</File>
-					<File
 						RelativePath=".\src\model\atores\Cubo.h"
 						>
 					</File>
@@ -642,6 +654,34 @@
 						/>
 					</FileConfiguration>
 				</File>
+				<Filter
+					Name="interceptos"
+					>
+					<File
+						RelativePath=".\src\canvas\interceptos\Disco.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\canvas\interceptos\Intercepto.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\canvas\interceptos\Poligono.h"
+						>
+					</File>
+					<Filter
+						Name="designer"
+						>
+						<File
+							RelativePath=".\src\canvas\interceptos\designer\DrawCommand.h"
+							>
+						</File>
+						<File
+							RelativePath=".\src\canvas\interceptos\designer\PoligonoDrawCommand.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="gui"

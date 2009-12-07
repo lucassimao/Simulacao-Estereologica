@@ -16,8 +16,3 @@ Ator::Ator()
 Ator::~Ator(void)
 {
 }
-
-vector<NxVec3> Ator::getInterceptacoes(NxVec3 planoGlobalPosition){
-	vector<NxVec3> vec(0);
-	return vec;
-}

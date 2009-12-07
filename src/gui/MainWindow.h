@@ -15,7 +15,7 @@ namespace simulacao	{
 
 		class MainWindow: public QMainWindow{
 			Q_OBJECT
-		private:
+		private :
 			//TIRAR ISSO!!!!!!!!!!!!!!!!!!!!!!!!!
 			CaixaGraosGLWidget *view;
 			QLabel *statusTipoSimulacao;

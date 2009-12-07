@@ -1,6 +1,8 @@
 #include "Cubo.h"
 #include <NxExportedUtils.h>
+#include "..\..\canvas\interceptos\Poligono.h"
 
+using namespace simulacao::canvas::interceptos;
 using namespace simulacao::model::atores;
 
 Cubo::Cubo(NxScene *cena,NxCCDSkeleton *ccds):Ator()
@@ -27,6 +29,12 @@ Cubo::Cubo(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 	NxActor *box =  cena->createActor(actorDesc);
 	box->userData = (void *)this;
 	this->ator = box;
+}
+
+Intercepto* Cubo::getIntercepto(NxVec3 planoGlobalPosition){
+	Cor v = VERMELHO;
+	vector<Ponto> vertices;
+	return NULL;
 }
 
 Cubo::~Cubo(void)

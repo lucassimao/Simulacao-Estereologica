@@ -3,8 +3,10 @@
 
 #include <NxPhysics.h>
 #include <vector>
+#include "..\..\canvas\interceptos\Intercepto.h"
 
 using std::vector;
+using simulacao::canvas::interceptos::Intercepto;
 
 namespace simulacao{
 
@@ -21,7 +23,7 @@ namespace simulacao{
 				~Ator(void);
 
 				virtual bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition) = 0;
-				virtual vector<NxVec3> getInterceptacoes(NxVec3 planoGlobalPosition);
+				virtual Intercepto* getIntercepto(NxVec3 planoGlobalPosition) = 0;
 
 			};
 

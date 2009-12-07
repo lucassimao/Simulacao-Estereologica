@@ -19,11 +19,7 @@ namespace simulacao{
 		class SimulacaoCaixa : public Simulacao
 		{
 		private:
-			bool exibirRetasTeste;
-			bool exibirPontosTeste;
 			bool exibirCaixa;
-			bool exibirTampaCaixa;
-			bool usarGraosAleatorios;
 			NxActor *caixa;
 			MeshFactory *meshFactory;
 			NxActor *atorPlanoDeCorte;
@@ -38,12 +34,7 @@ namespace simulacao{
 			NxActor* getPlanoDeCorte(){
 				return this->atorPlanoDeCorte;
 			}
-			void setUsarGraosAleatorios(){
-				this->usarGraosAleatorios = true;
-			}
-			bool getUsarGraosAleatorios(){
-				return this->usarGraosAleatorios;
-			}
+
 
 			void exibirPlanoDeCorte();
 			void esconderPlanoDeCorte();

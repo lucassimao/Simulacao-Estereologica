@@ -2,6 +2,9 @@
 #define CUBO_H
 
 #include "Ator.h"
+#include "..\..\canvas\interceptos\Intercepto.h"
+
+using simulacao::canvas::interceptos::Intercepto;
 
 namespace simulacao{
 	namespace model{
@@ -15,6 +18,7 @@ namespace simulacao{
 				Cubo(NxScene *,NxCCDSkeleton *ccds);
 				~Cubo(void);
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
+				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
 
 			};
 

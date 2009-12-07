@@ -1,6 +1,9 @@
 #include "Esfera.h"
+#include "..\..\canvas\interceptos\Intercepto.h"
+#include "..\..\canvas\interceptos\Disco.h"
 
 using namespace simulacao::model::atores;
+using namespace simulacao::canvas::interceptos;
 
 Esfera::Esfera(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 {
@@ -30,6 +33,18 @@ Esfera::Esfera(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 
 Esfera::~Esfera(void)
 {
+}
+Intercepto* Esfera::getIntercepto(NxVec3 planoGlobalPosition){
+	if (estaInterceptadoPeloPlano(planoGlobalPosition))
+	{
+		NxVec3 pos = ator->getGlobalPosition();
+		NxReal distanciaDoPlanoAoCentroDaEsfera = abs(planoGlobalPosition.y - pos.y);
+		NxReal raioDaRegiaoInterceptada= sqrt(pow(this->raio,2) - pow(distanciaDoPlanoAoCentroDaEsfera,2));
+		Ponto p  = {pos.x,planoGlobalPosition.y,0};
+		return new Disco(p,raioDaRegiaoInterceptada);
+	}
+	else
+		return NULL;
 }
 
 bool Esfera::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){

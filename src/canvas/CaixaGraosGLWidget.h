@@ -30,11 +30,8 @@ namespace simulacao {
 			void draw();
 			void SetupCamera();
 			void RenderActors();
-			//NxCCDSkeleton *createCCDfromActor ( NxActor *);
 
 			void drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides = NX_FALSE);
-			//NxActor * criarCaixa();
-			//void CreateMeshes();
 			
 			NxActor* box;
 			SimulacaoCaixa *simulacao;

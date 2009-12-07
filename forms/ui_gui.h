@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'gui.ui'
 **
-** Created: Fri 20. Nov 15:05:26 2009
+** Created: Mon 7. Dec 13:42:55 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -75,35 +75,29 @@ public:
     QLineEdit *textNumeroGraos;
     QPushButton *btnAdicionar;
     QSpacerItem *horizontalSpacer_3;
-    QCheckBox *checkBoxTamanhoGraoAleatorio;
     QHBoxLayout *horizontalLayout_4;
-    QLabel *label_3;
-    QLineEdit *textRaioEsfera;
-    QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout_5;
     QPushButton *btnParar;
     QPushButton *btnLimpar;
     QSpacerItem *horizontalSpacer_2;
-    QCheckBox *checkBoxVistaSuperior;
     QHBoxLayout *horizontalLayout_6;
     QLabel *label_4;
     QSpinBox *spinBoxZoom;
     QSpacerItem *horizontalSpacer_4;
+    QCheckBox *checkBoxVistaSuperior;
     QCheckBox *checkBoxMostrarCaixa;
     QCheckBox *checkBoxCaixaSemTampa;
     QCheckBox *checkBoxGravidade;
+    QCheckBox *checkBoxExibirPlanoDeCorte;
     QHBoxLayout *horizontalLayout_9;
     QPushButton *btnNovoPlanodeCorte;
     QSpacerItem *horizontalSpacer_5;
     QHBoxLayout *horizontalLayout_7;
     QPushButton *btnPlanovsGraos;
-    QPushButton *btnAmostra;
+    QSpacerItem *horizontalSpacer_9;
     QHBoxLayout *horizontalLayout_8;
-    QPushButton *btnGraosInterceptos;
     QPushButton *btnExibirInterceptos;
-    QCheckBox *checkBoxExibirPlanoDeCorte;
-    QCheckBox *checkBoxExibirRetasTeste;
-    QCheckBox *checkBoxExibirPontosTeste;
+    QSpacerItem *horizontalSpacer_8;
     QSpacerItem *verticalSpacer;
     QMenuBar *menubar;
     QMenu *menuArquivo;
@@ -197,8 +191,9 @@ public:
         groupBox->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         verticalLayoutWidget = new QWidget(groupBox);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(10, 20, 261, 501));
+        verticalLayoutWidget->setGeometry(QRect(10, 20, 261, 553));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout->setSpacing(5);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         label = new QLabel(verticalLayoutWidget);
@@ -216,6 +211,7 @@ public:
 
         btnParametros = new QPushButton(verticalLayoutWidget);
         btnParametros->setObjectName(QString::fromUtf8("btnParametros"));
+        btnParametros->setMaximumSize(QSize(65, 16777215));
         btnParametros->setCursor(QCursor(Qt::PointingHandCursor));
 
         horizontalLayout_10->addWidget(btnParametros);
@@ -252,29 +248,8 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_3);
 
-        checkBoxTamanhoGraoAleatorio = new QCheckBox(verticalLayoutWidget);
-        checkBoxTamanhoGraoAleatorio->setObjectName(QString::fromUtf8("checkBoxTamanhoGraoAleatorio"));
-        checkBoxTamanhoGraoAleatorio->setCursor(QCursor(Qt::PointingHandCursor));
-        checkBoxTamanhoGraoAleatorio->setTristate(false);
-
-        verticalLayout->addWidget(checkBoxTamanhoGraoAleatorio);
-
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        label_3 = new QLabel(verticalLayoutWidget);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-
-        horizontalLayout_4->addWidget(label_3);
-
-        textRaioEsfera = new QLineEdit(verticalLayoutWidget);
-        textRaioEsfera->setObjectName(QString::fromUtf8("textRaioEsfera"));
-
-        horizontalLayout_4->addWidget(textRaioEsfera);
-
-        horizontalSpacer = new QSpacerItem(108, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_4->addItem(horizontalSpacer);
-
 
         verticalLayout->addLayout(horizontalLayout_4);
 
@@ -299,12 +274,6 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_5);
 
-        checkBoxVistaSuperior = new QCheckBox(verticalLayoutWidget);
-        checkBoxVistaSuperior->setObjectName(QString::fromUtf8("checkBoxVistaSuperior"));
-        checkBoxVistaSuperior->setCursor(QCursor(Qt::PointingHandCursor));
-
-        verticalLayout->addWidget(checkBoxVistaSuperior);
-
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
         label_4 = new QLabel(verticalLayoutWidget);
@@ -324,6 +293,12 @@ public:
 
 
         verticalLayout->addLayout(horizontalLayout_6);
+
+        checkBoxVistaSuperior = new QCheckBox(verticalLayoutWidget);
+        checkBoxVistaSuperior->setObjectName(QString::fromUtf8("checkBoxVistaSuperior"));
+        checkBoxVistaSuperior->setCursor(QCursor(Qt::PointingHandCursor));
+
+        verticalLayout->addWidget(checkBoxVistaSuperior);
 
         checkBoxMostrarCaixa = new QCheckBox(verticalLayoutWidget);
         checkBoxMostrarCaixa->setObjectName(QString::fromUtf8("checkBoxMostrarCaixa"));
@@ -345,10 +320,18 @@ public:
 
         verticalLayout->addWidget(checkBoxGravidade);
 
+        checkBoxExibirPlanoDeCorte = new QCheckBox(verticalLayoutWidget);
+        checkBoxExibirPlanoDeCorte->setObjectName(QString::fromUtf8("checkBoxExibirPlanoDeCorte"));
+        checkBoxExibirPlanoDeCorte->setCursor(QCursor(Qt::PointingHandCursor));
+        checkBoxExibirPlanoDeCorte->setChecked(true);
+
+        verticalLayout->addWidget(checkBoxExibirPlanoDeCorte);
+
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
         btnNovoPlanodeCorte = new QPushButton(verticalLayoutWidget);
         btnNovoPlanodeCorte->setObjectName(QString::fromUtf8("btnNovoPlanodeCorte"));
+        btnNovoPlanodeCorte->setMinimumSize(QSize(140, 0));
         btnNovoPlanodeCorte->setCursor(QCursor(Qt::PointingHandCursor));
 
         horizontalLayout_9->addWidget(btnNovoPlanodeCorte);
@@ -364,56 +347,38 @@ public:
         horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         btnPlanovsGraos = new QPushButton(verticalLayoutWidget);
         btnPlanovsGraos->setObjectName(QString::fromUtf8("btnPlanovsGraos"));
+        btnPlanovsGraos->setMinimumSize(QSize(140, 0));
         btnPlanovsGraos->setCursor(QCursor(Qt::PointingHandCursor));
 
         horizontalLayout_7->addWidget(btnPlanovsGraos);
 
-        btnAmostra = new QPushButton(verticalLayoutWidget);
-        btnAmostra->setObjectName(QString::fromUtf8("btnAmostra"));
-        btnAmostra->setCursor(QCursor(Qt::PointingHandCursor));
+        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_7->addWidget(btnAmostra);
+        horizontalLayout_7->addItem(horizontalSpacer_9);
 
 
         verticalLayout->addLayout(horizontalLayout_7);
 
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
-        btnGraosInterceptos = new QPushButton(verticalLayoutWidget);
-        btnGraosInterceptos->setObjectName(QString::fromUtf8("btnGraosInterceptos"));
-        btnGraosInterceptos->setCursor(QCursor(Qt::PointingHandCursor));
-
-        horizontalLayout_8->addWidget(btnGraosInterceptos);
-
         btnExibirInterceptos = new QPushButton(verticalLayoutWidget);
         btnExibirInterceptos->setObjectName(QString::fromUtf8("btnExibirInterceptos"));
+        btnExibirInterceptos->setEnabled(false);
+        sizePolicy1.setHeightForWidth(btnExibirInterceptos->sizePolicy().hasHeightForWidth());
+        btnExibirInterceptos->setSizePolicy(sizePolicy1);
+        btnExibirInterceptos->setMinimumSize(QSize(140, 20));
         btnExibirInterceptos->setCursor(QCursor(Qt::PointingHandCursor));
 
         horizontalLayout_8->addWidget(btnExibirInterceptos);
 
+        horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_8->addItem(horizontalSpacer_8);
+
 
         verticalLayout->addLayout(horizontalLayout_8);
 
-        checkBoxExibirPlanoDeCorte = new QCheckBox(verticalLayoutWidget);
-        checkBoxExibirPlanoDeCorte->setObjectName(QString::fromUtf8("checkBoxExibirPlanoDeCorte"));
-        checkBoxExibirPlanoDeCorte->setCursor(QCursor(Qt::PointingHandCursor));
-        checkBoxExibirPlanoDeCorte->setChecked(true);
-
-        verticalLayout->addWidget(checkBoxExibirPlanoDeCorte);
-
-        checkBoxExibirRetasTeste = new QCheckBox(verticalLayoutWidget);
-        checkBoxExibirRetasTeste->setObjectName(QString::fromUtf8("checkBoxExibirRetasTeste"));
-        checkBoxExibirRetasTeste->setCursor(QCursor(Qt::PointingHandCursor));
-
-        verticalLayout->addWidget(checkBoxExibirRetasTeste);
-
-        checkBoxExibirPontosTeste = new QCheckBox(verticalLayoutWidget);
-        checkBoxExibirPontosTeste->setObjectName(QString::fromUtf8("checkBoxExibirPontosTeste"));
-        checkBoxExibirPontosTeste->setCursor(QCursor(Qt::PointingHandCursor));
-
-        verticalLayout->addWidget(checkBoxExibirPontosTeste);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        verticalSpacer = new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
 
@@ -443,7 +408,6 @@ public:
 #ifndef QT_NO_SHORTCUT
         label->setBuddy(comboBoxTipoGrao);
         label_2->setBuddy(textNumeroGraos);
-        label_3->setBuddy(textRaioEsfera);
 #endif // QT_NO_SHORTCUT
 
         menubar->addAction(menuArquivo->menuAction());
@@ -482,7 +446,6 @@ public:
         QObject::connect(btnLimpar, SIGNAL(clicked()), MainWindow, SLOT(limparSimulacao()));
         QObject::connect(btnNovoPlanodeCorte, SIGNAL(clicked()), MainWindow, SLOT(novoPlanoDeCorte()));
         QObject::connect(actionSair, SIGNAL(triggered()), MainWindow, SLOT(close()));
-        QObject::connect(checkBoxTamanhoGraoAleatorio, SIGNAL(toggled(bool)), MainWindow, SLOT(usarTamanhoDeGraoAleatorio(bool)));
         QObject::connect(checkBoxMostrarCaixa, SIGNAL(toggled(bool)), MainWindow, SLOT(mostrarCaixa(bool)));
         QObject::connect(checkBoxGravidade, SIGNAL(toggled(bool)), MainWindow, SLOT(usarGravidade(bool)));
         QObject::connect(checkBoxExibirPlanoDeCorte, SIGNAL(toggled(bool)), MainWindow, SLOT(exibirPlanoDeCorte(bool)));
@@ -531,24 +494,17 @@ public:
         btnParametros->setText(QApplication::translate("MainWindow", "Par\303\242metros", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("MainWindow", "N\303\272mero de Gr\303\243os", 0, QApplication::UnicodeUTF8));
         btnAdicionar->setText(QApplication::translate("MainWindow", "Adicionar", 0, QApplication::UnicodeUTF8));
-        checkBoxTamanhoGraoAleatorio->setText(QApplication::translate("MainWindow", "Tamanho de Gr\303\243o Aleat\303\263rio", 0, QApplication::UnicodeUTF8));
-        label_3->setText(QApplication::translate("MainWindow", "Raio da Esfera", 0, QApplication::UnicodeUTF8));
-        textRaioEsfera->setText(QApplication::translate("MainWindow", "0.9", 0, QApplication::UnicodeUTF8));
         btnParar->setText(QApplication::translate("MainWindow", "Pausar", 0, QApplication::UnicodeUTF8));
         btnLimpar->setText(QApplication::translate("MainWindow", "Limpar", 0, QApplication::UnicodeUTF8));
-        checkBoxVistaSuperior->setText(QApplication::translate("MainWindow", "Vista Superior", 0, QApplication::UnicodeUTF8));
         label_4->setText(QApplication::translate("MainWindow", "Zoom (%):", 0, QApplication::UnicodeUTF8));
+        checkBoxVistaSuperior->setText(QApplication::translate("MainWindow", "Vista Superior", 0, QApplication::UnicodeUTF8));
         checkBoxMostrarCaixa->setText(QApplication::translate("MainWindow", "Mostrar Caixa", 0, QApplication::UnicodeUTF8));
         checkBoxCaixaSemTampa->setText(QApplication::translate("MainWindow", "Caixa Sem Tampa", 0, QApplication::UnicodeUTF8));
         checkBoxGravidade->setText(QApplication::translate("MainWindow", "Gravidade", 0, QApplication::UnicodeUTF8));
-        btnNovoPlanodeCorte->setText(QApplication::translate("MainWindow", "Novo Plano de Corte", 0, QApplication::UnicodeUTF8));
-        btnPlanovsGraos->setText(QApplication::translate("MainWindow", "Plano Vs Gr\303\243os", 0, QApplication::UnicodeUTF8));
-        btnAmostra->setText(QApplication::translate("MainWindow", "Amostra", 0, QApplication::UnicodeUTF8));
-        btnGraosInterceptos->setText(QApplication::translate("MainWindow", "Gr\303\243os Interceptos", 0, QApplication::UnicodeUTF8));
-        btnExibirInterceptos->setText(QApplication::translate("MainWindow", "Exibir Interceptos", 0, QApplication::UnicodeUTF8));
         checkBoxExibirPlanoDeCorte->setText(QApplication::translate("MainWindow", "Exibir Plano de Corte", 0, QApplication::UnicodeUTF8));
-        checkBoxExibirRetasTeste->setText(QApplication::translate("MainWindow", "Exibir Retas Teste", 0, QApplication::UnicodeUTF8));
-        checkBoxExibirPontosTeste->setText(QApplication::translate("MainWindow", "Exibir Pontos Teste", 0, QApplication::UnicodeUTF8));
+        btnNovoPlanodeCorte->setText(QApplication::translate("MainWindow", "Novo Plano de Corte", 0, QApplication::UnicodeUTF8));
+        btnPlanovsGraos->setText(QApplication::translate("MainWindow", "Exibir Gr\303\243os Interceptados", 0, QApplication::UnicodeUTF8));
+        btnExibirInterceptos->setText(QApplication::translate("MainWindow", "Exibir Interceptos", 0, QApplication::UnicodeUTF8));
         menuArquivo->setTitle(QApplication::translate("MainWindow", "Arquivo", 0, QApplication::UnicodeUTF8));
         menuOp_es->setTitle(QApplication::translate("MainWindow", "Op\303\247\303\265es", 0, QApplication::UnicodeUTF8));
         menuPoros_CellUnit->setTitle(QApplication::translate("MainWindow", "Poros CellUnit", 0, QApplication::UnicodeUTF8));

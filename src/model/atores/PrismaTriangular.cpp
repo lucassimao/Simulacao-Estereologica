@@ -6,9 +6,12 @@
 #include "../../draw/cooking.h"
 #include "../../utils/SegmentoDeReta.h"
 #include "../../utils/Vetor.h"
+#include "../../canvas/interceptos/Intercepto.h"
 
 using std::runtime_error;
 using namespace simulacao::model::atores;
+using namespace simulacao::canvas::interceptos;
+
 
 PrismaTriangular::PrismaTriangular(NxScene *cena,int h,int base,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
 	this->altura = h;
@@ -92,7 +95,7 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 
 }
 
-vector<NxVec3> PrismaTriangular::getInterceptacoes(NxVec3 planoGlobalPosition){
+Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoGlobalPosition){
 	vector<NxVec3> pontos;
 
 	NxShape *mesh =  this->ator->getShapes()[0];
@@ -155,7 +158,5 @@ vector<NxVec3> PrismaTriangular::getInterceptacoes(NxVec3 planoGlobalPosition){
 	if (segmento4_3.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
 		pontos.push_back(NxVec3(p.x,p.y,p.z));
 
-	return pontos;
-
-
+	return NULL;
 }

@@ -10,7 +10,6 @@ MainWindow::MainWindow(){
 	ui->setupUi(this);
 	
 	ui->textNumeroGraos->setValidator(new QIntValidator(this));
-	ui->textRaioEsfera->setValidator(new QDoubleValidator(this));
 
 	statusTipoSimulacao = new QLabel(tr(""));
 	statusTipoSimulacao->setAlignment(Qt::AlignHCenter);

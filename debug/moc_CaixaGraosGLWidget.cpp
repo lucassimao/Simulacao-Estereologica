@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'CaixaGraosGLWidget.h'
 **
-** Created: Thu 12. Nov 14:40:18 2009
+** Created: Mon 7. Dec 13:42:57 2009
 **      by: The Qt Meta Object Compiler version 61 (Qt 4.5.1)
 **
 ** WARNING! All changes made in this file will be lost!

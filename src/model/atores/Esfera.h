@@ -1,7 +1,10 @@
 #ifndef ESFERA_H
 #define ESFERA_H
 
+#include "..\..\canvas\interceptos\Intercepto.h"
 #include "Ator.h"
+
+using simulacao::canvas::interceptos::Intercepto;
 
 namespace simulacao{
 	namespace model{
@@ -15,6 +18,7 @@ namespace simulacao{
 				Esfera(NxScene *,NxCCDSkeleton *ccds);
 				~Esfera(void);
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
+				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
 
 			};
 

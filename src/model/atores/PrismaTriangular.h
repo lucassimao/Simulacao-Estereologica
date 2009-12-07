@@ -3,10 +3,12 @@
 
 #include <vector>
 #include "../../utils/MeshFactory.h"
+#include "../../canvas/interceptos/Intercepto.h"
 #include "Ator.h"
 
 using namespace simulacao::utils;
 using std::vector;
+using simulacao::canvas::interceptos::Intercepto;
 
 namespace simulacao{
 
@@ -19,7 +21,7 @@ namespace simulacao{
 				PrismaTriangular(NxScene *cena,int h,int b,NxCCDSkeleton *ccds,MeshFactory *meshFactory);
 				~PrismaTriangular();
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
-				vector<NxVec3> getInterceptacoes(NxVec3 planoGlobalPosition);
+				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
 			private:
 				int altura;
 				int base;
