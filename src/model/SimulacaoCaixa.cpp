@@ -27,6 +27,8 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->shapePlanoDeCorte = 0;
 	this->exibirCaixa = true;
 	this->caixa = criarCaixa();
+	this->esferaRaio=0.9;
+	this->arestaCubo = 0.5;
 	criarCCDS();
 
 
@@ -136,7 +138,7 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 			break;
 		case CUBO:
 			for(long l=0;l<qtde;++l){
-				new Cubo(cena,ccds);
+				new Cubo(cena,this->arestaCubo);
 			}
 			break;
 		case PRISMA_TRIANGULAR:

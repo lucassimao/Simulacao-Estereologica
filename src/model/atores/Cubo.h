@@ -15,7 +15,7 @@ namespace simulacao{
 			private:
 				double lado;
 			public:
-				Cubo(NxScene *,NxCCDSkeleton *ccds);
+				Cubo(NxScene *,double aresta);
 				~Cubo(void);
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
 				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);

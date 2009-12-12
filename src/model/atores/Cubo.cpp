@@ -5,9 +5,9 @@
 using namespace simulacao::canvas::interceptos;
 using namespace simulacao::model::atores;
 
-Cubo::Cubo(NxScene *cena,NxCCDSkeleton *ccds):Ator()
+Cubo::Cubo(NxScene *cena,double aresta):Ator()
 {
-	this->lado = 0.9;
+	this->lado = aresta;
 
 	NxActorDesc actorDesc;
 	NxBodyDesc bodyDesc;
@@ -16,7 +16,7 @@ Cubo::Cubo(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 	//sphereDesc.shapeFlags |= NX_SF_DYNAMIC_DYNAMIC_CCD;
 	boxDesc.dimensions.set(this->lado,this->lado,this->lado);
 
-	boxDesc.ccdSkeleton = ccds;
+	//boxDesc.ccdSkeleton = ccds;
 	actorDesc.shapes.pushBack(&boxDesc);
 
 	actorDesc.body = &bodyDesc;

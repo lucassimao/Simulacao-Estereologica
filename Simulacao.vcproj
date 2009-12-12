@@ -497,6 +497,10 @@
 				Name="gui"
 				>
 				<File
+					RelativePath=".\src\gui\DialogParametrosCubo.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\gui\MainWindow.cpp"
 					>
 				</File>
@@ -687,6 +691,77 @@
 				Name="gui"
 				>
 				<File
+					RelativePath=".\src\gui\DialogParametrosCubo.h"
+					>
+					
+					
+					
+					
+									<FileConfiguration
+						Name="Debug|Win32"
+						>	
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\DialogParametrosCubo.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DialogParametrosCubo.h -o debug\moc_DialogParametrosCubo.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DialogParametrosCubo.h"
+							Outputs="debug\moc_DialogParametrosCubo.cpp"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\DialogParametrosCubo.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DialogParametrosCubo.h -o release\moc_DialogParametrosCubo.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DialogParametrosCubo.h"
+							Outputs="release\moc_DialogParametrosCubo.cpp"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug - v2.8.0|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\DialogParametrosCubo.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DialogParametrosCubo.h -o debug\moc_DialogParametrosCubo.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DialogParametrosCubo.h"
+							Outputs="debug\moc_DialogParametrosCubo.cpp"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release - v2.8.0|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\DialogParametrosCubo.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DialogParametrosCubo.h -o release\moc_DialogParametrosCubo.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DialogParametrosCubo.h"
+							Outputs="release\moc_DialogParametrosCubo.cpp"
+						/>
+					</FileConfiguration>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				</File>
+				<File
+					RelativePath=".\src\gui\DialogParametrosEsfera.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\gui\DialogParametrosPrismaTriangular.h"
+					>
+				</File>
+				<File
 					RelativePath=".\src\gui\MainWindow.h"
 					>
 					<FileConfiguration
@@ -797,6 +872,51 @@
 					/>
 				</FileConfiguration>
 			</File>
+			
+			<File
+				RelativePath="debug\moc_DialogParametrosCubo.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release - v2.8.0|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="release\moc_DialogParametrosCubo.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug - v2.8.0|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+
+			
+			
+			
 			<File
 				RelativePath="debug\moc_MainWindow.cpp"
 				>
@@ -838,7 +958,19 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="forms\ui_cuboParametros.h"
+				>
+			</File>
+			<File
+				RelativePath="forms\ui_esferaParametros.h"
+				>
+			</File>
+			<File
 				RelativePath="forms\ui_gui.h"
+				>
+			</File>
+			<File
+				RelativePath="forms\ui_prismaTriangularParametros.h"
 				>
 			</File>
 		</Filter>
@@ -848,6 +980,102 @@
 			UniqueIdentifier="{99349809-55BA-4b9d-BF79-8FDBB0286EB3}"
 			ParseFiles="false"
 			>
+			<File
+				RelativePath=".\forms\cuboParametros.ui"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\cuboParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\cuboParametros.ui -o forms\ui_cuboParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\cuboParametros.ui"
+						Outputs="forms\ui_cuboParametros.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\cuboParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\cuboParametros.ui -o forms\ui_cuboParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\cuboParametros.ui"
+						Outputs="forms\ui_cuboParametros.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug - v2.8.0|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\cuboParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\cuboParametros.ui -o forms\ui_cuboParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\cuboParametros.ui"
+						Outputs="forms\ui_cuboParametros.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release - v2.8.0|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\cuboParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\cuboParametros.ui -o forms\ui_cuboParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\cuboParametros.ui"
+						Outputs="forms\ui_cuboParametros.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\forms\esferaParametros.ui"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\esferaParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\esferaParametros.ui -o forms\ui_esferaParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\esferaParametros.ui"
+						Outputs="forms\ui_esferaParametros.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\esferaParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\esferaParametros.ui -o forms\ui_esferaParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\esferaParametros.ui"
+						Outputs="forms\ui_esferaParametros.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug - v2.8.0|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\esferaParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\esferaParametros.ui -o forms\ui_esferaParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\esferaParametros.ui"
+						Outputs="forms\ui_esferaParametros.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release - v2.8.0|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\esferaParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\esferaParametros.ui -o forms\ui_esferaParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\esferaParametros.ui"
+						Outputs="forms\ui_esferaParametros.h"
+					/>
+				</FileConfiguration>
+			</File>
 			<File
 				RelativePath="forms\gui.ui"
 				>
@@ -893,6 +1121,54 @@
 						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\gui.ui -o forms\ui_gui.h&#x0D;&#x0A;"
 						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\gui.ui"
 						Outputs="forms\ui_gui.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\forms\prismaTriangularParametros.ui"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\prismaTriangularParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\prismaTriangularParametros.ui -o forms\ui_prismaTriangularParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\prismaTriangularParametros.ui"
+						Outputs="forms\ui_prismaTriangularParametros.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\prismaTriangularParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\prismaTriangularParametros.ui -o forms\ui_prismaTriangularParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\prismaTriangularParametros.ui"
+						Outputs="forms\ui_prismaTriangularParametros.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug - v2.8.0|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\prismaTriangularParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\prismaTriangularParametros.ui -o forms\ui_prismaTriangularParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\prismaTriangularParametros.ui"
+						Outputs="forms\ui_prismaTriangularParametros.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release - v2.8.0|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\prismaTriangularParametros.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\prismaTriangularParametros.ui -o forms\ui_prismaTriangularParametros.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\prismaTriangularParametros.ui"
+						Outputs="forms\ui_prismaTriangularParametros.h"
 					/>
 				</FileConfiguration>
 			</File>

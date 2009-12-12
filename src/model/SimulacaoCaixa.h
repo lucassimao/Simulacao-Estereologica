@@ -25,6 +25,10 @@ namespace simulacao{
 			NxActor *atorPlanoDeCorte;
 			NxPlane *shapePlanoDeCorte;
 			NxActor *criarCaixa();
+			
+			double esferaRaio;
+			double arestaCubo;
+
 			void criarCCDS();
 
 		public:
@@ -47,6 +51,12 @@ namespace simulacao{
 			void selecionarGraosInterceptados();
 			void selecionarInterceptacoes();
 			void removerGraos();
+
+			double getEsferaRaio(){ return this->esferaRaio;}
+			void setEsferaRaio(double novoRaio){ this->esferaRaio = novoRaio;}
+
+			double getArestaCubo(){ return this->arestaCubo;}
+			void setArestaCubo(double novaAresta){ this->arestaCubo = novaAresta;}
 		};
 
 	}

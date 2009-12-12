@@ -34,11 +34,6 @@ MainWindow::~MainWindow(){
 
 }
 
-void MainWindow::exibirInterceptos(){
-	simulacao->selecionarInterceptacoes();
-	atualizarQuantidadeDeGraosEmCena();
-}
-
 void MainWindow::criarCanvas(){
 
 	simulacao = new SimulacaoCaixa;
@@ -63,6 +58,21 @@ void MainWindow::criarCanvas(){
 }
 
 void MainWindow::configurarParametros(){
+
+	switch(ui->comboBoxTipoGrao->currentIndex())
+	{
+	case 0:
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
+		dialogParametrosCubo = new DialogParametrosCubo(this->simulacao);
+		dialogParametrosCubo->setModal(true);
+		dialogParametrosCubo->setVisible(true);
+		break;
+	}
 
 }
 void MainWindow::adicionarObjetos(){
@@ -140,9 +150,16 @@ void MainWindow::mostrarCaixa(bool b){
 void MainWindow::usarTamanhoDeGraoAleatorio(bool b){
 }
 
+/** Exibe os objetos que estão sendo interceptados pelo plano */
 void MainWindow::exibirGraosInterceptados(){
 	simulacao->selecionarGraosInterceptados();
 	atualizarQuantidadeDeGraosEmCena();
+}
+
+/** Exibe as regiões no plano interceptadas pelos objetos cortados pelo plano */
+void MainWindow::exibirInterceptos(){
+	simulacao->selecionarInterceptacoes();
+	
 }
 
 void MainWindow::atualizarQuantidadeDeGraosEmCena(){

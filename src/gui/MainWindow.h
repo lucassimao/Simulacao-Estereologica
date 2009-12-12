@@ -2,6 +2,7 @@
 #define MAIN_WINDOW_H
 
 #include <QMainWindow>
+#include "DialogParametrosCubo.h"
 #include "..\model\SimulacaoCaixa.h"
 #include "..\canvas\CaixaGraosGLWidget.h"
 #include "forms\ui_gui.h"
@@ -21,6 +22,7 @@ namespace simulacao	{
 			QLabel *statusTipoSimulacao;
 			QLabel *statusQtdeObjetos;
 			Ui_MainWindow *ui;
+			DialogParametrosCubo *dialogParametrosCubo;
 			//TIRAR ISSO!!!!!!!!!!!!!!!!!!!!!!!!!
 			SimulacaoCaixa *simulacao;
 
