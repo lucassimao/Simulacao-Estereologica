@@ -1,8 +1,13 @@
 #ifndef DRAW_VISITOR_H
 #define DRAW_VISITOR_H
 
-#include "../../model/interceptos/Disco.h"
-#include "../../model/interceptos/Poligono.h"
+// forward declaration, evitando referencia circular ...
+namespace simulacao{
+	namespace model{
+		namespace interceptos{
+			class Disco;
+			class Poligono;
+		}}}
 
 using namespace simulacao::model::interceptos;
 

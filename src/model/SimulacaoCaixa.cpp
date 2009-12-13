@@ -10,6 +10,7 @@
 #include "../draw/Stream.h"
 #include "../draw/cooking.h"
 #include "../model/interceptos/Intercepto.h"
+#include "../canvas/drawVisitor/InterceptoDesignerVisitor.h"
 
 
 
@@ -202,6 +203,7 @@ void SimulacaoCaixa::selecionarGraosInterceptados(){
 }
 
 void SimulacaoCaixa::selecionarInterceptacoes(){
+
 	NxU32 qtdeAtores = getCena()->getNbActors();
 	NxActor** atores = getCena()->getActors();
 	vector<Intercepto*> interceptos;
@@ -222,6 +224,15 @@ void SimulacaoCaixa::selecionarInterceptacoes(){
 
 		}
 
+	}
+	vector<Intercepto*>::const_iterator iterator = interceptos.begin();
+	InterceptoDesignerVisitor *visitor = new InterceptoDesignerVisitor();
+
+	while(iterator!=interceptos.end())
+	{
+		Intercepto *intercepto = *iterator;
+		intercepto->accept(visitor);
+		++iterator;
 	}
 
 }

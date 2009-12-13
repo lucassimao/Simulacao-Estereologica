@@ -10,8 +10,8 @@ namespace simulacao{
 			class InterceptoDesignerVisitor : public DrawVisitor{
 			public:
 				InterceptoDesignerVisitor();
-				virtual void visit(Disco *disco);
-				virtual void visit(Poligono *poligono);
+				void visit(Disco *disco);
+				void visit(Poligono *poligono);
 			};
 
 		}

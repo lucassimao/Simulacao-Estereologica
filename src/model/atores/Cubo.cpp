@@ -34,7 +34,8 @@ Cubo::Cubo(NxScene *cena,double aresta):Ator()
 Intercepto* Cubo::getIntercepto(NxVec3 planoGlobalPosition){
 	Cor v = VERMELHO;
 	vector<Ponto> vertices;
-	return NULL;
+	Poligono *p = new Poligono(v,vertices);
+	return p;
 }
 
 Cubo::~Cubo(void)

@@ -7,6 +7,14 @@
 
 using std::vector;
 
+namespace simulacao{
+	namespace canvas{
+		namespace drawVisitor{
+			class DrawVisitor;
+		}}}
+
+using namespace simulacao::canvas::drawVisitor;
+
 namespace simulacao{ 
 	namespace model { 
 		namespace interceptos{
@@ -17,6 +25,7 @@ namespace simulacao{
 			public:
 				Intercepto();
 				Intercepto(Cor);
+				virtual void accept(DrawVisitor *) = 0;
 			};
 
 		}

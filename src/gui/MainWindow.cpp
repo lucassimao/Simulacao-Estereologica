@@ -5,6 +5,9 @@
 using namespace simulacao::gui;
 using namespace simulacao::canvas;
 
+#include "../canvas/drawVisitor/InterceptoDesignerVisitor.h"
+using namespace simulacao::canvas::drawVisitor;
+
 MainWindow::MainWindow(){
 	ui = new Ui_MainWindow();
 	ui->setupUi(this);
@@ -164,6 +167,9 @@ void MainWindow::exibirGraosInterceptados(){
 /** Exibe as regiões no plano interceptadas pelos objetos cortados pelo plano */
 void MainWindow::exibirInterceptos(){
 	simulacao->selecionarInterceptacoes();
+	InterceptoDesignerVisitor *visitor = new InterceptoDesignerVisitor();
+
+	view->setDrawVisitor(visitor);
 	
 }
 

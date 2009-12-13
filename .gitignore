@@ -1,5 +1,6 @@
 *.exe
 *.obj
+debug/*
 release/*
 Debug - v2.8.0/*
 Release - v2.7.3/*

@@ -1,7 +1,9 @@
+#include <stdexcept>
 #include "Esfera.h"
 #include "..\..\model\interceptos\Intercepto.h"
 #include "..\..\model\interceptos\Disco.h"
 
+using std::runtime_error;
 using namespace simulacao::model::atores;
 using namespace simulacao::model::interceptos;
 
@@ -39,12 +41,14 @@ Intercepto* Esfera::getIntercepto(NxVec3 planoGlobalPosition){
 	{
 		NxVec3 pos = ator->getGlobalPosition();
 		NxReal distanciaDoPlanoAoCentroDaEsfera = abs(planoGlobalPosition.y - pos.y);
+		
 		NxReal raioDaRegiaoInterceptada= sqrt(pow(this->raio,2) - pow(distanciaDoPlanoAoCentroDaEsfera,2));
-		Ponto p  = {pos.x,planoGlobalPosition.y,0};
+		
+		Ponto p  = {pos.x,planoGlobalPosition.y,pos.z};
 		return new Disco(p,raioDaRegiaoInterceptada);
 	}
 	else
-		return NULL;
+		throw new runtime_error("Esta esfera não está interceptada");
 }
 
 bool Esfera::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){

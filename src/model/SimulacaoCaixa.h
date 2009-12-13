@@ -26,8 +26,11 @@ namespace simulacao{
 			NxPlane *shapePlanoDeCorte;
 			NxActor *criarCaixa();
 			
+			//valores padrões
 			double esferaRaio;
 			double arestaCubo;
+			double alturaPrisma;
+			double basePrisma;
 
 			void criarCCDS();
 

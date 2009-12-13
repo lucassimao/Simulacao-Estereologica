@@ -32,7 +32,7 @@ CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao
 
 	this->simulacao = simulacao;
 	box = this->simulacao->getCaixa();
-	
+	this->drawVisitor = NULL;	
 	this->simulacao->novoPlanoDeCorte();
 
 	gCameraAspectRatio = 1;	
@@ -110,11 +110,7 @@ void CaixaGraosGLWidget::RenderActors(){
 	while (nbActors--)
 	{
 		NxActor* actor = *actors++;
-
-		{
-			DrawActor(actor, NULL, false);
-		}
-
+		DrawActor(actor, NULL, false);
 	}
 	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
 	drawCuboid(box);

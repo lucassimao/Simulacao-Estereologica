@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'prismaTriangularParametros.ui'
 **
-** Created: Sat 12. Dec 21:09:11 2009
+** Created: Sun 13. Dec 11:33:41 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!

@@ -7,6 +7,7 @@
 #include "../../utils/SegmentoDeReta.h"
 #include "../../utils/Vetor.h"
 #include "../../model/interceptos/Intercepto.h"
+#include "../../model/interceptos/Poligono.h"
 
 using std::runtime_error;
 using namespace simulacao::model::atores;
@@ -97,7 +98,6 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 
 Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoGlobalPosition){
 	vector<NxVec3> pontos;
-
 	NxShape *mesh =  this->ator->getShapes()[0];
 	NxMat34 pose = mesh->getGlobalPose();
 	NxConvexMeshDesc meshDesc;

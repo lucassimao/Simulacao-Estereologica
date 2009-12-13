@@ -16,6 +16,7 @@ namespace simulacao{
 				vector<Ponto> vertices;
 			public:
 				Poligono(Cor cor,vector<Ponto> vertices);
+				void accept(DrawVisitor *);
 				
 			};
 
