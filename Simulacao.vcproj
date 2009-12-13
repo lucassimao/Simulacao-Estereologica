@@ -476,10 +476,6 @@
 			<Filter
 				Name="canvas"
 				>
-				<File
-					RelativePath=".\src\canvas\CaixaGraosGLWidget.cpp"
-					>
-				</File>
 				<Filter
 					Name="drawVisitor"
 					>
@@ -489,6 +485,26 @@
 					</File>
 					<File
 						RelativePath=".\src\canvas\drawVisitor\InterceptoDesignerVisitor.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="glWidget"
+					>
+					<File
+						RelativePath=".\src\canvas\glWidget\CaixaGraosGLWidget.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\canvas\glWidget\RenderizacaoState.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\canvas\glWidget\RenderizarAtoresState.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\canvas\glWidget\RenderizarInterceptosState.cpp"
 						>
 					</File>
 				</Filter>
@@ -626,54 +642,6 @@
 			<Filter
 				Name="canvas"
 				>
-				<File
-					RelativePath=".\src\canvas\CaixaGraosGLWidget.h"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							Description="MOC src\canvas\CaixaGraosGLWidget.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\CaixaGraosGLWidget.h -o debug\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
-							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\canvas\CaixaGraosGLWidget.h"
-							Outputs="debug\moc_CaixaGraosGLWidget.cpp"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							Description="MOC src\canvas\Tetrahedron.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\CaixaGraosGLWidget.h -o release\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
-							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\canvas\CaixaGraosGLWidget.h"
-							Outputs="release\moc_CaixaGraosGLWidget.cpp"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug - v2.8.0|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							Description="MOC src\canvas\CaixaGraosGLWidget.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\CaixaGraosGLWidget.h -o debug\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
-							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\canvas\CaixaGraosGLWidget.h"
-							Outputs="debug\moc_CaixaGraosGLWidget.cpp"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release - v2.8.0|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							Description="MOC src\canvas\Tetrahedron.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\CaixaGraosGLWidget.h -o release\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
-							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\canvas\CaixaGraosGLWidget.h"
-							Outputs="release\moc_CaixaGraosGLWidget.cpp"
-						/>
-					</FileConfiguration>
-				</File>
 				<Filter
 					Name="drawVisitor"
 					>
@@ -683,6 +651,70 @@
 					</File>
 					<File
 						RelativePath=".\src\canvas\drawVisitor\InterceptoDesignerVisitor.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="glWidget"
+					>
+					<File
+						RelativePath=".\src\canvas\glWidget\CaixaGraosGLWidget.h"
+						>
+						<FileConfiguration
+							Name="Debug|Win32"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+								Description="MOC src\canvas\glWidget\CaixaGraosGLWidget.h"
+								CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\glWidget\CaixaGraosGLWidget.h -o debug\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
+								AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\canvas\glWidget\CaixaGraosGLWidget.h"
+								Outputs="debug\moc_CaixaGraosGLWidget.cpp"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release|Win32"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+								Description="MOC src\canvas\Tetrahedron.h"
+								CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\glWidget\CaixaGraosGLWidget.h -o release\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
+								AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\canvas\glWidget\CaixaGraosGLWidget.h"
+								Outputs="release\moc_CaixaGraosGLWidget.cpp"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug - v2.8.0|Win32"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+								Description="MOC src\canvas\glWidget\CaixaGraosGLWidget.h"
+								CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\glWidget\CaixaGraosGLWidget.h -o debug\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
+								AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\canvas\glWidget\CaixaGraosGLWidget.h"
+								Outputs="debug\moc_CaixaGraosGLWidget.cpp"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release - v2.8.0|Win32"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+								Description="MOC src\canvas\Tetrahedron.h"
+								CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\glWidget\CaixaGraosGLWidget.h -o release\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
+								AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\canvas\glWidget\CaixaGraosGLWidget.h"
+								Outputs="release\moc_CaixaGraosGLWidget.cpp"
+							/>
+						</FileConfiguration>
+					</File>
+					<File
+						RelativePath=".\src\canvas\glWidget\RenderizacaoState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\canvas\glWidget\RenderizarAtoresState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\canvas\glWidget\RenderizarInterceptosState.h"
 						>
 					</File>
 				</Filter>
@@ -818,26 +850,6 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			>
 			<File
-				RelativePath="release\moc_CaixaGraosGLWidget.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug - v2.8.0|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="debug\moc_CaixaGraosGLWidget.cpp"
 				>
 				<FileConfiguration
@@ -858,7 +870,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="release\moc_DialogParametrosCubo.cpp"
+				RelativePath="release\moc_CaixaGraosGLWidget.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -890,6 +902,26 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release - v2.8.0|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="release\moc_DialogParametrosCubo.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug - v2.8.0|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool

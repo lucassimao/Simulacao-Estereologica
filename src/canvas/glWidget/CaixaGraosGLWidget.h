@@ -1,17 +1,19 @@
 #ifndef  CAIXA_DE_GRAOS_H
 #define  CAIXA_DE_GRAOS_H
 
-#include "drawVisitor\DrawVisitor.h"
-#include "..\model\SimulacaoCaixa.h"
-#include "..\draw\DrawObjects.h"
+#define NOMINMAX
 #include <QGLWidget>
 #include <QKeyEvent>
+#include "RenderizacaoState.h"
+#include "..\..\model\SimulacaoCaixa.h"
+
 
 using namespace simulacao::model;
-using namespace simulacao::canvas::drawVisitor;
+
 
 namespace simulacao {
 	namespace canvas {
+		namespace glWidget{
 
 		class CaixaGraosGLWidget : public QGLWidget {
 
@@ -19,7 +21,7 @@ namespace simulacao {
 
 		public:
 			CaixaGraosGLWidget(QWidget *parent = 0,SimulacaoCaixa *simulacao = 0);	
-			void setDrawVisitor(DrawVisitor *visitor){	this->drawVisitor = visitor; }
+			void setState(RenderizacaoState *state){ this->renderizacaoState = state; }
 
 		protected:
 			void initializeGL();
@@ -39,7 +41,7 @@ namespace simulacao {
 			NxActor* box;
 			SimulacaoCaixa *simulacao;
 			NxTriangleMesh * staticTriangleMesh;
-			DrawVisitor *drawVisitor;
+			RenderizacaoState *renderizacaoState;
 
 			float gCameraAspectRatio;
 			static NxVec3 gCameraForward;
@@ -51,5 +53,6 @@ namespace simulacao {
 
 		};
 	}
+}
 }
 #endif

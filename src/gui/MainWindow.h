@@ -1,15 +1,16 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
+
 #include <QMainWindow>
 #include "DialogParametrosCubo.h"
 #include "..\model\SimulacaoCaixa.h"
-#include "..\canvas\CaixaGraosGLWidget.h"
+#include "..\canvas\glWidget\CaixaGraosGLWidget.h"
 #include "forms\ui_gui.h"
 
 class QLabel;
 using namespace simulacao::model;
-using namespace simulacao::canvas;
+using namespace simulacao::canvas::glWidget;
 
 namespace simulacao	{
 	namespace gui {

@@ -5,8 +5,10 @@
 using namespace simulacao::gui;
 using namespace simulacao::canvas;
 
-#include "../canvas/drawVisitor/InterceptoDesignerVisitor.h"
-using namespace simulacao::canvas::drawVisitor;
+#include "..\canvas\glWidget\RenderizacaoState.h"
+#include "..\canvas\glWidget\RenderizarAtoresState.h"
+#include "..\canvas\glWidget\RenderizarInterceptosState.h"
+using namespace simulacao::canvas::glWidget;
 
 MainWindow::MainWindow(){
 	ui = new Ui_MainWindow();
@@ -40,8 +42,10 @@ MainWindow::~MainWindow(){
 void MainWindow::criarCanvas(){
 
 	simulacao = new SimulacaoCaixa;
-
+	RenderizacaoState *state = new RenderizarAtoresState();
+	
 	view = new CaixaGraosGLWidget(this,simulacao);
+	view->setState(state);
 	view->setFocusPolicy(Qt::StrongFocus);
 	view->setObjectName(QString::fromUtf8("graphicsView"));
 
@@ -167,9 +171,8 @@ void MainWindow::exibirGraosInterceptados(){
 /** Exibe as regiões no plano interceptadas pelos objetos cortados pelo plano */
 void MainWindow::exibirInterceptos(){
 	simulacao->selecionarInterceptacoes();
-	InterceptoDesignerVisitor *visitor = new InterceptoDesignerVisitor();
-
-	view->setDrawVisitor(visitor);
+	RenderizacaoState *state = new RenderizarInterceptosState();
+	view->setState(state);
 	
 }
 

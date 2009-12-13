@@ -6,10 +6,10 @@
 #include <cstdlib>
 #include <ctime>
 #include <QtDebug>
-#include "../draw/cooking.h"
-#include "../draw/Stream.h"
+#include "..\..\draw\cooking.h"
+#include "..\..\draw\Stream.h"
 
-using namespace simulacao::canvas;
+using namespace simulacao::canvas::glWidget;
 using namespace simulacao::model;
 
 NxVec3 CaixaGraosGLWidget::gCameraForward(0,0,1);
@@ -32,7 +32,6 @@ CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao
 
 	this->simulacao = simulacao;
 	box = this->simulacao->getCaixa();
-	this->drawVisitor = NULL;	
 	this->simulacao->novoPlanoDeCorte();
 
 	gCameraAspectRatio = 1;	
@@ -104,6 +103,10 @@ void CaixaGraosGLWidget::draw()
 
 void CaixaGraosGLWidget::RenderActors(){
 
+	this->renderizacaoState->draw(this->simulacao);
+	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
+	drawCuboid(box);
+/**
 	NxU32 nbActors = simulacao->getQtdeObjetos();
 	NxActor** actors = simulacao->getAtores();
 
@@ -114,7 +117,7 @@ void CaixaGraosGLWidget::RenderActors(){
 	}
 	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
 	drawCuboid(box);
-
+*/
 }
 
 void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides)
