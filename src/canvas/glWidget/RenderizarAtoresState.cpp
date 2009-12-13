@@ -7,7 +7,7 @@ RenderizarAtoresState::RenderizarAtoresState(){
 
 }
 
-void RenderizarAtoresState::draw(SimulacaoCaixa *simulacao) const{
+inline void RenderizarAtoresState::draw(SimulacaoCaixa *simulacao) const{
 	NxU32 nbActors = simulacao->getQtdeObjetos();
 	NxActor** actors = simulacao->getAtores();
 

@@ -17,7 +17,7 @@ namespace simulacao{
 				InterceptoDesignerVisitor *visitor;
 			public:
 				RenderizarInterceptosState();
-				virtual void draw(SimulacaoCaixa *simulacao) const;
+				virtual inline void draw(SimulacaoCaixa *simulacao) const;
 
 			};
 

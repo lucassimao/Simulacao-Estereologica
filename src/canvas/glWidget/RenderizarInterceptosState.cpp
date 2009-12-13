@@ -6,6 +6,6 @@ RenderizarInterceptosState::RenderizarInterceptosState(){
 
 }
 
-void RenderizarInterceptosState::draw(SimulacaoCaixa *simulacao) const{
+inline void RenderizarInterceptosState::draw(SimulacaoCaixa *simulacao) const{
 
 }

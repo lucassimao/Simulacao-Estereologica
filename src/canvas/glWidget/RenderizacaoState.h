@@ -14,7 +14,7 @@ namespace simulacao{
 			
 			public:
 				RenderizacaoState();
-				virtual void draw(SimulacaoCaixa *simulacao) const = 0;
+				virtual inline void draw(SimulacaoCaixa *simulacao) const = 0;
 
 			};
 
