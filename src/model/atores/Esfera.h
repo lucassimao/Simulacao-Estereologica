@@ -1,10 +1,10 @@
 #ifndef ESFERA_H
 #define ESFERA_H
 
-#include "..\..\canvas\interceptos\Intercepto.h"
+#include "..\..\model\interceptos\Intercepto.h"
 #include "Ator.h"
 
-using simulacao::canvas::interceptos::Intercepto;
+using simulacao::model::interceptos::Intercepto;
 
 namespace simulacao{
 	namespace model{

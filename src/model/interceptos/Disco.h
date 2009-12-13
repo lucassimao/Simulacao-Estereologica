@@ -2,14 +2,12 @@
 #define DISCO_H
 
 #include "Intercepto.h"
-#include "designer\DrawCommand.h"
 #include "..\..\defs.h"
 
 using std::vector;
-using namespace simulacao::canvas::interceptos::designer;
 
 namespace simulacao{ 
-	namespace canvas {
+	namespace model {
 		namespace interceptos{
 
 			class Disco: public Intercepto{
@@ -21,7 +19,6 @@ namespace simulacao{
 				Disco(Ponto centro,double raio);
 				double getRaio() const { return raio;} ;
 				Ponto getCentro() const { return centro;};
-				DrawCommand* getDrawCommand() const;
 			};
 
 		}

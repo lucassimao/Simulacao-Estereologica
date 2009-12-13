@@ -1,9 +1,9 @@
 #include "Esfera.h"
-#include "..\..\canvas\interceptos\Intercepto.h"
-#include "..\..\canvas\interceptos\Disco.h"
+#include "..\..\model\interceptos\Intercepto.h"
+#include "..\..\model\interceptos\Disco.h"
 
 using namespace simulacao::model::atores;
-using namespace simulacao::canvas::interceptos;
+using namespace simulacao::model::interceptos;
 
 Esfera::Esfera(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 {

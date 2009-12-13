@@ -152,8 +152,13 @@ void MainWindow::usarTamanhoDeGraoAleatorio(bool b){
 
 /** Exibe os objetos que estão sendo interceptados pelo plano */
 void MainWindow::exibirGraosInterceptados(){
+	
 	simulacao->selecionarGraosInterceptados();
 	atualizarQuantidadeDeGraosEmCena();
+
+	ui->btnNovoPlanodeCorte->setEnabled(false);
+	ui->btnExibirInterceptos->setEnabled(true);
+	ui->btnPlanovsGraos->setEnabled(false);
 }
 
 /** Exibe as regiões no plano interceptadas pelos objetos cortados pelo plano */

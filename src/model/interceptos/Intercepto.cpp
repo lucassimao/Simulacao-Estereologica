@@ -1,6 +1,6 @@
 #include "Intercepto.h"
 
-using namespace simulacao::canvas::interceptos;
+using namespace simulacao::model::interceptos;
 
 Intercepto::Intercepto(){
 	Cor vermelho = {1.0,0,0};

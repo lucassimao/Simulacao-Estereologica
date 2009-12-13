@@ -9,14 +9,14 @@
 #include "atores/Ator.h"
 #include "../draw/Stream.h"
 #include "../draw/cooking.h"
-#include "../canvas/interceptos/Intercepto.h"
+#include "../model/interceptos/Intercepto.h"
 
 
 
 using std::vector;
 using namespace simulacao::model;
 using namespace simulacao::model::atores;
-using namespace simulacao::canvas::interceptos;
+using namespace simulacao::model::interceptos;
 
 NxCCDSkeleton * ccds;
 

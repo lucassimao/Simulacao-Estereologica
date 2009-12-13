@@ -456,6 +456,22 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="interceptos"
+					>
+					<File
+						RelativePath=".\src\model\interceptos\Disco.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\interceptos\Intercepto.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\interceptos\Poligono.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="canvas"
@@ -465,32 +481,16 @@
 					>
 				</File>
 				<Filter
-					Name="interceptos"
+					Name="drawVisitor"
 					>
 					<File
-						RelativePath=".\src\canvas\interceptos\Disco.cpp"
+						RelativePath=".\src\canvas\drawVisitor\DrawVisitor.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\src\canvas\interceptos\Intercepto.cpp"
+						RelativePath=".\src\canvas\drawVisitor\InterceptoDesignerVisitor.cpp"
 						>
 					</File>
-					<File
-						RelativePath=".\src\canvas\interceptos\Poligono.cpp"
-						>
-					</File>
-					<Filter
-						Name="designer"
-						>
-						<File
-							RelativePath=".\src\canvas\interceptos\designer\DrawCommand.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\src\canvas\interceptos\designer\PoligonoDrawCommand.cpp"
-							>
-						</File>
-					</Filter>
 				</Filter>
 			</Filter>
 			<Filter
@@ -606,6 +606,22 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="interceptos"
+					>
+					<File
+						RelativePath=".\src\model\interceptos\Disco.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\interceptos\Intercepto.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\interceptos\Poligono.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="canvas"
@@ -659,32 +675,16 @@
 					</FileConfiguration>
 				</File>
 				<Filter
-					Name="interceptos"
+					Name="drawVisitor"
 					>
 					<File
-						RelativePath=".\src\canvas\interceptos\Disco.h"
+						RelativePath=".\src\canvas\drawVisitor\DrawVisitor.h"
 						>
 					</File>
 					<File
-						RelativePath=".\src\canvas\interceptos\Intercepto.h"
+						RelativePath=".\src\canvas\drawVisitor\InterceptoDesignerVisitor.h"
 						>
 					</File>
-					<File
-						RelativePath=".\src\canvas\interceptos\Poligono.h"
-						>
-					</File>
-					<Filter
-						Name="designer"
-						>
-						<File
-							RelativePath=".\src\canvas\interceptos\designer\DrawCommand.h"
-							>
-						</File>
-						<File
-							RelativePath=".\src\canvas\interceptos\designer\PoligonoDrawCommand.h"
-							>
-						</File>
-					</Filter>
 				</Filter>
 			</Filter>
 			<Filter
@@ -693,13 +693,9 @@
 				<File
 					RelativePath=".\src\gui\DialogParametrosCubo.h"
 					>
-					
-					
-					
-					
-									<FileConfiguration
+					<FileConfiguration
 						Name="Debug|Win32"
-						>	
+						>
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\DialogParametrosCubo.h"
@@ -741,17 +737,6 @@
 							Outputs="release\moc_DialogParametrosCubo.cpp"
 						/>
 					</FileConfiguration>
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 				</File>
 				<File
 					RelativePath=".\src\gui\DialogParametrosEsfera.h"
@@ -833,26 +818,6 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			>
 			<File
-				RelativePath="debug\moc_CaixaGraosGLWidget.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release - v2.8.0|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="release\moc_CaixaGraosGLWidget.cpp"
 				>
 				<FileConfiguration
@@ -872,9 +837,8 @@
 					/>
 				</FileConfiguration>
 			</File>
-			
 			<File
-				RelativePath="debug\moc_DialogParametrosCubo.cpp"
+				RelativePath="debug\moc_CaixaGraosGLWidget.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -913,10 +877,26 @@
 					/>
 				</FileConfiguration>
 			</File>
-
-			
-			
-			
+			<File
+				RelativePath="debug\moc_DialogParametrosCubo.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release - v2.8.0|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
 			<File
 				RelativePath="debug\moc_MainWindow.cpp"
 				>

@@ -2,9 +2,9 @@
 #define CUBO_H
 
 #include "Ator.h"
-#include "..\..\canvas\interceptos\Intercepto.h"
+#include "..\..\model\interceptos\Intercepto.h"
 
-using simulacao::canvas::interceptos::Intercepto;
+using simulacao::model::interceptos::Intercepto;
 
 namespace simulacao{
 	namespace model{

@@ -1,7 +1,7 @@
 #include "Disco.h"
 
 
-using namespace simulacao::canvas::interceptos;
+using namespace simulacao::model::interceptos;
 
 Disco::Disco(Cor cor,Ponto centro,double raio):Intercepto(cor){
 	this->raio = raio;
@@ -13,6 +13,3 @@ Disco::Disco(Ponto centro,double raio):Intercepto(){
 	this->centro = centro;
 }
 
-DrawCommand* Disco::getDrawCommand() const{
-	return NULL;
-}

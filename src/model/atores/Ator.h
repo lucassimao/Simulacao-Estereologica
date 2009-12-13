@@ -3,10 +3,10 @@
 
 #include <NxPhysics.h>
 #include <vector>
-#include "..\..\canvas\interceptos\Intercepto.h"
+#include "..\..\model\interceptos\Intercepto.h"
 
 using std::vector;
-using simulacao::canvas::interceptos::Intercepto;
+using simulacao::model::interceptos::Intercepto;
 
 namespace simulacao{
 

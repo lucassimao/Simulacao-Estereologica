@@ -1,8 +1,8 @@
 #include "Cubo.h"
 #include <NxExportedUtils.h>
-#include "..\..\canvas\interceptos\Poligono.h"
+#include "..\..\model\interceptos\Poligono.h"
 
-using namespace simulacao::canvas::interceptos;
+using namespace simulacao::model::interceptos;
 using namespace simulacao::model::atores;
 
 Cubo::Cubo(NxScene *cena,double aresta):Ator()

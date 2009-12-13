@@ -3,12 +3,12 @@
 
 #include <vector>
 #include "../../utils/MeshFactory.h"
-#include "../../canvas/interceptos/Intercepto.h"
+#include "../../model/interceptos/Intercepto.h"
 #include "Ator.h"
 
 using namespace simulacao::utils;
 using std::vector;
-using simulacao::canvas::interceptos::Intercepto;
+using simulacao::model::interceptos::Intercepto;
 
 namespace simulacao{
 

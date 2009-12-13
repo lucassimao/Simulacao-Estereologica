@@ -3,14 +3,12 @@
 
 #include <vector>
 #include "Intercepto.h"
-#include "designer\DrawCommand.h"
 #include "..\..\defs.h"
 
 using std::vector;
-using namespace simulacao::canvas::interceptos::designer;
 
 namespace simulacao{ 
-	namespace canvas {
+	namespace model {
 		namespace interceptos{
 
 			class Poligono: public Intercepto{
@@ -18,7 +16,6 @@ namespace simulacao{
 				vector<Ponto> vertices;
 			public:
 				Poligono(Cor cor,vector<Ponto> vertices);
-				DrawCommand* getDrawCommand();
 				
 			};
 

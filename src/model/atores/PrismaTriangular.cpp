@@ -6,11 +6,11 @@
 #include "../../draw/cooking.h"
 #include "../../utils/SegmentoDeReta.h"
 #include "../../utils/Vetor.h"
-#include "../../canvas/interceptos/Intercepto.h"
+#include "../../model/interceptos/Intercepto.h"
 
 using std::runtime_error;
 using namespace simulacao::model::atores;
-using namespace simulacao::canvas::interceptos;
+using namespace simulacao::model::interceptos;
 
 
 PrismaTriangular::PrismaTriangular(NxScene *cena,int h,int base,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
