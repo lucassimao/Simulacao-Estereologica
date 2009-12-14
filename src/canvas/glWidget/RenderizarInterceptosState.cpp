@@ -48,5 +48,5 @@ inline void RenderizarInterceptosState::draw(SimulacaoCaixa *simulacao) const{
 		++iterator;
 	}
 	
-	//DrawActor(simulacao->getPlanoDeCorte(), NULL, false);
+	DrawActor(simulacao->getPlanoDeCorte(), NULL, false);
 }

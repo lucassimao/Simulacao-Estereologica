@@ -20,7 +20,11 @@ inline void InterceptoDesignerVisitor::visit(Disco *disco){
 
 	int circlePoints=100;
 	double angulo=0;
+	
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
+		glEnable(GL_CULL_FACE); 
+		glCullFace(GL_FRONT); 
 	glColor4f(1.0f,0,0.3f,1);
 
 	glBegin(GL_POLYGON);
@@ -29,7 +33,7 @@ inline void InterceptoDesignerVisitor::visit(Disco *disco){
 		glVertex3f(centro.x + raio*cos(angulo) ,centro.y,centro.z + raio*sin(angulo));	
 	}
 	glEnd();	
-
+	glPopAttrib();
 
 }
 
