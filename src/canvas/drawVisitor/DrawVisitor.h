@@ -19,8 +19,8 @@ namespace simulacao{
 
 			public:
 				DrawVisitor();
-				virtual void visit(Disco *disco)=0;
-				virtual void visit(Poligono *poligono)=0;
+				virtual inline void visit(Disco *disco)=0;
+				virtual inline void visit(Poligono *poligono)=0;
 			};
 		}
 	}

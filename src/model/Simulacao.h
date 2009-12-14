@@ -24,26 +24,21 @@ namespace simulacao{
 			const static NxVec3 gravidadeDefault;
 
 			bool simulacaoEmHardware;
-			bool modoDepuracao;
 			NxReal deltaTime; //intervalo de tempo p/ simulação
 			Status status;
-			NxF32 zoom;
-			NxI64 qtdeObjetos;
 			NxVec3 *gravidade;
-			NxVec3 *pontoDeVisualizacao;
-			NxActor* atorCorrente;
-
 			NxScene *cena;
 			NxPhysicsSDK *physicsSDK;
 
 			virtual void initPhysicsSDK() throw (exception);
 
-			NxPhysicsSDK* getSDK() const{
+			inline NxPhysicsSDK* getSDK() const{
 				return physicsSDK;
 			}
-			NxScene *getCena() const{
+			inline NxScene *getCena() const{
 				return this->cena;
 			}
+
 		public:
 			Simulacao(void);
 			~Simulacao(void);
@@ -55,24 +50,6 @@ namespace simulacao{
 			void GetPhysicsResults();
 			void iniciarSimulacao();
 
-			void setExibirPlanoDeCorte(bool);
-			bool getExibirPlanoDeCorte() const;
-
-			void setExibirRetasTeste(bool);
-			bool getExibirRetasTeste() const;
-
-			void setExibirPontosTeste(bool);
-			bool getExibirPontosTeste() const;
-
-			void setExibirCaixa(bool);
-			bool getExibirCaixa() const;
-
-			void setExibirTampaCaixa(bool);
-			bool getExibirTampaCaixa() const;
-
-			void setZoom(NxF32);
-			NxF32 getZoom() const;
-
 			NxI64 getQtdeObjetos() const;
 
 			void setGravidade(NxVec3 *);
@@ -81,16 +58,7 @@ namespace simulacao{
 			void setPlanoDeCorte(NxVec3 *);
 			NxVec3 *getPlanoDeCorte() const;
 
-			void setPontoDeVisualizacao(NxVec3 *);
-			NxVec3 *getPontoDeVisualizacao() const;
 
-			bool isModoDepuracao(){
-				return this->modoDepuracao;
-			}
-			void setModoDepuracao(bool b){ this->modoDepuracao = b; }
-
-			NxActor *getAtorCorrente(){ return atorCorrente;};
-			void setAtorCorrente(NxActor *actor){ this->atorCorrente = actor; }
 			NxActor **getAtores(){ return this->cena->getActors();};
 
 			bool isSimulacaoEmHardware() const{
@@ -105,6 +73,9 @@ namespace simulacao{
 				this->status = status;
 			}
 
+			void releaseActor(NxActor &ator){
+				this->cena->releaseActor(ator);
+			}
 			void desabilitarGravidade(){ this->gravidade->y = 0;}
 			void habilitarGravidade(){ this->gravidade->y = Simulacao::gravidadeDefault.y ;exit(0);}
 

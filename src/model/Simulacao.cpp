@@ -10,10 +10,7 @@ const NxVec3 Simulacao::gravidadeDefault(0,-9.8,0);
 
 Simulacao::Simulacao(void)
 {
-	this->qtdeObjetos = 0;
 	this->gravidade = new NxVec3(0,0,0);
-	this->pontoDeVisualizacao = new NxVec3(0,0,0);
-	this->zoom = 10;
 	this->physicsSDK = 0;
 	this->deltaTime = 1.0/60.0;
 	this->cena = 0;

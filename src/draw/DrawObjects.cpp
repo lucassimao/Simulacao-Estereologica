@@ -262,14 +262,11 @@ void DrawPlane(NxShape* plane)
 
 	glPushMatrix();
 	glDisable(GL_LIGHTING);
-	//glColor4f(0.1f, 0.2f, 0.3f, 1.0f);
 	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 	pose.t.y -= 0.1f;
 	SetupGLMatrix(pose.t, pose.M);
 	glScalef(10,0,10);
-	//glScalef(10240,0,10240);
 	RenderPlane();
-	//glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
@@ -1097,14 +1094,6 @@ void DrawActor(NxActor* actor, NxActor* selectedActor, bool useShapeUserData)
 	    glEnable(GL_LIGHT0);
 	}
 
-	nShapes = actor->getNbShapes();
-	if (actor == selectedActor) 
-	{
-		while (nShapes--)
-		{
-			DrawWireShape(shapes[nShapes], NxVec3(1,1,1), useShapeUserData);
-		}
-	}
 }
 
 static void DrawActorShadow(NxActor* actor, const float* ShadowMat, bool useShapeUserData)

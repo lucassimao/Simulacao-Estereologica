@@ -9,9 +9,6 @@
 #include "atores/Ator.h"
 #include "../draw/Stream.h"
 #include "../draw/cooking.h"
-#include "../model/interceptos/Intercepto.h"
-#include "../canvas/drawVisitor/InterceptoDesignerVisitor.h"
-
 
 
 using std::vector;
@@ -31,8 +28,6 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->esferaRaio=0.9;
 	this->arestaCubo = 0.5;
 	criarCCDS();
-
-
 }
 
 SimulacaoCaixa::~SimulacaoCaixa(void)
@@ -202,40 +197,6 @@ void SimulacaoCaixa::selecionarGraosInterceptados(){
 	}
 }
 
-void SimulacaoCaixa::selecionarInterceptacoes(){
-
-	NxU32 qtdeAtores = getCena()->getNbActors();
-	NxActor** atores = getCena()->getActors();
-	vector<Intercepto*> interceptos;
-
-	while (qtdeAtores--)
-	{
-		NxActor* ator = *atores++;
-
-		{
-			if (ator != caixa && ator!=atorPlanoDeCorte){
-				Ator *a = (Ator *)ator->userData;
-				if (a->estaInterceptadoPeloPlano(atorPlanoDeCorte->getGlobalPosition()))
-					interceptos.push_back(a->getIntercepto(atorPlanoDeCorte->getGlobalPosition()));
-				
-				cena->releaseActor(*ator);
-				a = NULL;
-			}
-
-		}
-
-	}
-	vector<Intercepto*>::const_iterator iterator = interceptos.begin();
-	InterceptoDesignerVisitor *visitor = new InterceptoDesignerVisitor();
-
-	while(iterator!=interceptos.end())
-	{
-		Intercepto *intercepto = *iterator;
-		intercepto->accept(visitor);
-		++iterator;
-	}
-
-}
 
 void SimulacaoCaixa::removerGraos(){
 	NxU32 qtdeAtores = getCena()->getNbActors();

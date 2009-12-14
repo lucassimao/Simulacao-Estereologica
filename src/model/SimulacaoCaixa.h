@@ -52,7 +52,6 @@ namespace simulacao{
 			void adicionarObjeto(TipoDeGrao,NxI64);
 			void novoPlanoDeCorte();
 			void selecionarGraosInterceptados();
-			void selecionarInterceptacoes();
 			void removerGraos();
 
 			double getEsferaRaio(){ return this->esferaRaio;}

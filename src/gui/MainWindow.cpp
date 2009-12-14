@@ -170,7 +170,6 @@ void MainWindow::exibirGraosInterceptados(){
 
 /** Exibe as regiões no plano interceptadas pelos objetos cortados pelo plano */
 void MainWindow::exibirInterceptos(){
-	simulacao->selecionarInterceptacoes();
 	RenderizacaoState *state = new RenderizarInterceptosState();
 	view->setState(state);
 	

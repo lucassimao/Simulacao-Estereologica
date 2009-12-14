@@ -106,18 +106,6 @@ void CaixaGraosGLWidget::RenderActors(){
 	this->renderizacaoState->draw(this->simulacao);
 	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
 	drawCuboid(box);
-/**
-	NxU32 nbActors = simulacao->getQtdeObjetos();
-	NxActor** actors = simulacao->getAtores();
-
-	while (nbActors--)
-	{
-		NxActor* actor = *actors++;
-		DrawActor(actor, NULL, false);
-	}
-	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
-	drawCuboid(box);
-*/
 }
 
 void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides)
