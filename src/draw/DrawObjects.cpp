@@ -298,14 +298,15 @@ void DrawWireBox(NxShape* box, const NxVec3& color, float lineWidth)
 
 void DrawBox(NxShape* box)
 {
-	NxMat34 pose = box->getGlobalPose();
-	
+	NxMat34 pose = box->getGlobalPose();	
 	glPushMatrix();
 	SetupGLMatrix(pose.t, pose.M);
 	NxVec3 boxDim = box->isBox()->getDimensions();
+	
 	glScalef(boxDim.x, boxDim.y, boxDim.z);
 	RenderBox();
 	glPopMatrix();
+
 }
 
 void DrawWireSphere(NxShape* sphere, const NxVec3& color)

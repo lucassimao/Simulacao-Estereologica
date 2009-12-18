@@ -34,9 +34,8 @@ namespace simulacao {
 		private:
 			void draw();
 			void SetupCamera();
-			void RenderActors();
 
-			void drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides = NX_FALSE);
+			inline void drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides = NX_FALSE);
 			
 			NxActor* box;
 			SimulacaoCaixa *simulacao;

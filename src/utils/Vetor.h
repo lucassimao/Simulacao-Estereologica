@@ -22,7 +22,7 @@ public:
 	double y;
 	double z;
 
-	bool operator==(Vetor&);
+	bool operator==(const Vetor&) const;
 	Vetor operator-(Vetor&);
 	Vetor operator+(Vetor&);
 	Vetor operator*(double);

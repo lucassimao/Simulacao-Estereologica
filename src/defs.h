@@ -19,4 +19,5 @@ typedef struct {
 
 #define VERMELHO {1.0,0,0}
 
+
 #endif

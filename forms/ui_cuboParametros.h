@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuboParametros.ui'
 **
-** Created: Sun 13. Dec 12:58:11 2009
+** Created: Fri 18. Dec 13:38:21 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!

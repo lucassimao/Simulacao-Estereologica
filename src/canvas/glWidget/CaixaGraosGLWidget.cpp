@@ -96,19 +96,16 @@ void CaixaGraosGLWidget::draw()
 		simulacao->GetPhysicsResults();
 		simulacao->iniciarSimulacao();
 	}
-	RenderActors();
-
-}
-
-
-void CaixaGraosGLWidget::RenderActors(){
 
 	this->renderizacaoState->draw(this->simulacao);
 	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
 	drawCuboid(box);
+
 }
 
-void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides)
+
+
+inline void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides)
 {
 	NxU32 numTrigs;
 	const NxTriangle32* trigs;
@@ -183,7 +180,7 @@ void CaixaGraosGLWidget::SetupCamera(){
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0f, gCameraAspectRatio, 1.0f, 10000.0f);//angulo de visão da caixa
+	gluPerspective(40.0f, gCameraAspectRatio, 10.0f, 10000.0f);//angulo de visão da caixa
 	gluLookAt(gCameraPos.x,gCameraPos.y,gCameraPos.z,gCameraPos.x + gCameraForward.x, 
 		gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z, 0.0f,1.0f, 0.0f);
 

@@ -17,7 +17,7 @@ Vetor::Vetor(Ponto p){
 	this->y = p.y;
 	this->z = p.z;
 }
-bool Vetor::operator==(Vetor& other){
+bool Vetor::operator==(const Vetor& other) const{
 	return (this->x == other.x && this->y == other.y && this->z == other.z);
 }
 Vetor Vetor::operator-(Vetor& other){
