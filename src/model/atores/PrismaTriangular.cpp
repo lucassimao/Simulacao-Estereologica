@@ -130,33 +130,6 @@ Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoGlobalPosition){
 	SegmentoDeReta segmento0_3(Vetor(v0.x,v0.y,v0.z),Vetor(v3.x,v3.y,v3.z));
 	SegmentoDeReta segmento4_3(Vetor(v4.x,v4.y,v4.z),Vetor(v3.x,v3.y,v3.z));
 
-	Ponto p;
-	if (segmento1_2.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
-		pontos.push_back(NxVec3(p.x,p.y,p.z));
-
-	if (segmento1_5.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
-		pontos.push_back(NxVec3(p.x,p.y,p.z));
-
-	if (segmento2_5.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
-		pontos.push_back(NxVec3(p.x,p.y,p.z));
-
-	if (segmento1_4.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
-		pontos.push_back(NxVec3(p.x,p.y,p.z));
-
-	if (segmento4_0.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
-		pontos.push_back(NxVec3(p.x,p.y,p.z));
-
-	if (segmento0_2.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
-		pontos.push_back(NxVec3(p.x,p.y,p.z));
-
-	if (segmento5_3.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
-		pontos.push_back(NxVec3(p.x,p.y,p.z));
-	
-	if (segmento0_3.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
-		pontos.push_back(NxVec3(p.x,p.y,p.z));
-	
-	if (segmento4_3.interceptarPlano(planoGlobalPosition.x,planoGlobalPosition.y,planoGlobalPosition.z,&p))
-		pontos.push_back(NxVec3(p.x,p.y,p.z));
 
 	return NULL;
 }

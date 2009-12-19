@@ -1,22 +1,23 @@
 #include "SegmentoDeReta.h"
 #include <QDebug>
 
-SegmentoDeReta::SegmentoDeReta(Vetor &v0,Vetor &v1){
-	this->r0 = v0;
-	this->r1 = v1;
-	this->vetorDiretor = v1-v0;
+SegmentoDeReta::SegmentoDeReta(Vetor &r0,Vetor &r1){
+	this->r0 = r0;
+	this->r1 = r1;
+	this->vetorDiretor = r1-r0;
 }
 
-bool SegmentoDeReta::contemPonto(Ponto p){
-	Vetor v(p);
-	Vetor v1 = (v - this->r0);
-	double t1 = v1.x/vetorDiretor.x;
-	double t2 = v1.y/vetorDiretor.y;
-	double t3 = v1.z/vetorDiretor.z;
 
-	return (0<= t1 == t2 == t3 <= 1) ;
-}
-
-bool SegmentoDeReta::interceptarPlano(int xplano, int yplano,int zplano,Ponto *interceptacao ){
-	return false;
+bool SegmentoDeReta::interceptarComPlano(int yplano,Ponto *interceptacao){
+	// y = this->r0.y +t*this->vetorDiretor.y;
+	double t = (yplano - this->r0.y)/this->vetorDiretor.y;
+	
+	if (t>=0 && t<=1){
+		interceptacao->y = yplano;
+		interceptacao->x = this->r0.x + t*this->vetorDiretor.x;
+		interceptacao->z = this->r0.z + t*this->vetorDiretor.z;
+		return true;
+	}
+	else
+		return false;
 }

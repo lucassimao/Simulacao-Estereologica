@@ -1,6 +1,7 @@
 #include <map>
-#include <set>
+#include <qDebug>
 #include <vector>
+#include <list>
 #include "Cubo.h"
 #include <NxExportedUtils.h>
 #include "..\..\model\interceptos\Poligono.h"
@@ -10,6 +11,7 @@ using namespace simulacao::model::interceptos;
 using namespace simulacao::model::atores;
 using std::vector;
 using std::map;
+using std::list;
 
 Cubo::Cubo(NxScene *cena,double aresta):Ator()
 {
@@ -39,18 +41,24 @@ Cubo::Cubo(NxScene *cena,double aresta):Ator()
 
 Intercepto* Cubo::getIntercepto(NxVec3 planoPos){
 	Cor v = VERMELHO;
-	
 
 	vector<SegmentoDeReta> segmentosDeRetaInterceptados = getSegmentosDeRetaInterceptados(planoPos);
 	vector<SegmentoDeReta>::const_iterator iterator = segmentosDeRetaInterceptados.begin();
+	list<Ponto> poligonoPontos;
 
 	while(iterator!=segmentosDeRetaInterceptados.end())
 	{
+		Ponto p = {0,0,0};
 		SegmentoDeReta seg = *iterator;
+		if (seg.interceptarComPlano(planoPos.y,&p)){
+			poligonoPontos.push_back(p);
+			qDebug() << "+\n";
+		}
 		iterator++;
 	}
-	
-	return new Polilinha(v,segmentosDeRetaInterceptados);
+
+	//return new Polilinha(v,segmentosDeRetaInterceptados);
+	return new Poligono(v,poligonoPontos);
 }
 
 Cubo::~Cubo(void)

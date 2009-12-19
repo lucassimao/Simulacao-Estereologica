@@ -7,9 +7,8 @@
 
 class SegmentoDeReta{
 public:
-	explicit SegmentoDeReta(Vetor &v0,Vetor &v1);
-	bool contemPonto(Ponto p);
-	bool interceptarPlano(int xplano, int yplano,int zplano,Ponto *interceptacao);
+	explicit SegmentoDeReta(Vetor &r0,Vetor &r1);
+	bool interceptarComPlano(int yplano, Ponto *interceptacao);
 	// r= r0+ tvetorDiretor
 	Vetor r0,r1,vetorDiretor;
 

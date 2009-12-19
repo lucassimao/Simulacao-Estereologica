@@ -2,6 +2,7 @@
 #include <cmath>
 #include "GL\glut.h"
 
+#include "..\..\model\interceptos\Poligono.h"
 #include "..\..\model\interceptos\Polilinha.h"
 #include "..\..\model\interceptos\Disco.h"
 using namespace simulacao::model::interceptos;
@@ -38,13 +39,8 @@ inline void InterceptoDesignerVisitor::visit(Disco *disco){
 
 }
 
-inline void InterceptoDesignerVisitor::visit(Poligono *poligono){
-	qDebug() << "Atencao mais um Poligono hein!\n";
-}
-
 inline void InterceptoDesignerVisitor::visit(Polilinha *p){
-	vector<SegmentoDeReta> segs = p->vertices;
-	
+
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 	glEnable(GL_CULL_FACE); 
@@ -65,3 +61,26 @@ inline void InterceptoDesignerVisitor::visit(Polilinha *p){
 
 
 }
+
+inline void InterceptoDesignerVisitor::visit(Poligono *poligono){
+
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
+	glEnable(GL_CULL_FACE); 
+	glCullFace(GL_FRONT); 
+	glColor4i(0,0,0,1);
+
+	glBegin(GL_POLYGON);
+
+	list<Ponto> vertices = poligono->getVertices();
+	list<Ponto>::const_iterator i = vertices.begin();
+
+	while(i != vertices.end() ){
+			Ponto p = *i;
+			glVertex3f(p.x,p.y,p.z);
+			++i;
+		}
+	glEnd();	
+	glPopAttrib();
+}
+
