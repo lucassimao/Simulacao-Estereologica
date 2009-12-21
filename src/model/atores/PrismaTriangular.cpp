@@ -2,6 +2,9 @@
 #include <QtDebug>
 #include <stdexcept>
 #include <cfloat>
+#include <map>
+#include <list>
+#include <vector>
 #include "PrismaTriangular.h"
 #include "../../draw/cooking.h"
 #include "../../utils/SegmentoDeReta.h"
@@ -12,6 +15,9 @@
 using std::runtime_error;
 using namespace simulacao::model::atores;
 using namespace simulacao::model::interceptos;
+using std::vector;
+using std::map;
+using std::list;
 
 
 PrismaTriangular::PrismaTriangular(NxScene *cena,int h,int base,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
@@ -74,15 +80,11 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	NxU32 nbVerts = meshDesc.numVertices;	
 	NxVec3* points = (NxVec3 *)meshDesc.points;
 
-
-	//qDebug()<<pos.y << " " << planoGlobalPosition.y <<"\n";
 	// alto e baixo em termos da coordenada Y
 	NxReal verticeMaisAlto=_FPCLASS_NINF, verticeMaisBaixo=_FPCLASS_PINF;
 
-
 	for(int i=0;i<nbVerts;++i){
 		NxVec3 vertice = (pose.M * points[i] + pose.t);
-		//qDebug()<< vertice.x <<" "<< vertice.y<<" "<< vertice.z <<"\n";
 
 		if ( verticeMaisAlto < vertice.y)
 			verticeMaisAlto = vertice.y;
@@ -90,14 +92,190 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 			if (verticeMaisBaixo > vertice.y)
 				verticeMaisBaixo = vertice.y;			
 	}
-	//qDebug()<< verticeMaisAlto <<" "<< verticeMaisBaixo<<"\n";
 
 	return (verticeMaisAlto >= planoGlobalPosition.y && verticeMaisBaixo <= planoGlobalPosition.y);
 
 }
 
-Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoGlobalPosition){
-	vector<NxVec3> pontos;
+
+
+Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoPos){
+
+
+	Cor v = VERMELHO;
+
+	vector<SegmentoDeReta> segmentosDeRetaInterceptados = getSegmentosDeRetaInterceptados(planoPos);
+	vector<SegmentoDeReta>::const_iterator iterator = segmentosDeRetaInterceptados.begin();
+	list<Ponto> poligonoPontos;
+
+	while(iterator!=segmentosDeRetaInterceptados.end())
+	{
+		Ponto p = {0,0,0};
+		SegmentoDeReta seg = *iterator;
+		if (seg.interceptarComPlano(planoPos.y,&p)){
+			poligonoPontos.push_back(p);
+		}
+		iterator++;
+	}
+
+	return new Poligono(v,poligonoPontos);
+}
+
+inline vector<SegmentoDeReta> PrismaTriangular::getSegmentosDeRetaInterceptados(NxVec3 planoPos){
+	NxVec3 *vertices = getPosicaoGlobalDosVertices();
+	vector<SegmentoDeReta> segmentos;
+
+	map<int,NxVec3> verticesAcimaDoPlanoDeCorte;
+	map<int,NxVec3> verticesAbaixoDoPlanoDeCorte;
+
+	for(int i=0;i<6;++i)
+		if (vertices[i].y > planoPos.y)
+			verticesAcimaDoPlanoDeCorte[i] = vertices[i];
+		else
+			verticesAbaixoDoPlanoDeCorte[i] = vertices[i];
+
+	map<int,NxVec3>::const_iterator iteratorVerticesAcimaDoPlanoDeCorte = verticesAcimaDoPlanoDeCorte.begin();
+
+	while(iteratorVerticesAcimaDoPlanoDeCorte!=verticesAcimaDoPlanoDeCorte.end()){
+
+		int indice_vertice = iteratorVerticesAcimaDoPlanoDeCorte->first;
+		NxVec3 vec = iteratorVerticesAcimaDoPlanoDeCorte->second;
+		map<int,NxVec3>::const_iterator iterator;
+
+		// ver arquivos prismaTriangularVertices.png na pasta docs
+		// para entender a conexao entre os vertices
+		switch(indice_vertice){
+			case 0:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(2);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(3);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(4);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				break;
+			case 1:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(2);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(4);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				break;
+			case 2:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(1);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				break;
+			case 3:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(4);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				break;
+			case 4:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(3);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(1);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				break;
+			case 5:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(2);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(1);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(3);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				break;
+		}
+		++iteratorVerticesAcimaDoPlanoDeCorte;
+		
+	}
+
+	return segmentos;
+}
+
+inline NxVec3* PrismaTriangular::getPosicaoGlobalDosVertices(){
+	NxVec3 *vertices = (NxVec3 *) malloc(sizeof(NxVec3)*6);
+
 	NxShape *mesh =  this->ator->getShapes()[0];
 	NxMat34 pose = mesh->getGlobalPose();
 	NxConvexMeshDesc meshDesc;
@@ -109,27 +287,8 @@ Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoGlobalPosition){
 	NxVec3* points = (NxVec3 *)meshDesc.points;
 
 	// convertendo de posicionamento local p/ global
-	NxVec3 v0 = (pose.M * points[0] + pose.t);
-	NxVec3 v1 = (pose.M * points[1] + pose.t);
-	NxVec3 v2 = (pose.M * points[2] + pose.t);
-	NxVec3 v3 = (pose.M * points[3] + pose.t);
-	NxVec3 v4 = (pose.M * points[4] + pose.t);
-	NxVec3 v5 = (pose.M * points[5] + pose.t);
-
-	// ver arquivo docs\prismaTriangularVertices.png para
-	// conhecer a ordem em que esses segmentosestão definidos
-	SegmentoDeReta segmento1_2(Vetor(v1.x,v1.y,v1.z),Vetor(v2.x,v2.y,v2.z));
-	SegmentoDeReta segmento1_5(Vetor(v1.x,v1.y,v1.z),Vetor(v5.x,v5.y,v5.z));
-	SegmentoDeReta segmento2_5(Vetor(v2.x,v2.y,v2.z),Vetor(v5.x,v5.y,v5.z));
-
-	SegmentoDeReta segmento1_4(Vetor(v1.x,v1.y,v1.z),Vetor(v4.x,v4.y,v4.z));
-	SegmentoDeReta segmento4_0(Vetor(v2.x,v2.y,v2.z),Vetor(v0.x,v0.y,v0.z));
-	SegmentoDeReta segmento0_2(Vetor(v0.x,v0.y,v0.z),Vetor(v2.x,v2.y,v2.z));
-	SegmentoDeReta segmento5_3(Vetor(v5.x,v5.y,v5.z),Vetor(v3.x,v3.y,v3.z));
-
-	SegmentoDeReta segmento0_3(Vetor(v0.x,v0.y,v0.z),Vetor(v3.x,v3.y,v3.z));
-	SegmentoDeReta segmento4_3(Vetor(v4.x,v4.y,v4.z),Vetor(v3.x,v3.y,v3.z));
-
-
-	return NULL;
+	for(register int i=0;i<6;++i)
+		vertices[i] = (pose.M * points[i] + pose.t);
+	
+	return vertices;
 }

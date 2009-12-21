@@ -27,6 +27,8 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->caixa = criarCaixa();
 	this->esferaRaio=0.9;
 	this->arestaCubo = 0.5;
+	this->exibirPontosTeste=true;
+	this->exibirRetasTeste=true;
 	criarCCDS();
 }
 
@@ -148,7 +150,7 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 
 
 void SimulacaoCaixa::novoPlanoDeCorte(){
-	float altura = 6 + rand()%18;
+	float altura = 6 + rand()%15;
 
 	if (atorPlanoDeCorte == NULL){
 

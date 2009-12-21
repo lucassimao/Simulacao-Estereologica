@@ -15,6 +15,8 @@ Poligono::Poligono(Cor cor,list<Ponto> vertices):Intercepto(cor){
 	this->vertices = vertices;
 	if (vertices.size()>3)
 		ordenarVertices();
+	
+
 }
 
 void Poligono::accept(DrawVisitor *visitor){

@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>852</width>
-    <height>609</height>
+    <height>611</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -295,29 +295,6 @@
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBoxMostrarCaixa">
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="text">
-             <string>Mostrar Caixa</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBoxCaixaSemTampa">
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="text">
-             <string>Caixa Sem Tampa</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QCheckBox" name="checkBoxGravidade">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
@@ -452,6 +429,32 @@
            </layout>
           </item>
           <item>
+           <widget class="QCheckBox" name="checkBoxExibirRetasTeste">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Exibir Retas teste</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBoxExibirPontosTeste">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Exibir Pontos teste</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer name="verticalSpacer">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -483,8 +486,9 @@
    </property>
    <widget class="QMenu" name="menuArquivo">
     <property name="title">
-     <string>Arquivo</string>
+     <string>Simulação</string>
     </property>
+    <addaction name="actionNova_Simulacao"/>
     <addaction name="actionSalvar_Figura"/>
     <addaction name="actionSalvar_resultados"/>
     <addaction name="actionSalvar_cena"/>
@@ -496,17 +500,14 @@
     <property name="title">
      <string>Opções</string>
     </property>
-    <addaction name="actionEsferas_id_nticas"/>
-    <addaction name="actionEsferas_aleat_rias"/>
+    <addaction name="actionEsferas_aleatorias"/>
+    <addaction name="separator"/>
     <addaction name="actionPercola_o"/>
-    <addaction name="actionCores_dos_gr_os"/>
     <addaction name="actionPosi_o"/>
     <addaction name="actionGrade_de_pontos_e_linha_teste"/>
-    <addaction name="actionPlano_de_corte"/>
     <addaction name="actionExibir_resultados"/>
     <addaction name="actionDistribui_o_de_gr_os"/>
     <addaction name="actionAglomerados"/>
-    <addaction name="actionPlano_de_fundo"/>
    </widget>
    <widget class="QMenu" name="menuPoros_CellUnit">
     <property name="title">
@@ -541,7 +542,7 @@
   </widget>
   <action name="actionSalvar_Figura">
    <property name="text">
-    <string>Salvar figura</string>
+    <string>Salvar Imagem</string>
    </property>
   </action>
   <action name="actionSalvar_resultados">
@@ -564,14 +565,29 @@
     <string>Sair</string>
    </property>
   </action>
-  <action name="actionEsferas_id_nticas">
+  <action name="actionEsferas_identicas">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Esferas idênticas</string>
    </property>
+   <property name="iconText">
+    <string>Usar esferas idênticas</string>
+   </property>
   </action>
-  <action name="actionEsferas_aleat_rias">
+  <action name="actionEsferas_aleatorias">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Esferas aleatórias</string>
+    <string>Usar grãos aleatórios</string>
+   </property>
+   <property name="iconText">
+    <string>Usar grãos aleatórios</string>
    </property>
   </action>
   <action name="actionPercola_o">
@@ -654,6 +670,11 @@
     <string>Sobre ...</string>
    </property>
   </action>
+  <action name="actionNova_Simulacao">
+   <property name="text">
+    <string>Nova Simulacao</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -730,22 +751,6 @@
     <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>425</x>
-     <y>304</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBoxMostrarCaixa</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>mostrarCaixa(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>130</x>
-     <y>293</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -833,6 +838,70 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionNova_Simulacao</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>novaSimulacao()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionEsferas_aleatorias</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>usarGraosAleatorios(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBoxExibirPontosTeste</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>exibirPontosTeste(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>150</x>
+     <y>405</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBoxExibirRetasTeste</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>exibirRetasTeste(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>150</x>
+     <y>382</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>adicionarObjetos()</slot>
@@ -840,12 +909,14 @@
   <slot>limparSimulacao()</slot>
   <slot>novoPlanoDeCorte()</slot>
   <slot>exibirSobre()</slot>
-  <slot>usarTamanhoDeGraoAleatorio(bool)</slot>
-  <slot>mostrarCaixa(bool)</slot>
   <slot>usarGravidade(bool)</slot>
   <slot>exibirPlanoDeCorte(bool)</slot>
   <slot>exibirGraosInterceptados()</slot>
   <slot>configurarParametros()</slot>
   <slot>exibirInterceptos()</slot>
+  <slot>novaSimulacao()</slot>
+  <slot>usarGraosAleatorios(bool)</slot>
+  <slot>exibirRetasTeste(bool)</slot>
+  <slot>exibirPontosTeste(bool)</slot>
  </slots>
 </ui>

@@ -97,7 +97,7 @@ void CaixaGraosGLWidget::draw()
 		simulacao->iniciarSimulacao();
 	}
 
-	this->renderizacaoState->draw(this->simulacao);
+	this->renderizacaoStrategy->draw(this->simulacao);
 	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
 	drawCuboid(box);
 

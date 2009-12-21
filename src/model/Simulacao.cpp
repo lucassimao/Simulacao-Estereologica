@@ -23,14 +23,19 @@ Simulacao::Simulacao(void)
 
 Simulacao::~Simulacao(void)
 {
+    pararSimulacao();
+}
+
+void Simulacao::pararSimulacao(){
     if (cena)
 	{
-		GetPhysicsResults();  
+		GetPhysicsResults(); 
 		physicsSDK->releaseScene(*cena);
 	}
 	if (physicsSDK)  physicsSDK->release();
-
+	this->status = PARADO;
 }
+
 void Simulacao::initPhysicsSDK() throw (exception){
 
 	physicsSDK = NxCreatePhysicsSDK(NX_PHYSICS_SDK_VERSION);
@@ -49,7 +54,6 @@ void Simulacao::initPhysicsSDK() throw (exception){
 	NxSceneDesc sceneDesc;
 	sceneDesc.gravity = *gravidade;
 	sceneDesc.simType = NX_SIMULATION_HW;
-
 	cena = physicsSDK->createScene(sceneDesc);
 
 	if (!cena){

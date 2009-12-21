@@ -1,11 +1,13 @@
 #include <QMessageBox>
 #include <QString>
 #include "gui/MainWindow.h"
+#include <ctime>
 
 using namespace simulacao::gui;
 using namespace std;
 
 int main(int argc,char **argv){
+	srand(time(0));
 	QApplication app(argc,argv);
 	
 	if (!QGLFormat::hasOpenGL()) {

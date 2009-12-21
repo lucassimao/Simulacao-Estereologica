@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuboParametros.ui'
 **
-** Created: Sat 19. Dec 08:01:48 2009
+** Created: Mon 21. Dec 13:32:33 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -35,6 +35,7 @@ public:
         if (WinParametrosCubo->objectName().isEmpty())
             WinParametrosCubo->setObjectName(QString::fromUtf8("WinParametrosCubo"));
         WinParametrosCubo->resize(242, 100);
+        WinParametrosCubo->setModal(true);
         groupBox = new QGroupBox(WinParametrosCubo);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         groupBox->setGeometry(QRect(10, 10, 221, 51));

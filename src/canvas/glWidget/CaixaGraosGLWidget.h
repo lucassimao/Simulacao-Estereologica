@@ -4,7 +4,7 @@
 #define NOMINMAX
 #include <QGLWidget>
 #include <QKeyEvent>
-#include "RenderizacaoState.h"
+#include "RenderizacaoStrategy.h"
 #include "..\..\model\SimulacaoCaixa.h"
 
 
@@ -21,7 +21,7 @@ namespace simulacao {
 
 		public:
 			CaixaGraosGLWidget(QWidget *parent = 0,SimulacaoCaixa *simulacao = 0);	
-			void setState(RenderizacaoState *state){ this->renderizacaoState = state; }
+			void setStrategy(RenderizacaoStrategy *strategy){ this->renderizacaoStrategy = strategy; }
 
 		protected:
 			void initializeGL();
@@ -40,7 +40,7 @@ namespace simulacao {
 			NxActor* box;
 			SimulacaoCaixa *simulacao;
 			NxTriangleMesh * staticTriangleMesh;
-			RenderizacaoState *renderizacaoState;
+			RenderizacaoStrategy *renderizacaoStrategy;
 
 			float gCameraAspectRatio;
 			static NxVec3 gCameraForward;

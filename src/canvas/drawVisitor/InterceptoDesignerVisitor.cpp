@@ -27,6 +27,7 @@ inline void InterceptoDesignerVisitor::visit(Disco *disco){
 
 	glEnable(GL_CULL_FACE); 
 	glCullFace(GL_FRONT); 
+	glDisable(GL_LIGHTING);
 	glColor4f(1.0f,0,0.3f,1);
 
 	glBegin(GL_POLYGON);
@@ -68,7 +69,11 @@ inline void InterceptoDesignerVisitor::visit(Poligono *poligono){
 
 	glEnable(GL_CULL_FACE); 
 	glCullFace(GL_FRONT); 
-	glColor4i(0,0,0,1);
+	glDisable(GL_LIGHTING);
+	
+	Cor c = poligono->getCor();
+	glColor4f(c.r,c.g,c.b,1.0f);
+	glLineWidth(.1);
 
 	glBegin(GL_POLYGON);
 

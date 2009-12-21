@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'gui.ui'
 **
-** Created: Sat 19. Dec 08:01:48 2009
+** Created: Mon 21. Dec 14:06:28 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -41,8 +41,8 @@ public:
     QAction *actionSalvar_cena;
     QAction *actionAbrir_cena;
     QAction *actionSair;
-    QAction *actionEsferas_id_nticas;
-    QAction *actionEsferas_aleat_rias;
+    QAction *actionEsferas_identicas;
+    QAction *actionEsferas_aleatorias;
     QAction *actionPercola_o;
     QAction *actionCores_dos_gr_os;
     QAction *actionPosi_o;
@@ -59,6 +59,7 @@ public:
     QAction *actionCores;
     QAction *actionAjuda;
     QAction *actionSobre;
+    QAction *actionNova_Simulacao;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
     QHBoxLayout *horizontalLayout_2;
@@ -85,8 +86,6 @@ public:
     QSpinBox *spinBoxZoom;
     QSpacerItem *horizontalSpacer_4;
     QCheckBox *checkBoxVistaSuperior;
-    QCheckBox *checkBoxMostrarCaixa;
-    QCheckBox *checkBoxCaixaSemTampa;
     QCheckBox *checkBoxGravidade;
     QCheckBox *checkBoxExibirPlanoDeCorte;
     QHBoxLayout *horizontalLayout_9;
@@ -98,6 +97,8 @@ public:
     QHBoxLayout *horizontalLayout_8;
     QPushButton *btnExibirInterceptos;
     QSpacerItem *horizontalSpacer_8;
+    QCheckBox *checkBoxExibirRetasTeste;
+    QCheckBox *checkBoxExibirPontosTeste;
     QSpacerItem *verticalSpacer;
     QMenuBar *menubar;
     QMenu *menuArquivo;
@@ -110,7 +111,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(852, 609);
+        MainWindow->resize(852, 611);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -131,10 +132,13 @@ public:
         actionAbrir_cena->setObjectName(QString::fromUtf8("actionAbrir_cena"));
         actionSair = new QAction(MainWindow);
         actionSair->setObjectName(QString::fromUtf8("actionSair"));
-        actionEsferas_id_nticas = new QAction(MainWindow);
-        actionEsferas_id_nticas->setObjectName(QString::fromUtf8("actionEsferas_id_nticas"));
-        actionEsferas_aleat_rias = new QAction(MainWindow);
-        actionEsferas_aleat_rias->setObjectName(QString::fromUtf8("actionEsferas_aleat_rias"));
+        actionEsferas_identicas = new QAction(MainWindow);
+        actionEsferas_identicas->setObjectName(QString::fromUtf8("actionEsferas_identicas"));
+        actionEsferas_identicas->setCheckable(true);
+        actionEsferas_identicas->setChecked(true);
+        actionEsferas_aleatorias = new QAction(MainWindow);
+        actionEsferas_aleatorias->setObjectName(QString::fromUtf8("actionEsferas_aleatorias"));
+        actionEsferas_aleatorias->setCheckable(true);
         actionPercola_o = new QAction(MainWindow);
         actionPercola_o->setObjectName(QString::fromUtf8("actionPercola_o"));
         actionCores_dos_gr_os = new QAction(MainWindow);
@@ -167,6 +171,8 @@ public:
         actionAjuda->setObjectName(QString::fromUtf8("actionAjuda"));
         actionSobre = new QAction(MainWindow);
         actionSobre->setObjectName(QString::fromUtf8("actionSobre"));
+        actionNova_Simulacao = new QAction(MainWindow);
+        actionNova_Simulacao->setObjectName(QString::fromUtf8("actionNova_Simulacao"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         centralwidget->setMaximumSize(QSize(16777215, 16777215));
@@ -300,19 +306,6 @@ public:
 
         verticalLayout->addWidget(checkBoxVistaSuperior);
 
-        checkBoxMostrarCaixa = new QCheckBox(verticalLayoutWidget);
-        checkBoxMostrarCaixa->setObjectName(QString::fromUtf8("checkBoxMostrarCaixa"));
-        checkBoxMostrarCaixa->setCursor(QCursor(Qt::PointingHandCursor));
-        checkBoxMostrarCaixa->setChecked(true);
-
-        verticalLayout->addWidget(checkBoxMostrarCaixa);
-
-        checkBoxCaixaSemTampa = new QCheckBox(verticalLayoutWidget);
-        checkBoxCaixaSemTampa->setObjectName(QString::fromUtf8("checkBoxCaixaSemTampa"));
-        checkBoxCaixaSemTampa->setCursor(QCursor(Qt::PointingHandCursor));
-
-        verticalLayout->addWidget(checkBoxCaixaSemTampa);
-
         checkBoxGravidade = new QCheckBox(verticalLayoutWidget);
         checkBoxGravidade->setObjectName(QString::fromUtf8("checkBoxGravidade"));
         checkBoxGravidade->setCursor(QCursor(Qt::PointingHandCursor));
@@ -378,6 +371,20 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_8);
 
+        checkBoxExibirRetasTeste = new QCheckBox(verticalLayoutWidget);
+        checkBoxExibirRetasTeste->setObjectName(QString::fromUtf8("checkBoxExibirRetasTeste"));
+        checkBoxExibirRetasTeste->setCursor(QCursor(Qt::PointingHandCursor));
+        checkBoxExibirRetasTeste->setChecked(true);
+
+        verticalLayout->addWidget(checkBoxExibirRetasTeste);
+
+        checkBoxExibirPontosTeste = new QCheckBox(verticalLayoutWidget);
+        checkBoxExibirPontosTeste->setObjectName(QString::fromUtf8("checkBoxExibirPontosTeste"));
+        checkBoxExibirPontosTeste->setCursor(QCursor(Qt::PointingHandCursor));
+        checkBoxExibirPontosTeste->setChecked(true);
+
+        verticalLayout->addWidget(checkBoxExibirPontosTeste);
+
         verticalSpacer = new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
@@ -414,23 +421,21 @@ public:
         menubar->addAction(menuOp_es->menuAction());
         menubar->addAction(menuPoros_CellUnit->menuAction());
         menubar->addAction(menuAjuda->menuAction());
+        menuArquivo->addAction(actionNova_Simulacao);
         menuArquivo->addAction(actionSalvar_Figura);
         menuArquivo->addAction(actionSalvar_resultados);
         menuArquivo->addAction(actionSalvar_cena);
         menuArquivo->addAction(actionAbrir_cena);
         menuArquivo->addSeparator();
         menuArquivo->addAction(actionSair);
-        menuOp_es->addAction(actionEsferas_id_nticas);
-        menuOp_es->addAction(actionEsferas_aleat_rias);
+        menuOp_es->addAction(actionEsferas_aleatorias);
+        menuOp_es->addSeparator();
         menuOp_es->addAction(actionPercola_o);
-        menuOp_es->addAction(actionCores_dos_gr_os);
         menuOp_es->addAction(actionPosi_o);
         menuOp_es->addAction(actionGrade_de_pontos_e_linha_teste);
-        menuOp_es->addAction(actionPlano_de_corte);
         menuOp_es->addAction(actionExibir_resultados);
         menuOp_es->addAction(actionDistribui_o_de_gr_os);
         menuOp_es->addAction(actionAglomerados);
-        menuOp_es->addAction(actionPlano_de_fundo);
         menuPoros_CellUnit->addAction(actionTetaedro);
         menuPoros_CellUnit->addAction(actionEctaedro);
         menuPoros_CellUnit->addAction(actionCubo_simples);
@@ -446,12 +451,15 @@ public:
         QObject::connect(btnLimpar, SIGNAL(clicked()), MainWindow, SLOT(limparSimulacao()));
         QObject::connect(btnNovoPlanodeCorte, SIGNAL(clicked()), MainWindow, SLOT(novoPlanoDeCorte()));
         QObject::connect(actionSair, SIGNAL(triggered()), MainWindow, SLOT(close()));
-        QObject::connect(checkBoxMostrarCaixa, SIGNAL(toggled(bool)), MainWindow, SLOT(mostrarCaixa(bool)));
         QObject::connect(checkBoxGravidade, SIGNAL(toggled(bool)), MainWindow, SLOT(usarGravidade(bool)));
         QObject::connect(checkBoxExibirPlanoDeCorte, SIGNAL(toggled(bool)), MainWindow, SLOT(exibirPlanoDeCorte(bool)));
         QObject::connect(btnPlanovsGraos, SIGNAL(clicked()), MainWindow, SLOT(exibirGraosInterceptados()));
         QObject::connect(btnParametros, SIGNAL(clicked()), MainWindow, SLOT(configurarParametros()));
         QObject::connect(btnExibirInterceptos, SIGNAL(clicked()), MainWindow, SLOT(exibirInterceptos()));
+        QObject::connect(actionNova_Simulacao, SIGNAL(triggered()), MainWindow, SLOT(novaSimulacao()));
+        QObject::connect(actionEsferas_aleatorias, SIGNAL(toggled(bool)), MainWindow, SLOT(usarGraosAleatorios(bool)));
+        QObject::connect(checkBoxExibirPontosTeste, SIGNAL(toggled(bool)), MainWindow, SLOT(exibirPontosTeste(bool)));
+        QObject::connect(checkBoxExibirRetasTeste, SIGNAL(toggled(bool)), MainWindow, SLOT(exibirRetasTeste(bool)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -459,13 +467,15 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Caixa de Gr\303\243os", 0, QApplication::UnicodeUTF8));
-        actionSalvar_Figura->setText(QApplication::translate("MainWindow", "Salvar figura", 0, QApplication::UnicodeUTF8));
+        actionSalvar_Figura->setText(QApplication::translate("MainWindow", "Salvar Imagem", 0, QApplication::UnicodeUTF8));
         actionSalvar_resultados->setText(QApplication::translate("MainWindow", "Salvar resultados", 0, QApplication::UnicodeUTF8));
         actionSalvar_cena->setText(QApplication::translate("MainWindow", "Salvar cena", 0, QApplication::UnicodeUTF8));
         actionAbrir_cena->setText(QApplication::translate("MainWindow", "Abrir cena", 0, QApplication::UnicodeUTF8));
         actionSair->setText(QApplication::translate("MainWindow", "Sair", 0, QApplication::UnicodeUTF8));
-        actionEsferas_id_nticas->setText(QApplication::translate("MainWindow", "Esferas id\303\252nticas", 0, QApplication::UnicodeUTF8));
-        actionEsferas_aleat_rias->setText(QApplication::translate("MainWindow", "Esferas aleat\303\263rias", 0, QApplication::UnicodeUTF8));
+        actionEsferas_identicas->setText(QApplication::translate("MainWindow", "Esferas id\303\252nticas", 0, QApplication::UnicodeUTF8));
+        actionEsferas_identicas->setIconText(QApplication::translate("MainWindow", "Usar esferas id\303\252nticas", 0, QApplication::UnicodeUTF8));
+        actionEsferas_aleatorias->setText(QApplication::translate("MainWindow", "Usar gr\303\243os aleat\303\263rios", 0, QApplication::UnicodeUTF8));
+        actionEsferas_aleatorias->setIconText(QApplication::translate("MainWindow", "Usar gr\303\243os aleat\303\263rios", 0, QApplication::UnicodeUTF8));
         actionPercola_o->setText(QApplication::translate("MainWindow", "Percola\303\247\303\243o", 0, QApplication::UnicodeUTF8));
         actionCores_dos_gr_os->setText(QApplication::translate("MainWindow", "Cores dos gr\303\243os", 0, QApplication::UnicodeUTF8));
         actionPosi_o->setText(QApplication::translate("MainWindow", "Posi\303\247\303\243o", 0, QApplication::UnicodeUTF8));
@@ -482,6 +492,7 @@ public:
         actionCores->setText(QApplication::translate("MainWindow", "Cores", 0, QApplication::UnicodeUTF8));
         actionAjuda->setText(QApplication::translate("MainWindow", "Ajuda", 0, QApplication::UnicodeUTF8));
         actionSobre->setText(QApplication::translate("MainWindow", "Sobre ...", 0, QApplication::UnicodeUTF8));
+        actionNova_Simulacao->setText(QApplication::translate("MainWindow", "Nova Simulacao", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("MainWindow", "Op\303\247\303\265es ", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "Tipo de gr\303\243o", 0, QApplication::UnicodeUTF8));
         comboBoxTipoGrao->clear();
@@ -498,14 +509,14 @@ public:
         btnLimpar->setText(QApplication::translate("MainWindow", "Limpar", 0, QApplication::UnicodeUTF8));
         label_4->setText(QApplication::translate("MainWindow", "Zoom (%):", 0, QApplication::UnicodeUTF8));
         checkBoxVistaSuperior->setText(QApplication::translate("MainWindow", "Vista Superior", 0, QApplication::UnicodeUTF8));
-        checkBoxMostrarCaixa->setText(QApplication::translate("MainWindow", "Mostrar Caixa", 0, QApplication::UnicodeUTF8));
-        checkBoxCaixaSemTampa->setText(QApplication::translate("MainWindow", "Caixa Sem Tampa", 0, QApplication::UnicodeUTF8));
         checkBoxGravidade->setText(QApplication::translate("MainWindow", "Gravidade", 0, QApplication::UnicodeUTF8));
         checkBoxExibirPlanoDeCorte->setText(QApplication::translate("MainWindow", "Exibir Plano de Corte", 0, QApplication::UnicodeUTF8));
         btnNovoPlanodeCorte->setText(QApplication::translate("MainWindow", "Novo Plano de Corte", 0, QApplication::UnicodeUTF8));
         btnPlanovsGraos->setText(QApplication::translate("MainWindow", "Exibir Gr\303\243os Interceptados", 0, QApplication::UnicodeUTF8));
         btnExibirInterceptos->setText(QApplication::translate("MainWindow", "Exibir Interceptos", 0, QApplication::UnicodeUTF8));
-        menuArquivo->setTitle(QApplication::translate("MainWindow", "Arquivo", 0, QApplication::UnicodeUTF8));
+        checkBoxExibirRetasTeste->setText(QApplication::translate("MainWindow", "Exibir Retas teste", 0, QApplication::UnicodeUTF8));
+        checkBoxExibirPontosTeste->setText(QApplication::translate("MainWindow", "Exibir Pontos teste", 0, QApplication::UnicodeUTF8));
+        menuArquivo->setTitle(QApplication::translate("MainWindow", "Simula\303\247\303\243o", 0, QApplication::UnicodeUTF8));
         menuOp_es->setTitle(QApplication::translate("MainWindow", "Op\303\247\303\265es", 0, QApplication::UnicodeUTF8));
         menuPoros_CellUnit->setTitle(QApplication::translate("MainWindow", "Poros CellUnit", 0, QApplication::UnicodeUTF8));
         menuAjuda->setTitle(QApplication::translate("MainWindow", "Ajuda", 0, QApplication::UnicodeUTF8));

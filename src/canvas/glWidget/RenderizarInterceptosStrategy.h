@@ -2,7 +2,7 @@
 #define RENDERIZAR_INTERCEPTOS_STATE
 
 #include <vector>
-#include "RenderizacaoState.h"
+#include "RenderizacaoStrategy.h"
 #include "..\..\model\SimulacaoCaixa.h"
 #include "..\drawVisitor\InterceptoDesignerVisitor.h"
 #include "..\..\model\interceptos\Intercepto.h"
@@ -17,13 +17,15 @@ namespace simulacao{
 	namespace canvas{
 		namespace glWidget{
 
-			class RenderizarInterceptosState: public RenderizacaoState{
+			class RenderizarInterceptosStrategy: public RenderizacaoStrategy{
 			private:
 				vector<Intercepto*> *interceptos;
 				InterceptoDesignerVisitor *visitor;
+
+				inline void coletarInterceptos(SimulacaoCaixa *simulacao);
 			public:
-				RenderizarInterceptosState();
-				virtual inline void draw(SimulacaoCaixa *simulacao) const;
+				RenderizarInterceptosStrategy();
+				inline void draw(SimulacaoCaixa *simulacao);
 
 			};
 

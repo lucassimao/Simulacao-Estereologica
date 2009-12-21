@@ -18,7 +18,7 @@ namespace simulacao{
 			{
 			private:
 				double lado;
-				inline NxVec3* getPosicaGlobalDosVertices();
+				inline NxVec3* getPosicaoGlobalDosVertices();
 				inline vector<SegmentoDeReta> getSegmentosDeRetaInterceptados(NxVec3);
 			public:
 				Cubo(NxScene *,double aresta);

@@ -5,9 +5,9 @@
 using namespace simulacao::gui;
 using namespace simulacao::canvas;
 
-#include "..\canvas\glWidget\RenderizacaoState.h"
-#include "..\canvas\glWidget\RenderizarAtoresState.h"
-#include "..\canvas\glWidget\RenderizarInterceptosState.h"
+#include "..\canvas\glWidget\RenderizacaoStrategy.h"
+#include "..\canvas\glWidget\RenderizarAtoresStrategy.h"
+#include "..\canvas\glWidget\RenderizarInterceptosStrategy.h"
 using namespace simulacao::canvas::glWidget;
 
 MainWindow::MainWindow(){
@@ -42,10 +42,10 @@ MainWindow::~MainWindow(){
 void MainWindow::criarCanvas(){
 
 	simulacao = new SimulacaoCaixa;
-	RenderizacaoState *state = new RenderizarAtoresState();
+	RenderizacaoStrategy *strategy = new RenderizarAtoresStrategy();
 	
 	view = new CaixaGraosGLWidget(this,simulacao);
-	view->setState(state);
+	view->setStrategy(strategy);
 	view->setFocusPolicy(Qt::StrongFocus);
 	view->setObjectName(QString::fromUtf8("graphicsView"));
 
@@ -75,7 +75,7 @@ void MainWindow::configurarParametros(){
 	case 2:
 		break;
 	case 3:
-		dialogParametrosCubo = new DialogParametrosCubo(this->simulacao);
+		dialogParametrosCubo = new DialogParametrosCubo(this,this->simulacao);
 		dialogParametrosCubo->setModal(true);
 		dialogParametrosCubo->setVisible(true);
 		break;
@@ -132,6 +132,7 @@ void MainWindow::limparSimulacao(){
 void MainWindow::novoPlanoDeCorte(){
 	simulacao->novoPlanoDeCorte();
 
+
 }
 
 void MainWindow::exibirSobre(){
@@ -151,10 +152,23 @@ void MainWindow::usarGravidade(bool b){
 		simulacao->desabilitarGravidade();
 }
 
-void MainWindow::mostrarCaixa(bool b){
+void MainWindow::novaSimulacao(){
+	this->ui->horizontalLayout_2->removeWidget(view);
+	delete view;
+	this->simulacao->pararSimulacao();
+	this->simulacao = new SimulacaoCaixa;
+	this->simulacao->novoPlanoDeCorte();
+
+	ui->btnNovoPlanodeCorte->setEnabled(true);
+	ui->btnPlanovsGraos->setEnabled(true);
+	ui->btnExibirInterceptos->setEnabled(false);
+	
+	criarCanvas();
+	
 }
 
-void MainWindow::usarTamanhoDeGraoAleatorio(bool b){
+void MainWindow::usarGraosAleatorios(bool b){
+	
 }
 
 /** Exibe os objetos que estão sendo interceptados pelo plano */
@@ -170,9 +184,17 @@ void MainWindow::exibirGraosInterceptados(){
 
 /** Exibe as regiões no plano interceptadas pelos objetos cortados pelo plano */
 void MainWindow::exibirInterceptos(){
-	RenderizacaoState *state = new RenderizarInterceptosState();
-	view->setState(state);
+	RenderizacaoStrategy *strategy = new RenderizarInterceptosStrategy();
+	view->setStrategy(strategy);
+	ui->btnExibirInterceptos->setEnabled(false);
 	
+}
+
+void MainWindow::exibirRetasTeste(bool b){
+	this->simulacao->setExibirRetasTeste(b);
+}
+void MainWindow::exibirPontosTeste(bool b){
+	this->simulacao->setExibirPontosTeste(b);
 }
 
 void MainWindow::atualizarQuantidadeDeGraosEmCena(){

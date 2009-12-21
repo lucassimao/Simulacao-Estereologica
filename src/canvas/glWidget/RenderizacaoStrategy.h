@@ -10,11 +10,11 @@ namespace simulacao{
 	namespace canvas{
 		namespace glWidget{
 
-			class RenderizacaoState{
+			class RenderizacaoStrategy{
 			
 			public:
-				RenderizacaoState();
-				virtual inline void draw(SimulacaoCaixa *simulacao) const = 0;
+				RenderizacaoStrategy();
+				virtual inline void draw(SimulacaoCaixa *simulacao) = 0;
 
 			};
 

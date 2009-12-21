@@ -1,13 +1,13 @@
-#include "RenderizarAtoresState.h"
+#include "RenderizarAtoresStrategy.h"
 #include "..\..\draw\DrawObjects.h"
 
 using namespace simulacao::canvas::glWidget;
 
-RenderizarAtoresState::RenderizarAtoresState(){
+RenderizarAtoresStrategy::RenderizarAtoresStrategy(){
 
 }
 
-inline void RenderizarAtoresState::draw(SimulacaoCaixa *simulacao) const{
+inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 	NxU32 nbActors = simulacao->getQtdeObjetos();
 	NxActor** actors = simulacao->getAtores();
 

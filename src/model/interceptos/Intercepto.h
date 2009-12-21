@@ -26,6 +26,7 @@ namespace simulacao{
 				Intercepto();
 				Intercepto(Cor);
 				virtual void accept(DrawVisitor *) = 0;
+				Cor getCor() const { return cor;};
 			};
 
 		}

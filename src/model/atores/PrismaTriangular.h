@@ -1,13 +1,12 @@
 #ifndef PRISMA_TRIANGULAR_H
 #define PRISMA_TRIANGULAR_H
 
-#include <vector>
 #include "../../utils/MeshFactory.h"
+#include "../../utils/SegmentoDeReta.h"
 #include "../../model/interceptos/Intercepto.h"
 #include "Ator.h"
 
 using namespace simulacao::utils;
-using std::vector;
 using simulacao::model::interceptos::Intercepto;
 
 namespace simulacao{
@@ -20,11 +19,14 @@ namespace simulacao{
 			public:
 				PrismaTriangular(NxScene *cena,int h,int b,NxCCDSkeleton *ccds,MeshFactory *meshFactory);
 				~PrismaTriangular();
+
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
 				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
+				inline NxVec3* getPosicaoGlobalDosVertices();
 			private:
 				int altura;
 				int base;
+				inline vector<SegmentoDeReta> getSegmentosDeRetaInterceptados(NxVec3);
 
 			};
 		}

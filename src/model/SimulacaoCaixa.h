@@ -32,6 +32,9 @@ namespace simulacao{
 			double alturaPrisma;
 			double basePrisma;
 
+			bool exibirRetasTeste;
+			bool exibirPontosTeste;
+
 			void criarCCDS();
 
 		public:
@@ -59,6 +62,14 @@ namespace simulacao{
 
 			double getArestaCubo(){ return this->arestaCubo;}
 			void setArestaCubo(double novaAresta){ this->arestaCubo = novaAresta;}
+
+			bool getExibirRetasTeste(){ return this->exibirRetasTeste;}
+			void setExibirRetasTeste(bool b){ this->exibirRetasTeste = b;}
+
+			bool getExibirPontosTeste(){ return this->exibirPontosTeste;}
+			void setExibirPontosTeste(bool b){ this->exibirPontosTeste = b;}
+
+
 		};
 
 	}

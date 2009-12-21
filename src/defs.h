@@ -6,7 +6,7 @@ enum TipoDeGrao{
 };
 
 enum Status{
-	PAUSADO, EXECUCAO
+	PAUSADO, EXECUCAO,PARADO
 };
 
 typedef struct{

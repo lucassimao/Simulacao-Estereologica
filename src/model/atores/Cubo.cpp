@@ -29,9 +29,9 @@ Cubo::Cubo(NxScene *cena,double aresta):Ator()
 
 	actorDesc.body = &bodyDesc;
 	actorDesc.density=10.0f;
-	float a = rand(); float px = 10*(a/32767 - 0.5);
-	float b = rand(); float py = 10*(b/32767 - 0.5)+ 15.0;//Devido à altura do eixo y
-	float c = rand(); float pz = 10*(c/32767 - 0.5);
+	float a = rand(); float px = 12*(a/32767 - 0.5);
+	float b = rand(); float py = 12*(b/32767 - 0.5)+ 15.0;//Devido à altura do eixo y
+	float c = rand(); float pz = 12*(c/32767 - 0.5);
 
 	actorDesc.globalPose.t = NxVec3(px,py,pz);
 	NxActor *box =  cena->createActor(actorDesc);
@@ -52,12 +52,10 @@ Intercepto* Cubo::getIntercepto(NxVec3 planoPos){
 		SegmentoDeReta seg = *iterator;
 		if (seg.interceptarComPlano(planoPos.y,&p)){
 			poligonoPontos.push_back(p);
-			qDebug() << "+\n";
 		}
 		iterator++;
 	}
 
-	//return new Polilinha(v,segmentosDeRetaInterceptados);
 	return new Poligono(v,poligonoPontos);
 }
 
@@ -66,7 +64,7 @@ Cubo::~Cubo(void)
 }
 
 bool Cubo::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
-	NxVec3 *vertices = getPosicaGlobalDosVertices();
+	NxVec3 *vertices = getPosicaoGlobalDosVertices();
 	NxVec3 pos = ator->getGlobalPosition();
 
 	for(int i=0;i<8;++i){
@@ -81,7 +79,7 @@ bool Cubo::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 }
 
 // método que retorna os vértices da caixa
-inline NxVec3* Cubo::getPosicaGlobalDosVertices(){
+inline NxVec3* Cubo::getPosicaoGlobalDosVertices(){
 	NxVec3 *vertices = (NxVec3 *) malloc(sizeof(NxVec3)*8);
 	NxVec3 pos = ator->getGlobalPosition();
 	NxBox box;
@@ -94,7 +92,7 @@ inline NxVec3* Cubo::getPosicaGlobalDosVertices(){
 
 // Retorna os segmentos de reta (arestas) do cubo que estão interceptados pelo cubo
 inline vector<SegmentoDeReta> Cubo::getSegmentosDeRetaInterceptados(NxVec3 planoPos){
-	NxVec3 *vertices = getPosicaGlobalDosVertices();
+	NxVec3 *vertices = getPosicaoGlobalDosVertices();
 	vector<SegmentoDeReta> segmentos;
 
 	map<int,NxVec3> verticesAcimaDoPlanoDeCorte;

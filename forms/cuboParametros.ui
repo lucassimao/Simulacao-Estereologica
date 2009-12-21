@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Parâmetros - Cubo</string>
   </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>

@@ -46,6 +46,7 @@ namespace simulacao{
 			operator bool(){
 				return ( cena!=NULL && status != PAUSADO);
 			}
+			void pararSimulacao() ;
 
 			void GetPhysicsResults();
 			void iniciarSimulacao();
@@ -77,7 +78,7 @@ namespace simulacao{
 				this->cena->releaseActor(ator);
 			}
 			void desabilitarGravidade(){ this->gravidade->y = 0;}
-			void habilitarGravidade(){ this->gravidade->y = Simulacao::gravidadeDefault.y ;exit(0);}
+			void habilitarGravidade(){ this->gravidade->y = Simulacao::gravidadeDefault.y;}
 
 
 

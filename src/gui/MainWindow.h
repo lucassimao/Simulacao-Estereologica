@@ -18,7 +18,7 @@ namespace simulacao	{
 		class MainWindow: public QMainWindow{
 			Q_OBJECT
 		private :
-			//TIRAR ISSO!!!!!!!!!!!!!!!!!!!!!!!!!
+			//TIRAR ISSO !!!!!!!!!!!!!!!!!!!!!!!!!
 			CaixaGraosGLWidget *view;
 			QLabel *statusTipoSimulacao;
 			QLabel *statusQtdeObjetos;
@@ -41,8 +41,10 @@ namespace simulacao	{
 
 			void exibirPlanoDeCorte(bool);
 			void usarGravidade(bool);
-			void mostrarCaixa(bool);
-			void usarTamanhoDeGraoAleatorio(bool);
+			void usarGraosAleatorios(bool);
+			void novaSimulacao();
+			void exibirRetasTeste(bool);
+			void exibirPontosTeste(bool);
 		public:
 			MainWindow();
 			~MainWindow();

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'prismaTriangularParametros.ui'
 **
-** Created: Sat 19. Dec 08:01:51 2009
+** Created: Mon 21. Dec 13:32:36 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -23,7 +23,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_WinParametrosPrismaTriangular
+class Ui_DlgParametrosPrismaTriangular
 {
 public:
     QGroupBox *groupBox;
@@ -34,12 +34,13 @@ public:
     QPushButton *btnSalvar;
     QPushButton *btnCancelar;
 
-    void setupUi(QDialog *Dialog)
+    void setupUi(QDialog *DlgParametrosPrismaTriangular)
     {
-        if (Dialog->objectName().isEmpty())
-            Dialog->setObjectName(QString::fromUtf8("Dialog"));
-        Dialog->resize(276, 141);
-        groupBox = new QGroupBox(Dialog);
+        if (DlgParametrosPrismaTriangular->objectName().isEmpty())
+            DlgParametrosPrismaTriangular->setObjectName(QString::fromUtf8("DlgParametrosPrismaTriangular"));
+        DlgParametrosPrismaTriangular->resize(276, 141);
+        DlgParametrosPrismaTriangular->setModal(true);
+        groupBox = new QGroupBox(DlgParametrosPrismaTriangular);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         groupBox->setGeometry(QRect(10, 10, 251, 91));
         textRaio = new QLineEdit(groupBox);
@@ -54,27 +55,27 @@ public:
         label_2 = new QLabel(groupBox);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(20, 60, 46, 14));
-        btnSalvar = new QPushButton(Dialog);
+        btnSalvar = new QPushButton(DlgParametrosPrismaTriangular);
         btnSalvar->setObjectName(QString::fromUtf8("btnSalvar"));
         btnSalvar->setGeometry(QRect(190, 110, 75, 23));
-        btnCancelar = new QPushButton(Dialog);
+        btnCancelar = new QPushButton(DlgParametrosPrismaTriangular);
         btnCancelar->setObjectName(QString::fromUtf8("btnCancelar"));
         btnCancelar->setGeometry(QRect(110, 110, 75, 23));
 
-        retranslateUi(Dialog);
+        retranslateUi(DlgParametrosPrismaTriangular);
 
-        QMetaObject::connectSlotsByName(Dialog);
+        QMetaObject::connectSlotsByName(DlgParametrosPrismaTriangular);
     } // setupUi
 
-    void retranslateUi(QDialog *Dialog)
+    void retranslateUi(QDialog *DlgParametrosPrismaTriangular)
     {
-        Dialog->setWindowTitle(QApplication::translate("WinParametrosPrismaTriangular", "Par\303\242metros - Prisma Triangular", 0, QApplication::UnicodeUTF8));
-        groupBox->setTitle(QApplication::translate("WinParametrosPrismaTriangular", "Dados do Prisma Tringular", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("WinParametrosPrismaTriangular", "Altura:", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("WinParametrosPrismaTriangular", "Base:", 0, QApplication::UnicodeUTF8));
-        btnSalvar->setText(QApplication::translate("WinParametrosPrismaTriangular", "Salvar", 0, QApplication::UnicodeUTF8));
-        btnCancelar->setText(QApplication::translate("WinParametrosPrismaTriangular", "Cancelar", 0, QApplication::UnicodeUTF8));
-        Q_UNUSED(Dialog);
+        DlgParametrosPrismaTriangular->setWindowTitle(QApplication::translate("DlgParametrosPrismaTriangular", "Par\303\242metros - Prisma Triangular", 0, QApplication::UnicodeUTF8));
+        groupBox->setTitle(QApplication::translate("DlgParametrosPrismaTriangular", "Dados do Prisma Tringular", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("DlgParametrosPrismaTriangular", "Altura:", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("DlgParametrosPrismaTriangular", "Base:", 0, QApplication::UnicodeUTF8));
+        btnSalvar->setText(QApplication::translate("DlgParametrosPrismaTriangular", "Salvar", 0, QApplication::UnicodeUTF8));
+        btnCancelar->setText(QApplication::translate("DlgParametrosPrismaTriangular", "Cancelar", 0, QApplication::UnicodeUTF8));
+        Q_UNUSED(DlgParametrosPrismaTriangular);
     } // retranslateUi
 
 };

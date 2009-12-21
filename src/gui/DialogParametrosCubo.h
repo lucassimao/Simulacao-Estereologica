@@ -20,7 +20,7 @@ namespace simulacao	{
 		private slots:
 			void salvarAresta();
 		public:
-			DialogParametrosCubo(SimulacaoCaixa *simulacao);
+			DialogParametrosCubo(QWidget *parent,SimulacaoCaixa *simulacao);
 			~DialogParametrosCubo();
 
 
