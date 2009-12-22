@@ -3,6 +3,8 @@
 #include "..\..\model\interceptos\Intercepto.h"
 #include "..\..\model\atores\Ator.h"
 #include "..\..\draw\DrawObjects.h"
+#include "GL\glut.h"
+
 
 
 using std::vector;
@@ -26,15 +28,33 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 	vector<Intercepto*>::const_iterator iterator = interceptos->begin();
 	InterceptoDesignerVisitor *visitor = new InterceptoDesignerVisitor();
 	
-	
 	while(iterator!=interceptos->end())
 	{
 		Intercepto *intercepto = *iterator;
 		intercepto->accept(visitor);
 		++iterator;
 	}
+
+	if (simulacao->getExibirRetasTeste()){
+		glPushAttrib(GL_ALL_ATTRIB_BITS);
 	
+
+		glEnable(GL_CULL_FACE); 
+		glCullFace(GL_FRONT); 
+		glDisable(GL_LIGHTING);
+		glColor4f(1.0f,0.0f,0.0f,0);
+		glLineWidth(0.5f);
+
+		glBegin(GL_LINES);
+			glVertex3f(6,simulacao->getPlanoDeCorte()->getGlobalPosition().y,-10);
+			glVertex3f(6,simulacao->getPlanoDeCorte()->getGlobalPosition().y,10);
+		glEnd();	
+		glPopAttrib();	
+	}
+
 	DrawActor(simulacao->getPlanoDeCorte(), NULL, false);
+
+
 }
 
 inline void RenderizarInterceptosStrategy::coletarInterceptos(SimulacaoCaixa *simulacao){

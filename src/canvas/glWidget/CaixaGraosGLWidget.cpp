@@ -12,7 +12,7 @@
 using namespace simulacao::canvas::glWidget;
 using namespace simulacao::model;
 
-NxVec3 CaixaGraosGLWidget::gCameraForward(0,0,1);
+NxVec3 CaixaGraosGLWidget::gCameraForward(0,0,-1);
 NxVec3 CaixaGraosGLWidget::gCameraRight(-1,0,0);
 const NxReal CaixaGraosGLWidget::gCameraSpeed = 250;
 int mx, my;
@@ -20,7 +20,7 @@ int mx, my;
 
 
 CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao)
-: QGLWidget(parent),gCameraPos(NxVec3(0,20,-60.0))
+: QGLWidget(parent),gCameraPos(NxVec3(0.7,18,52.3))
 {
 	srand(time(0));
 	setFormat(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer));
@@ -59,7 +59,7 @@ void CaixaGraosGLWidget::initializeGL()
 	float SpecularColor[]	= { 0.0f, 0.0f, 0.0f, 1.0f };		
 	glLightfv(GL_LIGHT0, GL_SPECULAR, SpecularColor);
 
-	float Position[]		= {80.0f,80.0f, -70.0f,1.0f };	
+	float Position[]		= {80.0f,80.0f, 70.0f,1.0f };	
 	glLightfv(GL_LIGHT0, GL_POSITION, Position);
 
 	glEnable(GL_LIGHT0);
@@ -180,7 +180,7 @@ void CaixaGraosGLWidget::SetupCamera(){
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(40.0f, gCameraAspectRatio, 10.0f, 10000.0f);//angulo de visão da caixa
+	gluPerspective(40.0f, gCameraAspectRatio, 10.0f, 100.0f);//angulo de visão da caixa
 	gluLookAt(gCameraPos.x,gCameraPos.y,gCameraPos.z,gCameraPos.x + gCameraForward.x, 
 		gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z, 0.0f,1.0f, 0.0f);
 
@@ -211,6 +211,7 @@ void CaixaGraosGLWidget::keyPressEvent ( QKeyEvent * event ){
 	case Qt::Key_Q :{ gCameraPos += NxVec3(0,1,0)*gCameraSpeed*deltaTime; break; }
 	}
 	updateGL();
+	qDebug() << gCameraPos.x << " " << gCameraPos.y << " " << gCameraPos.z << "\n";
 
 }
 

@@ -28,7 +28,8 @@ inline void InterceptoDesignerVisitor::visit(Disco *disco){
 	glEnable(GL_CULL_FACE); 
 	glCullFace(GL_FRONT); 
 	glDisable(GL_LIGHTING);
-	glColor4f(1.0f,0,0.3f,1);
+	Cor c = disco->getCor();
+	glColor4f(c.r,c.g,c.b,1);
 
 	glBegin(GL_POLYGON);
 	for (int i=0;  i < circlePoints; i++)  { 
@@ -70,7 +71,12 @@ inline void InterceptoDesignerVisitor::visit(Poligono *poligono){
 	glEnable(GL_CULL_FACE); 
 	glCullFace(GL_FRONT); 
 	glDisable(GL_LIGHTING);
-	
+
+	glEnable(GL_POINT_SMOOTH);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA); 
+	glHint(GL_LINE_SMOOTH_HINT | GL_POLYGON_SMOOTH_HINT,  GL_DONT_CARE);
+
 	Cor c = poligono->getCor();
 	glColor4f(c.r,c.g,c.b,1.0f);
 	glLineWidth(.1);
