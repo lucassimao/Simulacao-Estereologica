@@ -902,6 +902,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionGrade_de_pontos_e_linha_teste</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>configurarGrade()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>adicionarObjetos()</slot>
@@ -918,5 +934,6 @@
   <slot>usarGraosAleatorios(bool)</slot>
   <slot>exibirRetasTeste(bool)</slot>
   <slot>exibirPontosTeste(bool)</slot>
+  <slot>configurarGrade()</slot>
  </slots>
 </ui>
