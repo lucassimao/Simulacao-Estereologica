@@ -20,6 +20,7 @@ namespace simulacao{
 				double getRaio() const { return raio;} ;
 				Ponto getCentro() const { return centro;};
 				void accept(DrawVisitor *visitor);
+				bool contemPonto(Ponto p);
 			};
 
 		}

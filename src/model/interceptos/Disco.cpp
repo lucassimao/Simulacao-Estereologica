@@ -18,3 +18,7 @@ void Disco::accept(DrawVisitor *visitor){
 	visitor->visit(this);
 }
 
+bool Disco::contemPonto(Ponto p){
+	double distanciaEmRelacaoAoCentro = pow(pow(p.x-this->centro.x,2) + pow(p.z - this->centro.z,2),0.5);
+	return (distanciaEmRelacaoAoCentro <= this->raio) ;
+}
