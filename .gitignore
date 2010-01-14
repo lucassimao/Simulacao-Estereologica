@@ -1,5 +1,6 @@
 *.exe
 *.obj
+forms/*.h
 debug/*
 release/*
 Debug - v2.8.0/*
