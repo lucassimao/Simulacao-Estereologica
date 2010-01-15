@@ -15,8 +15,7 @@ using namespace simulacao::model::atores;
 
 
 RenderizarInterceptosStrategy::RenderizarInterceptosStrategy(){
-	this->interceptos = new vector<Intercepto*>();
-
+	interceptos = new vector<Intercepto*>();
 }
 
 inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){		
@@ -26,7 +25,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 	}
 
 	vector<Intercepto*>::const_iterator iterator = interceptos->begin();
-	InterceptoDesignerVisitor *visitor = new InterceptoDesignerVisitor();
+	InterceptoDeAreaDrawVisitor *visitor = new InterceptoDeAreaDrawVisitor();
 	
 	while(iterator!=interceptos->end())
 	{
@@ -35,25 +34,59 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		++iterator;
 	}
 
-	if (simulacao->getExibirRetasTeste()){
-		glPushAttrib(GL_ALL_ATTRIB_BITS);
+	if (simulacao->getExibirRetasTeste() || simulacao->getExibirPontosTeste()){
 	
-
+		glPushAttrib(GL_ALL_ATTRIB_BITS);
 		glEnable(GL_CULL_FACE); 
 		glCullFace(GL_FRONT); 
 		glDisable(GL_LIGHTING);
 		glColor4f(1.0f,0.0f,0.0f,0);
 		glLineWidth(0.5f);
+		glPointSize(2.9f);
 
-		glBegin(GL_LINES);
-			glVertex3f(6,simulacao->getPlanoDeCorte()->getGlobalPosition().y,-10);
-			glVertex3f(6,simulacao->getPlanoDeCorte()->getGlobalPosition().y,10);
-		glEnd();	
+		if (simulacao->getExibirRetasTeste() ){
+			glBegin(GL_LINES);
+				for(int i=-9;i<10;++i){
+					glVertex3f(-10,simulacao->getPlanoDeCorte()->getGlobalPosition().y,i);
+					glVertex3f(10,simulacao->getPlanoDeCorte()->getGlobalPosition().y,i);
+				}
+			glEnd();
+		}
+
+		if (simulacao->getExibirPontosTeste()){
+			glColor4f(0.0f,0.0f,1.0f,0);
+			glBegin(GL_POINTS);
+				for(int i=-9;i<10;++i){
+					for(int j=-9;j<10;j++){
+						Ponto p = {j,simulacao->getPlanoDeCorte()->getGlobalPosition().y,i};
+						//if (renderizarPonto(p))
+							glVertex3f(j,simulacao->getPlanoDeCorte()->getGlobalPosition().y,i);
+					}
+				}
+			glEnd();	
+		}
+		
 		glPopAttrib();	
 	}
 
 	DrawActor(simulacao->getPlanoDeCorte(), NULL, false);
 
+
+}
+
+inline bool RenderizarInterceptosStrategy::renderizarPonto(Ponto p){
+	
+	vector<Intercepto*>::const_iterator iterator = interceptos->begin();
+
+	while(iterator!=interceptos->end())
+	{
+		Intercepto *intercepto = *iterator;
+		if (intercepto->contemPonto(p))
+			return true;
+		else
+			++iterator;
+	}
+	return false;
 
 }
 

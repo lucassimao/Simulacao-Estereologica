@@ -4,12 +4,14 @@
 #include <vector>
 #include "RenderizacaoStrategy.h"
 #include "..\..\model\SimulacaoCaixa.h"
-#include "..\drawVisitor\InterceptoDesignerVisitor.h"
+#include "..\drawVisitor\InterceptoDeAreaDrawVisitor.h"
 #include "..\..\model\interceptos\Intercepto.h"
+#include "..\..\model\grade\Grade.h"
 
 
-using namespace simulacao::model::interceptos;
 using namespace simulacao::model;
+using namespace simulacao::model::interceptos;
+//using namespace simulacao::model::grade;
 using namespace simulacao::canvas::drawVisitor;
 using std::vector;
 
@@ -20,9 +22,10 @@ namespace simulacao{
 			class RenderizarInterceptosStrategy: public RenderizacaoStrategy{
 			private:
 				vector<Intercepto*> *interceptos;
-				InterceptoDesignerVisitor *visitor;
+				//Grade *grade;
 
 				inline void coletarInterceptos(SimulacaoCaixa *simulacao);
+				inline bool renderizarPonto(Ponto p);
 			public:
 				RenderizarInterceptosStrategy();
 				inline void draw(SimulacaoCaixa *simulacao);
