@@ -4,7 +4,7 @@ using namespace simulacao::model::interceptos;
 #include <vector>
 using std::vector;
 
-#include "..\..\canvas\drawVisitor\DrawVisitor.h"
+#include "..\..\canvas\drawVisitor\AbstractDrawVisitor.h"
 using namespace simulacao::canvas::drawVisitor;
 
 
@@ -12,6 +12,10 @@ Polilinha::Polilinha(Cor cor,vector<SegmentoDeReta> vertices):Intercepto(cor){
 	this->vertices = vertices;
 }
 
-void Polilinha::accept(DrawVisitor *visitor){
+void Polilinha::accept(AbstractDrawVisitor *visitor){
 	visitor->visit(this);
+}
+
+bool Polilinha::contemPonto(Ponto p){
+	return true;
 }

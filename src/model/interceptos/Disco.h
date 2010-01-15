@@ -19,7 +19,7 @@ namespace simulacao{
 				Disco(Ponto centro,double raio);
 				double getRaio() const { return raio;} ;
 				Ponto getCentro() const { return centro;};
-				void accept(DrawVisitor *visitor);
+				void accept(AbstractDrawVisitor *visitor);
 				bool contemPonto(Ponto p);
 			};
 

@@ -22,8 +22,9 @@ namespace simulacao{
 				list<Ponto> vertices;
 			public:
 				Poligono(Cor cor,list<Ponto> vertices);
-				void accept(DrawVisitor *);
+				void accept(AbstractDrawVisitor *);
 				list<Ponto> getVertices() const{ return this->vertices; };
+				bool contemPonto(Ponto p);
 				
 			};
 

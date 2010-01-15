@@ -10,7 +10,7 @@ using std::vector;
 namespace simulacao{
 	namespace canvas{
 		namespace drawVisitor{
-			class DrawVisitor;
+			class AbstractDrawVisitor;
 		}}}
 
 using namespace simulacao::canvas::drawVisitor;
@@ -25,7 +25,8 @@ namespace simulacao{
 			public:
 				Intercepto();
 				Intercepto(Cor);
-				virtual void accept(DrawVisitor *) = 0;
+				virtual void accept(AbstractDrawVisitor *) = 0;
+				virtual bool contemPonto(Ponto) = 0;
 				Cor getCor() const { return cor;};
 			};
 

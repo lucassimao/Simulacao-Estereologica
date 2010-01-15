@@ -7,8 +7,11 @@ using std::vector;
 #include <list>
 using std::list;
 
-#include "..\..\canvas\drawVisitor\DrawVisitor.h"
+#include "..\..\canvas\drawVisitor\AbstractDrawVisitor.h"
 using namespace simulacao::canvas::drawVisitor;
+
+#include "..\..\utils\Vetor.h"
+#include "..\..\utils\SegmentoDeReta.h"
 
 
 Poligono::Poligono(Cor cor,list<Ponto> vertices):Intercepto(cor){
@@ -19,8 +22,37 @@ Poligono::Poligono(Cor cor,list<Ponto> vertices):Intercepto(cor){
 
 }
 
-void Poligono::accept(DrawVisitor *visitor){
+void Poligono::accept(AbstractDrawVisitor *visitor){
 	visitor->visit(this);
+}
+
+bool Poligono::contemPonto(Ponto p){
+	int interceptacoes=0;
+	Vetor inicio(p.x,p.y,p.z);
+	Vetor fim(10,p.y,p.z);
+
+	SegmentoDeReta seg(inicio,fim);
+	vector<Ponto> vetoresPoligono;
+	
+	// transformando a lista em um vector, blahhhh!
+	list<Ponto>::const_iterator iter = this->vertices.begin();
+	while(iter!=this->vertices.end())
+	{
+		Ponto p = *iter;
+		vetoresPoligono.push_back(p);
+		++iter;
+	}	
+
+	for(int i=0;i< vetoresPoligono.size()-1;++i){
+		SegmentoDeReta aresta(vetoresPoligono.at(i),vetoresPoligono.at(i+1));
+		if (aresta.interceptar(seg,NULL,NULL))
+			++interceptacoes;
+	}
+		SegmentoDeReta ultimaAresta(vetoresPoligono.at(vetoresPoligono.size()-1),vetoresPoligono.at(0));
+		if (ultimaAresta.interceptar(seg,NULL,NULL))
+			++interceptacoes;
+	
+	return (interceptacoes % 2 !=0);
 }
 
 inline bool ordenarPontosAcimaDoMaisAEsquerda(Ponto p1,Ponto p2){
