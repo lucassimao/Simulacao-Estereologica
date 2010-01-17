@@ -17,8 +17,8 @@ InterceptoDeAreaDrawVisitor::InterceptoDeAreaDrawVisitor(){
 }
 
 inline void InterceptoDeAreaDrawVisitor::visit(Disco *disco){
-	Ponto centro = disco->getCentro();
-	double raio = disco->getRaio();
+	Ponto centro = disco->centro;
+	double raio = disco->raio;
 
 	int circlePoints=100;
 	double angulo=0;

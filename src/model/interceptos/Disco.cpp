@@ -4,14 +4,10 @@ using namespace simulacao::model::interceptos;
 #include "..\..\canvas\drawVisitor\AbstractDrawVisitor.h"
 using namespace simulacao::canvas::drawVisitor;
 
-Disco::Disco(Cor cor,Ponto centro,double raio):Intercepto(cor){
-	this->raio = raio;
-	this->centro = centro;
+Disco::Disco(Cor cor,Ponto c,double r):Intercepto(cor),raio(r),centro(c){
 }
 
-Disco::Disco(Ponto centro,double raio):Intercepto(){
-	this->raio = raio;
-	this->centro = centro;
+Disco::Disco(Ponto c,double r):Intercepto(),raio(r),centro(c){
 }
 
 void Disco::accept(AbstractDrawVisitor *visitor){

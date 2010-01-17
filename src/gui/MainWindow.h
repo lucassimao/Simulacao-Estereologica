@@ -3,7 +3,6 @@
 
 
 #include <QMainWindow>
-#include "DialogParametrosCubo.h"
 #include "..\model\SimulacaoCaixa.h"
 #include "..\canvas\glWidget\CaixaGraosGLWidget.h"
 #include "forms\ui_gui.h"
@@ -23,12 +22,11 @@ namespace simulacao	{
 			QLabel *statusTipoSimulacao;
 			QLabel *statusQtdeObjetos;
 			Ui_MainWindow *ui;
-			DialogParametrosCubo *dialogParametrosCubo;
 			//TIRAR ISSO!!!!!!!!!!!!!!!!!!!!!!!!!
 			SimulacaoCaixa *simulacao;
 
-			void criarCanvas();
-			void atualizarQuantidadeDeGraosEmCena();
+			inline void criarCanvas();
+			inline void atualizarQuantidadeDeGraosEmCena();
 		private slots:
 			void adicionarObjetos();
 			void pararSimulacao();
@@ -45,6 +43,7 @@ namespace simulacao	{
 			void novaSimulacao();
 			void exibirRetasTeste(bool);
 			void exibirPontosTeste(bool);
+			void configurarGrade();
 		public:
 			MainWindow();
 			~MainWindow();

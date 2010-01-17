@@ -30,7 +30,7 @@ namespace simulacao{
 			NxScene *cena;
 			NxPhysicsSDK *physicsSDK;
 
-			virtual void initPhysicsSDK() throw (exception);
+			virtual void initPhysicsSDK();
 
 			inline NxPhysicsSDK* getSDK() const{
 				return physicsSDK;

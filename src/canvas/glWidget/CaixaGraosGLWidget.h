@@ -43,8 +43,8 @@ namespace simulacao {
 			RenderizacaoStrategy *renderizacaoStrategy;
 
 			float gCameraAspectRatio;
-			static NxVec3 gCameraForward;
-			static NxVec3 gCameraRight;
+			NxVec3 gCameraForward;
+			NxVec3 gCameraRight;
 			const static NxReal gCameraSpeed;
 			NxVec3 gCameraPos;
 			QPoint lastPos;

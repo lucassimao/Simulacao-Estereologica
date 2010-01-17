@@ -13,6 +13,7 @@ typedef struct{
 	double x,y,z;
 }Ponto;
 
+
 typedef struct {
 	double r,g,b;
 } Cor;

@@ -12,15 +12,11 @@
 using namespace simulacao::canvas::glWidget;
 using namespace simulacao::model;
 
-NxVec3 CaixaGraosGLWidget::gCameraForward(0,0,-1);
-NxVec3 CaixaGraosGLWidget::gCameraRight(-1,0,0);
 const NxReal CaixaGraosGLWidget::gCameraSpeed = 250;
 int mx, my;
-//NxCCDSkeleton * ccds;
-
 
 CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao)
-: QGLWidget(parent),gCameraPos(NxVec3(0.7,18,52.3))
+: QGLWidget(parent),gCameraPos(NxVec3(0.7,18,52.3)),gCameraForward(0,0,-1),gCameraRight(-1,0,0)
 {
 	srand(time(0));
 	setFormat(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer));
@@ -211,7 +207,6 @@ void CaixaGraosGLWidget::keyPressEvent ( QKeyEvent * event ){
 	case Qt::Key_Q :{ gCameraPos += NxVec3(0,1,0)*gCameraSpeed*deltaTime; break; }
 	}
 	updateGL();
-	qDebug() << gCameraPos.x << " " << gCameraPos.y << " " << gCameraPos.z << "\n";
 
 }
 

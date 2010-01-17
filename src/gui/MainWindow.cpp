@@ -5,6 +5,8 @@
 using namespace simulacao::gui;
 using namespace simulacao::canvas;
 
+#include "DialogParametrosCubo.h"
+#include "DialogParametrosGrade.h"
 #include "..\canvas\glWidget\RenderizacaoStrategy.h"
 #include "..\canvas\glWidget\RenderizarAtoresStrategy.h"
 #include "..\canvas\glWidget\RenderizarInterceptosStrategy.h"
@@ -39,7 +41,14 @@ MainWindow::~MainWindow(){
 
 }
 
-void MainWindow::criarCanvas(){
+void MainWindow::configurarGrade(){
+		DialogParametrosGrade *dialog = new DialogParametrosGrade(this,this->simulacao);
+		dialog->setModal(true);
+		dialog->setVisible(true);
+
+}
+
+inline void MainWindow::criarCanvas(){
 
 	simulacao = new SimulacaoCaixa;
 	RenderizacaoStrategy *strategy = new RenderizarAtoresStrategy();
@@ -75,7 +84,7 @@ void MainWindow::configurarParametros(){
 	case 2:
 		break;
 	case 3:
-		dialogParametrosCubo = new DialogParametrosCubo(this,this->simulacao);
+		DialogParametrosCubo *dialogParametrosCubo = new DialogParametrosCubo(this,this->simulacao);
 		dialogParametrosCubo->setModal(true);
 		dialogParametrosCubo->setVisible(true);
 		break;
@@ -162,8 +171,13 @@ void MainWindow::novaSimulacao(){
 	ui->btnNovoPlanodeCorte->setEnabled(true);
 	ui->btnPlanovsGraos->setEnabled(true);
 	ui->btnExibirInterceptos->setEnabled(false);
+
+	ui->checkBoxExibirPlanoDeCorte->setChecked(true);
+	ui->checkBoxExibirPontosTeste->setChecked(true);
+	ui->checkBoxExibirRetasTeste->setChecked(true);
 	
 	criarCanvas();
+	atualizarQuantidadeDeGraosEmCena();
 	
 }
 
@@ -197,7 +211,7 @@ void MainWindow::exibirPontosTeste(bool b){
 	this->simulacao->setExibirPontosTeste(b);
 }
 
-void MainWindow::atualizarQuantidadeDeGraosEmCena(){
+inline void MainWindow::atualizarQuantidadeDeGraosEmCena(){
 	long qtde_total_objetos = simulacao->getQtdeObjetos() - 2; // -2 remove a caixa e o plano 
 	statusQtdeObjetos->setText(tr("%1 Objetos").arg(qtde_total_objetos));
 }

@@ -1,5 +1,7 @@
 #include <vector>
 #include "RenderizarInterceptosStrategy.h"
+#include "..\drawVisitor\InterceptoDeAreaDrawVisitor.h"
+#include "..\drawVisitor\InterceptoLinearDrawVisitor.h"
 #include "..\..\model\interceptos\Intercepto.h"
 #include "..\..\model\atores\Ator.h"
 #include "..\..\draw\DrawObjects.h"
@@ -9,6 +11,7 @@
 
 using std::vector;
 using namespace simulacao::canvas::glWidget;
+using namespace simulacao::canvas::drawVisitor;
 using namespace simulacao::model::interceptos;
 using namespace simulacao::model::atores;
 
@@ -22,6 +25,8 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 
 	if (interceptos->size() == 0){
 		coletarInterceptos(simulacao);
+		float alturaGrade = simulacao->getPlanoDeCorte()->getGlobalPosition().y;
+		this->grade = new Grade(9,-18,alturaGrade,10,50);
 	}
 
 	vector<Intercepto*>::const_iterator iterator = interceptos->begin();
@@ -32,6 +37,17 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		Intercepto *intercepto = *iterator;
 		intercepto->accept(visitor);
 		++iterator;
+	}
+
+	
+	vector<Intercepto*>::const_iterator iterator2 = interceptos->begin();
+	InterceptoLinearDrawVisitor *visitor2 = new InterceptoLinearDrawVisitor(this->grade);
+	
+	while(iterator2!=interceptos->end())
+	{
+		Intercepto *intercepto = *iterator2;
+		intercepto->accept(visitor2);
+		++iterator2;
 	}
 
 	if (simulacao->getExibirRetasTeste() || simulacao->getExibirPontosTeste()){
@@ -46,25 +62,43 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 
 		if (simulacao->getExibirRetasTeste() ){
 			glBegin(GL_LINES);
-				for(int i=-9;i<10;++i){
-					glVertex3f(-10,simulacao->getPlanoDeCorte()->getGlobalPosition().y,i);
-					glVertex3f(10,simulacao->getPlanoDeCorte()->getGlobalPosition().y,i);
+				vector<Linha>::const_iterator linhas = this->grade->getLinhasIterator();
+				vector<Linha>::const_iterator end = this->grade->getLinhasIteratorEnd();
+
+				while(linhas!=end){
+					Linha l = *linhas;
+					glVertex3f(l.linhaInicio.x,l.linhaInicio.y,l.linhaInicio.z);
+					glVertex3f(l.linhaFim.x,l.linhaFim.y,l.linhaFim.z);
+					linhas++;
 				}
+				
 			glEnd();
 		}
 
+		/*
 		if (simulacao->getExibirPontosTeste()){
 			glColor4f(0.0f,0.0f,1.0f,0);
 			glBegin(GL_POINTS);
-				for(int i=-9;i<10;++i){
-					for(int j=-9;j<10;j++){
-						Ponto p = {j,simulacao->getPlanoDeCorte()->getGlobalPosition().y,i};
-						//if (renderizarPonto(p))
-							glVertex3f(j,simulacao->getPlanoDeCorte()->getGlobalPosition().y,i);
+				vector<Linha>::const_iterator linhas = this->grade->getLinhasIterator();
+				vector<Linha>::const_iterator end = this->grade->getLinhasIteratorEnd();
+
+				while(linhas!=end){
+					Linha l = *linhas;
+
+					vector<Ponto>::const_iterator pontos = l.getPontosIterator();
+					vector<Ponto>::const_iterator end = l.getPontosIteratorEnd();
+
+					while(pontos!=end){
+						Ponto p = *pontos;
+						glVertex3f(p.x,p.y,p.z);
+						++pontos;
 					}
+
+					linhas++;
 				}
 			glEnd();	
 		}
+		*/
 		
 		glPopAttrib();	
 	}
