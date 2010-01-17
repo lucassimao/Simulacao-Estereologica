@@ -62,11 +62,11 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 
 		if (simulacao->getExibirRetasTeste() ){
 			glBegin(GL_LINES);
-				vector<Linha>::const_iterator linhas = this->grade->getLinhasIterator();
-				vector<Linha>::const_iterator end = this->grade->getLinhasIteratorEnd();
+				vector<RetaDeTeste>::const_iterator linhas = this->grade->getLinhasIterator();
+				vector<RetaDeTeste>::const_iterator end = this->grade->getLinhasIteratorEnd();
 
 				while(linhas!=end){
-					Linha l = *linhas;
+					RetaDeTeste l = *linhas;
 					glVertex3f(l.linhaInicio.x,l.linhaInicio.y,l.linhaInicio.z);
 					glVertex3f(l.linhaFim.x,l.linhaFim.y,l.linhaFim.z);
 					linhas++;
@@ -75,15 +75,15 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 			glEnd();
 		}
 
-		/*
+		
 		if (simulacao->getExibirPontosTeste()){
 			glColor4f(0.0f,0.0f,1.0f,0);
 			glBegin(GL_POINTS);
-				vector<Linha>::const_iterator linhas = this->grade->getLinhasIterator();
-				vector<Linha>::const_iterator end = this->grade->getLinhasIteratorEnd();
+				vector<RetaDeTeste>::const_iterator linhas = this->grade->getLinhasIterator();
+				vector<RetaDeTeste>::const_iterator end = this->grade->getLinhasIteratorEnd();
 
 				while(linhas!=end){
-					Linha l = *linhas;
+					RetaDeTeste l = *linhas;
 
 					vector<Ponto>::const_iterator pontos = l.getPontosIterator();
 					vector<Ponto>::const_iterator end = l.getPontosIteratorEnd();
@@ -98,7 +98,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 				}
 			glEnd();	
 		}
-		*/
+		
 		
 		glPopAttrib();	
 	}

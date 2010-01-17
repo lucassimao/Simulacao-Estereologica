@@ -2,7 +2,7 @@
 #define GRADE_H
 
 #include <vector>
-#include "Linha.h"
+#include "RetaDeTeste.h"
 using std::vector;
 
 namespace simulacao{
@@ -13,12 +13,12 @@ namespace simulacao{
 
 			class Grade{
 			private:
-				vector<Linha> linhas;
+				vector<RetaDeTeste> linhas;
 			public:
 				Grade(float z0, float z1,float altura,int linhas,int pontosPorLinha);
-				vector<Linha> getLinhasNoIntervalo(double z0, double z1);
-				inline vector<Linha>::const_iterator getLinhasIterator(){ return this->linhas.begin(); };
-				inline vector<Linha>::const_iterator getLinhasIteratorEnd(){ return this->linhas.end(); };
+				vector<RetaDeTeste> getLinhasNoIntervalo(double z0, double z1);
+				inline vector<RetaDeTeste>::const_iterator getLinhasIterator(){ return this->linhas.begin(); };
+				inline vector<RetaDeTeste>::const_iterator getLinhasIteratorEnd(){ return this->linhas.end(); };
 				
 
 			};
