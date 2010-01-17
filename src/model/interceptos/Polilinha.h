@@ -17,7 +17,7 @@ namespace simulacao{
 				vector<SegmentoDeReta> vertices;
 				Polilinha(Cor cor,vector<SegmentoDeReta> vertices);
 				void accept(AbstractDrawVisitor *);
-				bool contemPonto(Ponto p);
+				//bool contemPonto(Ponto p);
 				
 			};
 

@@ -16,44 +16,65 @@ using namespace simulacao::canvas::drawVisitor;
 
 Poligono::Poligono(Cor cor,list<Ponto> vertices):Intercepto(cor){
 	this->vertices = vertices;
+	this->verticeComMaiorZ = procurarVerticeComMaiorZ();
+	this->verticeComMenorZ = procurarVerticeComMenorZ();
+
 	if (vertices.size()>3)
 		ordenarVertices();
 	
 
 }
 
+list<SegmentoDeReta> Poligono::getArestas(){
+	list<SegmentoDeReta> arestas;
+
+	list<Ponto>::const_iterator iter = vertices.begin();
+	Ponto vertice0 = *iter;
+	++iter;
+
+	while(iter!= vertices.end()){
+		Ponto p = *iter;
+		arestas.push_back(SegmentoDeReta(vertice0,p));
+		vertice0 = p;
+		++iter;
+	}	
+	Ponto ultimoVertice = vertices.back();
+	Ponto primeiroVertice = vertices.front();
+	arestas.push_back(SegmentoDeReta(ultimoVertice,primeiroVertice));
+	return arestas;
+}
+
 void Poligono::accept(AbstractDrawVisitor *visitor){
 	visitor->visit(this);
 }
 
-bool Poligono::contemPonto(Ponto p){
-	int interceptacoes=0;
-	Vetor inicio(p.x,p.y,p.z);
-	Vetor fim(10,p.y,p.z);
+inline Ponto Poligono::procurarVerticeComMenorZ(){
+	Ponto vertice = vertices.front();
 
-	SegmentoDeReta seg(inicio,fim);
-	vector<Ponto> vetoresPoligono;
-	
-	// transformando a lista em um vector, blahhhh!
-	list<Ponto>::const_iterator iter = this->vertices.begin();
-	while(iter!=this->vertices.end())
-	{
+	list<Ponto>::const_iterator iter = vertices.begin();
+	while(iter!= vertices.end()){
 		Ponto p = *iter;
-		vetoresPoligono.push_back(p);
+		if (p.z < vertice.z)
+			vertice = p;
 		++iter;
-	}	
-
-	for(int i=0;i< vetoresPoligono.size()-1;++i){
-		SegmentoDeReta aresta(vetoresPoligono.at(i),vetoresPoligono.at(i+1));
-		if (aresta.interceptar(seg,NULL,NULL))
-			++interceptacoes;
 	}
-		SegmentoDeReta ultimaAresta(vetoresPoligono.at(vetoresPoligono.size()-1),vetoresPoligono.at(0));
-		if (ultimaAresta.interceptar(seg,NULL,NULL))
-			++interceptacoes;
-	
-	return (interceptacoes % 2 !=0);
+
+	return vertice;
 }
+
+inline Ponto Poligono::procurarVerticeComMaiorZ(){
+	Ponto vertice = vertices.front();
+	list<Ponto>::const_iterator iter = vertices.begin();
+	while(iter!= vertices.end()){
+		Ponto p = *iter;
+		if (p.z > vertice.z)
+			vertice = p;
+		++iter;
+	}
+
+	return vertice;
+}
+
 
 inline bool ordenarPontosAcimaDoMaisAEsquerda(Ponto p1,Ponto p2){
 	return (p1.x < p2.x);

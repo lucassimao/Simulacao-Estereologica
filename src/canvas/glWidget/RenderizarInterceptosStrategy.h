@@ -23,7 +23,6 @@ namespace simulacao{
 				Grade *grade;
 
 				inline void coletarInterceptos(SimulacaoCaixa *simulacao);
-				inline bool renderizarPonto(Ponto p);
 			public:
 				RenderizarInterceptosStrategy();
 				inline void draw(SimulacaoCaixa *simulacao);

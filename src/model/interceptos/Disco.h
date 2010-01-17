@@ -17,7 +17,7 @@ namespace simulacao{
 				Disco(Cor cor,Ponto centro,double raio);
 				Disco(Ponto centro,double raio);
 				void accept(AbstractDrawVisitor *visitor);
-				bool contemPonto(Ponto p);
+				//bool contemPonto(Ponto p);
 			};
 
 		}

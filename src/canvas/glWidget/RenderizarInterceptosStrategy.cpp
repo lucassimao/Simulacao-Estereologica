@@ -108,22 +108,6 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 
 }
 
-inline bool RenderizarInterceptosStrategy::renderizarPonto(Ponto p){
-	
-	vector<Intercepto*>::const_iterator iterator = interceptos->begin();
-
-	while(iterator!=interceptos->end())
-	{
-		Intercepto *intercepto = *iterator;
-		if (intercepto->contemPonto(p))
-			return true;
-		else
-			++iterator;
-	}
-	return false;
-
-}
-
 inline void RenderizarInterceptosStrategy::coletarInterceptos(SimulacaoCaixa *simulacao){
 		NxU32 qtdeAtores = simulacao->getQtdeObjetos();
 		NxActor** atores = simulacao->getAtores();
