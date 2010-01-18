@@ -21,9 +21,6 @@ using namespace simulacao::model::interceptos;
 
 #include "..\..\utils\SegmentoDeReta.h"
 
-#define MAX(a,b) ( (a>=b)?a:b )
-#define MIN(a,b) ( (a<=b)?a:b )
-
 
 InterceptoLinearDrawVisitor::InterceptoLinearDrawVisitor(Grade *g){
 	this->grade = g;
@@ -88,7 +85,7 @@ inline void InterceptoLinearDrawVisitor::visit(Poligono *poligono){
 			RetaDeTeste retaDeTeste = *iterator;
 			
 			// já me retorna as arestas que estão interceptadas pela reta de teste
-			list<SegmentoDeReta> arestasInterceptadas = selecionarArestasInterceptadas(poligono->getArestas(),retaDeTeste.linhaFim.z);
+			list<SegmentoDeReta> arestasInterceptadas = poligono->getArestasInterceptadas(retaDeTeste);
 			
 			list<SegmentoDeReta>::const_iterator iter = arestasInterceptadas.begin();
 			while(iter!=arestasInterceptadas.end()){
@@ -104,23 +101,6 @@ inline void InterceptoLinearDrawVisitor::visit(Poligono *poligono){
 	glEnd();
 
 	glPopAttrib();
-}
-
-inline list<SegmentoDeReta> InterceptoLinearDrawVisitor::selecionarArestasInterceptadas(list<SegmentoDeReta> &arestas,double zLinha){
-	list<SegmentoDeReta> arestasInterceptadas;
-	list<SegmentoDeReta>::iterator iter = arestas.begin();
-	
-	while(iter!= arestas.end()){
-		SegmentoDeReta s = *iter;
-		Vetor v0 = s.r0;
-		Vetor v1 = s.r1;
-
-		if (  (zLinha <= MAX(v0.z,v1.z)) && ( zLinha >= MIN(v0.z,v1.z))  )
-			arestasInterceptadas.push_back(s);
-
-		++iter;
-	}
-	return arestasInterceptadas;
 }
 
 inline void InterceptoLinearDrawVisitor::visit(Polilinha *poligono){

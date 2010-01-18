@@ -168,6 +168,7 @@ void MainWindow::novaSimulacao(){
 	this->simulacao = new SimulacaoCaixa;
 	this->simulacao->novoPlanoDeCorte();
 
+	ui->btnParar->setText("Pausar");
 	ui->btnNovoPlanodeCorte->setEnabled(true);
 	ui->btnPlanovsGraos->setEnabled(true);
 	ui->btnExibirInterceptos->setEnabled(false);
@@ -198,7 +199,7 @@ void MainWindow::exibirGraosInterceptados(){
 
 /** Exibe as regiões no plano interceptadas pelos objetos cortados pelo plano */
 void MainWindow::exibirInterceptos(){
-	RenderizacaoStrategy *strategy = new RenderizarInterceptosStrategy();
+	RenderizarInterceptosStrategy *strategy = new RenderizarInterceptosStrategy(simulacao->getGrade());
 	view->setStrategy(strategy);
 	ui->btnExibirInterceptos->setEnabled(false);
 	

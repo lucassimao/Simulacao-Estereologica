@@ -4,11 +4,14 @@
 #include <list>
 #include <vector>
 #include "Intercepto.h"
+#include "..\grade\RetaDeTeste.h"
 #include "..\..\defs.h"
 #include "..\..\utils\SegmentoDeReta.h"
 
+
 using std::vector;
 using std::list;
+using namespace simulacao::model::grade;
 
 namespace simulacao{ 
 	namespace model {
@@ -26,6 +29,8 @@ namespace simulacao{
 
 				list<Ponto> vertices;
 				list<SegmentoDeReta> arestas;
+			protected:
+				double calcularArea();
 			public:
 				Poligono(Cor cor,list<Ponto> vertices);
 				
@@ -35,6 +40,7 @@ namespace simulacao{
 				void accept(AbstractDrawVisitor *);
 				list<Ponto> getVertices() const{ return this->vertices; };
 				list<SegmentoDeReta> getArestas(){ return this->arestas;};
+				list<SegmentoDeReta> getArestasInterceptadas(RetaDeTeste&);
 				
 			};
 

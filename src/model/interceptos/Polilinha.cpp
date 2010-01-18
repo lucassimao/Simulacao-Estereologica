@@ -15,8 +15,6 @@ Polilinha::Polilinha(Cor cor,vector<SegmentoDeReta> vertices):Intercepto(cor){
 void Polilinha::accept(AbstractDrawVisitor *visitor){
 	visitor->visit(this);
 }
-/*
-bool Polilinha::contemPonto(Ponto p){
-	return true;
+double Polilinha::calcularArea(){
+	return 0.0;
 }
-*/

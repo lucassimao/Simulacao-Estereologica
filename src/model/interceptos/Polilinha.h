@@ -12,13 +12,13 @@ namespace simulacao{
 	namespace model {
 		namespace interceptos{
 
-			class Polilinha: public Intercepto{				
+			class Polilinha: public Intercepto{		
+			protected:
+				double calcularArea();
 			public:
 				vector<SegmentoDeReta> vertices;
 				Polilinha(Cor cor,vector<SegmentoDeReta> vertices);
-				void accept(AbstractDrawVisitor *);
-				//bool contemPonto(Ponto p);
-				
+				void accept(AbstractDrawVisitor *);				
 			};
 
 		}

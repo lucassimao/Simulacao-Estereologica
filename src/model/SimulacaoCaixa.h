@@ -5,13 +5,14 @@
 #include "../defs.h"
 #include "../utils/MeshFactory.h"
 #include "Simulacao.h"
-
+#include "grade/Grade.h"
 /**
 * Definição de uma simulação simples, 
 * objetos idênticos
 *
 */
 using namespace simulacao::utils;
+using namespace simulacao::model::grade;
 
 namespace simulacao{
 	namespace model{
@@ -48,6 +49,12 @@ namespace simulacao{
 
 			void exibirPlanoDeCorte();
 			void esconderPlanoDeCorte();
+
+			Grade * getGrade(){
+				float alturaGrade = this->getPlanoDeCorte()->getGlobalPosition().y;
+				return new Grade(9,-18,alturaGrade,10,50);
+			
+			}
 
 			SimulacaoCaixa(void);
 			~SimulacaoCaixa(void);

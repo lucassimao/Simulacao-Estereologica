@@ -11,13 +11,14 @@ namespace simulacao{
 		namespace interceptos{
 
 			class Disco: public Intercepto{
+			protected:
+				virtual double calcularArea();
 			public:
 				const Ponto centro;
 				const double raio;
 				Disco(Cor cor,Ponto centro,double raio);
 				Disco(Ponto centro,double raio);
 				void accept(AbstractDrawVisitor *visitor);
-				//bool contemPonto(Ponto p);
 			};
 
 		}

@@ -17,16 +17,15 @@ using namespace simulacao::model::atores;
 
 
 
-RenderizarInterceptosStrategy::RenderizarInterceptosStrategy(){
+RenderizarInterceptosStrategy::RenderizarInterceptosStrategy(Grade *grade){
 	interceptos = new vector<Intercepto*>();
+	this->grade = grade;
 }
 
 inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){		
 
 	if (interceptos->size() == 0){
 		coletarInterceptos(simulacao);
-		float alturaGrade = simulacao->getPlanoDeCorte()->getGlobalPosition().y;
-		this->grade = new Grade(9,-18,alturaGrade,10,50);
 	}
 
 	vector<Intercepto*>::const_iterator iterator = interceptos->begin();

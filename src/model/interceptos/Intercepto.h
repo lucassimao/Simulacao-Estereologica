@@ -22,10 +22,14 @@ namespace simulacao{
 			class Intercepto{
 			protected:
 				Cor cor;
+				double area;
+
+				virtual double calcularArea()  = 0;
 			public:
 				Intercepto();
 				Intercepto(Cor);
 				virtual void accept(AbstractDrawVisitor *) = 0;
+				double getArea(){ return this->area;};
 				Cor getCor() const { return cor;};
 			};
 

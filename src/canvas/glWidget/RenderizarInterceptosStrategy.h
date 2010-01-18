@@ -24,8 +24,9 @@ namespace simulacao{
 
 				inline void coletarInterceptos(SimulacaoCaixa *simulacao);
 			public:
-				RenderizarInterceptosStrategy();
+				RenderizarInterceptosStrategy(Grade *);
 				inline void draw(SimulacaoCaixa *simulacao);
+				vector<Intercepto*> * getInterceptos(){ return this->interceptos; };
 
 			};
 

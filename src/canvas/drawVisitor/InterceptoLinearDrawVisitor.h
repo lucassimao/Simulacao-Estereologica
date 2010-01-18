@@ -17,8 +17,6 @@ namespace simulacao{
 			class InterceptoLinearDrawVisitor : public AbstractDrawVisitor{
 			private:
 				Grade *grade;
-
-				inline list<SegmentoDeReta> selecionarArestasInterceptadas(list<SegmentoDeReta> &arestas,double zLinha);
 			public:
 				InterceptoLinearDrawVisitor(Grade *);
 				inline void visit(Disco *disco);

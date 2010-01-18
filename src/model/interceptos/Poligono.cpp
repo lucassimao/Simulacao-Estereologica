@@ -13,6 +13,8 @@ using namespace simulacao::canvas::drawVisitor;
 #include "..\..\utils\Vetor.h"
 #include "..\..\utils\SegmentoDeReta.h"
 
+#define MAX(a,b) ( (a>=b)?a:b )
+#define MIN(a,b) ( (a<=b)?a:b )
 
 Poligono::Poligono(Cor cor,list<Ponto> vertices):Intercepto(cor){
 	this->vertices = vertices;
@@ -24,6 +26,29 @@ Poligono::Poligono(Cor cor,list<Ponto> vertices):Intercepto(cor){
 	this->arestas = coletarArestas();	
 
 }
+
+double Poligono::calcularArea(){
+	return 0.0;
+}
+
+list<SegmentoDeReta> Poligono::getArestasInterceptadas(RetaDeTeste& rt){
+	double zLinha = rt.linhaInicio.z;
+	list<SegmentoDeReta> arestasInterceptadas;
+	list<SegmentoDeReta>::iterator iter = arestas.begin();
+	
+	while(iter!= arestas.end()){
+		SegmentoDeReta s = *iter;
+		Vetor v0 = s.r0;
+		Vetor v1 = s.r1;
+
+		if (  (zLinha <= MAX(v0.z,v1.z)) && ( zLinha >= MIN(v0.z,v1.z))  )
+			arestasInterceptadas.push_back(s);
+
+		++iter;
+	}
+	return arestasInterceptadas;
+}
+
 
 inline list<SegmentoDeReta> Poligono::coletarArestas(){
 	list<SegmentoDeReta> arestas;
