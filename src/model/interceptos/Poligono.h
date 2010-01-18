@@ -22,8 +22,10 @@ namespace simulacao{
 				inline list<Ponto> procurarVerticesAbaixoDoVerticeMaisAEsquerda(Ponto&);
 				inline Ponto procurarVerticeComMenorZ();
 				inline Ponto procurarVerticeComMaiorZ();
+				inline list<SegmentoDeReta> coletarArestas();
 
 				list<Ponto> vertices;
+				list<SegmentoDeReta> arestas;
 			public:
 				Poligono(Cor cor,list<Ponto> vertices);
 				
@@ -32,8 +34,7 @@ namespace simulacao{
 
 				void accept(AbstractDrawVisitor *);
 				list<Ponto> getVertices() const{ return this->vertices; };
-				list<SegmentoDeReta> getArestas();
-				//bool contemPonto(Ponto p);
+				list<SegmentoDeReta> getArestas(){ return this->arestas;};
 				
 			};
 

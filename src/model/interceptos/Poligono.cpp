@@ -16,16 +16,16 @@ using namespace simulacao::canvas::drawVisitor;
 
 Poligono::Poligono(Cor cor,list<Ponto> vertices):Intercepto(cor){
 	this->vertices = vertices;
-	this->verticeComMaiorZ = procurarVerticeComMaiorZ();
-	this->verticeComMenorZ = procurarVerticeComMenorZ();
-
 	if (vertices.size()>3)
 		ordenarVertices();
-	
+
+	this->verticeComMaiorZ = procurarVerticeComMaiorZ();
+	this->verticeComMenorZ = procurarVerticeComMenorZ();	
+	this->arestas = coletarArestas();	
 
 }
 
-list<SegmentoDeReta> Poligono::getArestas(){
+inline list<SegmentoDeReta> Poligono::coletarArestas(){
 	list<SegmentoDeReta> arestas;
 
 	list<Ponto>::const_iterator iter = vertices.begin();
