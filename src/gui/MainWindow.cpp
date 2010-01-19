@@ -12,6 +12,14 @@ using namespace simulacao::canvas;
 #include "..\canvas\glWidget\RenderizarInterceptosStrategy.h"
 using namespace simulacao::canvas::glWidget;
 
+#include "..\math\ColetorDeAreasVisitor.h"
+#include "..\math\ColetorDeInterceptosLinearesVisitor.h"
+
+using namespace simulacao::math::mathVisitor;
+
+#include <fstream>
+using std::ofstream;
+
 MainWindow::MainWindow(){
 	ui = new Ui_MainWindow();
 	ui->setupUi(this);
@@ -199,10 +207,12 @@ void MainWindow::exibirGraosInterceptados(){
 
 /** Exibe as regiões no plano interceptadas pelos objetos cortados pelo plano */
 void MainWindow::exibirInterceptos(){
-	RenderizarInterceptosStrategy *strategy = new RenderizarInterceptosStrategy(simulacao->getGrade());
+	Grade *g = simulacao->getGrade();
+
+	RenderizarInterceptosStrategy *strategy = new RenderizarInterceptosStrategy(g);
 	view->setStrategy(strategy);
 	ui->btnExibirInterceptos->setEnabled(false);
-	
+
 }
 
 void MainWindow::exibirRetasTeste(bool b){

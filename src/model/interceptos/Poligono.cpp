@@ -10,8 +10,14 @@ using std::list;
 #include "..\..\canvas\drawVisitor\AbstractDrawVisitor.h"
 using namespace simulacao::canvas::drawVisitor;
 
+#include "..\..\math\AbstractMathVisitor.h"
+using namespace simulacao::math::mathVisitor;
+
+
 #include "..\..\utils\Vetor.h"
 #include "..\..\utils\SegmentoDeReta.h"
+
+#include <Nxvec3.h>
 
 #define MAX(a,b) ( (a>=b)?a:b )
 #define MIN(a,b) ( (a<=b)?a:b )
@@ -27,8 +33,40 @@ Poligono::Poligono(Cor cor,list<Ponto> vertices):Intercepto(cor){
 
 }
 
-double Poligono::calcularArea(){
-	return 0.0;
+double Poligono::getPerimetro(){
+	double perimetro = 0;
+
+	list<SegmentoDeReta>::const_iterator segmentos = this->arestas.begin();
+	while(segmentos!= this->arestas.end()){
+		SegmentoDeReta s= *segmentos;
+	
+		NxVec3 vec0(s.r0.x,s.r0.y,s.r0.z);
+		NxVec3 vec1(s.r1.x,s.r1.y,s.r1.z);
+
+		NxVec3 vetorEquivalente = vec1 - vec0;
+		perimetro += vetorEquivalente.magnitude();
+	}
+	return perimetro;
+}
+
+double Poligono::getArea(){
+	double area = 0.0;
+
+	list<Ponto>::const_iterator iter = vertices.begin();
+	Ponto p0 = *iter;
+	++iter;
+
+	while(iter!=vertices.end()){
+		Ponto p1 = *iter;
+		++iter;
+		Ponto p2 = *iter;
+
+		NxVec3 v1(p1.x-p0.x,p1.y-p0.y,p1.z-p0.z);
+		NxVec3 v2(p2.x-p0.x,p2.y-p0.y,p2.z-p0.z);
+		area += v1.cross(v2).magnitude();	
+	}
+
+	return area;
 }
 
 list<SegmentoDeReta> Poligono::getArestasInterceptadas(RetaDeTeste& rt){
@@ -70,6 +108,9 @@ inline list<SegmentoDeReta> Poligono::coletarArestas(){
 }
 
 void Poligono::accept(AbstractDrawVisitor *visitor){
+	visitor->visit(this);
+}
+void Poligono::accept(AbstractMathVisitor *visitor){
 	visitor->visit(this);
 }
 

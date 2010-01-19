@@ -6,7 +6,7 @@ namespace simulacao {
 		namespace interceptos{
 			class Disco;
 			class Poligono;
-			class Polilinha;
+	
 		}
 	}
 }
@@ -22,7 +22,6 @@ namespace simulacao{
 				AbstractDrawVisitor();
 				virtual inline void visit(Disco *disco)=0;
 				virtual inline void visit(Poligono *poligono)=0;
-				virtual inline void visit(Polilinha *poligono)=0;
 			};
 		}
 	}

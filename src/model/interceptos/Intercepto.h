@@ -15,6 +15,14 @@ namespace simulacao{
 
 using namespace simulacao::canvas::drawVisitor;
 
+namespace simulacao{
+	namespace math{
+		namespace mathVisitor{
+			class AbstractMathVisitor;
+		}}}
+
+using namespace simulacao::math::mathVisitor;
+
 namespace simulacao{ 
 	namespace model { 
 		namespace interceptos{
@@ -22,14 +30,15 @@ namespace simulacao{
 			class Intercepto{
 			protected:
 				Cor cor;
-				double area;
-
-				virtual double calcularArea()  = 0;
 			public:
 				Intercepto();
 				Intercepto(Cor);
+
 				virtual void accept(AbstractDrawVisitor *) = 0;
-				double getArea(){ return this->area;};
+				virtual void accept(AbstractMathVisitor *) = 0;
+				virtual double getArea() = 0;
+				virtual double getPerimetro() = 0;
+
 				Cor getCor() const { return cor;};
 			};
 

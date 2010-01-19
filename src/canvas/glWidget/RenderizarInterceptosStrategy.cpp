@@ -6,10 +6,13 @@
 #include "..\..\model\atores\Ator.h"
 #include "..\..\draw\DrawObjects.h"
 #include "GL\glut.h"
+#include "..\..\math\ColetorDeAreasVisitor.h"
+#include "..\..\math\ColetorDeInterceptosLinearesVisitor.h"
+#include <iostream>
+#include <fstream>
 
-
-
-using std::vector;
+using namespace std;
+using namespace simulacao::math::mathVisitor;
 using namespace simulacao::canvas::glWidget;
 using namespace simulacao::canvas::drawVisitor;
 using namespace simulacao::model::interceptos;
@@ -26,6 +29,35 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 
 	if (interceptos->size() == 0){
 		coletarInterceptos(simulacao);
+
+		/*
+		ColetorDeAreasVisitor *visitor1 = new ColetorDeAreasVisitor(this->grade);
+		ColetorDeInterceptosLinearesVisitor *visitor2 = new ColetorDeInterceptosLinearesVisitor(this->grade);
+		
+		vector<Intercepto*>::const_iterator  iter= this->interceptos->begin();
+		
+		ofstream areas("areas.txt",std::ios::out);
+		ofstream interceptosLineares("interceptosLineares.txt",std::ios::out);
+		
+		while(iter!=interceptos->end()){
+			Intercepto *i = *iter;
+			i->accept(visitor1);
+			i->accept(visitor2);
+			++iter;
+		}
+
+		for(int i=0;i<visitor1->getAreas().size();++i){
+			double d = visitor1->getAreas().at(i);
+			areas << d << endl;
+		}
+		areas.close();
+
+		for(int i=0;i<visitor2->getInterceptosLineares().size();++i){
+			double d = visitor2->getInterceptosLineares().at(i);
+			interceptosLineares << d << endl;
+		}
+		interceptosLineares.close();	
+		*/
 	}
 
 	vector<Intercepto*>::const_iterator iterator = interceptos->begin();

@@ -15,7 +15,6 @@ using namespace simulacao::model::grade;
 
 
 #include "..\..\model\interceptos\Poligono.h"
-#include "..\..\model\interceptos\Polilinha.h"
 #include "..\..\model\interceptos\Disco.h"
 using namespace simulacao::model::interceptos;
 
@@ -102,8 +101,3 @@ inline void InterceptoLinearDrawVisitor::visit(Poligono *poligono){
 
 	glPopAttrib();
 }
-
-inline void InterceptoLinearDrawVisitor::visit(Polilinha *poligono){
-
-}
-

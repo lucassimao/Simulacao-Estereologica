@@ -3,10 +3,13 @@
 
 #include <vector>
 #include "AbstractMathVisitor.h"
+#include "..\model\interceptos\Poligono.h"
+#include "..\model\interceptos\Disco.h"
 #include "..\model\grade\Grade.h"
 
 using std::vector;
 using namespace simulacao::model::grade;
+using namespace simulacao::model::interceptos;
 
 namespace simulacao{
 	namespace math{
@@ -22,7 +25,7 @@ namespace simulacao{
 				inline void visit(Disco *disco);
 				inline void visit(Poligono *poligono);
 
-				vector<double> getAreas() const { return this->areas;};
+				vector<double> getAreas() { return this->areas;};
 			};
 
 		}

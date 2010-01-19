@@ -4,6 +4,10 @@ using namespace simulacao::model::interceptos;
 #include "..\..\canvas\drawVisitor\AbstractDrawVisitor.h"
 using namespace simulacao::canvas::drawVisitor;
 
+#include "..\..\math\AbstractMathVisitor.h"
+using namespace simulacao::math::mathVisitor;
+
+
 #define _USE_MATH_DEFINES
 #include <cmath>
 
@@ -17,6 +21,13 @@ void Disco::accept(AbstractDrawVisitor *visitor){
 	visitor->visit(this);
 }
 
-double Disco::calcularArea(){
+void Disco::accept(AbstractMathVisitor *visitor){
+	visitor->visit(this);
+}
+double Disco::getArea(){
 	return M_PI * pow(this->raio,2.0);
+}
+
+double Disco::getPerimetro(){
+	return 2*M_PI*this->raio;
 }

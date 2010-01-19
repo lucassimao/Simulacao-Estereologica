@@ -12,8 +12,7 @@ namespace simulacao{
 				InterceptoDeAreaDrawVisitor();
 				inline void visit(Disco *disco);
 				inline void visit(Poligono *poligono);
-				inline void visit(Polilinha *poligono);
-			};
+		};
 
 		}
 	}

@@ -472,10 +472,6 @@
 						RelativePath=".\src\model\interceptos\Poligono.cpp"
 						>
 					</File>
-					<File
-						RelativePath=".\src\model\interceptos\Polilinha.cpp"
-						>
-					</File>
 				</Filter>
 				<Filter
 					Name="grade"
@@ -676,10 +672,6 @@
 					</File>
 					<File
 						RelativePath=".\src\model\interceptos\Poligono.h"
-						>
-					</File>
-					<File
-						RelativePath=".\src\model\interceptos\Polilinha.h"
 						>
 					</File>
 				</Filter>
@@ -975,26 +967,6 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			>
 			<File
-				RelativePath="release\moc_CaixaGraosGLWidget.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug - v2.8.0|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="debug\moc_CaixaGraosGLWidget.cpp"
 				>
 				<FileConfiguration
@@ -1015,10 +987,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="debug\moc_DialogParametrosCubo.cpp"
+				RelativePath="release\moc_CaixaGraosGLWidget.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1026,7 +998,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release - v2.8.0|Win32"
+					Name="Debug - v2.8.0|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1055,10 +1027,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="release\moc_DialogParametrosGrade.cpp"
+				RelativePath="debug\moc_DialogParametrosCubo.cpp"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1066,7 +1038,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug - v2.8.0|Win32"
+					Name="Release - v2.8.0|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1087,6 +1059,26 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release - v2.8.0|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="release\moc_DialogParametrosGrade.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug - v2.8.0|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool

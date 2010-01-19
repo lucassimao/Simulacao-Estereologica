@@ -12,3 +12,5 @@ Release - v2.8.0/*
 *.pdb
 *.ncb
 *.idb
+areas.txt
+interceptosLineares.txt

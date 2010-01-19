@@ -29,15 +29,18 @@ namespace simulacao{
 
 				list<Ponto> vertices;
 				list<SegmentoDeReta> arestas;
-			protected:
-				double calcularArea();
 			public:
-				Poligono(Cor cor,list<Ponto> vertices);
-				
 				Ponto verticeComMenorZ;
 				Ponto verticeComMaiorZ;
 
+				Poligono(Cor cor,list<Ponto> vertices);
+				
+
 				void accept(AbstractDrawVisitor *);
+				void accept(AbstractMathVisitor *);				
+				double getArea();
+				double getPerimetro();
+
 				list<Ponto> getVertices() const{ return this->vertices; };
 				list<SegmentoDeReta> getArestas(){ return this->arestas;};
 				list<SegmentoDeReta> getArestasInterceptadas(RetaDeTeste&);

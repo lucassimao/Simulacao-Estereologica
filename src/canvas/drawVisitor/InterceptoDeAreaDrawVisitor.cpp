@@ -3,7 +3,6 @@
 #include "GL\glut.h"
 
 #include "..\..\model\interceptos\Poligono.h"
-#include "..\..\model\interceptos\Polilinha.h"
 #include "..\..\model\interceptos\Disco.h"
 using namespace simulacao::model::interceptos;
 
@@ -38,29 +37,6 @@ inline void InterceptoDeAreaDrawVisitor::visit(Disco *disco){
 	}
 	glEnd();	
 	glPopAttrib();
-
-}
-
-inline void InterceptoDeAreaDrawVisitor::visit(Polilinha *p){
-
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
-
-	glEnable(GL_CULL_FACE); 
-	glCullFace(GL_FRONT); 
-	glColor4f(1.0f,0,0.3f,1);
-	glLineWidth(3);
-
-	glBegin(GL_LINES);
-		vector<SegmentoDeReta>::const_iterator i = p->vertices.begin();
-		while(i!=p->vertices.end()){
-			SegmentoDeReta s = *i;
-				glVertex3f(s.r0.x,s.r0.y,s.r0.z);
-				glVertex3f(s.r1.x,s.r1.y,s.r1.z);
-			++i;
-		}
-	glEnd();	
-	glPopAttrib();	
-
 
 }
 

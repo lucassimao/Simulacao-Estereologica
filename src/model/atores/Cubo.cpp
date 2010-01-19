@@ -5,7 +5,6 @@
 #include "Cubo.h"
 #include <NxExportedUtils.h>
 #include "..\..\model\interceptos\Poligono.h"
-#include "..\..\model\interceptos\Polilinha.h"
 
 using namespace simulacao::model::interceptos;
 using namespace simulacao::model::atores;

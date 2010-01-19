@@ -10,15 +10,19 @@ namespace simulacao{
 	namespace model {
 		namespace interceptos{
 
-			class Disco: public Intercepto{
-			protected:
-				virtual double calcularArea();
+			class Disco: public Intercepto{		
 			public:
 				const Ponto centro;
 				const double raio;
+				
 				Disco(Cor cor,Ponto centro,double raio);
 				Disco(Ponto centro,double raio);
+
+				double getArea();
+				double getPerimetro();
 				void accept(AbstractDrawVisitor *visitor);
+				void accept(AbstractMathVisitor *);				
+
 			};
 
 		}
