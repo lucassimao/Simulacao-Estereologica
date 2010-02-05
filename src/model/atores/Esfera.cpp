@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include "Esfera.h"
+#include "../Parametros.h"
 #include "..\..\model\interceptos\Intercepto.h"
 #include "..\..\model\interceptos\Disco.h"
 
@@ -9,7 +10,7 @@ using namespace simulacao::model::interceptos;
 
 Esfera::Esfera(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 {
-		this->raio = 0.9;
+		this->raio = Parametros::getInstance()->getRaioEsfera();
 
 		NxActorDesc actorDesc2;
 		NxBodyDesc bodyDesc2;
