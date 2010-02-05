@@ -56,14 +56,18 @@ double Poligono::getArea(){
 	Ponto p0 = *iter;
 	++iter;
 
-	while(iter!=vertices.end()){
+	while(true){
 		Ponto p1 = *iter;
 		++iter;
+		
+		if (iter==vertices.end())
+			break;
+
 		Ponto p2 = *iter;
 
 		NxVec3 v1(p1.x-p0.x,p1.y-p0.y,p1.z-p0.z);
 		NxVec3 v2(p2.x-p0.x,p2.y-p0.y,p2.z-p0.z);
-		area += v1.cross(v2).magnitude();	
+		area += 0.5 * v1.cross(v2).magnitude();	
 	}
 
 	return area;
