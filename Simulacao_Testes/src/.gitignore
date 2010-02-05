@@ -1,0 +1,17 @@
+*.exe
+*.obj
+forms/*.h
+debug/*
+release/*
+Simulacao.suo
+Debug - v2.8.0/*
+Debug_PhysX_v2.8.3/*
+Release_PhysX_v2.8.3/*
+*.htm
+*.html
+*.pdb
+*.ncb
+*.idb
+Simulacao.ilk
+areas.txt
+interceptosLineares.txt
