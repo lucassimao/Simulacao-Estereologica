@@ -38,7 +38,7 @@ namespace simulacao{
 			void setBasePrisma(double b){ if(b>0) this->basePrisma = b;}
 
 			bool isUsarGraosAleatorios() const { return this->usarGraosAleatorios;}
-			void setUsarGraosAleatorios(bool b) const { this->usarGraosAleatorios = b;}
+			void setUsarGraosAleatorios(bool b) { this->usarGraosAleatorios = b;}
 
 		};
 	}

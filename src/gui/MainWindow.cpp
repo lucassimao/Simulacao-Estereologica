@@ -225,7 +225,7 @@ void MainWindow::novaSimulacao(){
 }
 
 void MainWindow::usarGraosAleatorios(bool b){
-	Parametros::setUsarGraosAleatorios(b);
+	Parametros::getInstance()->setUsarGraosAleatorios(b);
 }
 
 /** Exibe os objetos que estão sendo interceptados pelo plano */

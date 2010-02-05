@@ -26,8 +26,6 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->shapePlanoDeCorte = 0;
 	this->exibirCaixa = true;
 	this->caixa = criarCaixa();
-	this->esferaRaio=0.9;
-	this->arestaCubo = 0.5;
 	this->exibirPontosTeste=true;
 	this->exibirRetasTeste=true;
 	criarCCDS();

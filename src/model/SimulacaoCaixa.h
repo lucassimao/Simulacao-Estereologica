@@ -27,15 +27,8 @@ namespace simulacao{
 			NxPlane *shapePlanoDeCorte;
 			NxActor *criarCaixa();
 			
-			//valores padrões
-			double esferaRaio;
-			double arestaCubo;
-			double alturaPrisma;
-			double basePrisma;
-
 			bool exibirRetasTeste;
 			bool exibirPontosTeste;
-
 			void criarCCDS();
 
 		public:
@@ -63,12 +56,6 @@ namespace simulacao{
 			void novoPlanoDeCorte();
 			void selecionarGraosInterceptados();
 			void removerGraos();
-
-			double getEsferaRaio(){ return this->esferaRaio;}
-			void setEsferaRaio(double novoRaio){ this->esferaRaio = novoRaio;}
-
-			double getArestaCubo(){ return this->arestaCubo;}
-			void setArestaCubo(double novaAresta){ this->arestaCubo = novaAresta;}
 
 			bool getExibirRetasTeste(){ return this->exibirRetasTeste;}
 			void setExibirRetasTeste(bool b){ this->exibirRetasTeste = b;}
