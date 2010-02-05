@@ -117,5 +117,61 @@
 				MPIAcceptFilter=""
 			/>
 		</Configuration>
+		<Configuration
+			Name="Release_PhysX_v2.8.3|Win32"
+			>
+			<DebugSettings
+				Command="$(TargetPath)"
+				WorkingDirectory=""
+				CommandArguments=""
+				Attach="false"
+				DebuggerType="3"
+				Remote="1"
+				RemoteMachine="USER-PC"
+				RemoteCommand=""
+				HttpUrl=""
+				PDBPath=""
+				SQLDebugging=""
+				Environment=""
+				EnvironmentMerge="true"
+				DebuggerFlavor=""
+				MPIRunCommand=""
+				MPIRunArguments=""
+				MPIRunWorkingDirectory=""
+				ApplicationCommand=""
+				ApplicationArguments=""
+				ShimCommand=""
+				MPIAcceptMode=""
+				MPIAcceptFilter=""
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_PhysX_v2.8.3|Win32"
+			>
+			<DebugSettings
+				Command="$(TargetPath)"
+				WorkingDirectory=""
+				CommandArguments=""
+				Attach="false"
+				DebuggerType="3"
+				Remote="1"
+				RemoteMachine="USER-PC"
+				RemoteCommand=""
+				HttpUrl=""
+				PDBPath=""
+				SQLDebugging=""
+				Environment=""
+				EnvironmentMerge="true"
+				DebuggerFlavor=""
+				MPIRunCommand=""
+				MPIRunArguments=""
+				MPIRunWorkingDirectory=""
+				ApplicationCommand=""
+				ApplicationArguments=""
+				ShimCommand=""
+				MPIAcceptMode=""
+				MPIAcceptFilter=""
+			/>
+		</Configuration>
 	</Configurations>
 </VisualStudioUserFile>

@@ -30,7 +30,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 	if (interceptos->size() == 0){
 		coletarInterceptos(simulacao);
 
-		/*
+		
 		ColetorDeAreasVisitor *visitor1 = new ColetorDeAreasVisitor(this->grade);
 		ColetorDeInterceptosLinearesVisitor *visitor2 = new ColetorDeInterceptosLinearesVisitor(this->grade);
 		
@@ -57,7 +57,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 			interceptosLineares << d << endl;
 		}
 		interceptosLineares.close();	
-		*/
+		
 	}
 
 	vector<Intercepto*>::const_iterator iterator = interceptos->begin();
