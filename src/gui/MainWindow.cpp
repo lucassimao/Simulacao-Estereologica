@@ -1,12 +1,15 @@
 #include <QMessageBox>
 #include <QtDebug>
+#include <QInputDialog>
 #include "MainWindow.h"
 
+using namespace simulacao::model;
 using namespace simulacao::gui;
 using namespace simulacao::canvas;
 
 #include "DialogParametrosCubo.h"
 #include "DialogParametrosGrade.h"
+#include "..\model\Parametros.h"
 #include "..\canvas\glWidget\RenderizacaoStrategy.h"
 #include "..\canvas\glWidget\RenderizarAtoresStrategy.h"
 #include "..\canvas\glWidget\RenderizarInterceptosStrategy.h"
@@ -83,18 +86,51 @@ inline void MainWindow::criarCanvas(){
 
 void MainWindow::configurarParametros(){
 
+	int res;
+	QInputDialog *dlg = new QInputDialog(this);
+	dlg->setDoubleMinimum(0.1);
+	dlg->setInputMode(QInputDialog::InputMode::DoubleInput);
+
 	switch(ui->comboBoxTipoGrao->currentIndex())
 	{
 	case 0:
+		
+		dlg->setLabelText(tr("Raio da esfera:"));
+		dlg->setDoubleValue(Parametros::getInstance()->getRaioEsfera());
+		res = dlg->exec();
+
+		if (res == QInputDialog::DialogCode::Accepted){
+			Parametros::getInstance()->setRaioEsfera(dlg->doubleValue());
+		}
 		break;
 	case 1:
+		dlg->setLabelText(tr("Altura do Prisma:"));
+		dlg->setDoubleValue(Parametros::getInstance()->getAlturaPrisma());
+		res = dlg->exec();
+
+		if (res == QInputDialog::DialogCode::Accepted){
+			Parametros::getInstance()->setAlturaPrisma(dlg->doubleValue());
+
+			dlg->setLabelText(tr("Base do Prisma:"));
+			dlg->setDoubleValue(Parametros::getInstance()->getBasePrisma());
+			res = dlg->exec();
+
+			if (res == QInputDialog::DialogCode::Accepted){
+				Parametros::getInstance()->setBasePrisma(dlg->doubleValue());
+			}
+		}
+
 		break;
 	case 2:
 		break;
 	case 3:
-		DialogParametrosCubo *dialogParametrosCubo = new DialogParametrosCubo(this,this->simulacao);
-		dialogParametrosCubo->setModal(true);
-		dialogParametrosCubo->setVisible(true);
+		dlg->setLabelText(tr("Aresta do cubo:"));
+		dlg->setDoubleValue(Parametros::getInstance()->getArestaCubo());
+		res = dlg->exec();
+
+		if (res == QInputDialog::DialogCode::Accepted){
+			Parametros::getInstance()->setArestaCubo(dlg->doubleValue());
+		}
 		break;
 	}
 

@@ -6,6 +6,7 @@
 #include <list>
 #include <vector>
 #include "PrismaTriangular.h"
+#include "../Parametros.h"
 #include "../../draw/cooking.h"
 #include "../../utils/SegmentoDeReta.h"
 #include "../../utils/Vetor.h"
@@ -13,6 +14,7 @@
 #include "../../model/interceptos/Poligono.h"
 
 using std::runtime_error;
+using namespace simulacao::model;
 using namespace simulacao::model::atores;
 using namespace simulacao::model::interceptos;
 using std::vector;
@@ -20,19 +22,19 @@ using std::map;
 using std::list;
 
 
-PrismaTriangular::PrismaTriangular(NxScene *cena,int h,int base,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
-	this->altura = h;
-	this->base  = base;
+PrismaTriangular::PrismaTriangular(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
+	this->altura = Parametros::getInstance()->getAlturaPrisma();
+	this->base  = Parametros::getInstance()->getBasePrisma();
 
-	const int raiz_de_3 = sqrt(3.0);
+	const double raiz_de_3 = sqrt(3.0);
 
 	NxVec3 verts[6] = { 
-		NxVec3(0,h/2.0,base*raiz_de_3/2), 
-		NxVec3(base/2.0,h/2.0,0), 
-		NxVec3(base/2.0,-h/2.0,0), 
-		NxVec3(-base/2.0,-h/2.0,0), 
-		NxVec3(-base/2.0,h/2.0,0), 
-		NxVec3(0,-h/2.0,base *raiz_de_3/2)
+		NxVec3(0.0,altura/2.0,base*raiz_de_3/2.0), 
+		NxVec3(base/2.0,altura/2.0,0), 
+		NxVec3(base/2.0,-altura/2.0,0), 
+		NxVec3(-base/2.0,-altura/2.0,0), 
+		NxVec3(-base/2.0,altura/2.0,0), 
+		NxVec3(0,-altura/2.0,base *raiz_de_3/2.0)
 	};
 
 

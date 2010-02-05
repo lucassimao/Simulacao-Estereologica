@@ -3,6 +3,7 @@
 #include <NxPhysics.h>
 #include <NxExportedUtils.h>
 #include "SimulacaoCaixa.h"
+#include "Parametros.h"
 #include "atores/Cubo.h"
 #include "atores/Esfera.h"
 #include "atores/PrismaTriangular.h"
@@ -136,12 +137,12 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 			break;
 		case CUBO:
 			for(long l=0;l<qtde;++l){
-				new Cubo(cena,this->arestaCubo);
+				new Cubo(cena);
 			}
 			break;
 		case PRISMA_TRIANGULAR:
 			for(long l=0;l<qtde;++l){
-				new PrismaTriangular(cena,5,2,NULL,meshFactory);
+				new PrismaTriangular(cena,NULL,meshFactory);
 			}
 			break;
 	}

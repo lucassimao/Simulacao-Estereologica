@@ -5,16 +5,18 @@
 #include "Cubo.h"
 #include <NxExportedUtils.h>
 #include "..\..\model\interceptos\Poligono.h"
+#include "..\Parametros.h"
 
+using namespace simulacao::model;
 using namespace simulacao::model::interceptos;
 using namespace simulacao::model::atores;
 using std::vector;
 using std::map;
 using std::list;
 
-Cubo::Cubo(NxScene *cena,double aresta):Ator()
+Cubo::Cubo(NxScene *cena):Ator()
 {
-	this->lado = aresta;
+	this->lado = Parametros::getInstance()->getArestaCubo();
 
 	NxActorDesc actorDesc;
 	NxBodyDesc bodyDesc;

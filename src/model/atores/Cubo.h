@@ -21,7 +21,7 @@ namespace simulacao{
 				inline NxVec3* getPosicaoGlobalDosVertices();
 				inline vector<SegmentoDeReta> getSegmentosDeRetaInterceptados(NxVec3);
 			public:
-				Cubo(NxScene *,double aresta);
+				Cubo(NxScene *);
 				~Cubo(void);
 				bool estaInterceptadoPeloPlano(NxVec3);
 				Intercepto* getIntercepto(NxVec3);
