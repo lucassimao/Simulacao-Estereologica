@@ -153,9 +153,7 @@ void MainWindow::adicionarObjetos(){
 	case 3:
 		simulacao->adicionarObjeto(CUBO,qtde);
 		break;
-	}
-
-	
+	}	
 
 	atualizarQuantidadeDeGraosEmCena();
 		
@@ -227,7 +225,7 @@ void MainWindow::novaSimulacao(){
 }
 
 void MainWindow::usarGraosAleatorios(bool b){
-	
+	Parametros::setUsarGraosAleatorios(b);
 }
 
 /** Exibe os objetos que estão sendo interceptados pelo plano */

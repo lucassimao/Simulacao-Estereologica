@@ -15,6 +15,8 @@ namespace simulacao{
 			double arestaCubo;
 			double alturaPrisma;
 			double basePrisma;
+			bool usarGraosAleatorios;
+
 		public:
 			static Parametros* getInstance(){
 				if (!Parametros::instance)
@@ -34,7 +36,9 @@ namespace simulacao{
 
 			double getBasePrisma(){ return basePrisma;}
 			void setBasePrisma(double b){ if(b>0) this->basePrisma = b;}
-			
+
+			bool isUsarGraosAleatorios() const { return this->usarGraosAleatorios;}
+			void setUsarGraosAleatorios(bool b) const { this->usarGraosAleatorios = b;}
 
 		};
 	}
