@@ -21,7 +21,10 @@ using std::vector;
 using std::map;
 using std::list;
 
-
+/** 
+	Sobre a estrutura, vertices e o significado das variáveis definidas neste construtor
+	ver arquivo docs/PrismaTriangularTruncado.doc
+*/
 PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
 	this->razaoDeAspecto = Parametros::getInstance()->getRazaoAspectoDoPrismaTriangularTruncado();
 	this->razaoDeTruncamento  = Parametros::getInstance()->getRazaoDeTruncamentoDoPrismaTriangularTruncado();

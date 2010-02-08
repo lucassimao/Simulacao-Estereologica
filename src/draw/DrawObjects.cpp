@@ -726,17 +726,14 @@ void DrawConvex(NxShape* mesh, bool useShapeUserData)
 
 	/*Colorização das bordas
 	
-	NxVec3 vertice = (pose.M * points[4] + pose.t);
-	NxVec3 vertice2 = (pose.M * points[3] + pose.t);
+	NxVec3 vertice = (pose.M * points[12] + pose.t);
 	qDebug() << vertice.x << " " << vertice.y << " " << vertice.z << endl;
-	qDebug() << vertice2.x << " " << vertic2.y << " " << vertic2.z << endl;
 
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glColor4f(1.0,0,0,1);
-	glPointSize(5);
+	glPointSize(9);
 	glBegin(GL_POINTS);
 		glVertex3f(vertice.x,vertice.y,vertice.z);
-		glVertex3f(vertice2.x,vertice2.y,vertice2.z);
 	glEnd();
 	glPopAttrib();
 	*/
