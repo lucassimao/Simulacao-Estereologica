@@ -95,7 +95,7 @@
           <rect>
            <x>10</x>
            <y>20</y>
-           <width>261</width>
+           <width>231</width>
            <height>553</height>
           </rect>
          </property>
@@ -157,19 +157,6 @@
                <string>Parâmetros</string>
               </property>
              </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_6">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>120</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </item>
@@ -308,12 +295,53 @@
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBoxExibirPlanoDeCorte">
+           <layout class="QHBoxLayout" name="horizontalLayout_13">
+            <item>
+             <widget class="QCheckBox" name="checkBoxExibirPlanoDeCorte">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Exibir Plano de Corte</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBoxPlanoDeCorteSistematico">
+            <property name="text">
+             <string>Planos de corte sistemáticos</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_14">
+            <item>
+             <widget class="QCheckBox" name="checkBoxExibirRetasTeste">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Exibir Retas de teste</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBoxExibirPontosTeste">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="text">
-             <string>Exibir Plano de Corte</string>
+             <string>Exibir Pontos de teste</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -429,30 +457,46 @@
            </layout>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBoxExibirRetasTeste">
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="text">
-             <string>Exibir Retas teste</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBoxExibirPontosTeste">
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="text">
-             <string>Exibir Pontos teste</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <item>
+             <widget class="QPushButton" name="btnConfigurarGrade">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>140</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Configurar Grade</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_10">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
           <item>
            <spacer name="verticalSpacer">
@@ -500,8 +544,6 @@
     <property name="title">
      <string>Opções</string>
     </property>
-    <addaction name="actionEsferas_aleatorias"/>
-    <addaction name="separator"/>
     <addaction name="actionPercola_o"/>
     <addaction name="actionPosi_o"/>
     <addaction name="actionGrade_de_pontos_e_linha_teste"/>
@@ -685,8 +727,8 @@
    <slot>adicionarObjetos()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>136</x>
-     <y>131</y>
+     <x>213</x>
+     <y>144</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>
@@ -701,8 +743,8 @@
    <slot>pararSimulacao()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>59</x>
-     <y>214</y>
+     <x>71</x>
+     <y>181</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>
@@ -717,8 +759,8 @@
    <slot>limparSimulacao()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>140</x>
-     <y>214</y>
+     <x>177</x>
+     <y>181</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>
@@ -733,8 +775,8 @@
    <slot>novoPlanoDeCorte()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>75</x>
-     <y>369</y>
+     <x>87</x>
+     <y>311</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>
@@ -765,8 +807,8 @@
    <slot>usarGravidade(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>130</x>
-     <y>341</y>
+     <x>141</x>
+     <y>255</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -781,8 +823,8 @@
    <slot>exibirPlanoDeCorte(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>130</x>
-     <y>458</y>
+     <x>142</x>
+     <y>280</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -797,8 +839,8 @@
    <slot>exibirGraosInterceptados()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>74</x>
-     <y>400</y>
+     <x>86</x>
+     <y>341</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -829,8 +871,8 @@
    <slot>exibirInterceptos()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>208</x>
-     <y>436</y>
+     <x>161</x>
+     <y>371</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -877,8 +919,8 @@
    <slot>exibirPontosTeste(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>150</x>
-     <y>405</y>
+     <x>314</x>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -893,8 +935,8 @@
    <slot>exibirRetasTeste(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>150</x>
-     <y>382</y>
+     <x>162</x>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -911,6 +953,22 @@
     <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnConfigurarGrade</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>configurarGrade()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>91</x>
+     <y>390</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>

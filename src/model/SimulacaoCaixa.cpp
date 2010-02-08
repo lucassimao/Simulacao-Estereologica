@@ -157,7 +157,7 @@ void SimulacaoCaixa::novoPlanoDeCorte(){
 	float altura = 6 + rand()%15;
 
 	if (atorPlanoDeCorte == NULL){
-
+		
 		NxPlaneShapeDesc planeDesc;
 		NxActorDesc actorDesc;
 		actorDesc.globalPose.t = NxVec3(0,altura,0);
@@ -165,12 +165,11 @@ void SimulacaoCaixa::novoPlanoDeCorte(){
 		planeDesc.d = 0;
 
 		actorDesc.shapes.pushBack(&planeDesc);
-		atorPlanoDeCorte = getCena()->createActor(actorDesc);
+		atorPlanoDeCorte = new PlanoDeCorte(getCena()->createActor(actorDesc));
 
-		//this->shapePlanoDeCorte = &(((NxPlaneShape *)atorPlanoDeCorte->getShapes()[0])->getPlane());
 	}
 	else
-		atorPlanoDeCorte->setGlobalPosition(NxVec3(0,altura,0));
+		atorPlanoDeCorte->getNxActor()->setGlobalPosition(NxVec3(0,altura,0));
 }
 
 void SimulacaoCaixa::exibirPlanoDeCorte(){ 
@@ -178,7 +177,7 @@ void SimulacaoCaixa::exibirPlanoDeCorte(){
 }
 
 void SimulacaoCaixa::esconderPlanoDeCorte(){ 
-	if(atorPlanoDeCorte) {getCena()->releaseActor(*atorPlanoDeCorte);atorPlanoDeCorte=NULL;} 
+	if(atorPlanoDeCorte) {getCena()->releaseActor(*atorPlanoDeCorte->getNxActor());atorPlanoDeCorte=NULL;} 
 }
 
 void SimulacaoCaixa::selecionarGraosInterceptados(){
@@ -190,9 +189,9 @@ void SimulacaoCaixa::selecionarGraosInterceptados(){
 		NxActor* ator = *atores++;
 
 		{
-			if (ator != caixa && ator!=atorPlanoDeCorte){
+			if (ator != caixa && ator!=atorPlanoDeCorte->getNxActor()){
 				Ator *a = (Ator *)ator->userData;
-				if (!a->estaInterceptadoPeloPlano(atorPlanoDeCorte->getGlobalPosition())){
+				if (!a->estaInterceptadoPeloPlano(atorPlanoDeCorte->getNxActor()->getGlobalPosition())){
 					cena->releaseActor(*ator);
 					a = NULL;
 				}
@@ -213,7 +212,7 @@ void SimulacaoCaixa::removerGraos(){
 		NxActor* ator = *atores++;
 
 		{
-			if (ator != caixa && ator!=atorPlanoDeCorte){
+			if (ator != caixa && ator!=atorPlanoDeCorte->getNxActor()){
 				getCena()->releaseActor(*ator);
 			}
 		}

@@ -5,6 +5,7 @@
 #include "../defs.h"
 #include "../utils/MeshFactory.h"
 #include "Simulacao.h"
+#include "..\model\atores\PlanoDeCorte.h"
 #include "grade/Grade.h"
 /**
 * Definição de uma simulação simples, 
@@ -12,6 +13,7 @@
 *
 */
 using namespace simulacao::utils;
+using namespace simulacao::model::atores;
 using namespace simulacao::model::grade;
 
 namespace simulacao{
@@ -23,7 +25,7 @@ namespace simulacao{
 			bool exibirCaixa;
 			NxActor *caixa;
 			MeshFactory *meshFactory;
-			NxActor *atorPlanoDeCorte;
+			PlanoDeCorte *atorPlanoDeCorte;
 			NxPlane *shapePlanoDeCorte;
 			NxActor *criarCaixa();
 			
@@ -35,7 +37,7 @@ namespace simulacao{
 			NxActor* getCaixa(){
 				return this->caixa;
 			}
-			NxActor* getPlanoDeCorte(){
+			PlanoDeCorte *getPlanoDeCorte(){
 				return this->atorPlanoDeCorte;
 			}
 
@@ -44,9 +46,7 @@ namespace simulacao{
 			void esconderPlanoDeCorte();
 
 			Grade * getGrade(){
-				float alturaGrade = this->getPlanoDeCorte()->getGlobalPosition().y;
-				return new Grade(9,-18,alturaGrade,10,50);
-			
+				return getPlanoDeCorte()->getGrade();			
 			}
 
 			SimulacaoCaixa(void);

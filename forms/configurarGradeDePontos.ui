@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgParametrosGradeDePontosELinhaTeste</class>
- <widget class="QDialog" name="DlgParametrosGradeDePontosELinhaTeste">
+ <class>DlgParametrosDaGrade</class>
+ <widget class="QDialog" name="DlgParametrosDaGrade">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>266</width>
-    <height>177</height>
+    <width>246</width>
+    <height>262</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Grade de Pontos e Linhas Teste</string>
+   <string>Configuração da Grade</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -19,8 +19,8 @@
   <widget class="QPushButton" name="btnSalvar">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>140</y>
+     <x>80</x>
+     <y>230</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -32,8 +32,8 @@
   <widget class="QPushButton" name="btnCancelar">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>140</y>
+     <x>160</x>
+     <y>230</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -42,75 +42,134 @@
     <string>Cancelar</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="textQtdeLinhas">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>20</y>
-     <width>81</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>20</y>
-     <width>81</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Qtde de Linhas:</string>
-   </property>
-  </widget>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>231</width>
-     <height>80</height>
+     <x>20</x>
+     <y>10</y>
+     <width>211</width>
+     <height>121</height>
     </rect>
    </property>
    <property name="title">
-    <string>Pontos</string>
+    <string>Quantidades de Linhas e Pontos</string>
    </property>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>131</width>
+      <x>20</x>
+      <y>50</y>
+      <width>51</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Qtde. de Pontos por Linha:</string>
+     <string>Pontos:</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="textQtdePontosLinha">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>20</y>
-      <width>51</width>
-      <height>20</height>
+      <x>60</x>
+      <y>47</y>
+      <width>91</width>
+      <height>21</height>
      </rect>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBoxUsarPontosAleatorios">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>40</y>
+      <x>20</x>
+      <y>80</y>
       <width>151</width>
       <height>18</height>
      </rect>
     </property>
     <property name="text">
      <string>Pontos aleatórios</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Linhas:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textQtdeLinhas">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>20</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>140</y>
+     <width>211</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Distância entre linhas e pontos</string>
+   </property>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Distância entre Pontos:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textDistanciaEntrePontos">
+    <property name="geometry">
+     <rect>
+      <x>136</x>
+      <y>48</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Distância entre linhas:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="textDistanciaEntreLinhas">
+    <property name="geometry">
+     <rect>
+      <x>136</x>
+      <y>20</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -120,7 +179,7 @@
   <connection>
    <sender>btnCancelar</sender>
    <signal>clicked()</signal>
-   <receiver>DlgParametrosGradeDePontosELinhaTeste</receiver>
+   <receiver>DlgParametrosDaGrade</receiver>
    <slot>cancelarAlteracoes()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -136,7 +195,7 @@
   <connection>
    <sender>btnSalvar</sender>
    <signal>clicked()</signal>
-   <receiver>DlgParametrosGradeDePontosELinhaTeste</receiver>
+   <receiver>DlgParametrosDaGrade</receiver>
    <slot>salvarAlteracoes()</slot>
    <hints>
     <hint type="sourcelabel">

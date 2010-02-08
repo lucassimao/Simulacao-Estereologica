@@ -2,9 +2,10 @@
 
 using namespace simulacao::model::atores;
 
-PlanoDeCorte::PlanoDeCorte(NxScene *cena):Ator()
-{
-
+PlanoDeCorte::PlanoDeCorte(NxActor * nxActor):Ator()
+{	
+	this->ator = nxActor;
+	this->grade = 0;
 }
 
 PlanoDeCorte::~PlanoDeCorte(void)

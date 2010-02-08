@@ -14,7 +14,7 @@ namespace simulacao	{
 		class DialogParametrosGrade: public QDialog{
 			Q_OBJECT
 		private:
-			Ui_DlgParametrosGradeDePontosELinhaTeste *ui;
+			Ui_DlgParametrosDaGrade *ui;
 			SimulacaoCaixa *simulacao;
 
 		private slots:

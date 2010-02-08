@@ -20,6 +20,12 @@ namespace simulacao{
 			double base;
 		}PrismaTriangularParams;
 
+		typedef struct {
+			int qtdeLinhas;
+			int qtdePontos;
+			bool pontosAleatorios;
+		}GradeParams;
+
 		class Parametros
 		{
 		private:
@@ -32,6 +38,7 @@ namespace simulacao{
 			double arestaDaCaixa;
 			PrismaTriangularParams prismaTriangular;
 			PrismaTriangularTruncadoParams prismaTriangularTruncado;
+			GradeParams grade;
 
 
 		public:
@@ -41,6 +48,13 @@ namespace simulacao{
 
 				return Parametros::instance;
 			}
+			
+			inline void setParametrosDaGrade(int qtdeLinhas,int qtdePontos, bool pontosAleatorios){ 
+				this->grade.qtdeLinhas= qtdeLinhas;
+				this->grade.qtdePontos= qtdePontos;
+				this->grade.pontosAleatorios= pontosAleatorios;
+			}
+
 			inline double getArestaDaCaixa(){ return arestaDaCaixa;}
 			inline void setArestaDaCaixa(double a){ if(a>0) this->arestaDaCaixa = a;}
 

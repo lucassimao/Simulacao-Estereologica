@@ -134,7 +134,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		glPopAttrib();	
 	}
 
-	DrawActor(simulacao->getPlanoDeCorte(), NULL, false);
+	DrawActor(simulacao->getPlanoDeCorte()->getNxActor(), NULL, false);
 
 
 }
@@ -148,9 +148,9 @@ inline void RenderizarInterceptosStrategy::coletarInterceptos(SimulacaoCaixa *si
 			NxActor* ator = *atores++;
 
 			{
-				if (ator != simulacao->getCaixa() && ator!= simulacao->getPlanoDeCorte()){
+				if (ator != simulacao->getCaixa() && ator!= simulacao->getPlanoDeCorte()->getNxActor()){
 					Ator *a = (Ator *)ator->userData;
-					NxVec3 planoGlobalPosition = simulacao->getPlanoDeCorte()->getGlobalPosition();
+					NxVec3 planoGlobalPosition = simulacao->getPlanoDeCorte()->getNxActor()->getGlobalPosition();
 					interceptos->push_back(a->getIntercepto(planoGlobalPosition));				
 					
 					// remove o ator da simulacao, agora nos interessa apenas os inteceptos

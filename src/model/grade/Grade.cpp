@@ -3,10 +3,10 @@
 using namespace simulacao::model::grade;
 
 Grade::Grade(float z0, float z1, float altura,int linhas,int pontosPorLinha){
-	float deltaZ =  (abs(z0 - z1) +1)/linhas;
+	double deltaZ =  (abs(z0) + abs(z1) +1.0)/linhas;
 
 	for(int i=0;i<linhas;++i){
-		double z = z0 - deltaZ*i;
+		double z = z0 - deltaZ*i ;
 		Ponto p0 = {-10,altura, z};
 		Ponto p1 = {10,altura, z};
 
