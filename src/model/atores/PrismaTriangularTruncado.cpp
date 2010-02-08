@@ -85,11 +85,33 @@ PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,NxCCDSkeleton *
 
 
 }
-PrismaTriangularTruncado::~PrismaTriangularTruncado(){
 
-}
 bool PrismaTriangularTruncado::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
-	return false;
+	NxShape *mesh =  this->ator->getShapes()[0];
+	NxVec3 pos = ator->getGlobalPosition();
+
+	NxMat34 pose = mesh->getGlobalPose();
+
+	NxConvexMeshDesc meshDesc;
+	mesh->isConvexMesh()->getConvexMesh().saveToDesc(meshDesc); 
+
+	NxU32 nbVerts = meshDesc.numVertices;	
+	NxVec3* points = (NxVec3 *)meshDesc.points;
+
+	// alto e baixo em termos da coordenada Y
+	NxReal verticeMaisAlto=_FPCLASS_NINF, verticeMaisBaixo=_FPCLASS_PINF;
+
+	for(int i=0;i<nbVerts;++i){
+		NxVec3 vertice = (pose.M * points[i] + pose.t);
+
+		if ( verticeMaisAlto < vertice.y)
+			verticeMaisAlto = vertice.y;
+		else
+			if (verticeMaisBaixo > vertice.y)
+				verticeMaisBaixo = vertice.y;			
+	}
+
+	return (verticeMaisAlto >= planoGlobalPosition.y && verticeMaisBaixo <= planoGlobalPosition.y);
 }
 
 
