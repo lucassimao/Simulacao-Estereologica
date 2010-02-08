@@ -3,6 +3,7 @@
 
 #include <NxPhysics.h>
 #include <vector>
+#include "..\..\defs.h"
 #include "..\..\model\interceptos\Intercepto.h"
 
 using std::vector;
@@ -18,10 +19,12 @@ namespace simulacao{
 			{			
 			protected:
 				NxActor *ator;
+				
 			public:
 				Ator();
 				~Ator(void);
-
+				
+				Cor cor;
 				virtual bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition) = 0;
 				virtual Intercepto* getIntercepto(NxVec3 planoGlobalPosition) = 0;
 

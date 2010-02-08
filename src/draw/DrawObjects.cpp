@@ -133,14 +133,9 @@ static void RenderBox()
 	glutSolidCube(2);
 }
 
-static void RenderSphere()
+inline static void RenderSphere()
 {  
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
-	glColor4f(1, 0, 0, 1);////////////////////////////Aplicar cor na esfera 
-	
 	glutSolidSphere(1.0f, 12, 12);
-	glPopAttrib();
-
 }
 
 static void RenderCylinder()

@@ -10,6 +10,9 @@ using std::runtime_error;
 
 Ator::Ator()
 {
+	this->cor.r =1;
+	this->cor.g =1;
+	this->cor.b = 1;
 
 }
 
