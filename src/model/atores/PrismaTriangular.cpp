@@ -14,7 +14,7 @@
 #include "../../model/interceptos/Poligono.h"
 
 using std::runtime_error;
-using namespace simulacao::model;
+using simulacao::model::Parametros;
 using namespace simulacao::model::atores;
 using namespace simulacao::model::interceptos;
 using std::vector;
@@ -58,7 +58,7 @@ PrismaTriangular::PrismaTriangular(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory
 	actorDesc.density = 10.0;
 
 	float a = rand(); float px = 10*(a/32767 - 0.5);
-	float b = rand(); float py = 10*(b/32767 - 0.5)+ 15.0;//Devido à altura do eixo y
+	float b = rand(); float py = 10*(b/32767 - 0.5)+15;//Devido à altura do eixo y
 	float c = rand(); float pz = 10*(c/32767 - 0.5);
 
 	actorDesc.globalPose.t  = NxVec3(px,py,pz);

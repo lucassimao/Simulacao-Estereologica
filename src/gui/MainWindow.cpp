@@ -122,6 +122,33 @@ void MainWindow::configurarParametros(){
 
 		break;
 	case 2:
+		dlg->setDoubleMinimum(0.01);
+		dlg->setDoubleMaximum(1);
+		dlg->setLabelText(tr("Razão de aspecto:"));
+		dlg->setDoubleValue(Parametros::getInstance()->getRazaoAspectoDoPrismaTriangularTruncado());
+		res = dlg->exec();
+
+		if (res == QInputDialog::DialogCode::Accepted){
+			Parametros::getInstance()->setRazaoAspectoDoPrismaTriangularTruncado(dlg->doubleValue());
+
+			dlg->setDoubleMinimum(0.01);
+			dlg->setDoubleMaximum(0.5);
+			dlg->setLabelText(tr("Razão de Truncamento:"));
+			dlg->setDoubleValue(Parametros::getInstance()->getRazaoDeTruncamentoDoPrismaTriangularTruncado());
+			res = dlg->exec();
+
+			if (res == QInputDialog::DialogCode::Accepted){
+				Parametros::getInstance()->setRazaoDeTruncamentoDoPrismaTriangularTruncado(dlg->doubleValue());
+
+				dlg->setDoubleMinimum(0);
+				dlg->setDoubleMaximum(2147483647);
+				dlg->setLabelText(tr("L0:"));
+				dlg->setDoubleValue(Parametros::getInstance()->getL0DoPrismaTriangularTruncado());
+				res = dlg->exec();
+				if (res == QInputDialog::DialogCode::Accepted)
+					Parametros::getInstance()->setL0DoPrismaTriangularTruncado(dlg->doubleValue());
+			}
+		}
 		break;
 	case 3:
 		dlg->setLabelText(tr("Aresta do cubo:"));

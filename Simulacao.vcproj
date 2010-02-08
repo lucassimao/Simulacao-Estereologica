@@ -645,6 +645,10 @@
 						RelativePath=".\src\model\atores\PrismaTriangular.cpp"
 						>
 					</File>
+					<File
+						RelativePath=".\src\model\atores\PrismaTriangularTruncado.cpp"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="interceptos"
@@ -849,6 +853,10 @@
 					</File>
 					<File
 						RelativePath=".\src\model\atores\PrismaTriangular.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\atores\PrismaTriangularTruncado.h"
 						>
 					</File>
 				</Filter>

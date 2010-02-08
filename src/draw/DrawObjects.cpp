@@ -9,12 +9,13 @@
 #include "DrawObjects.h"
 
 #include "UserData.h"
-
-#include <GL/glut.h>
+#include "..\model\Parametros.h"
+#include <GL\glut.h>
 #include <iostream>
 #include <QtDebug>
 
 using namespace std;
+using namespace simulacao::model;
 
 static float gPlaneData[]={
     -1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
@@ -265,7 +266,8 @@ void DrawPlane(NxShape* plane)
 	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 	pose.t.y -= 0.1f;
 	SetupGLMatrix(pose.t, pose.M);
-	glScalef(10,0,10);
+	double arestaDaCaixadeGraos = Parametros::getInstance()->getArestaDaCaixa()/2.0;
+	glScalef(arestaDaCaixadeGraos,0,arestaDaCaixadeGraos);
 	RenderPlane();
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glEnable(GL_LIGHTING);

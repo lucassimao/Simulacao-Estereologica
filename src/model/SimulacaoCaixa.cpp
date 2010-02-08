@@ -4,12 +4,13 @@
 #include <NxExportedUtils.h>
 #include "SimulacaoCaixa.h"
 #include "Parametros.h"
-#include "atores/Cubo.h"
-#include "atores/Esfera.h"
-#include "atores/PrismaTriangular.h"
-#include "atores/Ator.h"
-#include "../draw/Stream.h"
-#include "../draw/cooking.h"
+#include "atores\Cubo.h"
+#include "atores\Esfera.h"
+#include "atores\PrismaTriangular.h"
+#include "atores\PrismaTriangularTruncado.h"
+#include "atores\Ator.h"
+#include "..\draw\Stream.h"
+#include "..\draw\cooking.h"
 
 
 using std::vector;
@@ -85,7 +86,8 @@ void SimulacaoCaixa::criarCCDS(){
 
 NxActor * SimulacaoCaixa::criarCaixa(){
 	// definindo os vertices
-	NxVec3 dim(10,10,10);
+	double arestaDaCaixadeGraos = Parametros::getInstance()->getArestaDaCaixa()/2.0;
+	NxVec3 dim(arestaDaCaixadeGraos,arestaDaCaixadeGraos,arestaDaCaixadeGraos);
 
 	NxU32 triangulos[3 * 12] = { 
 		0,1,3,
@@ -115,14 +117,12 @@ NxActor * SimulacaoCaixa::criarCaixa(){
 
 	NxBodyDesc BodyDesc;
 	NxActorDesc actorDesc;
-	actorDesc.density = 100.0f;
 	actorDesc.globalPose.t = NxVec3(0,15,0);// Define a altura dos objetos no eixo y
 	NxTriangleMeshShapeDesc meshShapeDesc;
 
 	meshShapeDesc.meshData = this->meshFactory->criarTriangleMesh(8,12,vertices,triangulos);
 	actorDesc.shapes.pushBack(&meshShapeDesc);
-	return  cena->createActor(actorDesc);
-
+	return cena->createActor(actorDesc);
 
 }
 
@@ -141,6 +141,11 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 		case PRISMA_TRIANGULAR:
 			for(long l=0;l<qtde;++l){
 				new PrismaTriangular(cena,NULL,meshFactory);
+			}
+			break;
+		case PRISMA_TRIANGULAR_TRUNCADO:
+			for(long l=0;l<qtde;++l){
+				new PrismaTriangularTruncado(cena,NULL,meshFactory);
 			}
 			break;
 	}

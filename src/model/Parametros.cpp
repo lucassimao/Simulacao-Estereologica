@@ -5,8 +5,12 @@ using namespace simulacao::model;
 Parametros* Parametros::instance = 0;
 
 Parametros::Parametros(){
-	this->raioEsfera = 1.0;
+	this->raioEsfera =0.5;
 	this->arestaCubo = 1.0;
-	this->alturaPrisma=5.0;
-	this->basePrisma=2.0;
+	prismaTriangular.altura=2.0;
+	prismaTriangular.base=1.5;
+	prismaTriangularTruncado.razaoDeAspecto=0.9;
+	prismaTriangularTruncado.razaoDeTruncamento=0.3;
+	prismaTriangularTruncado.L0 = 1.5;
+	this->arestaDaCaixa = 20.0;
 }

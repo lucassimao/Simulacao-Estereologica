@@ -198,7 +198,7 @@ void CaixaGraosGLWidget::keyPressEvent ( QKeyEvent * event ){
 	double deltaTime = 1.0/60.0;
 	switch (event->key())
 	{
-		// Camera controls
+
 	case Qt::Key_W :{ gCameraPos += gCameraForward*gCameraSpeed*deltaTime; break; }
 	case Qt::Key_S :{ gCameraPos -= gCameraForward*gCameraSpeed*deltaTime; break; }
 	case Qt::Key_A :{ gCameraPos -= gCameraRight*gCameraSpeed*deltaTime; break; }
