@@ -2,17 +2,23 @@
 #define PLANO_DE_CORTE_H
 
 #include "Ator.h"
+#include "..\Parametros.h"
+#include "..\..\utils\Observer.h"
 #include "..\grade\Grade.h"
 
+using namespace simulacao::model;
 using namespace simulacao::model::grade;
+using namespace simulacao::utils;
+
 namespace simulacao{
 	namespace model{
 		namespace atores{
 
-			class PlanoDeCorte : public Ator
+			class PlanoDeCorte : public Ator,public Observer
 			{
 			private:
 				Grade *grade;
+				double altura;
 			public:
 				PlanoDeCorte(NxActor * nxActor);
 				~PlanoDeCorte(void);
@@ -20,14 +26,10 @@ namespace simulacao{
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
 				Intercepto* getIntercepto(NxVec3 planoGlobalPosition) { return NULL;}
 				NxActor *getNxActor(){ return this->ator;}
+				void update(Observable* obs);
 				
-				Grade *getGrade(){
-					if (!grade){
-						float alturaGrade = this->ator->getGlobalPosition().y;
-						this->grade = new Grade(9,-9,alturaGrade,10,50);
-					}
-					return grade;
-				}
+				Grade *getGrade();
+				void setAltura(double);
 
 			};
 

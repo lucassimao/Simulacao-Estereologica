@@ -2,11 +2,7 @@
 #define DIALOGO_PARAMETROS_GRADE_H
 
 #include <QDialog>
-#include "..\model\SimulacaoCaixa.h"
 #include "forms\ui_configurarGradeDePontos.h"
-
-using namespace simulacao::model;
-
 
 namespace simulacao	{
 	namespace gui {
@@ -15,13 +11,13 @@ namespace simulacao	{
 			Q_OBJECT
 		private:
 			Ui_DlgParametrosDaGrade *ui;
-			SimulacaoCaixa *simulacao;
-
 		private slots:
 			void cancelarAlteracoes();
 			void salvarAlteracoes();
+			void recalcularQuantidades();
+			void recalcularDistancias();
 		public:
-			DialogParametrosGrade(QWidget *parent,SimulacaoCaixa *simulacao);
+			DialogParametrosGrade(QWidget *parent);
 			~DialogParametrosGrade();
 
 

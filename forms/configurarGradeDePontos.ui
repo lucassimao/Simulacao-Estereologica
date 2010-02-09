@@ -208,9 +208,75 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>textQtdeLinhas</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>DlgParametrosDaGrade</receiver>
+   <slot>recalcularDistancias()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>125</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>130</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>textQtdePontosLinha</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>DlgParametrosDaGrade</receiver>
+   <slot>recalcularDistancias()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>125</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>130</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>textDistanciaEntreLinhas</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>DlgParametrosDaGrade</receiver>
+   <slot>recalcularQuantidades()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>186</x>
+     <y>169</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>130</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>textDistanciaEntrePontos</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>DlgParametrosDaGrade</receiver>
+   <slot>recalcularQuantidades()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>186</x>
+     <y>198</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>130</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>cancelarAlteracoes()</slot>
   <slot>salvarAlteracoes()</slot>
+  <slot>recalcularDistancias()</slot>
+  <slot>recalcularQuantidades()</slot>
  </slots>
 </ui>

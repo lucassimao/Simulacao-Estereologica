@@ -44,7 +44,7 @@ void ColetorDeInterceptosLinearesVisitor::visit(Poligono *poligono){
 			
 			// já me retorna as arestas que estão interceptadas pela reta de teste
 			list<SegmentoDeReta> arestasInterceptadas = poligono->getArestasInterceptadas(retaDeTeste);
-			assert(arestasInterceptadas.size() == 2);
+
 
 			SegmentoDeReta seg1 = arestasInterceptadas.front();
 			Ponto p1;

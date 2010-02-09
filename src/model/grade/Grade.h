@@ -17,9 +17,12 @@ namespace simulacao{
 			public:
 				Grade(float z0, float z1,float altura,int linhas,int pontosPorLinha);
 				vector<RetaDeTeste> getLinhasNoIntervalo(double z0, double z1);
+
 				inline vector<RetaDeTeste>::const_iterator getLinhasIterator(){ return this->linhas.begin(); };
 				inline vector<RetaDeTeste>::const_iterator getLinhasIteratorEnd(){ return this->linhas.end(); };
 				
+				static void calcularQtdeDeLinhasEPontos(double distanciaEntrePontos,double distanciaEntreLinhas,int *linhasOut,int *pontosOut);
+				static void calcularDistanciaEntreLinhasEDistanciaEntrePontos(int qtdeLinhas,int qtdePontos,double *distanciaEntrePontos,double *distanciaEntreLinhas);
 
 			};
 		}

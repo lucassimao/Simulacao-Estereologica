@@ -53,7 +53,7 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::configurarGrade(){
-		DialogParametrosGrade *dialog = new DialogParametrosGrade(this,this->simulacao);
+		DialogParametrosGrade *dialog = new DialogParametrosGrade(this);
 		dialog->setModal(true);
 		dialog->setVisible(true);
 
@@ -241,6 +241,8 @@ void MainWindow::novaSimulacao(){
 	ui->btnNovoPlanodeCorte->setEnabled(true);
 	ui->btnPlanovsGraos->setEnabled(true);
 	ui->btnExibirInterceptos->setEnabled(false);
+	ui->actionGrade_de_pontos_e_linha_teste->setEnabled(true);
+	ui->btnAdicionar->setEnabled(true);
 
 	ui->checkBoxExibirPlanoDeCorte->setChecked(true);
 	ui->checkBoxExibirPontosTeste->setChecked(true);
@@ -252,7 +254,8 @@ void MainWindow::novaSimulacao(){
 }
 
 void MainWindow::usarGraosAleatorios(bool b){
-	Parametros::getInstance()->setUsarGraosAleatorios(b);
+	GradeParams params = Parametros::getInstance()->getParametrosDaGrade();
+	params.pontosAleatorios = b;
 }
 
 /** Exibe os objetos que estão sendo interceptados pelo plano */
@@ -263,6 +266,7 @@ void MainWindow::exibirGraosInterceptados(){
 
 	ui->btnNovoPlanodeCorte->setEnabled(false);
 	ui->btnExibirInterceptos->setEnabled(true);
+	ui->actionGrade_de_pontos_e_linha_teste->setEnabled(false);
 	ui->btnPlanovsGraos->setEnabled(false);
 }
 

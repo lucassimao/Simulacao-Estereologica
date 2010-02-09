@@ -166,10 +166,11 @@ void SimulacaoCaixa::novoPlanoDeCorte(){
 
 		actorDesc.shapes.pushBack(&planeDesc);
 		atorPlanoDeCorte = new PlanoDeCorte(getCena()->createActor(actorDesc));
+		Parametros::getInstance()->addObserver(atorPlanoDeCorte);
 
 	}
 	else
-		atorPlanoDeCorte->getNxActor()->setGlobalPosition(NxVec3(0,altura,0));
+		atorPlanoDeCorte->setAltura(altura); 
 }
 
 void SimulacaoCaixa::exibirPlanoDeCorte(){ 

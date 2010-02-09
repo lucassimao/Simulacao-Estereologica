@@ -13,4 +13,7 @@ Parametros::Parametros(){
 	prismaTriangularTruncado.razaoDeTruncamento=0.3;
 	prismaTriangularTruncado.L0 = 5;
 	this->arestaDaCaixa = 20.0;
+	this->grade.pontosAleatorios=false;
+	this->grade.qtdeLinhas=20;
+	this->grade.qtdePontos=10;
 }

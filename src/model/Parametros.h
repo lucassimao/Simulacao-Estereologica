@@ -2,8 +2,11 @@
 #define H_PARAMETROS
 
 #include <stdexcept>
+#include "..\utils\Observable.h"
 
 using std::runtime_error;
+using namespace simulacao::utils;
+
 
 namespace simulacao{
 
@@ -26,7 +29,7 @@ namespace simulacao{
 			bool pontosAleatorios;
 		}GradeParams;
 
-		class Parametros
+		class Parametros : public Observable
 		{
 		private:
 			Parametros();
@@ -34,11 +37,11 @@ namespace simulacao{
 
 			double raioEsfera;
 			double arestaCubo;
-			bool usarGraosAleatorios;
 			double arestaDaCaixa;
 			PrismaTriangularParams prismaTriangular;
 			PrismaTriangularTruncadoParams prismaTriangularTruncado;
 			GradeParams grade;
+			
 
 
 		public:
@@ -53,6 +56,10 @@ namespace simulacao{
 				this->grade.qtdeLinhas= qtdeLinhas;
 				this->grade.qtdePontos= qtdePontos;
 				this->grade.pontosAleatorios= pontosAleatorios;
+				notifyObservers();
+			}
+			inline GradeParams getParametrosDaGrade() const{
+				return this->grade;
 			}
 
 			inline double getArestaDaCaixa(){ return arestaDaCaixa;}
@@ -70,8 +77,6 @@ namespace simulacao{
 			inline double getBasePrisma(){ return prismaTriangular.base;}
 			inline void setBasePrisma(double b){ if(b>0) prismaTriangular.base = b;}
 
-			inline bool isUsarGraosAleatorios() const { return this->usarGraosAleatorios;}
-			inline void setUsarGraosAleatorios(bool b) { this->usarGraosAleatorios = b;}
 
 			inline double getRazaoAspectoDoPrismaTriangularTruncado(){ return prismaTriangularTruncado.razaoDeAspecto;}
 			inline void setRazaoAspectoDoPrismaTriangularTruncado(double a){ 
