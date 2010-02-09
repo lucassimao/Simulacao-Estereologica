@@ -1,4 +1,5 @@
 #include <vector>
+#include <locale>
 #include "RenderizarInterceptosStrategy.h"
 #include "..\drawVisitor\InterceptoDeAreaDrawVisitor.h"
 #include "..\drawVisitor\InterceptoLinearDrawVisitor.h"
@@ -18,7 +19,10 @@ using namespace simulacao::canvas::drawVisitor;
 using namespace simulacao::model::interceptos;
 using namespace simulacao::model::atores;
 
-
+class WithComma: public numpunct<char> // class for decimal numbers with comma
+{
+	protected: char do_decimal_point() const { return ','; } // override the function that gives the decimal separator
+};
 
 RenderizarInterceptosStrategy::RenderizarInterceptosStrategy(Grade *grade){
 	interceptos = new vector<Intercepto*>();
@@ -35,10 +39,14 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		ColetorDeInterceptosLinearesVisitor *visitor2 = new ColetorDeInterceptosLinearesVisitor(this->grade);
 		
 		vector<Intercepto*>::const_iterator  iter= this->interceptos->begin();
+		locale myloc(  locale(),new WithComma);
 		
-		ofstream areas("areas.txt",std::ios::out);
-		ofstream interceptosLineares("interceptosLineares.txt",std::ios::out);
+		ofstream areas("areas.csv",std::ios::out);
+		areas.imbue(myloc);
 		
+		ofstream interceptosLineares("interceptosLineares.csv",std::ios::out);
+		interceptosLineares.imbue(myloc);
+
 		while(iter!=interceptos->end()){
 			Intercepto *i = *iter;
 			i->accept(visitor1);

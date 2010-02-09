@@ -11,6 +11,7 @@ Release_PhysX_v2.8.3/*
 *.html
 *.pdb
 *.ncb
+*.csv
 *.idb
 Simulacao.ilk
 areas.txt
