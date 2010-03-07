@@ -16,7 +16,9 @@ const NxReal CaixaGraosGLWidget::gCameraSpeed = 250;
 int mx, my;
 
 CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao)
-: QGLWidget(parent),gCameraPos(NxVec3(0.7,18,52.3)),gCameraForward(0,0,-1),gCameraRight(-1,0,0)
+: QGLWidget(parent),gCameraPos(NxVec3(0.65125149,29.323162,48.303276)),
+	gCameraForward(NxVec3(-0.011699641,-0.28244135,-0.95921326)),
+	gCameraRight(NxVec3(0.95747489,0,-0.011678438))
 {
 	srand(time(0));
 	setFormat(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer));
