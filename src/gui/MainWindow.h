@@ -44,6 +44,7 @@ namespace simulacao	{
 			void exibirRetasTeste(bool);
 			void exibirPontosTeste(bool);
 			void configurarGrade();
+			void exibirVisaoSuperior(bool);
 		public:
 			MainWindow();
 			~MainWindow();

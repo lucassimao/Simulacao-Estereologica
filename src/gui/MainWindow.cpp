@@ -59,6 +59,20 @@ void MainWindow::configurarGrade(){
 
 }
 
+void MainWindow::exibirVisaoSuperior(bool b){
+	if(b){
+		view->setCameraForward(-1.8329598e-007,-0.99999964,0.00095026463);
+		view->setCameraRight(-0.00095024816,0,5.6060153e-006);
+		view->setCameraPos(-0.27,46,0.01);
+	}
+	else
+	{
+		view->setCameraForward(-0.011699641,-0.28244135,-0.95921326);
+		view->setCameraRight(0.95747489,0,-0.011678438);
+		view->setCameraPos(0.65125149,29.323162,48.303276);
+	}
+}
+
 inline void MainWindow::criarCanvas(){
 	
 	simulacao = new SimulacaoCaixa;
