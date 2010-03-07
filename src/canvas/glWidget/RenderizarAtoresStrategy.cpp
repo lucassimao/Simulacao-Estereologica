@@ -19,7 +19,7 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 	{
 		NxActor* actor = *actors++;
 		Ator *ator = static_cast<Ator*>(actor->userData);
-		
+	
 		
 		if (ator){
 			glPushAttrib(GL_ALL_ATTRIB_BITS);
@@ -28,6 +28,7 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 				glColor4f(1.0, 0, 0, 1);
 			else 
 				glColor4f(ator->cor.r,ator->cor.g,ator->cor.b,1);
+			
 			
 			DrawActor(actor, NULL, false);
 			glPopAttrib();

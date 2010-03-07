@@ -1064,29 +1064,13 @@ void DrawShape(NxShape* shape, bool useShapeUserData)
 
 void DrawActor(NxActor* actor, NxActor* selectedActor, bool useShapeUserData)
 {
-	// We render some actors using light source 1 instead of light source 0
 	ActorUserData* ud;
-
-	ud = (ActorUserData*)(actor->userData);
-    if (ud && (ud->flags & UD_RENDER_USING_LIGHT1))
-	{
-	    glDisable(GL_LIGHT0);
-	    glEnable(GL_LIGHT1);
-	}
 
 	NxShape*const* shapes = actor->getShapes();
 	NxU32 nShapes = actor->getNbShapes();
 	while (nShapes--)
 	{
 		DrawShape(shapes[nShapes], useShapeUserData);
-	}
-
-	// We render some actors using light source 1 instead of light source 0
-	ud = (ActorUserData*)(actor->userData);
-    if (ud && (ud->flags & UD_RENDER_USING_LIGHT1))
-	{
-	    glDisable(GL_LIGHT1);
-	    glEnable(GL_LIGHT0);
 	}
 
 }
