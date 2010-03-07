@@ -62,11 +62,6 @@ void MainWindow::configurarGrade(){
 inline void MainWindow::criarCanvas(){
 	
 	simulacao = new SimulacaoCaixa;
-
-	if (ui->checkBoxGravidade->isChecked()){	
-		simulacao->habilitarGravidade();
-	}
-
 	RenderizacaoStrategy *strategy = new RenderizarAtoresStrategy();
 	
 	view = new CaixaGraosGLWidget(this,simulacao);
