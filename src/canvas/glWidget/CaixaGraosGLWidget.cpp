@@ -84,6 +84,23 @@ void CaixaGraosGLWidget::paintGL()
 	draw();
 }
 
+void CaixaGraosGLWidget::setCameraPos(NxReal x,NxReal y, NxReal z){
+	gCameraPos.x = x;
+	gCameraPos.y = y;
+	gCameraPos.z = z;
+}
+void CaixaGraosGLWidget::setCameraRight(NxReal x,NxReal y, NxReal z){
+	gCameraRight.x = x;
+	gCameraRight.y = y;
+	gCameraRight.z = z;
+}
+void CaixaGraosGLWidget::setCameraForward(NxReal x,NxReal y, NxReal z){
+	gCameraForward.x = x;
+	gCameraForward.y = y;
+	gCameraForward.z = z;
+}	
+
+
 void CaixaGraosGLWidget::draw()
 {
 

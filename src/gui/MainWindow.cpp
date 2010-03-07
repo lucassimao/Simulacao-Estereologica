@@ -290,6 +290,11 @@ void MainWindow::exibirInterceptos(){
 
 	RenderizarInterceptosStrategy *strategy = new RenderizarInterceptosStrategy(g);
 	view->setStrategy(strategy);
+	
+	view->setCameraForward(-1.8329598e-007,-0.99999964,0.00095026463);
+	view->setCameraRight(-0.00095024816,0,5.6060153e-006);
+	view->setCameraPos(-0.27,46,0.01);
+
 	ui->btnExibirInterceptos->setEnabled(false);
 
 }
