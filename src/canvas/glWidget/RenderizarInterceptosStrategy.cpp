@@ -19,9 +19,9 @@ using namespace simulacao::canvas::drawVisitor;
 using namespace simulacao::model::interceptos;
 using namespace simulacao::model::atores;
 
-class WithComma: public numpunct<char> // class for decimal numbers with comma
+class WithComma: public numpunct<char> // classe que permite numeros decimais serem salvos em arquivo usando virgula com seprador decimal
 {
-	protected: char do_decimal_point() const { return ','; } // override the function that gives the decimal separator
+	protected: char do_decimal_point() const { return ','; } 
 };
 
 RenderizarInterceptosStrategy::RenderizarInterceptosStrategy(Grade *grade){
