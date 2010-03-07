@@ -53,7 +53,7 @@ namespace simulacao{
 			~SimulacaoCaixa(void);
 
 			void adicionarObjeto(TipoDeGrao,NxI64);
-			void novoPlanoDeCorte();
+			void novoPlanoDeCorte(float);
 			void selecionarGraosInterceptados();
 			void removerGraos();
 

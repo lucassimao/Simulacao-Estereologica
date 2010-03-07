@@ -153,9 +153,7 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 
 
 
-void SimulacaoCaixa::novoPlanoDeCorte(){
-	float altura = 6 + rand()%15;
-
+void SimulacaoCaixa::novoPlanoDeCorte(float altura){
 	if (atorPlanoDeCorte == NULL){
 		
 		NxPlaneShapeDesc planeDesc;
@@ -174,7 +172,7 @@ void SimulacaoCaixa::novoPlanoDeCorte(){
 }
 
 void SimulacaoCaixa::exibirPlanoDeCorte(){ 
-	novoPlanoDeCorte(); 
+	novoPlanoDeCorte(6 + rand()%19); 
 }
 
 void SimulacaoCaixa::esconderPlanoDeCorte(){ 

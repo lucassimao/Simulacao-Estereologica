@@ -208,8 +208,24 @@ void MainWindow::limparSimulacao(){
 }
 
 void MainWindow::novoPlanoDeCorte(){
-	simulacao->novoPlanoDeCorte();
+	if (ui->checkBoxPlanoDeCorteSistematico->isChecked())
+	{
+		int res;
+		QInputDialog *dlg = new QInputDialog(this);
+		dlg->setDoubleMinimum(0.1);
+		dlg->setDoubleMaximum(20);
+		dlg->setInputMode(QInputDialog::InputMode::DoubleInput);
 
+		dlg->setLabelText(tr("Altura do plano de corte:"));
+		res = dlg->exec();
+		if (res == QInputDialog::DialogCode::Accepted){
+			simulacao->novoPlanoDeCorte(dlg->doubleValue() + 5); // o +5 é necessário pois a altura da base da caixa é 5
+		}
+	}
+	else{
+		float altura = 6 + rand()%19;
+		simulacao->novoPlanoDeCorte(altura);
+	}
 
 }
 
