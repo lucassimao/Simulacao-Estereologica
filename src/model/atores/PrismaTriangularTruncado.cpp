@@ -75,9 +75,9 @@ PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,NxCCDSkeleton *
 	actorDesc.body = &bodyDesc;
 	actorDesc.density = 10.0;
 
-	float px = 9 - (rand() % 20);
-	float py = 5 + (rand() % 20);
-	float pz = 9 - (rand() % 20);
+	float px = 9 - (rand() % 19);
+	float py = 5 + (rand() % 19);
+	float pz = 9 - (rand() % 19);
 
 	actorDesc.globalPose.t  = NxVec3(px,py,pz);
 	this->ator = cena->createActor(actorDesc);
