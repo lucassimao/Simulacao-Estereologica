@@ -2,16 +2,7 @@ Funcionalidades a serem implementadas:
 
 - desenvolver testes unitários
 - Contagem da quantidade de pontos internos aos interceptos de area
-- permitir planos de corte sistematizados
-- posicionar a camera no topo quando for exibidos os interceptos
 - permitir a configuração de cores para os sólidos, interceptos lineares, interceptos de área, grade, pontos
 - permitir adição de sólidos e interceptos por arquivo
 - salvar imagem
 - implementar uma relatorio de classes
-
-Bugs:
-
-- O plano de corte não tem seu fundo renderizado
-- a grade ñ está acompanhando o plano de corte
-- validar a caixa de texto que possui a quantidade de itens a serem adicionados
-
