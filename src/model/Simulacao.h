@@ -21,8 +21,7 @@ namespace simulacao{
 		class Simulacao
 		{
 		protected:
-			const static NxVec3 gravidadeDefault;
-
+			
 			bool simulacaoEmHardware;
 			NxReal deltaTime; //intervalo de tempo p/ simulação
 			Status status;
@@ -77,8 +76,18 @@ namespace simulacao{
 			void releaseActor(NxActor &ator){
 				this->cena->releaseActor(ator);
 			}
-			void desabilitarGravidade(){ this->gravidade->y = 0;}
-			void habilitarGravidade(){ this->gravidade->y = Simulacao::gravidadeDefault.y;}
+			void desabilitarGravidade(){ 
+				NxVec3 gravity;
+				this->cena->getGravity(gravity);
+				gravity.y = 0;
+				this->cena->setGravity(gravity);
+			}
+			void habilitarGravidade(){ 
+				NxVec3 gravity;
+				this->cena->getGravity(gravity);
+				gravity.y = -9.8;	
+				this->cena->setGravity(gravity);
+			}
 
 
 

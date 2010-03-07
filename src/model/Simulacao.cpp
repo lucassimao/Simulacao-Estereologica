@@ -6,8 +6,6 @@
 using namespace simulacao::model;
 using std::exception;
 
-const NxVec3 Simulacao::gravidadeDefault(0,-9.8,0);
-
 Simulacao::Simulacao(void)
 {
 	this->gravidade = new NxVec3(0,0,0);
