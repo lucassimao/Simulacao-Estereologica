@@ -24,9 +24,10 @@ Esfera::Esfera(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 
 		actorDesc2.body = &bodyDesc2;
 		actorDesc2.density=10.0f;
-		float a = rand(); float px = 12*(a/32767 - 0.5);
-		float b = rand(); float py = 12*(b/32767 - 0.5)+ 15.0;//Devido à altura do eixo y
-		float c = rand(); float pz = 12*(c/32767 - 0.5);
+
+		float px = 9 - (rand() % 20);
+		float py = 5 + (rand() % 20);
+		float pz = 9 - (rand() % 20);
 
 		actorDesc2.globalPose.t = NxVec3(px,py,pz);
 		NxActor *esfera =  cena->createActor(actorDesc2);
