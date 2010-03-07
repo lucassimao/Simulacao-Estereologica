@@ -84,21 +84,35 @@ void CaixaGraosGLWidget::paintGL()
 	draw();
 }
 
-void CaixaGraosGLWidget::setCameraPos(NxReal x,NxReal y, NxReal z){
-	gCameraPos.x = x;
-	gCameraPos.y = y;
-	gCameraPos.z = z;
+
+void CaixaGraosGLWidget::posicionarCameraNoTopoDaCaixa(){
+	gCameraPos.x = 0.066;
+	gCameraPos.y = 44.368;
+	gCameraPos.z = 0.342;
+
+	gCameraRight.x = 0.0355;
+	gCameraRight.y = 0;
+	gCameraRight.z = -0.00024;
+
+	gCameraForward.x = -3.0782681e-005;
+	gCameraForward.y = -0.999;
+	gCameraForward.z = -0.0355;
+
 }
-void CaixaGraosGLWidget::setCameraRight(NxReal x,NxReal y, NxReal z){
-	gCameraRight.x = x;
-	gCameraRight.y = y;
-	gCameraRight.z = z;
+
+void CaixaGraosGLWidget::posicionarCameraNoPontoInicial(){
+	gCameraPos.x = 0.65125149;
+	gCameraPos.y = 29.323162;
+	gCameraPos.z = 48.303276;
+
+	gCameraRight.x = 0.95747489;
+	gCameraRight.y = 0;
+	gCameraRight.z = -0.011678438;
+
+	gCameraForward.x = -0.011699641;
+	gCameraForward.y = -0.28244135;
+	gCameraForward.z = -0.95921326;
 }
-void CaixaGraosGLWidget::setCameraForward(NxReal x,NxReal y, NxReal z){
-	gCameraForward.x = x;
-	gCameraForward.y = y;
-	gCameraForward.z = z;
-}	
 
 
 void CaixaGraosGLWidget::draw()

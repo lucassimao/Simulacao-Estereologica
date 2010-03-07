@@ -22,9 +22,8 @@ namespace simulacao {
 		public:
 			CaixaGraosGLWidget(QWidget *parent = 0,SimulacaoCaixa *simulacao = 0);	
 			void setStrategy(RenderizacaoStrategy *strategy){ this->renderizacaoStrategy = strategy; }
-			void setCameraPos(NxReal x,NxReal y, NxReal z);
-			void setCameraRight(NxReal x,NxReal y, NxReal z);
-			void setCameraForward(NxReal x,NxReal y, NxReal z);
+			void posicionarCameraNoTopoDaCaixa();
+			void posicionarCameraNoPontoInicial();
 
 		protected:
 			void initializeGL();
