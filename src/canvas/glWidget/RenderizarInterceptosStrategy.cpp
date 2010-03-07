@@ -34,7 +34,8 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 	if (interceptos->size() == 0){
 		coletarInterceptos(simulacao);
 
-		
+		// coletando informações sobre as areas interceptadas e os segmento
+		// das retas de teste internos aos interceptos de área
 		ColetorDeAreasVisitor *visitor1 = new ColetorDeAreasVisitor(this->grade);
 		ColetorDeInterceptosLinearesVisitor *visitor2 = new ColetorDeInterceptosLinearesVisitor(this->grade);
 		
@@ -68,6 +69,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		
 	}
 
+	// aqui inicia o desenho dos interceptos de area e lineares
 	vector<Intercepto*>::const_iterator iterator = interceptos->begin();
 	InterceptoDeAreaDrawVisitor *visitor = new InterceptoDeAreaDrawVisitor();
 	
@@ -78,17 +80,6 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		++iterator;
 	}
 
-	
-	vector<Intercepto*>::const_iterator iterator2 = interceptos->begin();
-	InterceptoLinearDrawVisitor *visitor2 = new InterceptoLinearDrawVisitor(this->grade);
-	
-	while(iterator2!=interceptos->end())
-	{
-		Intercepto *intercepto = *iterator2;
-		intercepto->accept(visitor2);
-		++iterator2;
-	}
-
 	if (simulacao->getExibirRetasTeste() || simulacao->getExibirPontosTeste()){
 	
 		glPushAttrib(GL_ALL_ATTRIB_BITS);
@@ -97,7 +88,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		glDisable(GL_LIGHTING);
 		glColor4f(1.0f,0.0f,0.0f,0);
 		glLineWidth(0.5f);
-		glPointSize(2.9f);
+		glPointSize(5);
 
 		if (simulacao->getExibirRetasTeste() ){
 			glBegin(GL_LINES);
@@ -140,6 +131,16 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		
 		
 		glPopAttrib();	
+	}
+
+	vector<Intercepto*>::const_iterator iterator2 = interceptos->begin();
+	InterceptoLinearDrawVisitor *visitor2 = new InterceptoLinearDrawVisitor(this->grade);
+	
+	while(iterator2!=interceptos->end())
+	{
+		Intercepto *intercepto = *iterator2;
+		intercepto->accept(visitor2);
+		++iterator2;
 	}
 
 	DrawActor(simulacao->getPlanoDeCorte()->getNxActor(), NULL, false);
