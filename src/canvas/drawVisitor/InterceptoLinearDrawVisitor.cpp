@@ -39,7 +39,6 @@ inline void InterceptoLinearDrawVisitor::visit(Disco *disco){
 	glEnable(GL_CULL_FACE); 
 	glCullFace(GL_FRONT); 
 	glDisable(GL_LIGHTING);
-	//glColor3f(0,0,0);
 	glColor3f(1.0f,1.0f,1.0f);
 	glLineWidth(2.5f);
 
