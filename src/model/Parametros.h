@@ -25,7 +25,7 @@ namespace simulacao{
 
 		typedef struct {
 			int qtdeLinhas;
-			int qtdePontos;
+			int qtdePontos; // pontos por linha
 			bool pontosAleatorios;
 		}GradeParams;
 
@@ -50,6 +50,13 @@ namespace simulacao{
 					instance = new Parametros();
 
 				return Parametros::instance;
+			}
+
+			inline int  getQtdeLinhasNaGrade(){
+				return this->grade.qtdeLinhas;
+			}
+			inline int getQtdePontosPorLinhaNaGrade(){
+				return this->grade.qtdePontos;
 			}
 			
 			inline void setParametrosDaGrade(int qtdeLinhas,int qtdePontos, bool pontosAleatorios){ 

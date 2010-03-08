@@ -20,6 +20,8 @@ namespace simulacao{
 				Ponto linhaFim;
 
 				RetaDeTeste(Ponto linhaInicio, Ponto linhaFim, int qtdeDePontos);
+				
+				int getQtdeDePontosNoIntervalo(Ponto,Ponto);
 				inline vector<Ponto>::const_iterator getPontosIterator(){ return pontos.begin();}
 				inline vector<Ponto>::const_iterator getPontosIteratorEnd(){ return pontos.end();}
 

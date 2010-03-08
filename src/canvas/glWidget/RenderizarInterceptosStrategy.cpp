@@ -5,6 +5,7 @@
 #include "..\..\model\atores\Ator.h"
 #include "..\..\draw\DrawObjects.h"
 #include "GL\glut.h"
+#include "..\..\math\ColetorDePontosVisitor.h"
 #include "..\..\math\ColetorDeAreasVisitor.h"
 #include "..\..\math\ColetorDeInterceptosLinearesVisitor.h"
 #include <iostream>
@@ -38,36 +39,45 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		// das retas de teste internos aos interceptos de área
 		ColetorDeAreasVisitor *visitor1 = new ColetorDeAreasVisitor(this->grade);
 		ColetorDeInterceptosLinearesVisitor *visitor2 = new ColetorDeInterceptosLinearesVisitor(this->grade);
-		
+		ColetorDePontosVisitor *visitor3 = new ColetorDePontosVisitor(this->grade);
+
 		vector<Intercepto*>::const_iterator  iter= this->interceptos->begin();
 		locale myloc(  locale(),new WithComma);
 		
-		ofstream areas("areas.csv",std::ios::out);
-		areas.imbue(myloc);
-		
-		ofstream interceptosLineares("interceptosLineares.csv",std::ios::out);
-		interceptosLineares.imbue(myloc);
-
-		ofstream qtdeDePontos("qtdePontos.csv",std::ios::out);
-
 		while(iter!=interceptos->end()){
 			Intercepto *i = *iter;
 			i->accept(visitor1);
 			i->accept(visitor2);
+			i->accept(visitor3);
 			++iter;
 		}
 
+		ofstream areas("areas.csv",std::ios::out);
+		areas.imbue(myloc);
+		
 		for(int i=0;i<visitor1->getAreas().size();++i){
 			double d = visitor1->getAreas().at(i);
 			areas << d << endl;
 		}
 		areas.close();
 
+		ofstream interceptosLineares("interceptosLineares.csv",std::ios::out);
+		interceptosLineares.imbue(myloc);
+
 		for(int i=0;i<visitor2->getInterceptosLineares().size();++i){
 			double d = visitor2->getInterceptosLineares().at(i);
 			interceptosLineares << d << endl;
 		}
-		interceptosLineares.close();	
+		interceptosLineares.close();
+
+		ofstream qtdeDePontos("qtdePontos.txt",std::ios::out);
+		Parametros *params = Parametros::getInstance();
+		int qtdeTotalDePontos = params->getQtdePontosPorLinhaNaGrade() * params->getQtdeLinhasNaGrade();
+
+		qtdeDePontos << "Quantidade de pontos na grade: " << qtdeTotalDePontos << endl;
+		qtdeDePontos << "Quantidade de pontos internos às seções de área: " << visitor3->getQtdeDePontosInternosAInterceptosDeArea() << endl;
+
+		qtdeDePontos.close();
 		
 	}
 		
