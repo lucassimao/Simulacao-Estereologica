@@ -96,8 +96,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)\Release"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)..\Release_PhysX_v2.8.3"
+			IntermediateDirectory="$(SolutionDir)..\Release_PhysX_v2.8.3"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -121,7 +121,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;C:\gtest-1.4.0\include&quot;"
+				AdditionalIncludeDirectories="&quot;C:\gtest-1.4.0\include&quot;;..\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -141,6 +141,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="gtest.lib gtest_main.lib"
+				OutputFile="$(SolutionDir)..\Release_PhysX_v2.8.3\$(ProjectName).exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;C:\gtest-1.4.0\msvc\gtest\Release&quot;"
 				GenerateDebugInformation="true"
@@ -181,15 +182,59 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\Teste1.cpp"
+				RelativePath=".\src\Main.cpp"
 				>
 			</File>
+			<Filter
+				Name="utils"
+				>
+				<File
+					RelativePath="..\src\utils\AbstractGeradorDeAlturaDoPlanoDeCorteStrategy.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<Filter
+				Name="utils"
+				>
+				<File
+					RelativePath="..\src\utils\AbstractGeradorDeAlturaDoPlanoDeCorteStrategy.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\utils\Vetor.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="tests"
+				>
+				<File
+					RelativePath=".\src\tests\GeradorDeAlturaDoPlanoDeCorteStrategyTests.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
