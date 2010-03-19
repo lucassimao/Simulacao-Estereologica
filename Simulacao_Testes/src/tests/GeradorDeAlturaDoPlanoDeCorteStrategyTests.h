@@ -20,25 +20,18 @@ namespace {
 		
 	}
 
-	TEST(GeradorDeAlturaSistematicaDeCorteStrategyTest, testarDelta) {
+	TEST(GeradorDeAlturaSistematicaDeCorteStrategyTest, testarSistematica) {
 		float alturaInicial = 0.0f;
 		float alturaFinal = 100.0f;
 		int qtdePlanos = 10;
 		GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy strategy(alturaInicial,alturaFinal,qtdePlanos);
 		
-		float h0 = strategy.novaAltura();
-		ASSERT_EQ(h0,0);
+		ASSERT_EQ(alturaInicial,strategy.novaAltura());
 
-		float h1 = strategy.novaAltura();
-
-		float delta = h1 - h0;
-		ASSERT_EQ(delta,10);
-
-		for(int i=2;i<=10000;++i){
+		for(int i=1;i<=10000;++i){
+			float f = strategy.novaAltura();
 			if (i%10 == 0)
-				ASSERT_EQ(alturaInicial,strategy.novaAltura());
-			else
-				strategy.novaAltura();
+				ASSERT_EQ(alturaInicial,f);
 		}		
 		
 	}
@@ -51,7 +44,7 @@ namespace {
 		
 		int qtde = 0;
 
-		for(int i=0;i<29;++i){
+		for(int i=0;i<30;++i){
 			strategy.novaAltura();
 		}		
 		ASSERT_EQ(alturaInicial,strategy.novaAltura());	

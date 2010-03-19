@@ -3,7 +3,7 @@
 using namespace simulacao::utils;
 
 GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy::GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(float h0,float h1,int qtdePlanos): AbstractGeradorDeAlturaDoPlanoDeCorteStrategy(h0,h1){
-	this->deltaH = (h1 - h0)/qtdePlanos;
+	this->deltaH = (h1 - h0)/(qtdePlanos+1);
 	this->alturaCorrente = h0;
 }
 
