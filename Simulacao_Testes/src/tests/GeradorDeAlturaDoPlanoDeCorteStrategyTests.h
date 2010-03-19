@@ -43,4 +43,18 @@ namespace {
 		
 	}
 
+	TEST(GeradorDeAlturaSistematicaDeCorteStrategyTest, testarQuantidadeDePlanos) {
+		float alturaInicial = 0.0f;
+		float alturaFinal = 100.0f;
+		int qtdePlanos = 30;
+		GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy strategy(alturaInicial,alturaFinal,qtdePlanos);
+		
+		int qtde = 0;
+
+		for(int i=0;i<29;++i){
+			strategy.novaAltura();
+		}		
+		ASSERT_EQ(alturaInicial,strategy.novaAltura());	
+	}
+
 }  
