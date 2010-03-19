@@ -691,7 +691,7 @@
    <slot>adicionarObjetos()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>213</x>
+     <x>180</x>
      <y>144</y>
     </hint>
     <hint type="destinationlabel">
@@ -739,8 +739,8 @@
    <slot>novoPlanoDeCorte()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>87</x>
-     <y>311</y>
+     <x>99</x>
+     <y>380</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>
@@ -787,8 +787,8 @@
    <slot>exibirPlanoDeCorte(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>142</x>
-     <y>280</y>
+     <x>154</x>
+     <y>279</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -803,8 +803,8 @@
    <slot>exibirGraosInterceptados()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>86</x>
-     <y>341</y>
+     <x>98</x>
+     <y>410</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -836,7 +836,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>161</x>
-     <y>371</y>
+     <y>440</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -883,8 +883,8 @@
    <slot>exibirPontosTeste(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>314</x>
-     <y>426</y>
+     <x>253</x>
+     <y>351</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -899,8 +899,8 @@
    <slot>exibirRetasTeste(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>426</y>
+     <x>174</x>
+     <y>327</y>
     </hint>
     <hint type="destinationlabel">
      <x>425</x>
@@ -940,6 +940,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>checkBoxPlanoDeCorteSistematico</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>mudarEstrategiaDeAlturasDoPlanodeCorte(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>137</x>
+     <y>294</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>adicionarObjetos()</slot>
@@ -958,5 +974,6 @@
   <slot>exibirPontosTeste(bool)</slot>
   <slot>configurarGrade()</slot>
   <slot>exibirVisaoSuperior(bool)</slot>
+  <slot>mudarEstrategiaDeAlturasDoPlanodeCorte(bool)</slot>
  </slots>
 </ui>

@@ -23,6 +23,10 @@ using namespace simulacao::math::mathVisitor;
 #include <fstream>
 using std::ofstream;
 
+#include "..\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.h"
+#include "..\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
+using namespace simulacao::model;
+
 MainWindow::MainWindow(){
 	ui = new Ui_MainWindow();
 	ui->setupUi(this);
@@ -217,26 +221,30 @@ void MainWindow::limparSimulacao(){
 
 }
 
-void MainWindow::novoPlanoDeCorte(){
-	if (ui->checkBoxPlanoDeCorteSistematico->isChecked())
+void MainWindow::mudarEstrategiaDeAlturasDoPlanodeCorte(bool b){
+	if (b)
 	{
 		int res;
 		QInputDialog *dlg = new QInputDialog(this);
-		dlg->setDoubleMinimum(0.1);
-		dlg->setDoubleMaximum(20);
-		dlg->setInputMode(QInputDialog::InputMode::DoubleInput);
+		dlg->setIntMinimum(1);
+		dlg->setIntMaximum(INT_MAX);
+		dlg->setInputMode(QInputDialog::InputMode::IntInput);
 
-		dlg->setLabelText(tr("Altura do plano de corte:"));
+		dlg->setLabelText(tr("Quantidade de planos:"));
 		res = dlg->exec();
 		if (res == QInputDialog::DialogCode::Accepted){
-			simulacao->novoPlanoDeCorte(dlg->doubleValue() + 5); // o +5 é necessário pois a altura da base da caixa é 5
+			int qtdePlanos = dlg->intValue();
+			simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(qtdePlanos));
 		}
+		else
+			this->ui->checkBoxPlanoDeCorteSistematico->setChecked(false);
 	}
-	else{
-		float altura = 6 + rand()%19;
-		simulacao->novoPlanoDeCorte(altura);
-	}
+	else
+		simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy);
 
+}
+void MainWindow::novoPlanoDeCorte(){
+	simulacao->novoPlanoDeCorte();
 }
 
 void MainWindow::exibirSobre(){

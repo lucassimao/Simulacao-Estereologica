@@ -30,7 +30,7 @@ CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao
 
 	this->simulacao = simulacao;
 	box = this->simulacao->getCaixa();
-	this->simulacao->novoPlanoDeCorte(6 + rand()%19);
+	this->simulacao->novoPlanoDeCorte();
 
 	gCameraAspectRatio = 1;	
 }

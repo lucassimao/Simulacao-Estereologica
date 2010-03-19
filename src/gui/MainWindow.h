@@ -45,6 +45,7 @@ namespace simulacao	{
 			void exibirPontosTeste(bool);
 			void configurarGrade();
 			void exibirVisaoSuperior(bool);
+			void mudarEstrategiaDeAlturasDoPlanodeCorte(bool);
 		public:
 			MainWindow();
 			~MainWindow();

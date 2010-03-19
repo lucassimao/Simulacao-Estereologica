@@ -201,6 +201,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="model"
+				>
+				<File
+					RelativePath="..\src\model\Parametros.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -222,16 +230,20 @@
 					RelativePath="..\src\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
 					>
 				</File>
-				<File
-					RelativePath="..\src\utils\Vetor.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="tests"
 				>
 				<File
 					RelativePath=".\src\tests\GeradorDeAlturaDoPlanoDeCorteStrategyTests.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="model"
+				>
+				<File
+					RelativePath="..\src\model\Parametros.h"
 					>
 				</File>
 			</Filter>

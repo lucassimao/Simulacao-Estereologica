@@ -15,6 +15,7 @@ namespace simulacao{
 		class GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy: public AbstractGeradorDeAlturaDoPlanoDeCorteStrategy{
 
 		public:
+			GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy();
 			GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy(float h0,float h1);
 			float novaAltura() ;
 		};

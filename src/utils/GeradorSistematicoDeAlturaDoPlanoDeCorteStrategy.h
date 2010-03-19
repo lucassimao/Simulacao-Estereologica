@@ -20,6 +20,7 @@ namespace simulacao{
 			float deltaH;
 			float alturaCorrente;
 		public:
+			GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(int qtdePlanos);
 			GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(float h0,float h1, int qtdePlanos);
 			float novaAltura();
 		};

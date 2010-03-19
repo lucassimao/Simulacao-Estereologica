@@ -21,30 +21,34 @@ namespace {
 	}
 
 	TEST(GeradorDeAlturaSistematicaDeCorteStrategyTest, testarSistematica) {
-		float alturaInicial = 0.0f;
-		float alturaFinal = 100.0f;
+		float alturaMinima = 0.0f;
+		float alturaMaxima = 100.0f;
 		int qtdePlanos = 10;
-		GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy strategy(alturaInicial,alturaFinal,qtdePlanos);
+		float alturaInicial = alturaMinima+ (alturaMaxima-alturaMinima)/(qtdePlanos+1);
+
+		GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy strategy(alturaMinima,alturaMaxima,qtdePlanos);
 		
 		ASSERT_EQ(alturaInicial,strategy.novaAltura());
 
 		for(int i=1;i<=10000;++i){
 			float f = strategy.novaAltura();
-			if (i%10 == 0)
+			if (i%9 == 0)
 				ASSERT_EQ(alturaInicial,f);
 		}		
 		
 	}
 
 	TEST(GeradorDeAlturaSistematicaDeCorteStrategyTest, testarQuantidadeDePlanos) {
-		float alturaInicial = 0.0f;
-		float alturaFinal = 100.0f;
+		float alturaMinima = 0.0f;
+		float alturaMaxima = 100.0f;
 		int qtdePlanos = 30;
-		GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy strategy(alturaInicial,alturaFinal,qtdePlanos);
+		float alturaInicial = alturaMinima + (100.0-0)/(qtdePlanos+1);
+
+		GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy strategy(alturaMinima,alturaMaxima,qtdePlanos);
 		
 		int qtde = 0;
 
-		for(int i=0;i<30;++i){
+		for(int i=0;i<29;++i){
 			strategy.novaAltura();
 		}		
 		ASSERT_EQ(alturaInicial,strategy.novaAltura());	

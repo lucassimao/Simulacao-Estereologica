@@ -9,6 +9,7 @@
 #include "atores\PrismaTriangular.h"
 #include "atores\PrismaTriangularTruncado.h"
 #include "atores\Ator.h"
+#include "..\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.h"
 #include "..\draw\Stream.h"
 #include "..\draw\cooking.h"
 
@@ -29,6 +30,8 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->caixa = criarCaixa();
 	this->exibirPontosTeste=true;
 	this->exibirRetasTeste=true;
+	
+	this->alturaPlanoStrategy = new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy();
 	criarCCDS();
 }
 
@@ -153,7 +156,10 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 
 
 
-void SimulacaoCaixa::novoPlanoDeCorte(float altura){
+void SimulacaoCaixa::novoPlanoDeCorte(){
+
+	float altura = this->alturaPlanoStrategy->novaAltura();
+
 	if (atorPlanoDeCorte == NULL){
 		
 		NxPlaneShapeDesc planeDesc;
@@ -172,7 +178,7 @@ void SimulacaoCaixa::novoPlanoDeCorte(float altura){
 }
 
 void SimulacaoCaixa::exibirPlanoDeCorte(){ 
-	novoPlanoDeCorte(6 + rand()%19); 
+	novoPlanoDeCorte(); 
 }
 
 void SimulacaoCaixa::esconderPlanoDeCorte(){ 
