@@ -13,7 +13,7 @@ RenderizarAtoresStrategy::RenderizarAtoresStrategy(){
 inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 	NxU32 nbActors = simulacao->getQtdeObjetos();
 	NxActor** actors = simulacao->getAtores();
-	
+	PlanoDeCorte *planoDeCorte = simulacao->getPlanoDeCorte();
 	
 	while (nbActors--)
 	{
@@ -24,7 +24,7 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 		if (ator){
 			glPushAttrib(GL_ALL_ATTRIB_BITS);
 
-			if (ator->estaInterceptadoPeloPlano(simulacao->getPlanoDeCorte()->getNxActor()->getGlobalPosition()))
+			if (planoDeCorte && ator->estaInterceptadoPeloPlano(planoDeCorte->getNxActor()->getGlobalPosition()))
 				glColor4f(1.0, 0, 0, 1);
 			else 
 				glColor4f(ator->cor.r,ator->cor.g,ator->cor.b,1);

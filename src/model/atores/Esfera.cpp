@@ -1,6 +1,6 @@
 #include <stdexcept>
 #include "Esfera.h"
-#include "../Parametros.h"
+#include "..\Parametros.h"
 #include "..\..\model\interceptos\Intercepto.h"
 #include "..\..\model\interceptos\Disco.h"
 

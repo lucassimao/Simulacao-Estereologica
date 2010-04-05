@@ -17,7 +17,7 @@ int mx, my;
 
 CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao)
 : QGLWidget(parent),gCameraPos(NxVec3(0.65125149,29.323162,48.303276)),
-	gCameraForward(NxVec3(-0.011699641,-0.28244135,-0.95921326)),
+	gCameraForward(NxVec3(-0.011699641,-0.28244135,-0.95921326)),gCameraAspectRatio(1),
 	gCameraRight(NxVec3(0.95747489,0,-0.011678438))
 {
 	srand(time(0));
@@ -32,7 +32,23 @@ CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao
 	box = this->simulacao->getCaixa();
 	this->simulacao->novoPlanoDeCorte();
 
-	gCameraAspectRatio = 1;	
+}
+
+void CaixaGraosGLWidget::draw()
+{
+
+	SetupCamera();
+
+	if (*simulacao)
+	{
+		simulacao->GetPhysicsResults();
+		simulacao->iniciarSimulacao();
+	}
+
+	this->renderizacaoStrategy->draw(this->simulacao);
+	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
+	drawCuboid(box);
+
 }
 
 
@@ -115,22 +131,6 @@ void CaixaGraosGLWidget::posicionarCameraNoPontoInicial(){
 }
 
 
-void CaixaGraosGLWidget::draw()
-{
-
-	SetupCamera();
-
-	if (*simulacao)
-	{
-		simulacao->GetPhysicsResults();
-		simulacao->iniciarSimulacao();
-	}
-
-	this->renderizacaoStrategy->draw(this->simulacao);
-	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
-	drawCuboid(box);
-
-}
 
 
 

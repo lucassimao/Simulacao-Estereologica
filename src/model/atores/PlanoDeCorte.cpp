@@ -9,7 +9,8 @@ PlanoDeCorte::PlanoDeCorte(NxActor * nxActor):Ator()
 	this->grade = 0;
 }
 
-
+PlanoDeCorte::~PlanoDeCorte(void){
+}
 
 void PlanoDeCorte::update(Observable* obs){
 	int qtdeLinha = Parametros::getInstance()->getParametrosDaGrade().qtdeLinhas; 
