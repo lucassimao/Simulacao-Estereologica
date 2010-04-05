@@ -31,7 +31,6 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->exibirPontosTeste=true;
 	this->exibirRetasTeste=true;
 	
-	this->alturaPlanoStrategy = new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy();
 	criarCCDS();
 }
 
@@ -178,11 +177,11 @@ void SimulacaoCaixa::novoPlanoDeCorte(){
 }
 
 void SimulacaoCaixa::exibirPlanoDeCorte(){ 
-	novoPlanoDeCorte(); 
+	novoPlanoDeCorte();
 }
 
 void SimulacaoCaixa::esconderPlanoDeCorte(){ 
-	if(atorPlanoDeCorte) {getCena()->releaseActor(*atorPlanoDeCorte->getNxActor());atorPlanoDeCorte=NULL;} 
+	if(atorPlanoDeCorte) {getCena()->releaseActor(*atorPlanoDeCorte->getNxActor());  delete atorPlanoDeCorte;atorPlanoDeCorte=NULL;} 
 }
 
 void SimulacaoCaixa::selecionarGraosInterceptados(){
@@ -198,7 +197,7 @@ void SimulacaoCaixa::selecionarGraosInterceptados(){
 				Ator *a = (Ator *)ator->userData;
 				if (!a->estaInterceptadoPeloPlano(atorPlanoDeCorte->getNxActor()->getGlobalPosition())){
 					cena->releaseActor(*ator);
-					a = NULL;
+					delete a;
 				}
 			}
 

@@ -20,6 +20,9 @@ Vetor::Vetor(Ponto p){
 bool Vetor::operator==(const Vetor& other) const{
 	return (this->x == other.x && this->y == other.y && this->z == other.z);
 }
+bool Vetor::operator!=(const Vetor& other) const{
+	return (this->x != other.x || this->y != other.y || this->z != other.z);
+}
 Vetor Vetor::operator-(Vetor& other){
 	return Vetor(this->x - other.x, this->y - other.y, this->z -other.z);
 }

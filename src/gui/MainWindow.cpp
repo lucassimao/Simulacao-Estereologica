@@ -23,6 +23,7 @@ using namespace simulacao::math::mathVisitor;
 #include <fstream>
 using std::ofstream;
 
+
 #include "..\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.h"
 #include "..\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
 using namespace simulacao::model;
@@ -76,10 +77,11 @@ void MainWindow::exibirVisaoSuperior(bool b){
 inline void MainWindow::criarCanvas(){
 	
 	simulacao = new SimulacaoCaixa;
-	RenderizacaoStrategy *strategy = new RenderizarAtoresStrategy();
+	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
 	
+
 	view = new CaixaGraosGLWidget(this,simulacao);
-	view->setStrategy(strategy);
+	view->setStrategy(new RenderizarAtoresStrategy());
 	view->setFocusPolicy(Qt::StrongFocus);
 	view->setObjectName(QString::fromUtf8("graphicsView"));
 
@@ -89,13 +91,17 @@ inline void MainWindow::criarCanvas(){
 	sizePolicy2.setHeightForWidth(view->sizePolicy().hasHeightForWidth());
 	view->setSizePolicy(sizePolicy2);
 	view->setAcceptDrops(true);
+	ui->horizontalLayout_2->addWidget(view);
+	
+	
 
 	if (simulacao->isSimulacaoEmHardware())
 		statusTipoSimulacao->setText(tr("Simulação em Hardware"));
 	else
 		statusTipoSimulacao->setText(tr("Simulação em Software"));
 
-	ui->horizontalLayout_2->addWidget(view);
+		
+
 }
 
 void MainWindow::configurarParametros(){
@@ -196,8 +202,7 @@ void MainWindow::adicionarObjetos(){
 		break;
 	}	
 
-	atualizarQuantidadeDeGraosEmCena();
-		
+	atualizarQuantidadeDeGraosEmCena();	
 
 }
 
@@ -258,10 +263,13 @@ void MainWindow::exibirPlanoDeCorte(bool b){
 		simulacao->esconderPlanoDeCorte();
 }
 void MainWindow::usarGravidade(bool b){
+	
 	if (b)
 		simulacao->habilitarGravidade();
 	else
 		simulacao->desabilitarGravidade();
+	
+
 }
 
 void MainWindow::novaSimulacao(){

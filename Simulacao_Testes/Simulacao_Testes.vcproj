@@ -200,6 +200,10 @@
 					RelativePath="..\src\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\src\utils\Vetor.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="model"
@@ -215,6 +219,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\src\defs.h"
+				>
+			</File>
 			<Filter
 				Name="utils"
 				>
@@ -230,12 +238,20 @@
 					RelativePath="..\src\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
 					>
 				</File>
+				<File
+					RelativePath="..\src\utils\Vetor.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="tests"
 				>
 				<File
 					RelativePath=".\src\tests\GeradorDeAlturaDoPlanoDeCorteStrategyTests.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\tests\VetorTests.h"
 					>
 				</File>
 			</Filter>

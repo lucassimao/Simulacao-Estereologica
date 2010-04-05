@@ -10,9 +10,10 @@
 using std::exception;
 
 /**
-* Definição abstrata de uma simulação
-*
-*/
+ * Definição abstrata de uma simulação
+ *
+ *
+ */
 
 namespace simulacao{
 

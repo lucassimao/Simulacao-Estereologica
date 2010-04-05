@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "tests/GeradorDeAlturaDoPlanoDeCorteStrategyTests.h"
-
+#include "tests/VetorTests.h"
 
 int main(int argc,char **argv){
 	::testing::InitGoogleTest(&argc, argv);

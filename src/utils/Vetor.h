@@ -23,6 +23,7 @@ public:
 	double z;
 
 	bool operator==(const Vetor&) const;
+	bool operator!=(const Vetor&) const;
 	Vetor operator-(Vetor&);
 	Vetor operator+(Vetor&);
 	Vetor operator*(double);

@@ -37,6 +37,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 
 		// coletando informações sobre as areas interceptadas e os segmento
 		// das retas de teste internos aos interceptos de área
+		
 		ColetorDeAreasVisitor *visitor1 = new ColetorDeAreasVisitor(this->grade);
 		ColetorDeInterceptosLinearesVisitor *visitor2 = new ColetorDeInterceptosLinearesVisitor(this->grade);
 		ColetorDePontosVisitor *visitor3 = new ColetorDePontosVisitor(this->grade);
@@ -78,6 +79,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		qtdeDePontos << "Quantidade de pontos internos às seções de área: " << visitor3->getQtdeDePontosInternosAInterceptosDeArea() << endl;
 
 		qtdeDePontos.close();
+		
 		
 	}
 		
@@ -152,6 +154,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 }
 
 inline void RenderizarInterceptosStrategy::coletarInterceptos(SimulacaoCaixa *simulacao){
+
 		NxU32 qtdeAtores = simulacao->getQtdeObjetos();
 		NxActor** atores = simulacao->getAtores();
 
