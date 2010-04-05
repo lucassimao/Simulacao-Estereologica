@@ -13,7 +13,7 @@ public:
 	explicit SegmentoDeReta(Ponto &p0,Ponto &p1);
 	explicit SegmentoDeReta(Vetor &r0,Vetor &r1);
 
-	bool interceptarComPlano(int yplano, Ponto *interceptacao);
+	bool interceptarComPlano(double yplano, Ponto *interceptacao);
 	bool interceptar(RetaDeTeste&,Ponto*);
 
 	// r= r0+ tvetorDiretor

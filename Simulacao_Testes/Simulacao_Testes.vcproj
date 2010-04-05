@@ -201,6 +201,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\utils\SegmentoDeReta.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\utils\Vetor.cpp"
 					>
 				</File>
@@ -212,6 +216,14 @@
 					RelativePath="..\src\model\Parametros.cpp"
 					>
 				</File>
+				<Filter
+					Name="grade"
+					>
+					<File
+						RelativePath="..\src\model\grade\RetaDeTeste.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -239,6 +251,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\utils\SegmentoDeReta.h"
+					>
+				</File>
+				<File
 					RelativePath="..\src\utils\Vetor.h"
 					>
 				</File>
@@ -248,6 +264,10 @@
 				>
 				<File
 					RelativePath=".\src\tests\GeradorDeAlturaDoPlanoDeCorteStrategyTests.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\tests\SegmentoDeRetaTests.h"
 					>
 				</File>
 				<File
@@ -262,6 +282,14 @@
 					RelativePath="..\src\model\Parametros.h"
 					>
 				</File>
+				<Filter
+					Name="grade"
+					>
+					<File
+						RelativePath="..\src\model\grade\RetaDeTeste.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

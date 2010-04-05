@@ -1,6 +1,5 @@
 #include "SegmentoDeReta.h"
 #include "..\model\grade\RetaDeTeste.h"
-#include <QDebug>
 
 using namespace simulacao::model::grade;
 
@@ -34,7 +33,7 @@ bool SegmentoDeReta::interceptar(RetaDeTeste& retaDeTeste,Ponto *pontoIntersecca
 
 }
 
-bool SegmentoDeReta::interceptarComPlano(int yplano,Ponto *interceptacao){
+bool SegmentoDeReta::interceptarComPlano(double yplano,Ponto *interceptacao){
 	// y = this->r0.y +t*this->vetorDiretor.y;
 	double t = (yplano - this->r0.y)/this->vetorDiretor.y;
 	
