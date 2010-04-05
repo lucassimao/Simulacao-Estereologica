@@ -45,6 +45,7 @@ double Poligono::getPerimetro(){
 
 		NxVec3 vetorEquivalente = vec1 - vec0;
 		perimetro += vetorEquivalente.magnitude();
+		segmentos++;
 	}
 	return perimetro;
 }
