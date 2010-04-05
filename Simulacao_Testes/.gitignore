@@ -2,6 +2,7 @@
 *.obj
 forms/*.h
 debug/*
+Release_PhysX_v2.8.3/*
 release/*
 Simulacao.suo
 Debug/*

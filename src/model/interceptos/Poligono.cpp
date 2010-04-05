@@ -76,6 +76,9 @@ double Poligono::getArea(){
 
 list<SegmentoDeReta> Poligono::getArestasInterceptadas(RetaDeTeste& rt){
 	double zLinha = rt.linhaInicio.z;
+	double xLinha0 = rt.linhaInicio.x;
+	double xLinha1 = rt.linhaFim.x;
+
 	list<SegmentoDeReta> arestasInterceptadas;
 	list<SegmentoDeReta>::iterator iter = arestas.begin();
 	
@@ -84,7 +87,8 @@ list<SegmentoDeReta> Poligono::getArestasInterceptadas(RetaDeTeste& rt){
 		Vetor v0 = s.r0;
 		Vetor v1 = s.r1;
 
-		if (  (zLinha <= MAX(v0.z,v1.z)) && ( zLinha >= MIN(v0.z,v1.z))  )
+		if (  (zLinha <= MAX(v0.z,v1.z)) && ( zLinha >= MIN(v0.z,v1.z)) 
+			&&  (xLinha1 >= MAX(v0.x,v1.x)) && ( xLinha0 <= MIN(v0.x,v1.x))   )
 			arestasInterceptadas.push_back(s);
 
 		++iter;

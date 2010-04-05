@@ -42,7 +42,7 @@ namespace {
 		float alturaMinima = 0.0f;
 		float alturaMaxima = 100.0f;
 		int qtdePlanos = 30;
-		float alturaInicial = alturaMinima + (100.0-0)/(qtdePlanos+1);
+		float alturaInicial = alturaMinima + (100.0f-0)/(qtdePlanos+1);
 
 		GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy strategy(alturaMinima,alturaMaxima,qtdePlanos);
 		

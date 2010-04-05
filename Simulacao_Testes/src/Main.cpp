@@ -2,6 +2,7 @@
 #include "tests/GeradorDeAlturaDoPlanoDeCorteStrategyTests.h"
 #include "tests/VetorTests.h"
 #include "tests/SegmentoDeRetaTests.h"
+#include "tests/PoligonoTests.h"
 
 int main(int argc,char **argv){
 	::testing::InitGoogleTest(&argc, argv);
