@@ -138,25 +138,6 @@ inline static void RenderSphere()
 	glutSolidSphere(1.0f, 12, 12);
 }
 
-static void RenderCylinder()
-{
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 2*3*sizeof(float), gCylinderData);
-    glNormalPointer(GL_FLOAT, 2*3*sizeof(float), gCylinderData+3);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 13*2);
-
-    glVertexPointer(3, GL_FLOAT, 2*3*sizeof(float), gCylinderDataCapsTop);
-    glNormalPointer(GL_FLOAT, 2*3*sizeof(float), gCylinderDataCapsTop+3);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-
-    glVertexPointer(3, GL_FLOAT, 2*3*sizeof(float), gCylinderDataCapsBottom);
-    glNormalPointer(GL_FLOAT, 2*3*sizeof(float), gCylinderDataCapsBottom+3);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_NORMAL_ARRAY);
-}
 
 void SetupGLMatrix(const NxVec3& pos, const NxMat33& orient)
 {
@@ -509,61 +490,8 @@ void DrawWireCapsule(const NxCapsule& capsule, const NxVec3& color)
 	DrawCircle(20, pose, color, r);
 }
 
-void DrawCapsule(NxShape* capsule)
-{
-	NxMat34 pose = capsule->getGlobalPose();
 
-	const NxReal & r = capsule->isCapsule()->getRadius();
-	const NxReal & h = capsule->isCapsule()->getHeight();
-   
-	glPushMatrix();
-	SetupGLMatrix(pose.t, pose.M);
 
-	glPushMatrix();
-	glTranslatef(0.0f, h*0.5f, 0.0f);
-	glScalef(r,r,r);
-	RenderSphere();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(0.0f,-h*0.5f, 0.0f);
-	glScalef(r,r,r);
-	RenderSphere();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(0.0f,h*0.5f, 0.0f);
-	glScalef(r,h,r);
-	glRotatef(90.0f,1.0f,0.0f,0.0f);
-	RenderCylinder();
-	glPopMatrix();
-
-	glPopMatrix();
-}
-
-void DrawCapsule(const NxVec3& color, NxF32 r, NxF32 h)
-{
-	glColor4f(color.x, color.y, color.z, 1.0f);
-
-	glPushMatrix();
-	glTranslatef(0.0f, h*0.5f, 0.0f);
-	glScalef(r,r,r);
-	RenderSphere();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(0.0f,-h*0.5f, 0.0f);
-	glScalef(r,r,r);
-	RenderSphere();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(0.0f,h*0.5f, 0.0f);
-	glScalef(r,h,r);
-	glRotatef(90.0f,1.0f,0.0f,0.0f);
-	RenderCylinder();
-	glPopMatrix();
-}
 
 
 typedef NxVec3 Point;
@@ -919,37 +847,6 @@ void DrawMesh(NxShape* mesh, bool useShapeUserData)
 	glPopMatrix();
 }
 
-void DrawWheelShape(NxShape* wheel)
-{
-	// Get saved-away wheel shape pose to draw wheel shape at proper position
-	if (wheel->getType() == NX_SHAPE_WHEEL)
-	{
-	    NxWheelShape* ws = (NxWheelShape *)wheel;
-
-		float r = ws->getRadius();
-
-		NxMat34 pose = ((ShapeUserData*)(ws->userData))->wheelShapePose;
-
-		glPushMatrix();
-
-		float glmat[16];	//4x4 column major matrix for OpenGL.
-		pose.M.getColumnMajorStride4(&(glmat[0]));
-		pose.t.get(&(glmat[12]));
-
-		//clear the elements we don't need:
-		glmat[3] = glmat[7] = glmat[11] = 0.0f;
-		glmat[15] = 1.0f;
-
-		glMultMatrixf(&(glmat[0]));
-
-		glRotatef(90,0,1,0);
-		glTranslatef(0,0,-r/2);
-		glScalef(r, r, r);
-		RenderCylinder();
-
-	    glPopMatrix();
-	}
-}
 
 void DrawArrow(const NxVec3& posA, const NxVec3& posB, const NxVec3& color)
 {
@@ -1044,18 +941,12 @@ void DrawShape(NxShape* shape, bool useShapeUserData)
 		case NX_SHAPE_SPHERE:
 			DrawSphere(shape);
 		break;
-		case NX_SHAPE_CAPSULE:
-			DrawCapsule(shape);
-		break;
 		case NX_SHAPE_CONVEX:
 			DrawConvex(shape, useShapeUserData);
 		break;
 		case NX_SHAPE_MESH:
 			DrawMesh(shape, useShapeUserData);
 		break;
-		case NX_SHAPE_WHEEL:
-			DrawWheelShape(shape);
-			break;
 		case NX_SHAPE_HEIGHTFIELD:
 			DrawHeightfield(shape);
 			break;
@@ -1094,9 +985,6 @@ static void DrawActorShadow(NxActor* actor, const float* ShadowMat, bool useShap
 			break;
 		    case NX_SHAPE_SPHERE:
 			    DrawSphere(shapes[nShapes]);
-			break;
-		    case NX_SHAPE_CAPSULE:
-			    DrawCapsule(shapes[nShapes]);
 			break;
 		    case NX_SHAPE_CONVEX:
 			    DrawConvex(shapes[nShapes], useShapeUserData);

@@ -30,7 +30,6 @@ void DrawSphere(NxShape* sphere);
 
 void DrawWireCapsule(NxShape* capsule, const NxVec3& color);
 void DrawWireCapsule(const NxCapsule& capsule, const NxVec3& color);
-void DrawCapsule(NxShape* capsule);
 void DrawCapsule(const NxVec3& color, NxF32 r, NxF32 h);
 
 void DrawWireConvex(NxShape* mesh, const NxVec3& color, bool useShapeUserData);
@@ -38,7 +37,6 @@ void DrawConvex(NxShape* mesh, bool useShapeUserData);
 
 void DrawWireMesh(NxShape* mesh, const NxVec3& color, bool useShapeUserData);
 void DrawMesh(NxShape* mesh, bool useShapeUserData);
-void DrawWheelShape(NxShape* wheel);
 
 void DrawArrow(const NxVec3& posA, const NxVec3& posB, const NxVec3& color);
 void DrawContactPoint(const NxVec3& pos, const NxReal radius, const NxVec3& color);
