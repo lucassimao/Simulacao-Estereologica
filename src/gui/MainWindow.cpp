@@ -7,7 +7,7 @@ using namespace simulacao::model;
 using namespace simulacao::gui;
 using namespace simulacao::canvas;
 
-#include "DialogParametrosCubo.h"
+#include "AdicionarEsferasSistematicamenteDialog.h"
 #include "DialogParametrosGrade.h"
 #include "..\model\Parametros.h"
 #include "..\canvas\glWidget\RenderizacaoStrategy.h"
@@ -63,6 +63,15 @@ void MainWindow::configurarGrade(){
 		dialog->setVisible(true);
 
 }
+
+void MainWindow::adicionarEsferasSistematicamente(){
+	AdicionarEsferasSistematicamenteDialog *dlg = new AdicionarEsferasSistematicamenteDialog(this);
+	dlg->setVisible(true);
+}
+void MainWindow::adicionarPrismasSistematicamente(){
+		
+}
+
 
 void MainWindow::exibirVisaoSuperior(bool b){
 	if(b){

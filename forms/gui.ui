@@ -502,12 +502,19 @@
     <property name="title">
      <string>Opções</string>
     </property>
+    <widget class="QMenu" name="menuAdi_o_Sistem_tica">
+     <property name="title">
+      <string>Adição Sistemática</string>
+     </property>
+     <addaction name="actionAdicaoSistematicaEsferas"/>
+     <addaction name="actionAdicaoSistematicaPrismaTriangular"/>
+    </widget>
     <addaction name="actionPercola_o"/>
     <addaction name="actionPosi_o"/>
     <addaction name="actionGrade_de_pontos_e_linha_teste"/>
     <addaction name="actionExibir_resultados"/>
     <addaction name="actionDistribui_o_de_gr_os"/>
-    <addaction name="actionAglomerados"/>
+    <addaction name="menuAdi_o_Sistem_tica"/>
    </widget>
    <widget class="QMenu" name="menuPoros_CellUnit">
     <property name="title">
@@ -631,11 +638,6 @@
     <string>Distribuição de grãos</string>
    </property>
   </action>
-  <action name="actionAglomerados">
-   <property name="text">
-    <string>Aglomerados</string>
-   </property>
-  </action>
   <action name="actionPlano_de_fundo">
    <property name="text">
     <string>Cor de fundo</string>
@@ -679,6 +681,26 @@
   <action name="actionNova_Simulacao">
    <property name="text">
     <string>Nova Simulacao</string>
+   </property>
+  </action>
+  <action name="actionAdi_o_Sistem_tica_de_Prismas">
+   <property name="text">
+    <string>Adição Sistemática de Prismas </string>
+   </property>
+  </action>
+  <action name="actionAdicaoSistematicaEsferas">
+   <property name="text">
+    <string>Esferas</string>
+   </property>
+  </action>
+  <action name="actionAdicaoSistematicaPrismaTriangular">
+   <property name="text">
+    <string>Prismas Triangulares</string>
+   </property>
+  </action>
+  <action name="actionPrismas_Triangulares_Truncados">
+   <property name="text">
+    <string>Prismas Triangulares Truncados</string>
    </property>
   </action>
  </widget>
@@ -956,6 +978,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAdicaoSistematicaEsferas</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>adicionarEsferasSistematicamente()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAdicaoSistematicaPrismaTriangular</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>adicionarPrismasSistematicamente()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>adicionarObjetos()</slot>
@@ -975,5 +1029,7 @@
   <slot>configurarGrade()</slot>
   <slot>exibirVisaoSuperior(bool)</slot>
   <slot>mudarEstrategiaDeAlturasDoPlanodeCorte(bool)</slot>
+  <slot>adicionarEsferasSistematicamente()</slot>
+  <slot>adicionarPrismasSistematicamente()</slot>
  </slots>
 </ui>

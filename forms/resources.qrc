@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="icones" >
+    <file>7149_16x16.png</file>
+    <file>8390_16x16.png</file>
+  </qresource>
+</RCC>

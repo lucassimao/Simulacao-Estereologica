@@ -46,6 +46,9 @@ namespace simulacao	{
 			void configurarGrade();
 			void exibirVisaoSuperior(bool);
 			void mudarEstrategiaDeAlturasDoPlanodeCorte(bool);
+
+			void adicionarEsferasSistematicamente();
+			void adicionarPrismasSistematicamente();
 		public:
 			MainWindow();
 			~MainWindow();
