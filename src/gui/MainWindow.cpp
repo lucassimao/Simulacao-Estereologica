@@ -65,8 +65,16 @@ void MainWindow::configurarGrade(){
 }
 
 void MainWindow::adicionarEsferasSistematicamente(){
-	AdicionarEsferasSistematicamenteDialog *dlg = new AdicionarEsferasSistematicamenteDialog(this);
-	dlg->setVisible(true);
+	AdicionarEsferasSistematicamenteDialog *dlg = new AdicionarEsferasSistematicamenteDialog(this,this->simulacao);
+	int result =  dlg->exec();
+	if (result)
+	{
+		AdicionarObjetosCommand *command = dlg->getCommand();
+		if (command){
+			command->execute();
+			atualizarQuantidadeDeGraosEmCena();
+		}
+	}
 }
 void MainWindow::adicionarPrismasSistematicamente(){
 		
@@ -179,17 +187,7 @@ void MainWindow::configurarParametros(){
 			}
 		}
 		break;
-	case 3:
-		dlg->setLabelText(tr("Aresta do cubo:"));
-		dlg->setDoubleValue(Parametros::getInstance()->getArestaCubo());
-		res = dlg->exec();
-
-		if (res == QInputDialog::DialogCode::Accepted){
-			Parametros::getInstance()->setArestaCubo(dlg->doubleValue());
-		}
-		break;
 	}
-
 }
 void MainWindow::adicionarObjetos(){
 
@@ -205,9 +203,6 @@ void MainWindow::adicionarObjetos(){
 		break;
 	case 2:
 		simulacao->adicionarObjeto(PRISMA_TRIANGULAR_TRUNCADO,qtde);
-		break;
-	case 3:
-		simulacao->adicionarObjeto(CUBO,qtde);
 		break;
 	}	
 

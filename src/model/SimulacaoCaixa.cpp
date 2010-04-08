@@ -4,7 +4,6 @@
 #include <NxExportedUtils.h>
 #include "SimulacaoCaixa.h"
 #include "Parametros.h"
-#include "atores\Cubo.h"
 #include "atores\Esfera.h"
 #include "atores\PrismaTriangular.h"
 #include "atores\PrismaTriangularTruncado.h"
@@ -133,11 +132,6 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 		case ESFERA:
 			for(long l=0;l<qtde;++l){
 				new Esfera(cena,ccds);
-			}
-			break;
-		case CUBO:
-			for(long l=0;l<qtde;++l){
-				new Cubo(cena);
 			}
 			break;
 		case PRISMA_TRIANGULAR:

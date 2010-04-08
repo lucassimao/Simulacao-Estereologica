@@ -135,11 +135,6 @@
                 <string>Prismas Triangular Truncado</string>
                </property>
               </item>
-              <item>
-               <property name="text">
-                <string>Cubo</string>
-               </property>
-              </item>
              </widget>
             </item>
             <item>

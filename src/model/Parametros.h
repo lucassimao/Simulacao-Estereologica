@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include "..\utils\Observable.h"
+#include "..\defs.h"
 
 using std::runtime_error;
 using namespace simulacao::utils;
@@ -16,11 +17,13 @@ namespace simulacao{
 			double razaoDeTruncamento;
 			double L0;
 			double altura;
+			Cor cor;
 		}PrismaTriangularTruncadoParams;
 
 		typedef struct {
 			double altura;
 			double base;
+			Cor cor;
 		}PrismaTriangularParams;
 
 		typedef struct {
@@ -29,18 +32,22 @@ namespace simulacao{
 			bool pontosAleatorios;
 		}GradeParams;
 
+		typedef struct {
+			double raio;
+			Cor cor;
+		} EsferaParams;
+
 		class Parametros : public Observable
 		{
 		private:
 			Parametros();
 			static Parametros* instance;
 
-			double raioEsfera;
-			double arestaCubo;
 			double arestaDaCaixa;
 			PrismaTriangularParams prismaTriangular;
 			PrismaTriangularTruncadoParams prismaTriangularTruncado;
 			GradeParams grade;
+			EsferaParams esfera;
 			
 
 
@@ -74,17 +81,20 @@ namespace simulacao{
 			inline double getArestaDaCaixa(){ return arestaDaCaixa;}
 			inline void setArestaDaCaixa(double a){ if(a>0) this->arestaDaCaixa = a;}
 
-			inline double getRaioEsfera(){ return raioEsfera;}
-			inline void setRaioEsfera(double r){ if(r>0) this->raioEsfera = r;}
+			inline double getRaioEsfera(){ return esfera.raio;}
+			inline void setRaioEsfera(double r){ if(r>0) esfera.raio = r;}
 
-			inline double getArestaCubo(){ return arestaCubo;}
-			inline void setArestaCubo(double a){ if(a>0) this->arestaCubo = a;}
+			inline Cor getCorEsfera(){ return esfera.cor;}
+			inline void setCorEsfera(Cor r){ esfera.cor = r;}
 
 			inline double getAlturaPrisma(){ return prismaTriangular.altura;}
 			inline void setAlturaPrisma(double a){ if(a>0) prismaTriangular.altura = a;}
 
 			inline double getBasePrisma(){ return prismaTriangular.base;}
 			inline void setBasePrisma(double b){ if(b>0) prismaTriangular.base = b;}
+
+			inline Cor getCorPrisma(){ return prismaTriangular.cor;}
+			inline void setBasePrisma(Cor c){ prismaTriangular.cor = c;}
 
 
 			inline double getRazaoAspectoDoPrismaTriangularTruncado(){ return prismaTriangularTruncado.razaoDeAspecto;}
@@ -98,9 +108,12 @@ namespace simulacao{
 				if(b>=0 && b <=0.5) prismaTriangularTruncado.razaoDeTruncamento = b;
 				else throw new runtime_error("A razão de truncamento deve ser um valor no intervalo [0,0.5]");
 			}
+
 			inline double getL0DoPrismaTriangularTruncado(){ return prismaTriangularTruncado.L0;}
 			inline void setL0DoPrismaTriangularTruncado(double L0){ if(L0>0) prismaTriangularTruncado.L0 = L0;}
 
+			inline Cor getCorDoPrismaTriangularTruncado(){ return prismaTriangularTruncado.cor;}
+			inline void setCorDoPrismaTriangularTruncado(Cor cor){ prismaTriangularTruncado.cor = cor;}
 
 		};
 	}

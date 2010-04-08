@@ -25,6 +25,8 @@ using std::list;
 PrismaTriangular::PrismaTriangular(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
 	this->altura = Parametros::getInstance()->getAlturaPrisma();
 	this->base  = Parametros::getInstance()->getBasePrisma();
+	this->cor = Parametros::getInstance()->getCorPrisma();
+
 
 	const double raiz_de_3 = sqrt(3.0);
 

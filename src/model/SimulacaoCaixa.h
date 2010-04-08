@@ -68,7 +68,10 @@ namespace simulacao{
 
 			bool getExibirPontosTeste(){ return this->exibirPontosTeste;}
 			void setExibirPontosTeste(bool b){ this->exibirPontosTeste = b;}
-
+			
+			double getArestaDaCaixa(){
+				return 20.0;
+			}
 
 		};
 

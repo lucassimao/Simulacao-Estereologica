@@ -1,4 +1,5 @@
 #include <GL\glut.h>
+#include <QDebug>
 #include "RenderizarAtoresStrategy.h"
 #include "..\..\draw\DrawObjects.h"
 #include "..\..\model\atores\Ator.h"
@@ -28,6 +29,7 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 				glColor4f(1.0, 0, 0, 1);
 			else 
 				glColor4f(ator->cor.r,ator->cor.g,ator->cor.b,1);
+			
 			
 			
 			DrawActor(actor, NULL, false);

@@ -11,6 +11,7 @@ using namespace simulacao::model::interceptos;
 Esfera::Esfera(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 {
 		this->raio = Parametros::getInstance()->getRaioEsfera();
+		this->cor = Parametros::getInstance()->getCorEsfera();
 
 		NxActorDesc actorDesc2;
 		NxBodyDesc bodyDesc2;

@@ -29,6 +29,8 @@ PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,NxCCDSkeleton *
 	this->razaoDeAspecto = Parametros::getInstance()->getRazaoAspectoDoPrismaTriangularTruncado();
 	this->razaoDeTruncamento  = Parametros::getInstance()->getRazaoDeTruncamentoDoPrismaTriangularTruncado();
 	this->L0  = Parametros::getInstance()->getL0DoPrismaTriangularTruncado();
+	this->cor = Parametros::getInstance()->getCorDoPrismaTriangularTruncado();
+
 	
 	double L1  = this->L0 * razaoDeTruncamento;
 	double L2 = this->L0 - 2*L1;

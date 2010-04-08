@@ -595,6 +595,10 @@
 				Name="model"
 				>
 				<File
+					RelativePath=".\src\model\AdicionarObjetosCommand.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\model\Parametros.cpp"
 					>
 				</File>
@@ -615,10 +619,6 @@
 					>
 					<File
 						RelativePath=".\src\model\atores\Ator.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\model\atores\Cubo.cpp"
 						>
 					</File>
 					<File
@@ -817,6 +817,10 @@
 				Name="model"
 				>
 				<File
+					RelativePath=".\src\model\AdicionarObjetosCommand.h"
+					>
+				</File>
+				<File
 					RelativePath=".\src\model\Parametros.h"
 					>
 				</File>
@@ -837,10 +841,6 @@
 					>
 					<File
 						RelativePath=".\src\model\atores\Ator.h"
-						>
-					</File>
-					<File
-						RelativePath=".\src\model\atores\Cubo.h"
 						>
 					</File>
 					<File
@@ -967,6 +967,7 @@
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicionarEsferasSistematicamenteDialog.h"
 							Outputs="release\moc_AdicionarEsferasSistematicamenteDialog.cpp"
 						/>
+
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug_PhysX_v2.8.3|Win32"
@@ -1061,8 +1062,7 @@
 				<File
 					RelativePath=".\src\gui\TextBoxDelegate.h"
 					>
-					
-			<FileConfiguration
+					<FileConfiguration
 						Name="Release_PhysX_v2.8.3|Win32"
 						>
 						<Tool
@@ -1084,8 +1084,6 @@
 							Outputs="debug\moc_TextBoxDelegate.cpp"
 						/>
 					</FileConfiguration>
-					
-					
 				</File>
 			</Filter>
 			<Filter
@@ -1155,7 +1153,7 @@
 				>
 				<FileConfiguration
 					Name="Debug_PhysX_v2.8.3|Win32"
-					ExcludedFromBuild="true"
+					ExcludedFromBuild="false"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1167,7 +1165,7 @@
 				>
 				<FileConfiguration
 					Name="Debug_PhysX_v2.8.3|Win32"
-					ExcludedFromBuild="true"
+					ExcludedFromBuild="false"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1179,15 +1177,11 @@
 				>
 			</File>
 			<File
-				RelativePath="release\moc_TextBoxDelegate.cpp"
-				>
-			</File>
-			<File
 				RelativePath="release\moc_DialogParametrosGrade.cpp"
 				>
 				<FileConfiguration
 					Name="Debug_PhysX_v2.8.3|Win32"
-					ExcludedFromBuild="true"
+					ExcludedFromBuild="false"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1198,29 +1192,17 @@
 				RelativePath="release\moc_MainWindow.cpp"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug - v2.8.0|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Debug_PhysX_v2.8.3|Win32"
-					ExcludedFromBuild="true"
+					ExcludedFromBuild="false"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="release\moc_TextBoxDelegate.cpp"
+				>
 			</File>
 			<File
 				RelativePath="forms\ui_adicaoSistematizadaDeEsferas.h"
