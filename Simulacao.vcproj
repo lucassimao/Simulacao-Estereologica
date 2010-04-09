@@ -715,6 +715,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\gui\AdicionarPrismasSistematicamenteDialog.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\gui\ColorListEditor.cpp"
 					>
 				</File>
@@ -967,7 +971,6 @@
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicionarEsferasSistematicamenteDialog.h"
 							Outputs="release\moc_AdicionarEsferasSistematicamenteDialog.cpp"
 						/>
-
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug_PhysX_v2.8.3|Win32"
@@ -980,7 +983,34 @@
 							Outputs="debug\moc_AdicionarEsferasSistematicamenteDialog.cpp"
 						/>
 					</FileConfiguration>
+				</File>	
+				<File
+					RelativePath=".\src\gui\AdicionarPrismasSistematicamenteDialog.h"
+					>
+					<FileConfiguration
+						Name="Release_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\AdicionarPrismasSistematicamenteDialog.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicionarPrismasSistematicamenteDialog.h -o release\moc_AdicionarPrismasSistematicamenteDialog.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicionarPrismasSistematicamenteDialog.h"
+							Outputs="release\moc_AdicionarPrismasSistematicamenteDialog.cpp"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\AdicionarPrismasSistematicamenteDialog.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicionarPrismasSistematicamenteDialog.h -o debug\moc_AdicionarPrismasSistematicamenteDialog.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicionarPrismasSistematicamenteDialog.h"
+							Outputs="debug\moc_AdicionarPrismasSistematicamenteDialog.cpp"
+						/>
+					</FileConfiguration>
 				</File>
+				
 				<File
 					RelativePath=".\src\gui\ColorListEditor.h"
 					>
@@ -1153,7 +1183,17 @@
 				>
 				<FileConfiguration
 					Name="Debug_PhysX_v2.8.3|Win32"
-					ExcludedFromBuild="false"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="release\moc_AdicionarPrismasSistematicamenteDialog.cpp"
+				>
+				<FileConfiguration
+					Name="Debug_PhysX_v2.8.3|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1165,7 +1205,6 @@
 				>
 				<FileConfiguration
 					Name="Debug_PhysX_v2.8.3|Win32"
-					ExcludedFromBuild="false"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1181,7 +1220,6 @@
 				>
 				<FileConfiguration
 					Name="Debug_PhysX_v2.8.3|Win32"
-					ExcludedFromBuild="false"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1193,7 +1231,6 @@
 				>
 				<FileConfiguration
 					Name="Debug_PhysX_v2.8.3|Win32"
-					ExcludedFromBuild="false"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1206,6 +1243,10 @@
 			</File>
 			<File
 				RelativePath="forms\ui_adicaoSistematizadaDeEsferas.h"
+				>
+			</File>
+			<File
+				RelativePath="forms\ui_adicaoSistematizadaDePrismas.h"
 				>
 			</File>
 			<File
@@ -1250,6 +1291,32 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\forms\adicaoSistematizadaDePrismas.ui"
+				>
+				<FileConfiguration
+					Name="Release_PhysX_v2.8.3|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\adicaoSistematizadaDePrismas.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\adicaoSistematizadaDePrismas.ui -o forms\ui_adicaoSistematizadaDePrismas.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\adicaoSistematizadaDePrismas.ui"
+						Outputs="forms\ui_adicaoSistematizadaDePrismas.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_PhysX_v2.8.3|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\adicaoSistematizadaDePrismas.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\adicaoSistematizadaDePrismas.ui -o forms\ui_adicaoSistematizadaDePrismas.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\adicaoSistematizadaDePrismas.ui"
+						Outputs="forms\ui_adicaoSistematizadaDePrismas.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\forms\configurarGradeDePontos.ui"
 				>
 				<FileConfiguration
@@ -1278,50 +1345,6 @@
 			<File
 				RelativePath="forms\gui.ui"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="UIC forms\gui.ui"
-						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\gui.ui -o forms\ui_gui.h&#x0D;&#x0A;"
-						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\gui.ui"
-						Outputs="forms\ui_gui.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="UIC forms\gui.ui"
-						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\gui.ui -o forms\ui_gui.h&#x0D;&#x0A;"
-						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\gui.ui"
-						Outputs="forms\ui_gui.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug - v2.8.0|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="UIC forms\gui.ui"
-						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\gui.ui -o forms\ui_gui.h&#x0D;&#x0A;"
-						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\gui.ui"
-						Outputs="forms\ui_gui.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release - v2.8.0|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="UIC forms\gui.ui"
-						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\gui.ui -o forms\ui_gui.h&#x0D;&#x0A;"
-						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\gui.ui"
-						Outputs="forms\ui_gui.h"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_PhysX_v2.8.3|Win32"
 					>

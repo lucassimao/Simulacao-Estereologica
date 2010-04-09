@@ -70,13 +70,14 @@ void AdicionarObjetosCommand::execute(){
 
 	while(iter2 != this->prismas.end()){
 		PrismaDesc desc2 = *iter2;
+		double l0 = desc2.L0;
+		double razaoDeAspecto =  desc2.razaoDeAspecto;
 
-		Parametros::getInstance()->setL0DoPrismaTriangularTruncado(desc2.L0);
-		Parametros::getInstance()->setRazaoAspectoDoPrismaTriangularTruncado(desc2.razaoDeAspecto);
+		Parametros::getInstance()->setL0DoPrismaTriangularTruncado(l0);
+		Parametros::getInstance()->setRazaoAspectoDoPrismaTriangularTruncado(razaoDeAspecto);
 		Parametros::getInstance()->setRazaoDeTruncamentoDoPrismaTriangularTruncado(desc2.razaoDeTruncamento);
 		Parametros::getInstance()->setCorDoPrismaTriangularTruncado(desc2.cor);
 
-		//Parametros::getInstance()->getp
 		simulacao->adicionarObjeto(PRISMA_TRIANGULAR_TRUNCADO,desc2.qtde);
 		++iter2;
 	}

@@ -8,6 +8,7 @@ using namespace simulacao::gui;
 using namespace simulacao::canvas;
 
 #include "AdicionarEsferasSistematicamenteDialog.h"
+#include "AdicionarPrismasSistematicamenteDialog.h"
 #include "DialogParametrosGrade.h"
 #include "..\model\Parametros.h"
 #include "..\canvas\glWidget\RenderizacaoStrategy.h"
@@ -77,7 +78,16 @@ void MainWindow::adicionarEsferasSistematicamente(){
 	}
 }
 void MainWindow::adicionarPrismasSistematicamente(){
-		
+	AdicionarPrismasSistematicamenteDialog *dlg = new AdicionarPrismasSistematicamenteDialog(this,this->simulacao);
+	int result =  dlg->exec();
+	if (result)
+	{
+		AdicionarObjetosCommand *command = dlg->getCommand();
+		if (command){
+			command->execute();
+			atualizarQuantidadeDeGraosEmCena();
+		}
+	}		
 }
 
 
