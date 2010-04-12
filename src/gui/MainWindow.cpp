@@ -68,7 +68,7 @@ void MainWindow::configurarGrade(){
 void MainWindow::adicionarEsferasSistematicamente(){
 	AdicionarEsferasSistematicamenteDialog *dlg = new AdicionarEsferasSistematicamenteDialog(this,this->simulacao);
 	int result =  dlg->exec();
-	if (result)
+	if (result ==  QInputDialog::DialogCode::Accepted)
 	{
 		AdicionarObjetosCommand *command = dlg->getCommand();
 		if (command){
@@ -77,10 +77,30 @@ void MainWindow::adicionarEsferasSistematicamente(){
 		}
 	}
 }
+
+void MainWindow::actionExecutarCortesSistematicos(){
+	int res;
+	
+	QInputDialog *dlg = new QInputDialog(this);
+	dlg->setIntMinimum(1);
+	dlg->setIntMaximum(1000000);
+	dlg->setInputMode(QInputDialog::InputMode::IntInput);
+
+	dlg->setLabelText(tr("Quantidade de planos de corte:"));
+	dlg->setIntValue(1);
+	res = dlg->exec();
+
+	if (res == QInputDialog::DialogCode::Accepted){
+		int qtde = dlg->doubleValue();
+	}
+
+
+}
+
 void MainWindow::adicionarPrismasSistematicamente(){
 	AdicionarPrismasSistematicamenteDialog *dlg = new AdicionarPrismasSistematicamenteDialog(this,this->simulacao);
 	int result =  dlg->exec();
-	if (result)
+	if (result ==  QInputDialog::DialogCode::Accepted)
 	{
 		AdicionarObjetosCommand *command = dlg->getCommand();
 		if (command){
@@ -131,6 +151,7 @@ inline void MainWindow::criarCanvas(){
 
 }
 
+	
 void MainWindow::configurarParametros(){
 
 	int res;

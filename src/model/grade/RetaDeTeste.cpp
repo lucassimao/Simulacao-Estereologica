@@ -12,9 +12,9 @@ RetaDeTeste::RetaDeTeste(Ponto p0, Ponto p1, int qtdeDePontos){
 
 	this->linhaInicio = p0;
 	this->linhaFim = p1;
-	double pontoFim = linhaFim.x-0.5;
+	double pontoFim = linhaFim.x - 0.5;
 	double pontoInicio = linhaInicio.x + 0.5;
-	double deltaX = abs(pontoFim - pontoInicio)/qtdeDePontos;
+	double deltaX =  (pontoFim - pontoInicio)/(qtdeDePontos - 1.0);
 			
 	for(int i=0;i<qtdeDePontos;++i){
 		Ponto p = {pontoInicio +  deltaX*i,linhaInicio.y,linhaInicio.z};
