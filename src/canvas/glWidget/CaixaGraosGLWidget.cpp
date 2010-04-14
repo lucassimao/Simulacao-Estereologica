@@ -2,7 +2,12 @@
 
 #include <QMouseEvent>
 #include <QTimer>
+#include <QMenu>
+#include <QAction>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QPixmap>
+#include <QString>
 #include <cstdlib>
 #include <ctime>
 #include <QtDebug>
@@ -226,6 +231,38 @@ void CaixaGraosGLWidget::mousePressEvent(QMouseEvent *event)
 	my = event->y();
 }
 
+void CaixaGraosGLWidget::salvarImagem(){
+	QString filename = QFileDialog::getSaveFileName( this, "Save File", getenv( "HOME" ), "JPEG Image (*.jpg *.jpeg)");
+   
+	if( !filename.endsWith( ".jpg" ) && !filename.endsWith( ".jpeg" ) )
+   {
+      filename.append( ".jpg" );
+   }
+
+   //QImage image = mpPlot->grabFrameBuffer( );
+   //QPixmap image = mpPlot->renderPixmap( );
+   QPixmap image = QPixmap::grabWidget(this);
+   if(image.save( filename, "JPG" ) )
+      QMessageBox::warning( this, "Informação", "Imagem salva com sucesso!" );
+   else
+        QMessageBox::warning( this, "Erro", "Erro ao salvar a imagem!" );
+
+
+}
+void CaixaGraosGLWidget::mouseReleaseEvent ( QMouseEvent * event )
+{
+    if(event->button() == Qt::RightButton)
+    {
+        QMenu menu;
+
+        QAction* openAct = new QAction("Salvar Imagem ....", this);
+	    connect(openAct, SIGNAL(triggered()), this, SLOT(salvarImagem()));	
+
+        menu.addAction(openAct);
+        menu.addSeparator();
+        menu.exec(mapToGlobal(event->pos()));
+    }
+}
 void CaixaGraosGLWidget::keyPressEvent ( QKeyEvent * event ){
 
 	double deltaTime = 1.0/60.0;
