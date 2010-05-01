@@ -32,24 +32,27 @@ RenderizarInterceptosStrategy::RenderizarInterceptosStrategy(Grade *grade){
 
 inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){		
 
+
 	if (interceptos->size() == 0){
 		coletarInterceptos(simulacao);
 
 		// coletando informações sobre as areas interceptadas e os segmento
 		// das retas de teste internos aos interceptos de área
 		
+				
 		ColetorDeAreasVisitor *visitor1 = new ColetorDeAreasVisitor(this->grade);
 		ColetorDeInterceptosLinearesVisitor *visitor2 = new ColetorDeInterceptosLinearesVisitor(this->grade);
 		ColetorDePontosVisitor *visitor3 = new ColetorDePontosVisitor(this->grade);
 
 		vector<Intercepto*>::const_iterator  iter= this->interceptos->begin();
 		locale myloc(  locale(),new WithComma);
+
 		
 		while(iter!=interceptos->end()){
 			Intercepto *i = *iter;
 			i->accept(visitor1);
-			i->accept(visitor2);
-			i->accept(visitor3);
+			//i->accept(visitor2);
+		//	i->accept(visitor3);
 			++iter;
 		}
 
@@ -62,6 +65,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		}
 		areas.close();
 
+		
 		ofstream interceptosLineares("interceptosLineares.csv",std::ios::out);
 		interceptosLineares.imbue(myloc);
 
@@ -95,7 +99,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 			++iterator;
 		}
 
-	if (simulacao->getExibirRetasTeste() || simulacao->getExibirPontosTeste()){
+		if (simulacao->getExibirRetasTeste() || simulacao->getExibirPontosTeste()){
 	
 		glPushAttrib(GL_ALL_ATTRIB_BITS);
 		glEnable(GL_CULL_FACE); 

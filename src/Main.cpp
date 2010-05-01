@@ -1,7 +1,9 @@
 #include <QMessageBox>
 #include <QString>
-#include "gui/MainWindow.h"
 #include <ctime>
+#include "sqlite3/sqlite3.h"
+#include "gui/MainWindow.h"
+
 
 using namespace simulacao::gui;
 using namespace std;
@@ -14,7 +16,7 @@ int main(int argc,char **argv){
 		QMessageBox::critical(NULL,QString("Simulação"),QString("Problemas ao tentar usar OpenGL neste sistema"));
         exit(EXIT_FAILURE);
     }
-	MainWindow win;
+ 	MainWindow win;
 	win.setVisible(true);
 
     return app.exec();

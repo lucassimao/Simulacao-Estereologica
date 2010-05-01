@@ -60,13 +60,13 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 	glBegin(GL_POLYGON);
 
 	list<Ponto> vertices = poligono->getVertices();
-	list<Ponto>::const_iterator i = vertices.begin();
+	list<Ponto>::const_iterator iterator = vertices.begin();
 
-	while(i != vertices.end() ){
-			Ponto p = *i;
+	while(iterator != vertices.end() ){
+			Ponto p = *iterator;
 			glVertex3f(p.x,p.y,p.z);
-			++i;
-		}
+			++iterator;
+	}
 	glEnd();	
 	glPopAttrib();
 }

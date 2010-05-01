@@ -791,6 +791,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="sqlite3"
+				>
+				<File
+					RelativePath=".\src\sqlite3\sqlite3.c"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -1168,6 +1176,18 @@
 				</File>
 				<File
 					RelativePath=".\src\math\ColetorDePontosVisitor.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="sqlite3"
+				>
+				<File
+					RelativePath=".\src\sqlite3\sqlite3.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\sqlite3\sqlite3ext.h"
 					>
 				</File>
 			</Filter>
