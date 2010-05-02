@@ -11,6 +11,45 @@ using namespace std;
 
 namespace {
 
+
+	TEST(PoligonoTest, testarCalcularPerimetro) {
+		Cor c = VERMELHO;
+		list<Ponto> vertices;
+		double alturaDoPlanoDeCorte = 10;
+
+		Ponto p1 = {2,alturaDoPlanoDeCorte,0};
+		Ponto p2 = {7,alturaDoPlanoDeCorte,10};
+		Ponto p3 = {12,alturaDoPlanoDeCorte,0};
+		Ponto p4 = {7,alturaDoPlanoDeCorte,-10};
+
+		// adicionando os vértices aleatoriamente, para confirmar
+		// o algoritmo de ordenação
+		vertices.push_back(p2);
+		vertices.push_back(p4);
+		vertices.push_back(p1);
+		vertices.push_back(p3);
+		Ponto ps[] = {p1,p2,p3,p4};
+
+		Poligono quadrado(c,vertices);
+		int i=0;
+		
+		list<Ponto> verticesOrdenadosDoQuadrado = quadrado.getVertices();
+		list<Ponto>::const_iterator iter = verticesOrdenadosDoQuadrado.begin();
+		while(iter!= verticesOrdenadosDoQuadrado.end()){
+			Ponto p = *iter;			
+			ASSERT_EQ(p.x,ps[i].x);
+			ASSERT_EQ(p.y,ps[i].y);
+			ASSERT_EQ(p.z,ps[i].z);
+			++i;
+			++iter;
+		}
+		double perimetroPrevisto = 4.0 * sqrt(125.0);
+
+		ASSERT_NEAR(perimetroPrevisto,quadrado.getPerimetro(),0.00001);
+
+	}
+	
+
 	TEST(PoligonoTest, testarCalcularAreaEPerimetroDeQuadrado) {
 		Cor c = VERMELHO;
 		list<Ponto> vertices;
@@ -30,31 +69,6 @@ namespace {
 
 		ASSERT_EQ(100.0,quadrado.getArea());
 		ASSERT_EQ(40.0,quadrado.getPerimetro());
-
-	}
-
-	TEST(PoligonoTest, testarCalcularPerimetro) {
-		Cor c = VERMELHO;
-		list<Ponto> vertices;
-		double alturaDoPlanoDeCorte = 10;
-
-		Ponto p1 = {2,alturaDoPlanoDeCorte,0};
-		Ponto p2 = {7,alturaDoPlanoDeCorte,10};
-		Ponto p3 = {12,alturaDoPlanoDeCorte,0};
-		Ponto p4 = {7,alturaDoPlanoDeCorte,-10};
-
-		// adicionando os vértices aleatoriamente, para confirmar
-		// o algoritmo de ordenação
-		vertices.push_back(p2);
-		vertices.push_back(p4);
-		vertices.push_back(p1);
-		vertices.push_back(p3);
-		
-
-		Poligono quadrado(c,vertices);
-		double perimetroPrevisto = 4.0 * sqrt(125.0);
-
-		ASSERT_NEAR(perimetroPrevisto,quadrado.getPerimetro(),0.00001);
 
 	}
 
@@ -183,6 +197,5 @@ namespace {
 		ASSERT_EQ(1,arestasInterceptadas2.size());
 
 
-	}
-
+	}	
 }

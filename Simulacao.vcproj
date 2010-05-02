@@ -751,6 +751,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\utils\graham.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\utils\MeshFactory.cpp"
 					>
 				</File>
@@ -1136,6 +1140,10 @@
 				</File>
 				<File
 					RelativePath=".\src\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\utils\graham.h"
 					>
 				</File>
 				<File

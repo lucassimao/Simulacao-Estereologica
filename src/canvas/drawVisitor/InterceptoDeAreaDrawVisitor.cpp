@@ -61,7 +61,7 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 	Cor cores[] = {{1.0,0,0},{0,1.0,0},{0,0,1.0},{1.0,1.0,1.0},{0,0,0}};
 	int i=0;
 
-	glBegin(GL_POLYGON);
+	glBegin(GL_LINE_LOOP);
 	{
 		list<Ponto> vertices = poligono->getVertices();
 		list<Ponto>::const_iterator iterator = vertices.begin();
@@ -72,6 +72,24 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 				++iterator;
 		}
 	}
+	glEnd();	
+	
+
+	glBegin(GL_POINTS);
+	{
+		list<Ponto> vertices = poligono->getVertices();
+		list<Ponto>::const_iterator iterator = vertices.begin();
+
+		while(iterator != vertices.end() ){
+				Ponto p = *iterator;
+				glColor3f(cores[i].r,cores[i].g,cores[i].b);
+				++i;
+				glVertex3f(p.x,p.y,p.z);
+				++iterator;
+		}
+	}
+	glEnd();
+
 	glEnd();	
 
 	glPopAttrib();

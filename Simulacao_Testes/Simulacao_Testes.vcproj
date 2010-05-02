@@ -201,6 +201,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\utils\graham.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\utils\SegmentoDeReta.cpp"
 					>
 				</File>
@@ -263,6 +267,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\utils\graham.h"
+					>
+				</File>
+				<File
 					RelativePath="..\src\utils\SegmentoDeReta.h"
 					>
 				</File>
@@ -276,6 +284,10 @@
 				>
 				<File
 					RelativePath=".\src\tests\GeradorDeAlturaDoPlanoDeCorteStrategyTests.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\tests\GrahamTests.h"
 					>
 				</File>
 				<File

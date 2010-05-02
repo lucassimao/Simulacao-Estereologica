@@ -7,10 +7,19 @@ using std::list;
 
 #include "graham.h"
 
+#define PMAX    10               /* Max # of points */
+typedef tsPoint tPointArray[PMAX];
+static tPointArray P;
 
-void ordenarVertices(list<Ponto> vertices)
+int n = 0;/* Actual # of points */
+int ndelete = 0;                   /* Number deleted */
+
+
+list<Ponto> ordenarVertices(list<Ponto> *vertices)
 {
    tStack   top;
+   ndelete = 0;
+   n = 0;
 
    n = ReadPoints(vertices);
 
@@ -27,7 +36,18 @@ void ordenarVertices(list<Ponto> vertices)
       Squash();
    }
    top = Graham();
-   PrintStack( top );
+   list<Ponto> verticesOrdenados;
+
+   tStack iterator = top;
+
+   while (iterator) { 
+	   Ponto p = iterator->p->v;
+	   verticesOrdenados.push_back(p);
+	   iterator = iterator->next;
+   }
+
+   return verticesOrdenados;
+  //PrintStack( top );
 }
 
 /*---------------------------------------------------------------------
@@ -44,19 +64,20 @@ void   FindLowest( )
       if ( (P[i].v.z <  P[m].v.z) ||
           ((P[i].v.z == P[m].v.z) && (P[i].v.x > P[m].v.x)) ) 
          m = i;
-   printf("Swapping %d with 0\n", m);
    Swap(0,m); /* Swap P[0] and P[m] */
 }
 
 void	Swap( int i, int j )
 {
-   int temp;
+   double temp;
+   int itemp;
+   bool btemp;
    /* Uses swap macro. */
 
-   SWAP( temp, P[i].vnum,   P[j].vnum );
+   SWAP( itemp, P[i].vnum,   P[j].vnum );
    SWAP( temp, P[i].v.x,   P[j].v.x );
    SWAP( temp, P[i].v.z,   P[j].v.z );
-   SWAP( temp, P[i].excluir, P[j].excluir );
+   SWAP( btemp, P[i].excluir, P[j].excluir );
 
 }
 /*---------------------------------------------------------------------
@@ -66,7 +87,7 @@ here "<" means smaller angle.  Follows the conventions of qsort.
 int   Compare( const void *tpi, const void *tpj )
 {
    int a;             /* area */
-   int x, y;          /* projections of ri & rj in 1st quadrant */
+   double x, y;          /* projections of ri & rj in 1st quadrant */
    tPoint pi, pj;
    pi = (tPoint)tpi;
    pj = (tPoint)tpj;
@@ -132,8 +153,7 @@ void   PrintStack( tStack t )
 {
    if (!t) printf("Empty stack\n");
    while (t) { 
-      printf("vnum=%d\tx=%d\ty=%d\n", 
-             t->p->vnum,t->p->v.x,t->p->v.z); 
+      printf("vnum=%d\tx=%f\tz=%f\n", t->p->vnum,t->p->v.x,t->p->v.z); 
       t = t->next;
    }
 }
@@ -156,8 +176,6 @@ tStack   Graham()
    i = 2;
 
    while ( i < n ) {
-      printf("Stack at top of while loop, i=%d, vnum=%d:\n", i, P[i].vnum);
-      PrintStack( top );
       if( !top->next) printf("Error\n"),exit(EXIT_FAILURE);
       p1 = top->next->p;
       p2 = top->p;
@@ -166,9 +184,6 @@ tStack   Graham()
          i++;
       } else    
          top = Pop( top );
-      printf("Stack at bot of while loop, i=%d, vnum=%d:\n", i, P[i].vnum);
-      PrintStack( top );
-      putchar('\n');
    }
 
    return top;
@@ -214,12 +229,12 @@ bool   Left( Ponto a, Ponto b, Ponto c )
    return  AreaSign( a, b, c ) > 0;
 }
 
-int    ReadPoints( list<Ponto> vertices )
+int    ReadPoints( list<Ponto> *vertices )
 {
 	int n = 0;
-	list<Ponto>::const_iterator iterator = vertices.begin();
+	list<Ponto>::const_iterator iterator = vertices->begin();
 
-	while(iterator!=vertices.end())
+	while(iterator!=vertices->end())
 	{
 		Ponto p = *iterator;
 		P[n].vnum = n;
@@ -238,9 +253,7 @@ int     AreaSign( Ponto a, Ponto b, Ponto c )
 {
     double area2;
 
-    area2 = ( b.x - a.x ) * (double)( c.z - a.z ) -
-            ( c.x - a.x ) * (double)( b.z - a.z );
-    printf("AreaSign: area2=%g\n", area2);
+    area2 = ( b.x - a.x ) * (double)( c.z - a.z ) - ( c.x - a.x ) * (double)( b.z - a.z );
 
     /* The area should be an integer. */
     if      ( area2 >  0.5 ) return  1;

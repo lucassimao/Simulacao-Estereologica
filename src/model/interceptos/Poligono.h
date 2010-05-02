@@ -19,16 +19,11 @@ namespace simulacao{
 
 			class Poligono: public Intercepto{	
 			private:
-				inline void ordenarVertices();
-				inline Ponto getVerticeMaisAEsquerda();
-				inline list<Ponto> procurarVerticesAcimaDoVerticeMaisAEsquerda(Ponto&);
-				inline list<Ponto> procurarVerticesAbaixoDoVerticeMaisAEsquerda(Ponto&);
-				inline Ponto procurarVerticeComMenorZ();
-				inline Ponto procurarVerticeComMaiorZ();
 				inline list<SegmentoDeReta> coletarArestas();
-
 				list<Ponto> vertices;
 				list<SegmentoDeReta> arestas;
+				inline Ponto procurarVerticeComMenorZ();
+				inline Ponto procurarVerticeComMaiorZ();
 			public:
 				Ponto verticeComMenorZ;
 				Ponto verticeComMaiorZ;
