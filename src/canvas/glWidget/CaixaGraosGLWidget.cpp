@@ -11,8 +11,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <QtDebug>
+#include "RenderizarAtoresStrategy.h"
+#include "RenderizarInterceptosStrategy.h"
 #include "..\..\draw\cooking.h"
 #include "..\..\draw\Stream.h"
+#include "..\..\defs.h"
+
 
 using namespace simulacao::canvas::glWidget;
 using namespace simulacao::model;
@@ -36,7 +40,7 @@ CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao
 	this->simulacao = simulacao;
 	box = this->simulacao->getCaixa();
 	this->simulacao->novoPlanoDeCorte();
-
+	this->mudancaDeEstrategiaDeVisualizacaoHabilitada = false;
 }
 
 void CaixaGraosGLWidget::draw()
@@ -230,7 +234,21 @@ void CaixaGraosGLWidget::mousePressEvent(QMouseEvent *event)
 	mx = event->x();
 	my = event->y();
 }
-
+/*
+Paulo Freire
+Leonardo Boff
+Rubem Alves
+*/
+void CaixaGraosGLWidget::mudarEstrategiaDeVisualizacao(){
+	switch (this->renderizacaoStrategy->getTypeOf()){
+	case RenderizarInterceptos:
+		setStrategy(new RenderizarAtoresStrategy());
+		break;
+	case RenderizarAtores:
+		setStrategy(new RenderizarInterceptosStrategy(this->simulacao->getGrade()));
+		break;
+	}
+}
 void CaixaGraosGLWidget::salvarImagem(){
 	QString filename = QFileDialog::getSaveFileName( this, "Save File", getenv( "HOME" ), "JPEG Image (*.jpg *.jpeg)");
    
@@ -255,14 +273,24 @@ void CaixaGraosGLWidget::mouseReleaseEvent ( QMouseEvent * event )
     {
         QMenu menu;
 
-        QAction* openAct = new QAction("Salvar Imagem ....", this);
-	    connect(openAct, SIGNAL(triggered()), this, SLOT(salvarImagem()));	
+        QAction* openAct = new QAction("Salvar como imagem ....", this);
+	    connect(openAct, SIGNAL(triggered()), this, SLOT(salvarImagem()));
+		menu.addAction(openAct);
 
-        menu.addAction(openAct);
-        menu.addSeparator();
+		if (mudancaDeEstrategiaDeVisualizacaoHabilitada){
+			QAction* mudarStrategiaAct = new QAction("Mudar estratégia de visualização ....", this);
+			connect(mudarStrategiaAct, SIGNAL(triggered()), this, SLOT(mudarEstrategiaDeVisualizacao()));	        
+			menu.addAction(mudarStrategiaAct);
+		}
+		menu.addSeparator();
         menu.exec(mapToGlobal(event->pos()));
     }
 }
+
+void CaixaGraosGLWidget::habilitarMudancaDeEstrategiaDeVisualizacao(bool b){
+	this->mudancaDeEstrategiaDeVisualizacaoHabilitada = b;
+}
+
 void CaixaGraosGLWidget::keyPressEvent ( QKeyEvent * event ){
 
 	double deltaTime = 1.0/60.0;
@@ -273,8 +301,8 @@ void CaixaGraosGLWidget::keyPressEvent ( QKeyEvent * event ){
 	case Qt::Key_S :{ gCameraPos -= gCameraForward*gCameraSpeed*deltaTime; break; }
 	case Qt::Key_A :{ gCameraPos -= gCameraRight*gCameraSpeed*deltaTime; break; }
 	case Qt::Key_D :{ gCameraPos += gCameraRight*gCameraSpeed*deltaTime; break; }
-	case Qt::Key_Z :{ gCameraPos -= NxVec3(0,1,0)*gCameraSpeed*deltaTime; break; }
-	case Qt::Key_Q :{ gCameraPos += NxVec3(0,1,0)*gCameraSpeed*deltaTime; break; }
+	case Qt::Key_Z :{ gCameraPos -= NxVec3(0,0.4,0)*gCameraSpeed*deltaTime; break; }
+	case Qt::Key_Q :{ gCameraPos += NxVec3(0,0.4,0)*gCameraSpeed*deltaTime; break; }
 	}
 	updateGL();
 

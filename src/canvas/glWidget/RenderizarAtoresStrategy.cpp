@@ -33,6 +33,7 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 			
 			
 			DrawActor(actor, NULL, false);
+			
 			glPopAttrib();
 		}
 		else

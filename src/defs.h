@@ -9,6 +9,10 @@ enum Status{
 	PAUSADO, EXECUCAO,PARADO
 };
 
+enum RenderizacaoStrategyType{
+	RenderizarInterceptos,RenderizarAtores
+};
+
 typedef struct{
 	double x,y,z;
 }Ponto;

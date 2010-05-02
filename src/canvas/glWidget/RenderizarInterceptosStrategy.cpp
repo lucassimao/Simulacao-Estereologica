@@ -173,8 +173,8 @@ inline void RenderizarInterceptosStrategy::coletarInterceptos(SimulacaoCaixa *si
 					interceptos->push_back(a->getIntercepto(planoGlobalPosition));				
 					
 					// remove o ator da simulacao, agora nos interessa apenas os inteceptos
-					simulacao->releaseActor(*ator);
-					delete a;
+					//simulacao->releaseActor(*ator);
+					//delete a;
 				}
 
 			}

@@ -21,11 +21,13 @@ namespace simulacao {
 		
 		private slots:
 			void salvarImagem();
+			void mudarEstrategiaDeVisualizacao();
 		public:
 			CaixaGraosGLWidget(QWidget *parent = 0,SimulacaoCaixa *simulacao = 0);	
 			void setStrategy(RenderizacaoStrategy *strategy){ this->renderizacaoStrategy = strategy; }
 			void posicionarCameraNoTopoDaCaixa();
 			void posicionarCameraNoPontoInicial();
+			void habilitarMudancaDeEstrategiaDeVisualizacao(bool);
 
 		protected:
 			void initializeGL();
@@ -53,6 +55,7 @@ namespace simulacao {
 			const static NxReal gCameraSpeed;
 			NxVec3 gCameraPos;
 			QPoint lastPos;
+			bool mudancaDeEstrategiaDeVisualizacaoHabilitada;
 
 
 		};

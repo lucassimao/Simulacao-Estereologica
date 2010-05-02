@@ -3,7 +3,8 @@
 
 #include "RenderizacaoStrategy.h"
 #include "..\..\model\SimulacaoCaixa.h"
-
+#include "..\..\defs.h"
+				
 using namespace simulacao::model;
 
 
@@ -14,6 +15,7 @@ namespace simulacao{
 			class RenderizarAtoresStrategy: public RenderizacaoStrategy{
 			public:
 				RenderizarAtoresStrategy();
+				virtual inline RenderizacaoStrategyType getTypeOf(){ return RenderizarAtores;}
 				virtual inline void draw(SimulacaoCaixa *simulacao) ;
 
 			};

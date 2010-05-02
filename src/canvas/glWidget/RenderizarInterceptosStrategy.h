@@ -8,6 +8,7 @@
 #include "..\..\model\grade\Grade.h"
 #include "..\drawVisitor\InterceptoDeAreaDrawVisitor.h"
 #include "..\drawVisitor\InterceptoLinearDrawVisitor.h"
+#include "..\..\defs.h"
 
 
 using namespace simulacao::model;
@@ -31,6 +32,8 @@ namespace simulacao{
 			public:
 				RenderizarInterceptosStrategy(Grade *);
 				inline void draw(SimulacaoCaixa *simulacao);
+				virtual inline RenderizacaoStrategyType getTypeOf(){ return RenderizarInterceptos;}
+
 				vector<Intercepto*> * getInterceptos(){ return this->interceptos; };
 
 			};

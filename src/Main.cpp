@@ -1,7 +1,6 @@
 #include <QMessageBox>
 #include <QString>
 #include <ctime>
-#include "sqlite3/sqlite3.h"
 #include "gui/MainWindow.h"
 
 
@@ -20,6 +19,5 @@ int main(int argc,char **argv){
 	win.setVisible(true);
 
     return app.exec();
-
 
 }

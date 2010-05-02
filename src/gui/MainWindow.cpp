@@ -351,6 +351,7 @@ void MainWindow::exibirInterceptos(){
 
 	RenderizarInterceptosStrategy *strategy = new RenderizarInterceptosStrategy(g);
 	view->setStrategy(strategy);
+	this->view->habilitarMudancaDeEstrategiaDeVisualizacao(true);
 	
 	view->posicionarCameraNoTopoDaCaixa();
 

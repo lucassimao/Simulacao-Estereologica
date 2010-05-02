@@ -24,6 +24,8 @@ using namespace simulacao::math::mathVisitor;
 
 Poligono::Poligono(Cor cor,list<Ponto> vertices):Intercepto(cor){
 	this->vertices = vertices;
+	assert(vertices.size() >= 3 );
+
 	if (vertices.size()>3)
 		ordenarVertices();
 
@@ -152,11 +154,11 @@ inline Ponto Poligono::procurarVerticeComMaiorZ(){
 
 
 inline bool ordenarPontosAcimaDoMaisAEsquerda(Ponto p1,Ponto p2){
-	return (p1.x < p2.x);
+	return (p1.x < p2.x );
 }
 
 inline bool ordenarPontosAbaixoDoMaisAEsquerda(Ponto p1,Ponto p2){
-	return (p1.x > p2.x);
+	return (p1.x > p2.x && p1.z < p2.z);
 }
 
 inline void Poligono::ordenarVertices(){
@@ -187,8 +189,6 @@ inline void Poligono::ordenarVertices(){
 		++iter2;
 	}
 }
-
-
 
 inline Ponto Poligono::getVerticeMaisAEsquerda(){
 	Ponto vertice;
