@@ -217,3 +217,19 @@ void SimulacaoCaixa::removerGraos(){
 
 	}
 }
+
+double SimulacaoCaixa::getVolumeFaseSolida(){
+	double v = 0;
+	NxU32 qtdeAtores = getCena()->getNbActors();
+	NxActor** atores = getCena()->getActors();
+
+	while (qtdeAtores--)
+	{
+		NxActor* ator = *atores++;
+		if (ator != caixa && ator!=atorPlanoDeCorte->getNxActor()){
+			Ator *a = (Ator *)ator->userData;
+			v+= a->getVolume();
+		}
+	}
+	return v;
+}

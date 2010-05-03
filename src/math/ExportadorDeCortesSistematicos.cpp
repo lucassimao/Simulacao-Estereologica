@@ -30,11 +30,14 @@ ExportadorDeCortesSistematicos::ExportadorDeCortesSistematicos(const char* banco
 void ExportadorDeCortesSistematicos::exportar(){
 	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(this->qtdePlanos));
 	DAO dao(this->db);
+	
 	NxActor* caixa = simulacao->getCaixa();
 	NxActor* planoDeCorte = simulacao->getPlanoDeCorte()->getNxActor();
+	
 	Parametros *params = Parametros::getInstance();
 	int qtdeLinhaNaGrade = params->getQtdeLinhasNaGrade()* params->getQtdePontosPorLinhaNaGrade();
-
+	
+	double volumeFaseSolida = simulacao->getVolumeFaseSolida();
 
 	for(int i=1;i<= this->qtdePlanos;++i){
 		
@@ -73,7 +76,7 @@ void ExportadorDeCortesSistematicos::exportar(){
 			}
 		}
 		dao.salvarEstatisticas(planoID,visitor1->getAreaTotalColetada(),400,
-			visitor2->getQtdeDePontosInternosAInterceptosDeArea(),qtdeLinhaNaGrade);
+			visitor2->getQtdeDePontosInternosAInterceptosDeArea(),qtdeLinhaNaGrade,volumeFaseSolida);
 	}
 
 	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());

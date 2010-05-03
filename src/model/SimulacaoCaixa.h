@@ -50,6 +50,8 @@ namespace simulacao{
 			Grade * getGrade(){
 				return getPlanoDeCorte()->getGrade();			
 			}
+			
+			double getVolumeFaseSolida();
 
 			SimulacaoCaixa(void);
 			~SimulacaoCaixa(void);
