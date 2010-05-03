@@ -26,7 +26,7 @@ using namespace simulacao::math::mathVisitor;
 Poligono::Poligono(Cor cor,list<Ponto> v,double razaoDeAspectoOriginal,double razaoDeTruncamentoOriginal,double L0Original):
 Intercepto(cor),razaoDeAspectoOriginal( razaoDeAspectoOriginal ),	razaoDeTruncamentoOriginal( razaoDeTruncamentoOriginal ),L0Original( L0Original ) 
 {
-	assert(vertices.size() >= 3 );
+	assert(v.size() >= 3 );
 	this->vertices = v;	
 
 	if (vertices.size()>3)

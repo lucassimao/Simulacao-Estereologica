@@ -41,6 +41,8 @@ namespace simulacao{
 				list<SegmentoDeReta> getArestas(){ return this->arestas;};
 				list<SegmentoDeReta> getArestasInterceptadas(RetaDeTeste&);
 				
+				InterceptoType getType(){ return Type_Poligono;	}
+				
 			};
 
 		}

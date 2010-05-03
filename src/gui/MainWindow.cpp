@@ -2,8 +2,10 @@
 #include <QtDebug>
 #include <QFileDialog>
 #include <QInputDialog>
+#include <string>
 #include "MainWindow.h"
 
+using std::string;
 using namespace simulacao::model;
 using namespace simulacao::gui;
 using namespace simulacao::canvas;
@@ -19,8 +21,11 @@ using namespace simulacao::canvas::glWidget;
 
 #include "..\math\ColetorDeAreasVisitor.h"
 #include "..\math\ColetorDeInterceptosLinearesVisitor.h"
+#include "..\math\ExportadorDeCortesSistematicos.h"
 
+using namespace simulacao::math;
 using namespace simulacao::math::mathVisitor;
+
 
 #include <fstream>
 using std::ofstream;
@@ -86,6 +91,7 @@ void MainWindow::actionExecutarCortesSistematicos(){
 	QInputDialog *dlg = new QInputDialog(this);
 
 	dlg->setIntMinimum(1);
+	dlg->setIntMaximum(1000000);
 	dlg->setInputMode(QInputDialog::InputMode::IntInput);
 	dlg->setLabelText(tr("Quantidade de planos de corte:"));
 	dlg->setIntValue(1);
@@ -100,7 +106,12 @@ void MainWindow::actionExecutarCortesSistematicos(){
 			if(!filename.endsWith( ".db" ) )
 				filename.append( ".db" );
 			
-			DataBaseFactory::getInstance()->criarBanco(filename.toStdString().c_str());
+			string file = filename.toStdString();
+			qDebug() << file.c_str() << "\n";
+			DataBaseFactory::getInstance()->criarBanco(file.c_str());
+			ExportadorDeCortesSistematicos exportador(file.c_str(),qtde,this->simulacao);
+			exportador.exportar();
+		
 		}
 	}
 

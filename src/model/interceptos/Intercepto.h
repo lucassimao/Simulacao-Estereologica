@@ -36,6 +36,7 @@ namespace simulacao{
 
 				virtual void accept(AbstractDrawVisitor *) = 0;
 				virtual void accept(AbstractMathVisitor *) = 0;
+				virtual InterceptoType getType() = 0;
 				virtual double getArea() = 0;
 				virtual double getPerimetro() = 0;
 

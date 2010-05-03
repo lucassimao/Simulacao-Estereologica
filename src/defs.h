@@ -17,6 +17,10 @@ enum RenderizacaoStrategyType{
 	RenderizarInterceptos,RenderizarAtores
 };
 
+enum InterceptoType{
+	Type_Disco, Type_Poligono
+};
+
 
 
 typedef struct{

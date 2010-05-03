@@ -22,7 +22,8 @@ namespace simulacao{
 				double getArea();
 				double getPerimetro();
 				void accept(AbstractDrawVisitor *visitor);
-				void accept(AbstractMathVisitor *);				
+				void accept(AbstractMathVisitor *);		
+				InterceptoType getType(){ return Type_Disco;	}
 
 			};
 

@@ -743,6 +743,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\utils\DAO.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\utils\DataBaseFactory.cpp"
 					>
 				</File>
@@ -796,6 +800,10 @@
 				</File>
 				<File
 					RelativePath=".\src\math\ColetorDePontosVisitor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\math\ExportadorDeCortesSistematicos.cpp"
 					>
 				</File>
 			</Filter>
@@ -1139,6 +1147,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\utils\DAO.h"
+					>
+				</File>
+				<File
 					RelativePath=".\src\utils\DataBaseFactory.h"
 					>
 				</File>
@@ -1192,6 +1204,10 @@
 				</File>
 				<File
 					RelativePath=".\src\math\ColetorDePontosVisitor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\math\ExportadorDeCortesSistematicos.h"
 					>
 				</File>
 			</Filter>

@@ -1,6 +1,7 @@
 #include   <cstdio>
 #include   <cmath>
 #include   <cstdlib>
+#include <QDebug>
 
 #include <list>
 using std::list;
@@ -176,7 +177,7 @@ tStack   Graham()
    i = 2;
 
    while ( i < n ) {
-      if( !top->next) printf("Error\n"),exit(EXIT_FAILURE);
+      if( !top->next) {qDebug() << "Error!!!!!!!!\n";exit(EXIT_FAILURE);}
       p1 = top->next->p;
       p2 = top->p;
       if ( Left( p1->v , p2->v, P[i].v ) ) {
