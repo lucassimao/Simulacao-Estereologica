@@ -273,6 +273,7 @@ void MainWindow::mudarEstrategiaDeAlturasDoPlanodeCorte(bool b){
 		if (res == QInputDialog::DialogCode::Accepted){
 			int qtdePlanos = dlg->intValue();
 			simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(qtdePlanos));
+			simulacao->novoPlanoDeCorte();
 		}
 		else
 			this->ui->checkBoxPlanoDeCorteSistematico->setChecked(false);
@@ -310,6 +311,9 @@ void MainWindow::novaSimulacao(){
 	delete view;
 	this->simulacao->pararSimulacao();
 
+	ui->btnParar->setEnabled(true);
+	ui->btnLimpar->setEnabled(true);
+	ui->btnAdicionar->setEnabled(true);
 	ui->btnParar->setText("Pausar");
 	ui->btnNovoPlanodeCorte->setEnabled(true);
 	ui->btnPlanovsGraos->setEnabled(true);
@@ -331,13 +335,16 @@ void MainWindow::usarGraosAleatorios(bool b){
 	params.pontosAleatorios = b;
 }
 
-/** Exibe os objetos que estão sendo interceptados pelo plano */
+/** Exibe os grãos que estão sendo interceptados pelo plano */
 void MainWindow::exibirGraosInterceptados(){
 	
 	simulacao->selecionarGraosInterceptados();
 	atualizarQuantidadeDeGraosEmCena();
 
 	ui->btnNovoPlanodeCorte->setEnabled(false);
+	ui->btnParar->setEnabled(false);
+	ui->btnLimpar->setEnabled(false);
+	ui->btnAdicionar->setEnabled(false);
 	ui->btnExibirInterceptos->setEnabled(true);
 	ui->actionGrade_de_pontos_e_linha_teste->setEnabled(false);
 	ui->btnPlanovsGraos->setEnabled(false);

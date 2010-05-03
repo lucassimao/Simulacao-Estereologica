@@ -13,10 +13,10 @@ namespace simulacao{
 		class AbstractGeradorDeAlturaDoPlanoDeCorteStrategy{
 		
 		protected:
-			float h0, h1; // altura mínima e máxima do plano de corte, respectivamente
+			double h0, h1; // altura mínima e máxima do plano de corte, respectivamente
 		public:
-			AbstractGeradorDeAlturaDoPlanoDeCorteStrategy(float h0,float h1);
-			virtual float novaAltura() = 0;
+			AbstractGeradorDeAlturaDoPlanoDeCorteStrategy(double h0,double h1);
+			virtual double novaAltura() = 0;
 		};
 
 	}

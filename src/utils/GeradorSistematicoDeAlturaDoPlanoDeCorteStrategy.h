@@ -17,12 +17,12 @@ namespace simulacao{
 		
 		private:
 			// representa a variação da altura do plano de corte == (h1 - h0)/qtdePlanos
-			float deltaH;
-			float alturaCorrente;
+			double deltaH;
+			double alturaCorrente;
 		public:
 			GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(int qtdePlanos);
-			GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(float h0,float h1, int qtdePlanos);
-			float novaAltura();
+			GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(double h0,double h1, int qtdePlanos);
+			double novaAltura();
 		};
 
 	};

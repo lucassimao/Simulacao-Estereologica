@@ -8,15 +8,15 @@ using namespace simulacao::model;
 
 
 Parametros *params = Parametros::getInstance();
-float hMinima = params->getAlturaDaBaseDaCaixa()+0.5f;
-float hMaxima = params->getArestaDaCaixa() + params->getAlturaDaBaseDaCaixa() - 0.5f;
+double hMinima = params->getAlturaDaBaseDaCaixa();
+double hMaxima = params->getArestaDaCaixa() + params->getAlturaDaBaseDaCaixa();
 
 GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy::GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy()
 	:AbstractGeradorDeAlturaDoPlanoDeCorteStrategy(hMinima,hMaxima)
 {}
 
-GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy::GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy(float h0,float h1):AbstractGeradorDeAlturaDoPlanoDeCorteStrategy(h0,h1)
+GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy::GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy(double h0,double h1):AbstractGeradorDeAlturaDoPlanoDeCorteStrategy(h0,h1)
 {}
-float GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy::novaAltura(){
+double GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy::novaAltura(){
 	return this->h0 + fmod(rand(),(this->h1 - this->h0) );
 }

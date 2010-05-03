@@ -28,13 +28,12 @@ namespace simulacao{
 			MeshFactory *meshFactory;
 			PlanoDeCorte *atorPlanoDeCorte;
 			NxPlane *shapePlanoDeCorte;
-			NxActor *criarCaixa();
 			AbstractGeradorDeAlturaDoPlanoDeCorteStrategy *alturaPlanoStrategy;
-			
-
 			bool exibirRetasTeste;
 			bool exibirPontosTeste;
+
 			void criarCCDS();
+			NxActor *criarCaixa();
 
 		public:
 			NxActor* getCaixa(){
