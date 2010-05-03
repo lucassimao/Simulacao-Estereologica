@@ -122,7 +122,7 @@ Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoPos){
 		iterator++;
 	}
 
-	return new Poligono(v,poligonoPontos);
+	return new Poligono(v,poligonoPontos,this->altura/this->base,0,0);
 }
 
 inline vector<SegmentoDeReta> PrismaTriangular::getSegmentosDeRetaInterceptados(NxVec3 planoPos){
@@ -285,7 +285,7 @@ inline NxVec3* PrismaTriangular::getPosicaoGlobalDosVertices(){
 	NxConvexMeshDesc meshDesc;
 	mesh->isConvexMesh()->getConvexMesh().saveToDesc(meshDesc); 
 
-	NxU32 nbVerts = meshDesc.numVertices;	
+	//NxU32 nbVerts = meshDesc.numVertices;	
 	// ver arquivo docs\prismaTriangularVertices.png para
 	// conhecer a ordem em que esses pontos estão definidos
 	NxVec3* points = (NxVec3 *)meshDesc.points;

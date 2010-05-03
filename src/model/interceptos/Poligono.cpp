@@ -23,7 +23,9 @@ using namespace simulacao::math::mathVisitor;
 #define MAX(a,b) ( (a>=b)?a:b )
 #define MIN(a,b) ( (a<=b)?a:b )
 
-Poligono::Poligono(Cor cor,list<Ponto> v):Intercepto(cor){
+Poligono::Poligono(Cor cor,list<Ponto> v,double razaoDeAspectoOriginal,double razaoDeTruncamentoOriginal,double L0Original):
+Intercepto(cor),razaoDeAspectoOriginal( razaoDeAspectoOriginal ),	razaoDeTruncamentoOriginal( razaoDeTruncamentoOriginal ),L0Original( L0Original ) 
+{
 	assert(vertices.size() >= 3 );
 	this->vertices = v;	
 

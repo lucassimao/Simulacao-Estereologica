@@ -28,13 +28,14 @@ namespace simulacao{
 				Ponto verticeComMenorZ;
 				Ponto verticeComMaiorZ;
 
-				Poligono(Cor cor,list<Ponto> vertices);
+				Poligono(Cor cor,list<Ponto> vertices,double razaoDeAspectoOriginal,double razaoDeTruncamentoOriginal,double L0Original);
 				
 
 				void accept(AbstractDrawVisitor *);
 				void accept(AbstractMathVisitor *);				
 				double getArea();
 				double getPerimetro();
+				const double razaoDeAspectoOriginal, razaoDeTruncamentoOriginal, L0Original;
 
 				list<Ponto> getVertices() const{ return this->vertices; };
 				list<SegmentoDeReta> getArestas(){ return this->arestas;};

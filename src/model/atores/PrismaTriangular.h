@@ -24,8 +24,8 @@ namespace simulacao{
 				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
 				inline NxVec3* getPosicaoGlobalDosVertices();
 			private:
-				int altura;
-				int base;
+				double altura;
+				double base;
 				inline vector<SegmentoDeReta> getSegmentosDeRetaInterceptados(NxVec3);
 
 			};

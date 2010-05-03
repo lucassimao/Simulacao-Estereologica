@@ -135,7 +135,7 @@ Intercepto* PrismaTriangularTruncado::getIntercepto(NxVec3 planoPos){
 		iterator++;
 	}
 
-	return new Poligono(v,poligonoPontos);
+	return new Poligono(v,poligonoPontos,this->razaoDeAspecto,this->razaoDeTruncamento,this->L0);
 }
 
 inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterceptados(NxVec3 planoPos){
