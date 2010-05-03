@@ -44,8 +44,8 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
-	glEnable(GL_CULL_FACE); 
-	glCullFace(GL_FRONT); 
+	glDisable(GL_CULL_FACE); 
+	//glCullFace(GL_FRONT); 
 	glDisable(GL_LIGHTING);
 	
 	
@@ -57,11 +57,10 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 	Cor c = poligono->getCor();
 	glColor4f(c.r,c.g,c.b,1.0f);
 	glLineWidth(.1);
-	glPointSize(7);
-	Cor cores[] = {{1.0,0,0},{0,1.0,0},{0,0,1.0},{1.0,1.0,1.0},{0,0,0}};
-	int i=0;
+	//glPointSize(7);
 
-	glBegin(GL_LINE_LOOP);
+
+	glBegin(GL_POLYGON);
 	{
 		list<Ponto> vertices = poligono->getVertices();
 		list<Ponto>::const_iterator iterator = vertices.begin();
@@ -74,21 +73,26 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 	}
 	glEnd();	
 	
-
+	
+	/*
 	glBegin(GL_POINTS);
 	{
 		list<Ponto> vertices = poligono->getVertices();
+		assert(vertices.size()>=3);
 		list<Ponto>::const_iterator iterator = vertices.begin();
+		Cor cores[] = {{1.0,0,0},{0,1.0,1.0},{0,0,1.0},{1.0,1.0,1.0},{0,0,0}};
+		int i=0;
 
 		while(iterator != vertices.end() ){
 				Ponto p = *iterator;
 				glColor3f(cores[i].r,cores[i].g,cores[i].b);
 				++i;
-				glVertex3f(p.x,p.y,p.z);
+				glVertex3f(p.x,p.y+3,p.z);
 				++iterator;
 		}
 	}
 	glEnd();
+	*/
 
 	glEnd();	
 
