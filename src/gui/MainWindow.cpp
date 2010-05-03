@@ -94,7 +94,7 @@ void MainWindow::actionExecutarCortesSistematicos(){
 	if (res == QInputDialog::DialogCode::Accepted){
 		int qtde = dlg->intValue();
 
-		QString filename = QFileDialog::getSaveFileName( this, "Save File", getenv( "HOME" ), "Banco de dados (*.db)");
+		QString filename = QFileDialog::getSaveFileName( this, "Especifique o nome do banco de dados que armazenará os interceptos dos cortes sistemáticos", getenv( "HOME" ), "Banco de dados (*.db)");
    
 		if (filename.trimmed().size()>0){
 			if(!filename.endsWith( ".db" ) )
