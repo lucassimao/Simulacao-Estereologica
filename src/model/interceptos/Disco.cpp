@@ -11,10 +11,10 @@ using namespace simulacao::math::mathVisitor;
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-Disco::Disco(Cor cor,Ponto c,double r):Intercepto(cor),raio(r),centro(c){
+Disco::Disco(Cor cor,Ponto c,double r, double raioDaEsferaDeOrigem):Intercepto(cor),raio(r),centro(c),raioDaEsferaDeOrigem(raioDaEsferaDeOrigem){
 }
 
-Disco::Disco(Ponto c,double r):Intercepto(),raio(r),centro(c){
+Disco::Disco(Ponto c,double r,double raioDaEsferaDeOrigem):Intercepto(),raioDaEsferaDeOrigem(raioDaEsferaDeOrigem),raio(r),centro(c){
 }
 
 void Disco::accept(AbstractDrawVisitor *visitor){

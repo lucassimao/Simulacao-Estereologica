@@ -14,9 +14,10 @@ namespace simulacao{
 			public:
 				const Ponto centro;
 				const double raio;
+				const double raioDaEsferaDeOrigem;
 				
-				Disco(Cor cor,Ponto centro,double raio);
-				Disco(Ponto centro,double raio);
+				Disco(Cor cor,Ponto centro,double raio, double raioDaEsferaDeOrigem);
+				Disco(Ponto centro,double raio, double raioDaEsferaDeOrigem);
 
 				double getArea();
 				double getPerimetro();
