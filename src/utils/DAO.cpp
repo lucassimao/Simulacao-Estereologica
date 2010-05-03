@@ -108,14 +108,14 @@ __int64 DAO::salvarPoligono(int planoDeCorte_id, Poligono *p){
 }
 
 __int64 DAO::salvarEstatisticas(int planoDeCorte_fk, double areaDosInterceptosColetados,
-								double areaDoPlano, int qtdePontosInternos, int qtdePontosNaGrade, double volumeFaseSolida){
+								double areaDoPlano, int qtdePontosInternos, int qtdePontosNaGrade, double volumeFaseSolida,double volumeFaseLigante){
 	char *errStr;
 	ostringstream  insert;
 
 	insert << "insert into estatisticas('areaDoPlano','planoDeCorte_fk','areaDosInterceptosColetados',";	
-	insert << "'qtdeDePontosInternosAosInterceptos','qtdePontosNaGrade','volumeFaseSolida') values(" << areaDoPlano;
+	insert << "'qtdeDePontosInternosAosInterceptos','qtdePontosNaGrade','volumeFaseSolida','volumeFaseLigante') values(" << areaDoPlano;
 	insert << "," << planoDeCorte_fk << "," << areaDosInterceptosColetados << ",";
-	insert << qtdePontosInternos << "," << qtdePontosNaGrade <<"," << volumeFaseSolida <<  ");";
+	insert << qtdePontosInternos << "," << qtdePontosNaGrade <<"," << volumeFaseSolida <<","<<volumeFaseLigante<<  ");";
 	
     int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
 

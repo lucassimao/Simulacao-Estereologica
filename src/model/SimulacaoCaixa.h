@@ -8,6 +8,7 @@
 #include "Simulacao.h"
 #include "..\model\atores\PlanoDeCorte.h"
 #include "grade\Grade.h"
+#include "Parametros.h"
 /**
 * Definição de uma simulação simples, 
 * objetos idênticos
@@ -52,6 +53,11 @@ namespace simulacao{
 			}
 			
 			double getVolumeFaseSolida();
+
+			double getVolumeFaseLigante(){
+				Parametros *params = Parametros::getInstance();
+				return pow(params->getArestaDaCaixa(),3) - getVolumeFaseSolida();
+			}
 
 			SimulacaoCaixa(void);
 			~SimulacaoCaixa(void);

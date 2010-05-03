@@ -38,6 +38,7 @@ void ExportadorDeCortesSistematicos::exportar(){
 	int qtdeLinhaNaGrade = params->getQtdeLinhasNaGrade()* params->getQtdePontosPorLinhaNaGrade();
 	
 	double volumeFaseSolida = simulacao->getVolumeFaseSolida();
+	double volumeFaseLigante = simulacao->getVolumeFaseLigante();
 
 	for(int i=1;i<= this->qtdePlanos;++i){
 		
@@ -76,7 +77,7 @@ void ExportadorDeCortesSistematicos::exportar(){
 			}
 		}
 		dao.salvarEstatisticas(planoID,visitor1->getAreaTotalColetada(),400,
-			visitor2->getQtdeDePontosInternosAInterceptosDeArea(),qtdeLinhaNaGrade,volumeFaseSolida);
+			visitor2->getQtdeDePontosInternosAInterceptosDeArea(),qtdeLinhaNaGrade,volumeFaseSolida,volumeFaseLigante);
 	}
 
 	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());

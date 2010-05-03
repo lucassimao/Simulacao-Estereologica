@@ -17,7 +17,7 @@ class DAO{
 		__int64 salvarDisco(int i,Disco *d);
 		__int64 salvarPoligono(int planoDeCorte_id, Poligono *p);
 		__int64 salvarEstatisticas(int planoDeCorte_fk, double areaDosInterceptosColetados,
-									double areaDoPlano, int qtdePontosInternos, int qtdePontosNaGrade, double volumeFaseSolida);
+									double areaDoPlano, int qtdePontosInternos, int qtdePontosNaGrade, double volumeFaseSolida,double volumeFaseLigante);
 		
 };
 
