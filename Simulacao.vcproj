@@ -743,6 +743,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\utils\DataBaseFactory.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.cpp"
 					>
 				</File>
@@ -1132,6 +1136,10 @@
 				>
 				<File
 					RelativePath=".\src\utils\AbstractGeradorDeAlturaDoPlanoDeCorteStrategy.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\utils\DataBaseFactory.h"
 					>
 				</File>
 				<File

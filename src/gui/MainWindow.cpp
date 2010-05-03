@@ -1,5 +1,6 @@
 #include <QMessageBox>
 #include <QtDebug>
+#include <QFileDialog>
 #include <QInputDialog>
 #include "MainWindow.h"
 
@@ -27,6 +28,8 @@ using std::ofstream;
 
 #include "..\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.h"
 #include "..\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
+#include "..\utils\DataBaseFactory.h"
+
 using namespace simulacao::model;
 
 MainWindow::MainWindow(){
@@ -81,16 +84,24 @@ void MainWindow::actionExecutarCortesSistematicos(){
 	int res;
 	
 	QInputDialog *dlg = new QInputDialog(this);
-	dlg->setIntMinimum(1);
-	dlg->setIntMaximum(1000000);
-	dlg->setInputMode(QInputDialog::InputMode::IntInput);
 
+	dlg->setIntMinimum(1);
+	dlg->setInputMode(QInputDialog::InputMode::IntInput);
 	dlg->setLabelText(tr("Quantidade de planos de corte:"));
 	dlg->setIntValue(1);
 	res = dlg->exec();
 
 	if (res == QInputDialog::DialogCode::Accepted){
 		int qtde = dlg->intValue();
+
+		QString filename = QFileDialog::getSaveFileName( this, "Save File", getenv( "HOME" ), "Banco de dados (*.db)");
+   
+		if (filename.trimmed().size()>0){
+			if(!filename.endsWith( ".db" ) )
+				filename.append( ".db" );
+			
+			DataBaseFactory::getInstance()->criarBanco(filename.toStdString().c_str());
+		}
 	}
 
 }
