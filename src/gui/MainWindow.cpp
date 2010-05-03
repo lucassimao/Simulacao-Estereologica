@@ -62,7 +62,6 @@ void MainWindow::configurarGrade(){
 		DialogParametrosGrade *dialog = new DialogParametrosGrade(this);
 		dialog->setModal(true);
 		dialog->setVisible(true);
-
 }
 
 void MainWindow::adicionarEsferasSistematicamente(){
@@ -91,9 +90,8 @@ void MainWindow::actionExecutarCortesSistematicos(){
 	res = dlg->exec();
 
 	if (res == QInputDialog::DialogCode::Accepted){
-		int qtde = dlg->doubleValue();
+		int qtde = dlg->intValue();
 	}
-
 
 }
 
@@ -345,16 +343,15 @@ void MainWindow::exibirGraosInterceptados(){
 	ui->btnPlanovsGraos->setEnabled(false);
 }
 
-/** Exibe as regiões no plano interceptadas pelos objetos cortados pelo plano */
+/** Exibe os interceptos de seção dos objetos interceptados pelo plano */
 void MainWindow::exibirInterceptos(){
 	Grade *g = simulacao->getGrade();
 
 	RenderizarInterceptosStrategy *strategy = new RenderizarInterceptosStrategy(g);
 	view->setStrategy(strategy);
-	this->view->habilitarMudancaDeEstrategiaDeVisualizacao(true);
-	
-	view->posicionarCameraNoTopoDaCaixa();
 
+	this->view->habilitarMudancaDeEstrategiaDeVisualizacao(true);
+	this->view->posicionarCameraNoTopoDaCaixa();
 	ui->btnExibirInterceptos->setEnabled(false);
 
 }

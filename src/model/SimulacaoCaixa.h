@@ -30,7 +30,8 @@ namespace simulacao{
 			NxPlane *shapePlanoDeCorte;
 			NxActor *criarCaixa();
 			AbstractGeradorDeAlturaDoPlanoDeCorteStrategy *alturaPlanoStrategy;
-		
+			
+
 			bool exibirRetasTeste;
 			bool exibirPontosTeste;
 			void criarCCDS();

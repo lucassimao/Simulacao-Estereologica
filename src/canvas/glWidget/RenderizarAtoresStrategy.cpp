@@ -21,27 +21,22 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 		NxActor* actor = *actors++;
 		Ator *ator = static_cast<Ator*>(actor->userData);
 	
-		
 		if (ator){
+			Cor cor = ator->cor;		
 			glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 			if (planoDeCorte && ator->estaInterceptadoPeloPlano(planoDeCorte->getNxActor()->getGlobalPosition()))
-				glColor4f(1.0, 0, 0, 1);
+				glColor4f(1.0f, 0, 0, 1.0f);
 			else 
-				glColor4f(ator->cor.r,ator->cor.g,ator->cor.b,1);
-			
-			
+				glColor4f(cor.r,cor.g,cor.b,1.0f);
 			
 			DrawActor(actor, NULL, false);
-			
 			glPopAttrib();
 		}
 		else
 		{
 			DrawActor(actor, NULL, false);	
 		}
-		
-		
-	}
-	
+				
+	}	
 }

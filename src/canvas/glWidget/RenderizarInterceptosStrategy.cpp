@@ -1,15 +1,15 @@
+#include <iostream>
+#include <fstream>
 #include <vector>
-#include <locale>
 #include "RenderizarInterceptosStrategy.h"
+#include "GL\glut.h"
 #include "..\..\model\interceptos\Intercepto.h"
 #include "..\..\model\atores\Ator.h"
 #include "..\..\draw\DrawObjects.h"
-#include "GL\glut.h"
 #include "..\..\math\ColetorDePontosVisitor.h"
 #include "..\..\math\ColetorDeAreasVisitor.h"
 #include "..\..\math\ColetorDeInterceptosLinearesVisitor.h"
-#include <iostream>
-#include <fstream>
+#include "..\..\defs.h"
 
 using namespace std;
 using namespace simulacao::math::mathVisitor;
@@ -17,10 +17,6 @@ using namespace simulacao::canvas::glWidget;
 using namespace simulacao::model::interceptos;
 using namespace simulacao::model::atores;
 
-class WithComma: public numpunct<char> // classe que permite numeros decimais serem salvos em arquivo usando virgula com seprador decimal
-{
-	protected: char do_decimal_point() const { return ','; } 
-};
 
 RenderizarInterceptosStrategy::RenderizarInterceptosStrategy(Grade *grade){
 	interceptos = new vector<Intercepto*>();
@@ -32,27 +28,23 @@ RenderizarInterceptosStrategy::RenderizarInterceptosStrategy(Grade *grade){
 
 inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){		
 
-
 	if (interceptos->size() == 0){
 		coletarInterceptos(simulacao);
 
 		// coletando informações sobre as areas interceptadas e os segmento
 		// das retas de teste internos aos interceptos de área
-		
-				
 		ColetorDeAreasVisitor *visitor1 = new ColetorDeAreasVisitor(this->grade);
 		ColetorDeInterceptosLinearesVisitor *visitor2 = new ColetorDeInterceptosLinearesVisitor(this->grade);
 		ColetorDePontosVisitor *visitor3 = new ColetorDePontosVisitor(this->grade);
 
 		vector<Intercepto*>::const_iterator  iter= this->interceptos->begin();
-		locale myloc(  locale(),new WithComma);
-
+		locale myloc(locale(),new WithComma);
 		
 		while(iter!=interceptos->end()){
 			Intercepto *i = *iter;
 			i->accept(visitor1);
 			//i->accept(visitor2);
-		//	i->accept(visitor3);
+			//i->accept(visitor3);
 			++iter;
 		}
 
@@ -87,14 +79,16 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		
 	}
 		
-	// aqui inicia o desenho dos interceptos de area
+		// aqui inicia o desenho dos interceptos de area
 		vector<Intercepto*>::const_iterator iterator = interceptos->begin();
 		
 		while(iterator!=interceptos->end())
 		{
 			Intercepto *intercepto = *iterator;
+			
 			intercepto->accept(this->interceptoDeAreaDrawVisitor);
-			intercepto->accept(this->interceptoLinearDrawVisitor);
+			if (simulacao->getExibirRetasTeste())
+				intercepto->accept(this->interceptoLinearDrawVisitor);
 
 			++iterator;
 		}
@@ -106,8 +100,8 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		glCullFace(GL_FRONT); 
 		glDisable(GL_LIGHTING);
 		glColor4f(1.0f,0.0f,0.0f,0);
-		glLineWidth(0.5f);
-		glPointSize(5.0f);
+		glLineWidth(0.2);
+		glPointSize(3.0f);
 
 		if (simulacao->getExibirRetasTeste() ){
 			glBegin(GL_LINES);
@@ -166,18 +160,10 @@ inline void RenderizarInterceptosStrategy::coletarInterceptos(SimulacaoCaixa *si
 		{
 			NxActor* ator = *atores++;
 
-			{
 				if (ator != simulacao->getCaixa() && ator!= simulacao->getPlanoDeCorte()->getNxActor()){
 					Ator *a = (Ator *)ator->userData;
 					NxVec3 planoGlobalPosition = simulacao->getPlanoDeCorte()->getNxActor()->getGlobalPosition();
-					interceptos->push_back(a->getIntercepto(planoGlobalPosition));				
-					
-					// remove o ator da simulacao, agora nos interessa apenas os inteceptos
-					//simulacao->releaseActor(*ator);
-					//delete a;
+					interceptos->push_back(a->getIntercepto(planoGlobalPosition));					
 				}
-
-			}
-
 		}
 }
