@@ -5,10 +5,11 @@ using namespace simulacao::utils;
 using namespace simulacao::model;
 
 Parametros *p = Parametros::getInstance();
-float alturaMinimaPlanoDeCorte = p->getAlturaDaBaseDaCaixa()+0.5f;
-float alturaMaximaPlanoDeCorte = p->getArestaDaCaixa() + p->getAlturaDaBaseDaCaixa() - 0.5f;
+float alturaMinimaPlanoDeCorte = p->getAlturaDaBaseDaCaixa()+0.001f;
+float alturaMaximaPlanoDeCorte = p->getArestaDaCaixa() + p->getAlturaDaBaseDaCaixa() - 0.001f;
 
-GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy::GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(int qtdePlanos): AbstractGeradorDeAlturaDoPlanoDeCorteStrategy(alturaMinimaPlanoDeCorte,alturaMaximaPlanoDeCorte){
+GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy::GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(int qtdePlanos): 
+AbstractGeradorDeAlturaDoPlanoDeCorteStrategy(alturaMinimaPlanoDeCorte,alturaMaximaPlanoDeCorte){
 	this->deltaH = (alturaMaximaPlanoDeCorte - alturaMinimaPlanoDeCorte)/(qtdePlanos+1);
 	this->alturaCorrente = h0 + deltaH;
 }
