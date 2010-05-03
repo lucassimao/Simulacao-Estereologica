@@ -19,6 +19,9 @@ namespace simulacao{
 				~Esfera(void);
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
 				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
+				double getVolume(){
+					return (4.0/3.0)*3.14*pow(raio,3);
+				}
 
 			};
 

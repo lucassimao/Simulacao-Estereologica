@@ -3,7 +3,10 @@
 #include <string>
 #include "..\sqlite3\sqlite3.h"
 #include "..\model\interceptos\Disco.h"
+#include "..\model\grade\Grade.h"
+#include "..\model\grade\RetaDeTeste.h"
 
+using namespace simulacao::model::grade;
 using namespace simulacao::model::interceptos;
 
 #include "DAO.h"
@@ -16,24 +19,26 @@ DAO::DAO(sqlite3 *db):db(db){
 
 }
 
-bool DAO::salvarPlano(double y){
+__int64 DAO::salvarPlano(double y){
 	char *errStr;
-
-
 	ostringstream  insert;
+
 	insert << "insert into planoDeCorte('altura') values(" << y << ");";	
 	
     int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
+
 	if ( rc!=SQLITE_OK )
     {
         throw runtime_error(errStr);
         sqlite3_free(errStr);
-		return false;
+		return -1;
     }
-	return true;
+	// recupera o rowid do planoDeCorte recentemente inserido
+	__int64 planoDeCorteID = sqlite3_last_insert_rowid(this->db);
+	return planoDeCorteID;
 }
 
-bool DAO::salvarDisco(int planoDeCorte_id, Disco *d){
+__int64 DAO::salvarDisco(int planoDeCorte_id, Disco *d){
 	char *errStr;
 	ostringstream  insert;
 	
@@ -47,18 +52,19 @@ bool DAO::salvarDisco(int planoDeCorte_id, Disco *d){
 		//qDebug() << errStr;
         throw runtime_error(errStr);
         sqlite3_free(errStr);
-		return false;
+		return -1;
     }
-	return true;
+	__int64 discoID = sqlite3_last_insert_rowid(this->db);
+	return discoID;
 }
 
-bool DAO::salvarPoligono(int planoDeCorte_id, Poligono *p){
+__int64 DAO::salvarPoligono(int planoDeCorte_id, Poligono *p){
 	char *errStr;
 	ostringstream  insert;
 
 	insert << "insert into poligonos('razaoDeAspectoOriginaria','razaoDeTruncamentoOriginaria',";
-	insert << "'planoDeCorte_fk','L0') values("<< p->razaoDeAspectoOriginal;
-	insert << ","<< p->razaoDeTruncamentoOriginal <<","<< planoDeCorte_id <<","<< p->L0Original << ");";	
+	insert << "'planoDeCorte_fk','L0','area') values("<< p->razaoDeAspectoOriginal;
+	insert << ","<< p->razaoDeTruncamentoOriginal <<","<< planoDeCorte_id <<","<< p->L0Original << "," << p->getArea() << ");";	
 	
     int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
@@ -88,15 +94,38 @@ bool DAO::salvarPoligono(int planoDeCorte_id, Poligono *p){
 		int rc = sqlite3_exec(this->db,insert2.str().c_str(), 0, 0, &errStr);
 		if ( rc!=SQLITE_OK )
 		{
-			qDebug() << errStr;
+			//qDebug() << errStr;
 			throw runtime_error(errStr);
 			sqlite3_free(errStr);
-			return false;
+			return -1;
 		}
 		++aux;
 		++vertices_iterator;
 	}
 	
 
-	return true;
+	return poligonoID;
+}
+
+__int64 DAO::salvarEstatisticas(int planoDeCorte_fk, double areaDosInterceptosColetados,
+								double areaDoPlano, int qtdePontosInternos, int qtdePontosNaGrade){
+	char *errStr;
+	ostringstream  insert;
+
+	insert << "insert into estatisticas('areaDoPlano','planoDeCorte_fk','areaDosInterceptosColetados',";	
+	insert << "'qtdeDePontosInternosAosInterceptos','qtdePontosNaGrade') values(" << areaDoPlano;
+	insert << "," << planoDeCorte_fk << "," << areaDosInterceptosColetados << ",";
+	insert << qtdePontosInternos << "," << qtdePontosNaGrade << ");";
+	
+    int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
+
+	if ( rc!=SQLITE_OK )
+    {
+        throw runtime_error(errStr);
+        sqlite3_free(errStr);
+		return -1;
+    }
+	// recupera o rowid da estatistica recentemente inserida
+	__int64 estatisticaID = sqlite3_last_insert_rowid(this->db);
+	return estatisticaID;
 }

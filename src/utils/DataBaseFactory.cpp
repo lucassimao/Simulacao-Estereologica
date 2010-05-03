@@ -31,22 +31,14 @@ bool DataBaseFactory::criarBanco(const char* arquivo){
         sqlite3_free(errStr);
     }
 
-
-    rc = sqlite3_exec(db, "create table retasDeTeste(id int PRIMARY KEY,x0 double,y0 double,z0 double,x1 double,y1 double,z1 double, planoDeCorte_fk int, FOREIGN KEY(planoDeCorte_fk) references planoDeCorte(id));", 0, 0, &errStr);
+    rc = sqlite3_exec(db, "create table estatisticas(id int PRIMARY KEY, planoDeCorte_fk int, areaDoPlano double, areaDosInterceptosColetados double, qtdeDePontosInternosAosInterceptos int,qtdePontosNaGrade int , FOREIGN KEY(planoDeCorte_fk) references planoDeCorte(id));", 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
     {
         throw runtime_error(errStr);
         sqlite3_free(errStr);
     }
 
-    rc = sqlite3_exec(db, "create table pontosDeTeste(id int PRIMARY KEY,x double,y double,z double, retaDeTeste_fk int, FOREIGN KEY(retaDeTeste_fk) references retasDeTeste(id));", 0, 0, &errStr);
-	if ( rc!=SQLITE_OK )
-    {
-        throw runtime_error(errStr);
-        sqlite3_free(errStr);
-    }
-
-	rc = sqlite3_exec(db, "create table poligonos(id int PRIMARY KEY, razaoDeAspectoOriginaria double, razaoDeTruncamentoOriginaria double, planoDeCorte_fk int,L0 double, FOREIGN KEY(planoDeCorte_fk) references planoDeCorte(id));", 0, 0, &errStr);
+	rc = sqlite3_exec(db, "create table poligonos(id int PRIMARY KEY,area double, razaoDeAspectoOriginaria double, razaoDeTruncamentoOriginaria double, planoDeCorte_fk int,L0 double, FOREIGN KEY(planoDeCorte_fk) references planoDeCorte(id));", 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
     {
         throw runtime_error(errStr);

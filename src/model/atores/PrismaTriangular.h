@@ -23,10 +23,14 @@ namespace simulacao{
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
 				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
 				inline NxVec3* getPosicaoGlobalDosVertices();
+				double getVolume(){
+					return this->altura*((pow(this->base,2.0)*sqrt(3.0))/4.0);
+				}
 			private:
 				double altura;
 				double base;
 				inline vector<SegmentoDeReta> getSegmentosDeRetaInterceptados(NxVec3);
+				
 
 			};
 		}

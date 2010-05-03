@@ -11,12 +11,17 @@ using namespace simulacao::model::interceptos;
 
 ColetorDeAreasVisitor::ColetorDeAreasVisitor(Grade *grade){
 	this->grade = grade;
+	this->areaColetada = 0;
 }
 
 void ColetorDeAreasVisitor::visit(Disco *disco){
-	this->areas.push_back(disco->getArea());
+	double area = disco->getArea();
+	this->areas.push_back(area);
+	this->areaColetada += area;
 }
 
 void ColetorDeAreasVisitor::visit(Poligono *poligono){
-	this->areas.push_back(poligono->getArea());
+	double area = poligono->getArea();
+	this->areas.push_back(area);
+	this->areaColetada += area;
 }

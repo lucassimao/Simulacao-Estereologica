@@ -30,6 +30,9 @@ namespace simulacao{
 				
 				Grade *getGrade();
 				void setAltura(double);
+				double getVolume(){
+					return 0;
+				}
 
 			};
 

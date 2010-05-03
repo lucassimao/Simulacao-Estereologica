@@ -27,6 +27,7 @@ namespace simulacao{
 				Cor cor;
 				virtual bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition) = 0;
 				virtual Intercepto* getIntercepto(NxVec3 planoGlobalPosition) = 0;
+				virtual double getVolume() = 0;
 
 			};
 

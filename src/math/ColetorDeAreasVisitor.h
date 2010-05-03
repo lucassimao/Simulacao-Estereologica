@@ -19,6 +19,7 @@ namespace simulacao{
 			private:
 				Grade *grade;
 				vector<double> areas;
+				double areaColetada;
 			public:
 				ColetorDeAreasVisitor(Grade *);
 
@@ -26,6 +27,7 @@ namespace simulacao{
 				inline void visit(Poligono *poligono);
 
 				vector<double> getAreas() { return this->areas;};
+				double getAreaTotalColetada(){ return this->areaColetada;};
 			};
 
 		}

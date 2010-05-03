@@ -12,9 +12,12 @@ class DAO{
 		sqlite3 *db;
 	public:
 		DAO( sqlite3 *db);
-		bool salvarPlano(double y);
-		bool salvarDisco(int i,Disco *d);
-		bool salvarPoligono(int planoDeCorte_id, Poligono *p);
+		// esses métodos retornam a chave primária. Retornam -1 se o registro ñ foi salvo
+		__int64 salvarPlano(double y);
+		__int64 salvarDisco(int i,Disco *d);
+		__int64 salvarPoligono(int planoDeCorte_id, Poligono *p);
+		__int64 salvarEstatisticas(int planoDeCorte_fk, double areaDosInterceptosColetados,
+									double areaDoPlano, int qtdePontosInternos, int qtdePontosNaGrade);
 		
 };
 

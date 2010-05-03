@@ -23,6 +23,9 @@ namespace simulacao{
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
 				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
 				inline NxVec3* getPosicaoGlobalDosVertices();
+				double getVolume(){
+					return (sqrt(3.0)/4.0)*( razaoDeAspecto *(1 -3*pow(razaoDeTruncamento,2))* pow(L0,3));
+				}
 			private:
 				double razaoDeAspecto; // alpha
 				double razaoDeTruncamento; // beta
