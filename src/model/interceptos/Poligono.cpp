@@ -18,6 +18,7 @@ using namespace simulacao::math::mathVisitor;
 #include "..\..\utils\graham.h"
 #include "..\..\utils\SegmentoDeReta.h"
 
+#include <QtDebug>
 #include <Nxvec3.h>
 
 #define MAX(a,b) ( (a>=b)?a:b )
@@ -27,10 +28,12 @@ Poligono::Poligono(Cor cor,list<Ponto> v,double razaoDeAspectoOriginal,double ra
 Intercepto(cor),razaoDeAspectoOriginal( razaoDeAspectoOriginal ),	razaoDeTruncamentoOriginal( razaoDeTruncamentoOriginal ),L0Original( L0Original ) 
 {
 	assert(v.size() >= 3 );
-	this->vertices = v;	
 
-	if (vertices.size()>3)
+	if (v.size()>3)
 		this->vertices = ordenarVertices(&v);
+	else this->vertices = v;
+
+	assert(this->vertices.size()>=3);
 	
 	this->verticeComMaiorZ = procurarVerticeComMaiorZ();
 	this->verticeComMenorZ = procurarVerticeComMenorZ();	
@@ -86,16 +89,18 @@ double Poligono::getArea(){
 	double area = 0.0;
 
 	list<Ponto>::const_iterator iter = vertices.begin();
+	list<Ponto>::const_iterator fim = vertices.end();
+
 	Ponto p0 = *iter;
 	++iter;
-
+	
 	while(true){
 		Ponto p1 = *iter;
 		++iter;
 		
-		if (iter==vertices.end())
+		if (iter==fim){
 			break;
-
+		}
 		Ponto p2 = *iter;
 
 		NxVec3 v1(p1.x-p0.x,p1.y-p0.y,p1.z-p0.z);

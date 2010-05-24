@@ -1,3 +1,4 @@
+#include <QtDebug>
 #include <stdexcept>
 #include "..\sqlite3\sqlite3.h"
 
@@ -58,12 +59,16 @@ void ExportadorDeCortesSistematicos::exportar(){
 			NxActor* ator = *atores++;
 
 			if (ator != caixa && ator!= planoDeCorte){
-				Ator *a = (Ator *)ator->userData;					
+				Ator *a = (Ator *)ator->userData;	
+
 				if (a->estaInterceptadoPeloPlano(planoGlobalPosition)){
+
 					Intercepto *intercepto = a->getIntercepto(planoGlobalPosition);
 					
 					intercepto->accept(visitor1);
+					qDebug() << "1"<<endl;
 					intercepto->accept(visitor2);
+					qDebug() << "2"<<endl;
 
 					switch(intercepto->getType()){
 					case Type_Disco:

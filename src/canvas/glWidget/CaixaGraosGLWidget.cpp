@@ -234,11 +234,7 @@ void CaixaGraosGLWidget::mousePressEvent(QMouseEvent *event)
 	mx = event->x();
 	my = event->y();
 }
-/*
-Paulo Freire
-Leonardo Boff
-Rubem Alves
-*/
+
 void CaixaGraosGLWidget::mudarEstrategiaDeVisualizacao(){
 	switch (this->renderizacaoStrategy->getTypeOf()){
 	case RenderizarInterceptos:

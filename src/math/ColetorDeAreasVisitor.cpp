@@ -1,3 +1,4 @@
+#include <QtDebug>
 #include <vector>
 #include <assert.h>
 #include "ColetorDeAreasVisitor.h"

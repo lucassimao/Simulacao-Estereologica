@@ -57,44 +57,55 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 	Cor c = poligono->getCor();
 	glColor4f(c.r,c.g,c.b,1.0f);
 	glLineWidth(.1);
-	//glPointSize(7);
 
-
+	
 	glBegin(GL_POLYGON);
 	{
-		list<Ponto> vertices = poligono->getVertices();
-		list<Ponto>::const_iterator iterator = vertices.begin();
+		list<Ponto> vertices1 = poligono->getVertices();
+		if (vertices1.size()>=3){
+			list<Ponto>::const_iterator iterator = vertices1.begin();
 
-		while(iterator != vertices.end() ){
-				Ponto p = *iterator;
-				glVertex3f(p.x,p.y,p.z);
-				++iterator;
+			while(iterator != vertices1.end() ){
+					Ponto p = *iterator;
+					glVertex3f(p.x,p.y,p.z);
+					++iterator;
+			}
 		}
 	}
 	glEnd();	
 	
 	
-	/*
+	
+	glPointSize(7);
 	glBegin(GL_POINTS);
 	{
 		list<Ponto> vertices = poligono->getVertices();
-		assert(vertices.size()>=3);
 		list<Ponto>::const_iterator iterator = vertices.begin();
-		Cor cores[] = {{1.0,0,0},{0,1.0,1.0},{0,0,1.0},{1.0,1.0,1.0},{0,0,0}};
-		int i=0;
+		Cor pink = {238.0/255.0,18.0/255.0,137.0/255.0};
+		if (vertices.size()>=3){
+			Cor cores[] = {{1.0,0,0},{0,1.0,1.0},{0,0,1.0},{1.0,1.0,1.0},{0,0,0}};
+			int i=0;
 
-		while(iterator != vertices.end() ){
-				Ponto p = *iterator;
-				glColor3f(cores[i].r,cores[i].g,cores[i].b);
-				++i;
-				glVertex3f(p.x,p.y+3,p.z);
-				++iterator;
+			while(iterator != vertices.end() ){
+					Ponto p = *iterator;
+					glColor3f(cores[i].r,cores[i].g,cores[i].b);
+					++i;
+					glVertex3f(p.x,p.y+0.3,p.z);
+					++iterator;
+			}
+		}
+		else{
+			while(iterator != vertices.end() ){
+					Ponto p = *iterator;
+					glColor3f(pink.r,pink.g,pink.b);
+					glVertex3f(p.x,p.y+0.3,p.z);
+					++iterator;
+			}
+
 		}
 	}
 	glEnd();
-	*/
-
-	glEnd();	
+		
 
 	glPopAttrib();
 }
