@@ -119,7 +119,6 @@ Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoPos){
 	Cor v = VERMELHO;
 
 	vector<SegmentoDeReta> segmentosDeRetaInterceptados = getSegmentosDeRetaInterceptados(planoPos);
-	assert(segmentosDeRetaInterceptados.size()>=3);
 	vector<SegmentoDeReta>::const_iterator iterator = segmentosDeRetaInterceptados.begin();
 	list<Ponto> poligonoPontos;
 
@@ -133,10 +132,7 @@ Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoPos){
 
 		iterator++;
 	}
-	assert(segmentosDeRetaInterceptados.size()==poligonoPontos.size());
-	if(poligonoPontos.size()<3){
-		int a = 1;
-	}
+
 	return new Poligono(v,poligonoPontos,this->altura/this->base,0,this->base);
 }
 
