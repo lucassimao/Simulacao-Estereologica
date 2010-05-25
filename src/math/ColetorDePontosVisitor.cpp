@@ -52,25 +52,29 @@ void ColetorDePontosVisitor::visit(Poligono *poligono){
 		
 		RetaDeTeste retaDeTeste = *iterator;
 
-
         // já me retorna as arestas que estão interceptadas pela reta de teste
         list<SegmentoDeReta> arestasInterceptadas = poligono->getArestasInterceptadas(retaDeTeste);
-        list<SegmentoDeReta>::const_iterator iter = arestasInterceptadas.begin();
+
+		// assegura que a reta de teste intercepta duas arestas do poligono em analise
+		if (arestasInterceptadas.size()==2){
+			list<SegmentoDeReta>::const_iterator iter = arestasInterceptadas.begin();
+			
+			Ponto p0, p1;
+			
+			SegmentoDeReta seg1 = *iter;
+			
+			seg1.interceptar(retaDeTeste,&p0);
+			
+			++iter;
+			SegmentoDeReta seg2 = *iter;
+			seg2.interceptar(retaDeTeste,&p1);
+			
+			if (p0.x <= p1.x) // o calculo anterior ñ garante a ordem dos pontos
+				this->qtdePontos +=  retaDeTeste.getQtdeDePontosNoIntervalo(p0,p1);
+			else
+				this->qtdePontos +=  retaDeTeste.getQtdeDePontosNoIntervalo(p1,p0);
 		
-		Ponto p0, p1;
-		
-		SegmentoDeReta seg1 = *iter;
-		
-		seg1.interceptar(retaDeTeste,&p0);
-		
-		++iter;
-		SegmentoDeReta seg2 = *iter;
-		seg2.interceptar(retaDeTeste,&p1);
-		if (p0.x <= p1.x) // o calculo anterior ñ garante a ordem dos pontos
-			this->qtdePontos +=  retaDeTeste.getQtdeDePontosNoIntervalo(p0,p1);
-		else
-			this->qtdePontos +=  retaDeTeste.getQtdeDePontosNoIntervalo(p1,p0);
-		
+		}
         ++iterator;
     }
 

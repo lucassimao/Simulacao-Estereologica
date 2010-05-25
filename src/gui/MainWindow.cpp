@@ -107,7 +107,6 @@ void MainWindow::actionExecutarCortesSistematicos(){
 				filename.append( ".db" );
 			
 			string file = filename.toStdString();
-			qDebug() << file.c_str() << "\n";
 			DataBaseFactory::getInstance()->criarBanco(file.c_str());
 			ExportadorDeCortesSistematicos exportador(file.c_str(),qtde,this->simulacao);
 			exportador.exportar();

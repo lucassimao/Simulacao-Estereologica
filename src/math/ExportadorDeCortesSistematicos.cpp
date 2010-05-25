@@ -65,10 +65,11 @@ void ExportadorDeCortesSistematicos::exportar(){
 
 					Intercepto *intercepto = a->getIntercepto(planoGlobalPosition);
 					
+					//qDebug() << "1"<<endl;
 					intercepto->accept(visitor1);
-					qDebug() << "1"<<endl;
+					//qDebug() << "2"<<endl;
 					intercepto->accept(visitor2);
-					qDebug() << "2"<<endl;
+					//qDebug() << "3"<<endl;
 
 					switch(intercepto->getType()){
 					case Type_Disco:
