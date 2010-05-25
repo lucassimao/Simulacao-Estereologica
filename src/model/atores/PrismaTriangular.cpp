@@ -59,9 +59,9 @@ PrismaTriangular::PrismaTriangular(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory
 	actorDesc.body = &bodyDesc;
 	actorDesc.density = 10.0;
 
-	float px = 1;//9 - (rand() % 20);
-	float py = 10;//5 + (rand() % 20);
-	float pz = 1;//9 - (rand() % 20);
+	float px = 9 - (rand() % 20);
+	float py = 5 + (rand() % 20);
+	float pz = 9 - (rand() % 20);
 
 	actorDesc.globalPose.t  = NxVec3(px,py,pz);
 	this->ator = cena->createActor(actorDesc);
