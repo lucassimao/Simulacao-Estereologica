@@ -1,26 +1,10 @@
-#include <QtDebug>
-#include <sstream>
-#include <stdexcept>
-#include <iostream>
-#include "..\sqlite3\sqlite3.h"
-
 #include "ExportadorDeCortesSistematicos.h"
-#include "..\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.h"
-#include "..\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
-#include "..\math\ColetorDeInterceptosLinearesVisitor.h"
-#include "..\math\ColetorDeAreasVisitor.h"
-#include "..\math\ColetorDePontosVisitor.h"
-#include "..\utils\DAO.h"
-#include "..\model\Parametros.h"
 
-using namespace simulacao::math;
-using namespace simulacao::model;
-using namespace simulacao::math::mathVisitor;
+#define PI 3.1415926
 
-using namespace std;
-
-ExportadorDeCortesSistematicos::ExportadorDeCortesSistematicos(const char *diretorio,const char* bancoDeDados, int qtdePlanos,SimulacaoCaixa *simulacao){
+ExportadorDeCortesSistematicos::ExportadorDeCortesSistematicos(string &diretorio,const char* bancoDeDados, int qtdePlanos,SimulacaoCaixa *simulacao){
 	 	
+	this->diretorio = diretorio;
 	this->qtdePlanos = qtdePlanos;
 	this->simulacao=simulacao;
 
@@ -32,14 +16,14 @@ ExportadorDeCortesSistematicos::ExportadorDeCortesSistematicos(const char *diret
 	}
 }
 
-int ExportadorDeCortesSistematicos::processarPoligonos(ExportadorDeCortesSistematicos *obj, int plano_pk){
+void ExportadorDeCortesSistematicos::salvarAreaDosPoligonos( int plano_pk, ofstream &outFile){
 	sqlite3_stmt *poligonos_stmt = 0;
 	ostringstream  poligonos_select;
 	poligonos_select << "select rowid,area,perimetro,L0,razaoDeAspectoOriginaria,razaoDeTruncamentoOriginaria ";
 	poligonos_select << "from poligonos where planoDeCorte_fk = ?1;";
 
 
-	int res = sqlite3_prepare_v2(obj->db,poligonos_select.str().c_str(),-1,&poligonos_stmt,NULL);
+	int res = sqlite3_prepare_v2(this->db,poligonos_select.str().c_str(),-1,&poligonos_stmt,NULL);
 	
     if( res==SQLITE_OK && poligonos_stmt ){
 		res = sqlite3_bind_int(poligonos_stmt,1,plano_pk);
@@ -51,9 +35,10 @@ int ExportadorDeCortesSistematicos::processarPoligonos(ExportadorDeCortesSistema
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
 		
 		while(res != SQLITE_DONE){
-			int poligono_pk = sqlite3_column_int(poligonos_stmt,0);
+			//int poligono_pk = sqlite3_column_int(poligonos_stmt,0);
 			double area = sqlite3_column_double(poligonos_stmt,1);
-			double perimetro = sqlite3_column_double(poligonos_stmt,2);
+			//double perimetro = sqlite3_column_double(poligonos_stmt,2);
+			outFile << area << endl;
 			res = sqlite3_step(poligonos_stmt);
 		}	
 
@@ -61,17 +46,16 @@ int ExportadorDeCortesSistematicos::processarPoligonos(ExportadorDeCortesSistema
 		
     }
 	else
-		qDebug() <<  sqlite3_errmsg(obj->db)<<endl;
-	return 0;
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
 }
-int ExportadorDeCortesSistematicos::processarDiscos(ExportadorDeCortesSistematicos *obj, int plano_pk){
+void ExportadorDeCortesSistematicos::salvarAreaDosDiscos(int plano_pk, ofstream &outFile){
 	sqlite3_stmt *discos_stmt = 0;
 	ostringstream  discos_select;
 	discos_select << "select raio from discos where planoDeCorte_fk = ?1;";
 
 
-	int res = sqlite3_prepare_v2(obj->db,discos_select.str().c_str(),-1,&discos_stmt,NULL);
+	int res = sqlite3_prepare_v2(this->db,discos_select.str().c_str(),-1,&discos_stmt,NULL);
 	
     if( res==SQLITE_OK && discos_stmt ){
 		res = sqlite3_bind_int(discos_stmt,1,plano_pk);
@@ -84,38 +68,100 @@ int ExportadorDeCortesSistematicos::processarDiscos(ExportadorDeCortesSistematic
 		
 		while (res != SQLITE_DONE){
 			double raio = sqlite3_column_double(discos_stmt,0);
-			double perimetro = 3.14 * raio*raio;
+			//double perimetro = 2*PI *raio;
+			double area = PI *raio*raio;
+			outFile << area << endl;
 			res = sqlite3_step(discos_stmt);
 		}
 		sqlite3_finalize(discos_stmt);		
     }
 	else
-		qDebug() <<  sqlite3_errmsg(obj->db)<<endl;
-	return 0;
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
 }
 
-int ExportadorDeCortesSistematicos::exportarPlanoCallback(void *instancia, int qtdeColunas, char **colunas, char **nomeColunas){
-	int rowId = atoi(colunas[0]);
-	char *altura = colunas[1];
+void ExportadorDeCortesSistematicos::salvarInterceptosLineares(int plano_pk, ofstream &outFile){
+	sqlite3_stmt *interceptos_stmt = 0;
+	ostringstream  interceptos_select;
+	interceptos_select << "select tamanho from interceptosLineares where planoDeCorte_fk = ?1 order by tamanho;";
 
-	ExportadorDeCortesSistematicos *obj = static_cast<ExportadorDeCortesSistematicos *>(instancia);
+
+	int res = sqlite3_prepare_v2(this->db,interceptos_select.str().c_str(),-1,&interceptos_stmt,NULL);
 	
-	processarPoligonos(obj,rowId);
-	processarDiscos(obj,rowId);
+    if( res==SQLITE_OK && interceptos_stmt ){
+		res = sqlite3_bind_int(interceptos_stmt,1,plano_pk);
+		assert(res == SQLITE_OK);
+		
+		do{
+			res = sqlite3_step(interceptos_stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+		
+		while (res != SQLITE_DONE){
+			double tamanho = sqlite3_column_double(interceptos_stmt,0);
+			outFile << tamanho << endl;
 
-	return 0;
+			res = sqlite3_step(interceptos_stmt);
+		}
+		sqlite3_finalize(interceptos_stmt);		
+    }
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+
+}
+
+void ExportadorDeCortesSistematicos::exportarPlano(int planoDeCorteID){
+	ostringstream stream;
+
+	locale ptBR(locale(),new WithComma);
+
+	stream << this->diretorio << "/areas_plano_" << planoDeCorteID << ".csv"; 
+
+	ofstream areasFile(stream.str().c_str(),std::ios::out);
+	areasFile.imbue(ptBR);
+
+	salvarAreaDosPoligonos(planoDeCorteID,areasFile);
+	salvarAreaDosDiscos(planoDeCorteID,areasFile);
+	areasFile.close();
+
+	stream.str("");
+	stream.clear();
+
+	stream << this->diretorio << "/interceptosLineares_plano_" << planoDeCorteID << ".csv"; 
+	ofstream interceptosLinearesFile(stream.str().c_str(),std::ios::out);
+	interceptosLinearesFile.imbue(ptBR);
+
+	salvarInterceptosLineares(planoDeCorteID,interceptosLinearesFile);
+	interceptosLinearesFile.close();
 }
 
 
 void ExportadorDeCortesSistematicos::exportarParaArquivo(){
-  char *zErrMsg = 0;	
-  int rc = sqlite3_exec(this->db, "select rowid,altura from planoDeCorte;", exportarPlanoCallback, this, &zErrMsg);
+	sqlite3_stmt *planoDeCorte_stmt = 0;
+	ostringstream  planoDeCorte_select;
+	planoDeCorte_select << "select rowid,altura from planoDeCorte;";
 
-  if( rc!=SQLITE_OK ){
-    fprintf(stderr, "SQL error: %s\n", zErrMsg);
-    sqlite3_free(zErrMsg);
-  }
+
+	int res = sqlite3_prepare_v2(this->db,planoDeCorte_select.str().c_str(),-1,&planoDeCorte_stmt,NULL);
+	
+    if( res==SQLITE_OK && planoDeCorte_stmt ){
+		
+		do{
+			res = sqlite3_step(planoDeCorte_stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+		
+		while (res != SQLITE_DONE){
+			int planoPK = sqlite3_column_int(planoDeCorte_stmt,0);
+			//double altura = sqlite3_column_double(planoDeCorte_stmt,1);
+			exportarPlano(planoPK);
+			res = sqlite3_step(planoDeCorte_stmt);
+		}
+		sqlite3_finalize(planoDeCorte_stmt);		
+    }
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+
 }
 
 void ExportadorDeCortesSistematicos::exportar(){

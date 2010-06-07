@@ -107,7 +107,7 @@ void MainWindow::actionExecutarCortesSistematicos(){
 			
 			string file = dbFilename.toStdString();
 			DataBaseFactory::getInstance()->criarBanco(file.c_str());
-			ExportadorDeCortesSistematicos exportador(dir.toStdString().c_str(), file.c_str(),qtde,this->simulacao);
+			ExportadorDeCortesSistematicos exportador(dir.toStdString(), file.c_str(),qtde,this->simulacao);
 			exportador.exportar();
 		
 		}
