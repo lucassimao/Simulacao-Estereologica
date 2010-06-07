@@ -20,6 +20,7 @@ using namespace simulacao::model::interceptos;
 using std::vector;
 using std::map;
 using std::list;
+#define BETWEEN(x,y,z) (x <= y) && (y <= z)
 
 
 PrismaTriangular::PrismaTriangular(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
@@ -60,7 +61,7 @@ PrismaTriangular::PrismaTriangular(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory
 	actorDesc.density = 10.0;
 
 	float px = 9 - (rand() % 20);
-	float py = 5 + (rand() % 20);
+	float py = 9 + (rand() % 10);
 	float pz = 9 - (rand() % 20);
 
 	actorDesc.globalPose.t  = NxVec3(px,py,pz);
@@ -84,30 +85,31 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	NxU32 nbVerts = meshDesc.numVertices;	
 	NxVec3* points = (NxVec3 *)meshDesc.points;
 
-	// alto e baixo em termos da coordenada Y
-	//NxReal verticeMaisAlto=_FPCLASS_NINF, verticeMaisBaixo=_FPCLASS_PINF;
-	NxVec3 *verticeMaisAlto = new NxVec3(0,_FPCLASS_NINF,0);
-	NxVec3 *verticeMaisBaixo = new NxVec3(0,_FPCLASS_PINF,0);
+	NxVec3 verticeMaisAlto = (pose.M * points[0] + pose.t);
+	NxVec3 verticeMaisBaixo = (pose.M * points[1] + pose.t);
 
 	for(int i=0;i<nbVerts;++i){
 		NxVec3 vertice = (pose.M * points[i] + pose.t);
-
-		if ( verticeMaisAlto->y < vertice.y){
-			verticeMaisAlto->y = vertice.y;
-			verticeMaisAlto->x = vertice.x;
-			verticeMaisAlto->z = vertice.z;
+		
+		if ( verticeMaisAlto.y < vertice.y ){
+			verticeMaisAlto.y = vertice.y;
+			verticeMaisAlto.x = vertice.x;
+			verticeMaisAlto.z = vertice.z;
 		}
-		else
-			if (verticeMaisBaixo->y > vertice.y){
-			verticeMaisBaixo->y = vertice.y;
-			verticeMaisBaixo->x = vertice.x;
-			verticeMaisBaixo->z = vertice.z;
-			}
+		else if (verticeMaisBaixo.y > vertice.y){
+				verticeMaisBaixo.y = vertice.y;
+				verticeMaisBaixo.x = vertice.x;
+				verticeMaisBaixo.z = vertice.z;
+		}
 	}
-	bool temp = (-10 <= verticeMaisAlto->x <= 10) && (-10 <= verticeMaisBaixo->x <= 10 );
-	bool temp2 = (verticeMaisAlto->y >= planoGlobalPosition.y && verticeMaisBaixo->y <= planoGlobalPosition.y);
-	bool temp3 = (-10 <= verticeMaisAlto->z <= 10) && (-10 <= verticeMaisBaixo->z <= 10 );
-	return temp && temp2 && temp3;
+
+	bool temp = BETWEEN(-10,verticeMaisAlto.x,10);
+	bool temp1 = BETWEEN(-10,verticeMaisBaixo.x,10);
+	bool temp2 = BETWEEN(verticeMaisBaixo.y, planoGlobalPosition.y, verticeMaisAlto.y);
+	bool temp3 = BETWEEN(-10,verticeMaisAlto.z,10);
+	bool temp4 = BETWEEN(-10,verticeMaisBaixo.z,10);
+	
+	return temp && temp1 && temp2 && temp3 && temp4;
 
 }
 
@@ -122,17 +124,19 @@ Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoPos){
 	vector<SegmentoDeReta>::const_iterator iterator = segmentosDeRetaInterceptados.begin();
 	list<Ponto> poligonoPontos;
 
+	assert(segmentosDeRetaInterceptados.size() > 0);
+
 	while(iterator!=segmentosDeRetaInterceptados.end())
 	{
 		Ponto p = {0,0,0};
 		SegmentoDeReta seg = *iterator;
+
 		if (seg.interceptarComPlano(planoPos.y,&p)){
 			poligonoPontos.push_back(p);
 		}
 
 		iterator++;
 	}
-
 	return new Poligono(v,poligonoPontos,this->altura/this->base,0,this->base);
 }
 
@@ -143,11 +147,12 @@ inline vector<SegmentoDeReta> PrismaTriangular::getSegmentosDeRetaInterceptados(
 	map<int,NxVec3> verticesAcimaDoPlanoDeCorte;
 	map<int,NxVec3> verticesAbaixoDoPlanoDeCorte;
 
-	for(int i=0;i<6;++i)
+	for(int i=0;i<6;++i){
 		if (vertices[i].y > planoPos.y)
 			verticesAcimaDoPlanoDeCorte[i] = vertices[i];
 		else
 			verticesAbaixoDoPlanoDeCorte[i] = vertices[i];
+	}
 
 	map<int,NxVec3>::const_iterator iteratorVerticesAcimaDoPlanoDeCorte = verticesAcimaDoPlanoDeCorte.begin();
 
@@ -157,8 +162,7 @@ inline vector<SegmentoDeReta> PrismaTriangular::getSegmentosDeRetaInterceptados(
 		NxVec3 vec = iteratorVerticesAcimaDoPlanoDeCorte->second;
 		map<int,NxVec3>::const_iterator iterator;
 
-		// ver arquivos prismaTriangularVertices.png na pasta docs
-		// para entender a conexao entre os vertices
+		// ver arquivos prismaTriangularVertices.png na pasta docs para entender a conexao entre os vertices
 		switch(indice_vertice){
 			case 0:
 				iterator = verticesAbaixoDoPlanoDeCorte.find(2);
@@ -284,7 +288,6 @@ inline vector<SegmentoDeReta> PrismaTriangular::getSegmentosDeRetaInterceptados(
 		++iteratorVerticesAcimaDoPlanoDeCorte;
 		
 	}
-
 	return segmentos;
 }
 

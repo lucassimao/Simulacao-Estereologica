@@ -83,7 +83,7 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 		list<Ponto>::const_iterator iterator = vertices.begin();
 		Cor pink = {238.0/255.0,18.0/255.0,137.0/255.0};
 		if (vertices.size()>=3){
-			Cor cores[] = {{1.0,0,0},{0,1.0,1.0},{0,0,1.0},{1.0,1.0,1.0},{0,0,0}};
+			Cor cores[] = {{1.0,0,0},{0,1.0,1.0},{0,0,1.0},{1.0,1.0,1.0},{0,0,0},{0.75,0.8,0.05},{0.3,0.2,0.9},{0.9,0.01,0.09},{0.34,0.55,0.11}};
 			int i=0;
 
 			while(iterator != vertices.end() ){

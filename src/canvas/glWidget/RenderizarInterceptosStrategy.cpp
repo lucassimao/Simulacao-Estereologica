@@ -163,7 +163,8 @@ inline void RenderizarInterceptosStrategy::coletarInterceptos(SimulacaoCaixa *si
 			if (ator != simulacao->getCaixa() && ator!= simulacao->getPlanoDeCorte()->getNxActor()){
 				Ator *a = (Ator *)ator->userData;
 				NxVec3 planoGlobalPosition = simulacao->getPlanoDeCorte()->getNxActor()->getGlobalPosition();
-				interceptos->push_back(a->getIntercepto(planoGlobalPosition));					
+				Intercepto* i = a->getIntercepto(planoGlobalPosition);
+				interceptos->push_back(i);					
 			}
 		}
 }

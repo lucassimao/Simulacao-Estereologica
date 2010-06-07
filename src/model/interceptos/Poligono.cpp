@@ -24,11 +24,12 @@ using namespace simulacao::math::mathVisitor;
 #define MAX(a,b) ( (a>=b)?a:b )
 #define MIN(a,b) ( (a<=b)?a:b )
 
+
+
 Poligono::Poligono(Cor cor,list<Ponto> v,double razaoDeAspectoOriginal,double razaoDeTruncamentoOriginal,double L0Original):
 Intercepto(cor),razaoDeAspectoOriginal( razaoDeAspectoOriginal ),	razaoDeTruncamentoOriginal( razaoDeTruncamentoOriginal ),L0Original( L0Original ) 
 {
-	assert(v.size() >= 3 );
-
+	//assert(v.size() >= 3 );
 	if (v.size()>3)
 		this->vertices = ordenarVertices(&v);
 	else this->vertices = v;

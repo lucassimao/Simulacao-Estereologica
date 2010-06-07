@@ -17,11 +17,10 @@ namespace simulacao{
 				int qtdePlanos;
 				SimulacaoCaixa *simulacao;
 				void exportarParaArquivo();
+
 				static int exportarPlanoCallback(void *instancia, int qtdeColunas, char **colunas, char **nomeColunas);
-				
 				static int processarPoligonos(ExportadorDeCortesSistematicos *obj, int plano_pk);
 				static int processarDiscos(ExportadorDeCortesSistematicos *obj, int plano_pk);
-
 				static double calcularPerimetroPoligono(int poligono_pk,sqlite3 *db);
 
 			public:

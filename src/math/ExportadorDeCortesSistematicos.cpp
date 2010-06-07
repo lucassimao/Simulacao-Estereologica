@@ -193,7 +193,6 @@ void ExportadorDeCortesSistematicos::exportar(){
 				Ator *a = (Ator *)ator->userData;	
 
 				if (a->estaInterceptadoPeloPlano(planoGlobalPosition)){
-
 					Intercepto *intercepto = a->getIntercepto(planoGlobalPosition);
 					
 					//qDebug() << "1"<<endl;

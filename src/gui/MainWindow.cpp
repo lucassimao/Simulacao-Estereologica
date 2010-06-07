@@ -100,15 +100,14 @@ void MainWindow::actionExecutarCortesSistematicos(){
 	if (res == QInputDialog::DialogCode::Accepted){
 		int qtde = dlg->intValue();
 
-		QString filename = QFileDialog::getSaveFileName( this, "Especifique o nome do banco de dados que armazenará os interceptos dos cortes sistemáticos", getenv( "HOME" ), "Banco de dados (*.db)");
-   
-		if (filename.trimmed().size()>0){
-			if(!filename.endsWith( ".db" ) )
-				filename.append( ".db" );
+		QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja que as informações sejam salvas");
+		if (dir.trimmed().size()>0){
+			long l = time(0);
+			QString dbFilename(tr("%1/%2.db").arg(dir).arg(l));
 			
-			string file = filename.toStdString();
+			string file = dbFilename.toStdString();
 			DataBaseFactory::getInstance()->criarBanco(file.c_str());
-			ExportadorDeCortesSistematicos exportador(file.c_str(),qtde,this->simulacao);
+			ExportadorDeCortesSistematicos exportador(dir.toStdString().c_str(), file.c_str(),qtde,this->simulacao);
 			exportador.exportar();
 		
 		}
