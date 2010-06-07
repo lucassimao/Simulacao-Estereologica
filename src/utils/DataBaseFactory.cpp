@@ -61,6 +61,15 @@ bool DataBaseFactory::criarBanco(const char* arquivo){
         sqlite3_free(errStr);
 		return false;
     }
+
+	rc = sqlite3_exec(db,"create table interceptosLineares(id int PRIMARY KEY,planoDeCorte_fk int,tamanho double, FOREIGN KEY(planoDeCorte_fk) references planoDeCorte(id));", 0, 0, &errStr);
+	if ( rc!=SQLITE_OK )
+    {
+        throw runtime_error(errStr);
+        sqlite3_free(errStr);
+		return false;
+    }
+
 	sqlite3_close(db);
 	return true;
 }

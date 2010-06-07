@@ -19,6 +19,33 @@ DAO::DAO(sqlite3 *db):db(db){
 
 }
 
+__int64 DAO::salvarInterceptosLineares(int planoDeCorte_id,ColetorDeInterceptosLinearesVisitor *visitor){
+	char *errStr;
+	ostringstream  insert;
+	
+	vector<double>::const_iterator iterator = visitor->interceptosLineares.begin();
+
+	while(iterator!=visitor->interceptosLineares.end()){
+		double interceptoLinear  = *iterator;
+
+		insert << "insert into interceptosLineares('planoDeCorte_fk','tamanho')";
+		insert << " values(" << planoDeCorte_id << "," << interceptoLinear << ");";
+		++iterator;
+	}
+
+	int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
+	if ( rc!=SQLITE_OK )
+	{
+		qDebug() << errStr;
+		throw runtime_error(errStr);
+		sqlite3_free(errStr);
+		return -1;
+	}
+
+	__int64 ultimoInterceptoID = sqlite3_last_insert_rowid(this->db);
+	return ultimoInterceptoID;
+}
+
 __int64 DAO::salvarPlano(double y){
 	char *errStr;
 	ostringstream  insert;

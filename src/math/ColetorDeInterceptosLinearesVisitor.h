@@ -18,15 +18,15 @@ namespace simulacao{
 
 			class ColetorDeInterceptosLinearesVisitor : public AbstractMathVisitor{
 			private:
-				vector<double> interceptosLineares;
 				Grade *grade;
 			public:
+				vector<double> interceptosLineares;
+
 				ColetorDeInterceptosLinearesVisitor(Grade *);
 
 				inline void visit(Disco *disco);
 				inline void visit(Poligono *poligono);
 
-				vector<double> getInterceptosLineares() const { return this->interceptosLineares;};
 			};
 
 		}

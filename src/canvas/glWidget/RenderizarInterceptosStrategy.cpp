@@ -61,8 +61,8 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		ofstream interceptosLineares("interceptosLineares.csv",std::ios::out);
 		interceptosLineares.imbue(myloc);
 
-		for(int i=0;i<visitor2->getInterceptosLineares().size();++i){
-			double d = visitor2->getInterceptosLineares().at(i);
+		for(int i=0;i<visitor2->interceptosLineares.size();++i){
+			double d = visitor2->interceptosLineares.at(i);
 			interceptosLineares << d << endl;
 		}
 		interceptosLineares.close();

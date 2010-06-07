@@ -7,6 +7,7 @@
 #include "ExportadorDeCortesSistematicos.h"
 #include "..\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.h"
 #include "..\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
+#include "..\math\ColetorDeInterceptosLinearesVisitor.h"
 #include "..\math\ColetorDeAreasVisitor.h"
 #include "..\math\ColetorDePontosVisitor.h"
 #include "..\utils\DAO.h"
@@ -130,7 +131,7 @@ void ExportadorDeCortesSistematicos::exportar(){
 	double volumeFaseSolida = simulacao->getVolumeFaseSolida();
 	double volumeFaseLigante = simulacao->getVolumeFaseLigante();
 
-	for(int i=1;i<= this->qtdePlanos;++i){
+	for(int i=0;i< this->qtdePlanos;++i){
 		
 		NxU32 qtdeAtores = simulacao->getQtdeObjetos();
 		NxActor** atores = simulacao->getAtores();
@@ -138,8 +139,9 @@ void ExportadorDeCortesSistematicos::exportar(){
 		simulacao->novoPlanoDeCorte();
 		NxVec3 planoGlobalPosition = planoDeCorte->getGlobalPosition();
 
-		ColetorDeAreasVisitor *visitor1 = new ColetorDeAreasVisitor(simulacao->getGrade());
+		ColetorDeInterceptosLinearesVisitor *visitor1 = new ColetorDeInterceptosLinearesVisitor(simulacao->getGrade());
 		ColetorDePontosVisitor *visitor2 = new ColetorDePontosVisitor(simulacao->getGrade());
+		ColetorDeAreasVisitor *visitor3 = new ColetorDeAreasVisitor(simulacao->getGrade());
 		
 		__int64 planoID = dao.salvarPlano(planoGlobalPosition.y);
 
@@ -152,22 +154,24 @@ void ExportadorDeCortesSistematicos::exportar(){
 
 				if (a->estaInterceptadoPeloPlano(planoGlobalPosition)){
 					Intercepto *intercepto = a->getIntercepto(planoGlobalPosition);
-					
+
 					intercepto->accept(visitor1);
 					intercepto->accept(visitor2);
+					intercepto->accept(visitor3);
 
 					switch(intercepto->getType()){
 					case Type_Disco:
-						dao.salvarDisco(i,static_cast<Disco*>(intercepto));
+						dao.salvarDisco(planoID,static_cast<Disco*>(intercepto));
 						break;
 					case Type_Poligono:
-						dao.salvarPoligono(i,static_cast<Poligono*>(intercepto));
+						dao.salvarPoligono(planoID,static_cast<Poligono*>(intercepto));
 						break;
 					}
 				}
 			}
 		}
-		dao.salvarEstatisticas(planoID,visitor1->getAreaTotalColetada(),400,
+		dao.salvarInterceptosLineares(planoID,visitor1);
+		dao.salvarEstatisticas(planoID,visitor3->getAreaTotalColetada(),400,
 			visitor2->getQtdeDePontosInternosAInterceptosDeArea(),qtdeLinhaNaGrade,volumeFaseSolida,volumeFaseLigante);
 	}
 
