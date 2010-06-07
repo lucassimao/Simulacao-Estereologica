@@ -63,8 +63,9 @@ __int64 DAO::salvarPoligono(int planoDeCorte_id, Poligono *p){
 	ostringstream  insert;
 
 	insert << "insert into poligonos('razaoDeAspectoOriginaria','razaoDeTruncamentoOriginaria',";
-	insert << "'planoDeCorte_fk','L0','area') values("<< p->razaoDeAspectoOriginal;
-	insert << ","<< p->razaoDeTruncamentoOriginal <<","<< planoDeCorte_id <<","<< p->L0Original << "," << p->getArea() << ");";	
+	insert << "'planoDeCorte_fk','L0','area','perimetro') values("<< p->razaoDeAspectoOriginal;
+	insert << ","<< p->razaoDeTruncamentoOriginal <<","<< planoDeCorte_id <<",";
+	insert << p->L0Original << "," << p->getArea() << "," << p->getPerimetro() << ");";	
 	
     int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )

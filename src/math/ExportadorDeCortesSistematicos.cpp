@@ -31,52 +31,10 @@ ExportadorDeCortesSistematicos::ExportadorDeCortesSistematicos(const char *diret
 	}
 }
 
-double ExportadorDeCortesSistematicos::calcularPerimetroPoligono(int poligono_pk,sqlite3 *db){
-	sqlite3_stmt *vertices_stmt=0;
-	ostringstream vertices_select;
-	
-	vertices_select << "select x,y,z from vertices_poligono where poligono_fk=?1 ";
-	vertices_select << " order by posicao;";
-	int res = sqlite3_prepare_v2(db,vertices_select.str().c_str(),-1,&vertices_stmt,NULL);
-
-	if (res == SQLITE_OK && vertices_stmt){
-		res = sqlite3_bind_int(vertices_stmt,1,poligono_pk);
-		assert(res == SQLITE_OK);
-
-		do{
-			res = sqlite3_step(vertices_stmt);
-		}
-		while(res != SQLITE_ROW);
-		list<Ponto> vertices;
-		
-		
-		do{
-			double x = sqlite3_column_double(vertices_stmt,0);
-			double y = sqlite3_column_double(vertices_stmt,1);
-			double z = sqlite3_column_double(vertices_stmt,2);
-			Ponto p =  {x,y,z};
-			vertices.push_back(p);
-			res = sqlite3_step(vertices_stmt);
-		}
-		while(res == SQLITE_ROW);
-
-		assert(vertices.size()>=3);
-		Cor vermelho = VERMELHO;
-		Poligono p(vermelho,vertices,0,0,0);
-		sqlite3_finalize(vertices_stmt);
-		
-		return p.getPerimetro();
-	}
-
-	return 0;
-
-
-}
-
 int ExportadorDeCortesSistematicos::processarPoligonos(ExportadorDeCortesSistematicos *obj, int plano_pk){
 	sqlite3_stmt *poligonos_stmt = 0;
 	ostringstream  poligonos_select;
-	poligonos_select << "select rowid,area,L0,razaoDeAspectoOriginaria,razaoDeTruncamentoOriginaria ";
+	poligonos_select << "select rowid,area,perimetro,L0,razaoDeAspectoOriginaria,razaoDeTruncamentoOriginaria ";
 	poligonos_select << "from poligonos where planoDeCorte_fk = ?1;";
 
 
@@ -94,7 +52,7 @@ int ExportadorDeCortesSistematicos::processarPoligonos(ExportadorDeCortesSistema
 		while(res != SQLITE_DONE){
 			int poligono_pk = sqlite3_column_int(poligonos_stmt,0);
 			double area = sqlite3_column_double(poligonos_stmt,1);
-			double perimetro = calcularPerimetroPoligono(poligono_pk,obj->db);
+			double perimetro = sqlite3_column_double(poligonos_stmt,2);
 			res = sqlite3_step(poligonos_stmt);
 		}	
 
@@ -195,13 +153,8 @@ void ExportadorDeCortesSistematicos::exportar(){
 				if (a->estaInterceptadoPeloPlano(planoGlobalPosition)){
 					Intercepto *intercepto = a->getIntercepto(planoGlobalPosition);
 					
-					//qDebug() << "1"<<endl;
-					if (intercepto==NULL)
-						continue;
 					intercepto->accept(visitor1);
-					//qDebug() << "2"<<endl;
 					intercepto->accept(visitor2);
-					//qDebug() << "3"<<endl;
 
 					switch(intercepto->getType()){
 					case Type_Disco:
@@ -220,6 +173,7 @@ void ExportadorDeCortesSistematicos::exportar(){
 
 	exportarParaArquivo();
 	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
+	sqlite3_close(db);
 
 }
 		

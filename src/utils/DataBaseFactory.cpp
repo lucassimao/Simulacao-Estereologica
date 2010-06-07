@@ -38,7 +38,7 @@ bool DataBaseFactory::criarBanco(const char* arquivo){
         sqlite3_free(errStr);
     }
 
-	rc = sqlite3_exec(db, "create table poligonos(id int PRIMARY KEY,area double, razaoDeAspectoOriginaria double, razaoDeTruncamentoOriginaria double, planoDeCorte_fk int,L0 double, FOREIGN KEY(planoDeCorte_fk) references planoDeCorte(id));", 0, 0, &errStr);
+	rc = sqlite3_exec(db, "create table poligonos(id int PRIMARY KEY,area double, razaoDeAspectoOriginaria double, razaoDeTruncamentoOriginaria double, planoDeCorte_fk int,L0 double,perimetro double, FOREIGN KEY(planoDeCorte_fk) references planoDeCorte(id));", 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
     {
         throw runtime_error(errStr);
