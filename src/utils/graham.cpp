@@ -24,7 +24,7 @@ list<Ponto> ordenarVertices(list<Ponto> *vertices)
 	// procurando o vertice mais à frente
 	while(iterator!=vertices->end()){
 		Ponto p = *iterator;
-		if (p.z > verticeComMaiorZ.z)
+		if (p.z > verticeComMaiorZ.z || (p.z == verticeComMaiorZ.z && p.x < verticeComMaiorZ.x))
 			verticeComMaiorZ = p;
 		++iterator;
 	}

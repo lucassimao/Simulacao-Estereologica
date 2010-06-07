@@ -10,14 +10,21 @@ double alturaMaximaPlanoDeCorte = p->getArestaDaCaixa() + p->getAlturaDaBaseDaCa
 
 GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy::GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(int qtdePlanos): 
 AbstractGeradorDeAlturaDoPlanoDeCorteStrategy(alturaMinimaPlanoDeCorte,alturaMaximaPlanoDeCorte){
-	this->deltaH = (alturaMaximaPlanoDeCorte - alturaMinimaPlanoDeCorte)/(qtdePlanos+1.0);
+	this->deltaH = aproximarDeltaH(alturaMinimaPlanoDeCorte,alturaMaximaPlanoDeCorte,qtdePlanos); 
 	this->alturaCorrente = h0 + deltaH;
 }
 
 
 GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy::GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(double h0,double h1,int qtdePlanos): AbstractGeradorDeAlturaDoPlanoDeCorteStrategy(h0,h1){
-	this->deltaH = (h1 - h0)/(qtdePlanos+1.0);
+	this->deltaH = aproximarDeltaH(h0,h1,qtdePlanos);
 	this->alturaCorrente = h0+deltaH;
+}
+
+// esse método aproxima o deltaH para duas casas decimais
+double GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy::aproximarDeltaH(double h0,double h1,int qtdePlanos){
+	double tmp = (h1 - h0)/(qtdePlanos+1.0);
+	int aproximacao = tmp*100;
+	return (aproximacao/100.0);
 }
 
 double GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy::novaAltura(){

@@ -19,6 +19,8 @@ namespace simulacao{
 			// representa a variação da altura do plano de corte == (h1 - h0)/qtdePlanos
 			double deltaH;
 			double alturaCorrente;
+			double aproximarDeltaH(double h0,double h1,int qtdePlanos);
+
 		public:
 			GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(int qtdePlanos);
 			GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(double h0,double h1, int qtdePlanos);
