@@ -39,6 +39,7 @@ namespace simulacao{
 				void salvarAreaDosPoligonos(int plano_pk, ofstream &outFile);
 				void salvarAreaDosDiscos(int plano_pk, ofstream &outFile);
 				void salvarInterceptosLineares(int plano_pk, ofstream &outFile);
+				void SalvarQtdeDePontosInternos(int plano_pk, ofstream &outFile);
 
 			public:
 				ExportadorDeCortesSistematicos(string &diretorio, const char* bancoDeDados, int qtdePlanos,SimulacaoCaixa *simulacao);

@@ -127,14 +127,55 @@ void ExportadorDeCortesSistematicos::exportarPlano(int planoDeCorteID){
 	stream.str("");
 	stream.clear();
 
+	// agora salvando os interceptos lineares
+
 	stream << this->diretorio << "/interceptosLineares_plano_" << planoDeCorteID << ".csv"; 
 	ofstream interceptosLinearesFile(stream.str().c_str(),std::ios::out);
 	interceptosLinearesFile.imbue(ptBR);
 
 	salvarInterceptosLineares(planoDeCorteID,interceptosLinearesFile);
 	interceptosLinearesFile.close();
+
+	// exportando a quantidade de pontos também
+
+	stream.str("");
+	stream.clear();
+	stream << this->diretorio << "/pontosInternos_plano_" << planoDeCorteID << ".csv"; 
+	ofstream pontosInternosFile(stream.str().c_str(),std::ios::out);
+	pontosInternosFile.imbue(ptBR);
+
+	SalvarQtdeDePontosInternos(planoDeCorteID,pontosInternosFile);
+	pontosInternosFile.close();
 }
 
+void ExportadorDeCortesSistematicos::SalvarQtdeDePontosInternos(int plano_pk, ofstream &outFile){
+	sqlite3_stmt *stmt = 0;
+	ostringstream  interceptos_select;
+	interceptos_select << "select qtdeDePontosInternosAosInterceptos from estatisticas where planoDeCorte_fk = ?1;";
+
+
+	int res = sqlite3_prepare_v2(this->db,interceptos_select.str().c_str(),-1,&stmt,NULL);
+	
+    if( res==SQLITE_OK && stmt ){
+		res = sqlite3_bind_int(stmt,1,plano_pk);
+		assert(res == SQLITE_OK);
+		
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+		
+		while (res != SQLITE_DONE){
+			int qtdeDePontosInternosAosInterceptos = sqlite3_column_int(stmt,0);
+			outFile << qtdeDePontosInternosAosInterceptos << endl;
+
+			res = sqlite3_step(stmt);
+		}
+		sqlite3_finalize(stmt);		
+    }
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+}
 
 void ExportadorDeCortesSistematicos::exportarParaArquivo(){
 	sqlite3_stmt *planoDeCorte_stmt = 0;
