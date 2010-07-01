@@ -109,6 +109,7 @@ void MainWindow::actionExecutarCortesSistematicos(){
 			DataBaseFactory::getInstance()->criarBanco(file.c_str());
 			ExportadorDeCortesSistematicos exportador(dir.toStdString(), file.c_str(),qtde,this->simulacao);
 			exportador.exportar();
+			QMessageBox::information(this, tr("Exportação concluída"),tr("Os dados foram exportados com sucesso!"));
 		
 		}
 	}
