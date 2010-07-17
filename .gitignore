@@ -1,6 +1,7 @@
 *.exe
 *.obj
 forms/*.h
+moc/*
 debug/*
 release/*
 Simulacao.suo

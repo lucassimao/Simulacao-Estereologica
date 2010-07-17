@@ -948,9 +948,9 @@
 							<Tool
 								Name="VCCustomBuildTool"
 								Description="MOC src\canvas\Tetrahedron.h"
-								CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\glWidget\CaixaGraosGLWidget.h -o release\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
+								CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\glWidget\CaixaGraosGLWidget.h -o moc\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
 								AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\canvas\glWidget\CaixaGraosGLWidget.h"
-								Outputs="release\moc_CaixaGraosGLWidget.cpp"
+								Outputs="moc\moc_CaixaGraosGLWidget.cpp"
 							/>
 						</FileConfiguration>
 						<FileConfiguration
@@ -959,9 +959,9 @@
 							<Tool
 								Name="VCCustomBuildTool"
 								Description="MOC src\canvas\glWidget\CaixaGraosGLWidget.h"
-								CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\glWidget\CaixaGraosGLWidget.h -o debug\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
+								CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\canvas\glWidget\CaixaGraosGLWidget.h -o moc\moc_CaixaGraosGLWidget.cpp&#x0D;&#x0A;"
 								AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\canvas\glWidget\CaixaGraosGLWidget.h"
-								Outputs="debug\moc_CaixaGraosGLWidget.cpp"
+								Outputs="moc\moc_CaixaGraosGLWidget.cpp"
 							/>
 						</FileConfiguration>
 					</File>
@@ -991,9 +991,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\AdicionarEsferasSistematicamenteDialog.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicionarEsferasSistematicamenteDialog.h -o release\moc_AdicionarEsferasSistematicamenteDialog.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicionarEsferasSistematicamenteDialog.h -o moc\moc_AdicionarEsferasSistematicamenteDialog.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicionarEsferasSistematicamenteDialog.h"
-							Outputs="release\moc_AdicionarEsferasSistematicamenteDialog.cpp"
+							Outputs="moc\moc_AdicionarEsferasSistematicamenteDialog.cpp"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
@@ -1002,9 +1002,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\AdicionarEsferasSistematicamenteDialog.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicionarEsferasSistematicamenteDialog.h -o debug\moc_AdicionarEsferasSistematicamenteDialog.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicionarEsferasSistematicamenteDialog.h -o moc\moc_AdicionarEsferasSistematicamenteDialog.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicionarEsferasSistematicamenteDialog.h"
-							Outputs="debug\moc_AdicionarEsferasSistematicamenteDialog.cpp"
+							Outputs="moc\moc_AdicionarEsferasSistematicamenteDialog.cpp"
 						/>
 					</FileConfiguration>
 				</File>
@@ -1017,9 +1017,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\AdicionarPrismasSistematicamenteDialog.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicionarPrismasSistematicamenteDialog.h -o release\moc_AdicionarPrismasSistematicamenteDialog.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicionarPrismasSistematicamenteDialog.h -o moc\moc_AdicionarPrismasSistematicamenteDialog.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicionarPrismasSistematicamenteDialog.h"
-							Outputs="release\moc_AdicionarPrismasSistematicamenteDialog.cpp"
+							Outputs="moc\moc_AdicionarPrismasSistematicamenteDialog.cpp"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
@@ -1028,9 +1028,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\AdicionarPrismasSistematicamenteDialog.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicionarPrismasSistematicamenteDialog.h -o debug\moc_AdicionarPrismasSistematicamenteDialog.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicionarPrismasSistematicamenteDialog.h -o moc\moc_AdicionarPrismasSistematicamenteDialog.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicionarPrismasSistematicamenteDialog.h"
-							Outputs="debug\moc_AdicionarPrismasSistematicamenteDialog.cpp"
+							Outputs="moc\moc_AdicionarPrismasSistematicamenteDialog.cpp"
 						/>
 					</FileConfiguration>
 				</File>
@@ -1043,9 +1043,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\ColorListEditor.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\ColorListEditor.h -o release\moc_ColorListEditor.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\ColorListEditor.h -o moc\moc_ColorListEditor.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\ColorListEditor.h"
-							Outputs="release\moc_ColorListEditor.cpp"
+							Outputs="moc\moc_ColorListEditor.cpp"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
@@ -1054,9 +1054,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\ColorListEditor.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\ColorListEditor.h -o debug\moc_ColorListEditor.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\ColorListEditor.h -o moc\moc_ColorListEditor.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\ColorListEditor.h"
-							Outputs="debug\moc_ColorListEditor.cpp"
+							Outputs="moc\moc_ColorListEditor.cpp"
 						/>
 					</FileConfiguration>
 				</File>
@@ -1069,9 +1069,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\DialogParametrosGrade.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DialogParametrosGrade.h -o release\moc_DialogParametrosGrade.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DialogParametrosGrade.h -o moc\moc_DialogParametrosGrade.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DialogParametrosGrade.h"
-							Outputs="release\moc_DialogParametrosGrade.cpp"
+							Outputs="moc\moc_DialogParametrosGrade.cpp"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
@@ -1080,9 +1080,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\DialogParametrosGrade.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DialogParametrosGrade.h -o debug\moc_DialogParametrosGrade.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DialogParametrosGrade.h -o moc\moc_DialogParametrosGrade.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DialogParametrosGrade.h"
-							Outputs="debug\moc_DialogParametrosGrade.cpp"
+							Outputs="moc\moc_DialogParametrosGrade.cpp"
 						/>
 					</FileConfiguration>
 				</File>
@@ -1095,9 +1095,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\MainWindow.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\MainWindow.h -o release\moc_MainWindow.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\MainWindow.h -o moc\moc_MainWindow.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\MainWindow.h"
-							Outputs="release\moc_MainWindow.cpp"
+							Outputs="moc\moc_MainWindow.cpp"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
@@ -1106,9 +1106,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\MainWindow.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\MainWindow.h -o debug\moc_MainWindow.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\MainWindow.h -o moc\moc_MainWindow.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\MainWindow.h"
-							Outputs="debug\moc_MainWindow.cpp"
+							Outputs="moc\moc_MainWindow.cpp"
 						/>
 					</FileConfiguration>
 				</File>
@@ -1121,9 +1121,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\TextBoxDelegate.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\TextBoxDelegate.h -o release\moc_TextBoxDelegate.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\TextBoxDelegate.h -o moc\moc_TextBoxDelegate.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\TextBoxDelegate.h"
-							Outputs="release\moc_TextBoxDelegate.cpp"
+							Outputs="moc\moc_TextBoxDelegate.cpp"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
@@ -1132,9 +1132,9 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\TextBoxDelegate.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\TextBoxDelegate.h -o debug\moc_TextBoxDelegate.cpp&#x0D;&#x0A;"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\TextBoxDelegate.h -o moc\moc_TextBoxDelegate.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\TextBoxDelegate.h"
-							Outputs="debug\moc_TextBoxDelegate.cpp"
+							Outputs="moc\moc_TextBoxDelegate.cpp"
 						/>
 					</FileConfiguration>
 				</File>
@@ -1230,31 +1230,31 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			>
 			<File
-				RelativePath="release\moc_AdicionarEsferasSistematicamenteDialog.cpp"
+				RelativePath="moc\moc_AdicionarEsferasSistematicamenteDialog.cpp"
 				>
 			</File>
 			<File
-				RelativePath="release\moc_AdicionarPrismasSistematicamenteDialog.cpp"
+				RelativePath="moc\moc_AdicionarPrismasSistematicamenteDialog.cpp"
 				>
 			</File>
 			<File
-				RelativePath="release\moc_CaixaGraosGLWidget.cpp"
+				RelativePath="moc\moc_CaixaGraosGLWidget.cpp"
 				>
 			</File>
 			<File
-				RelativePath="release\moc_ColorListEditor.cpp"
+				RelativePath="moc\moc_ColorListEditor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="release\moc_DialogParametrosGrade.cpp"
+				RelativePath="moc\moc_DialogParametrosGrade.cpp"
 				>
 			</File>
 			<File
-				RelativePath="release\moc_MainWindow.cpp"
+				RelativePath="moc\moc_MainWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath="release\moc_TextBoxDelegate.cpp"
+				RelativePath="moc\moc_TextBoxDelegate.cpp"
 				>
 			</File>
 			<File
