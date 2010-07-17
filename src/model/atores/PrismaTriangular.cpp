@@ -117,14 +117,11 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 
 Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoPos){
 
-
 	Cor v = VERMELHO;
 
 	vector<SegmentoDeReta> segmentosDeRetaInterceptados = getSegmentosDeRetaInterceptados(planoPos);
 	vector<SegmentoDeReta>::const_iterator iterator = segmentosDeRetaInterceptados.begin();
 	list<Ponto> poligonoPontos;
-
-	assert(segmentosDeRetaInterceptados.size() > 0);
 
 	while(iterator!=segmentosDeRetaInterceptados.end())
 	{
