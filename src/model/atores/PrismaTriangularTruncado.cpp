@@ -119,8 +119,7 @@ bool PrismaTriangularTruncado::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosit
 
 
 Intercepto* PrismaTriangularTruncado::getIntercepto(NxVec3 planoPos){
-	Cor v = VERMELHO;
-
+	
 	vector<SegmentoDeReta> segmentosDeRetaInterceptados = getSegmentosDeRetaInterceptados(planoPos);
 	vector<SegmentoDeReta>::const_iterator iterator = segmentosDeRetaInterceptados.begin();
 	list<Ponto> poligonoPontos;
@@ -135,7 +134,7 @@ Intercepto* PrismaTriangularTruncado::getIntercepto(NxVec3 planoPos){
 		iterator++;
 	}
 
-	return new Poligono(v,poligonoPontos,this->razaoDeAspecto,this->razaoDeTruncamento,this->L0);
+	return new Poligono(this->cor,poligonoPontos,this->razaoDeAspecto,this->razaoDeTruncamento,this->L0);
 }
 
 inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterceptados(NxVec3 planoPos){

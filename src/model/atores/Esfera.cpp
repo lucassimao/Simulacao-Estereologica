@@ -48,7 +48,7 @@ Intercepto* Esfera::getIntercepto(NxVec3 planoGlobalPosition){
 		NxReal raioDaRegiaoInterceptada= sqrt(pow(this->raio,2) - pow(distanciaDoPlanoAoCentroDaEsfera,2));
 		
 		Ponto p  = {pos.x,planoGlobalPosition.y,pos.z};
-		return new Disco(p,raioDaRegiaoInterceptada,this->raio);
+		return new Disco(this->cor,p,raioDaRegiaoInterceptada,this->raio);
 	}
 	else
 		throw new runtime_error("Esta esfera não está interceptada");
