@@ -42,6 +42,7 @@ __int64 DAO::salvarInterceptosLineares(int planoDeCorte_id,ColetorDeInterceptosL
 		return -1;
 	}
 
+
 	__int64 ultimoInterceptoID = sqlite3_last_insert_rowid(this->db);
 	return ultimoInterceptoID;
 }
@@ -110,6 +111,7 @@ __int64 DAO::salvarPoligono(int planoDeCorte_id, Poligono *p){
 	list<Ponto> vertices = p->getVertices();
 	list<Ponto>::const_iterator vertices_iterator = vertices.begin();
 	int aux = 1;
+	
 	while(vertices_iterator!= vertices.end()){
 
 		ostringstream  insert2;

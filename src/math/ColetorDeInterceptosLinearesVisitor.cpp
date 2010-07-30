@@ -1,5 +1,6 @@
 #include <vector>
 #include <assert.h>
+#include <QDebug>
 #include "ColetorDeInterceptosLinearesVisitor.h"
 
 #include "..\model\interceptos\Disco.h"
@@ -30,6 +31,7 @@ void ColetorDeInterceptosLinearesVisitor::visit(Disco *disco){
 			
 			++iterator;
 	}
+	
 }
 
 void ColetorDeInterceptosLinearesVisitor::visit(Poligono *poligono){
@@ -38,27 +40,25 @@ void ColetorDeInterceptosLinearesVisitor::visit(Poligono *poligono){
 	
 	vector<RetaDeTeste> linhas = this->grade->getLinhasNoIntervalo(z0,z1);
 	vector<RetaDeTeste>::const_iterator iterator = linhas.begin();
-
+	
 	while(iterator!=linhas.end()){
 			RetaDeTeste retaDeTeste = *iterator;
-			
-			// já me retorna as arestas que estão interceptadas pela reta de teste
+
 			list<SegmentoDeReta> arestasInterceptadas = poligono->getArestasInterceptadas(retaDeTeste);
+			if  (arestasInterceptadas.size()==2){
+				SegmentoDeReta seg1 = arestasInterceptadas.front();
+				Ponto p1;
+				seg1.interceptar(retaDeTeste,&p1);
+				
+				SegmentoDeReta seg2 = arestasInterceptadas.back();
+				Ponto p2;
+				seg2.interceptar(retaDeTeste,&p2);
 
-
-			SegmentoDeReta seg1 = arestasInterceptadas.front();
-			Ponto p1;
-			seg1.interceptar(retaDeTeste,&p1);
+				double distancia = pow(pow(p1.x - p2.x,2) + pow(p1.y - p2.y,2) + pow(p1.z - p2.z,2),0.5); 
+				this->interceptosLineares.push_back(distancia);
+			}
 			
-			SegmentoDeReta seg2 = arestasInterceptadas.back();
-			Ponto p2;
-			seg2.interceptar(retaDeTeste,&p2);
-
-			double distancia = pow(pow(p1.x - p2.x,2) + pow(p1.y - p2.y,2) + pow(p1.z - p2.z,2),0.5); 
-			this->interceptosLineares.push_back(distancia);
-
 
 			++iterator;
 		}
-
 }

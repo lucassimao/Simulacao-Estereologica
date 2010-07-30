@@ -16,6 +16,7 @@ bool DataBaseFactory::criarBanco(const char* arquivo){
     int rc;
     char *errStr;
 
+
     rc = sqlite3_open(arquivo,&db);
     if (rc)
     {

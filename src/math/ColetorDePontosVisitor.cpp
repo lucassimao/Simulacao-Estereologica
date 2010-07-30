@@ -24,20 +24,20 @@ void ColetorDePontosVisitor::visit(Disco *disco){
 	vector<RetaDeTeste> linhas = this->grade->getLinhasNoIntervalo(z0,z1);
 	vector<RetaDeTeste>::const_iterator iterator = linhas.begin();
 
+    while(iterator!=linhas.end()){
+        RetaDeTeste l = *iterator;
+        
+        double distanciaEntreALinhaEOCentroDoDisco = abs(disco->centro.z - l.linhaInicio.z);
+        double comprimentoDoInterceptoLinear = 2*sqrt(pow(disco->raio,2)-pow(distanciaEntreALinhaEOCentroDoDisco,2));
+        
+        Ponto interceptoInicio = {disco->centro.x - comprimentoDoInterceptoLinear/2.0,l.linhaInicio.y,l.linhaInicio.z};
+        Ponto interceptoFim = {disco->centro.x + comprimentoDoInterceptoLinear/2.0,l.linhaInicio.y,l.linhaInicio.z};
+		
+		this->qtdePontos += l.getQtdeDePontosNoIntervalo(interceptoInicio,interceptoFim);
 
-        while(iterator!=linhas.end()){
-            RetaDeTeste l = *iterator;
-            
-            double distanciaEntreALinhaEOCentroDoDisco = abs(disco->centro.z - l.linhaInicio.z);
-            double comprimentoDoInterceptoLinear = 2*sqrt(pow(disco->raio,2)-pow(distanciaEntreALinhaEOCentroDoDisco,2));
-            
-            Ponto interceptoInicio = {disco->centro.x - comprimentoDoInterceptoLinear/2.0,l.linhaInicio.y,l.linhaInicio.z};
-            Ponto interceptoFim = {disco->centro.x + comprimentoDoInterceptoLinear/2.0,l.linhaInicio.y,l.linhaInicio.z};
-			
-			this->qtdePontos += l.getQtdeDePontosNoIntervalo(interceptoInicio,interceptoFim);
+        ++iterator;
+    }
 
-            ++iterator;
-        }
 
 }
 
@@ -57,6 +57,7 @@ void ColetorDePontosVisitor::visit(Poligono *poligono){
 
 		// assegura que a reta de teste intercepta duas arestas do poligono em analise
 		if (arestasInterceptadas.size()==2){
+			
 			list<SegmentoDeReta>::const_iterator iter = arestasInterceptadas.begin();
 			
 			Ponto p0, p1;
@@ -73,6 +74,7 @@ void ColetorDePontosVisitor::visit(Poligono *poligono){
 				this->qtdePontos +=  retaDeTeste.getQtdeDePontosNoIntervalo(p0,p1);
 			else
 				this->qtdePontos +=  retaDeTeste.getQtdeDePontosNoIntervalo(p1,p0);
+			
 		
 		}
         ++iterator;

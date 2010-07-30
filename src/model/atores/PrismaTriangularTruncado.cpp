@@ -153,6 +153,7 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 
 	map<int,NxVec3>::const_iterator iteratorVerticesAcimaDoPlanoDeCorte = verticesAcimaDoPlanoDeCorte.begin();
 
+	
 	while(iteratorVerticesAcimaDoPlanoDeCorte!=verticesAcimaDoPlanoDeCorte.end()){
 
 		int indice_vertice = iteratorVerticesAcimaDoPlanoDeCorte->first;

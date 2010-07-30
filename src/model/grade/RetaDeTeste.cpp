@@ -38,6 +38,7 @@ int RetaDeTeste::getQtdeDePontosNoIntervalo(Ponto p0,Ponto p1){
 
 			iterator++;
 		}
+	
 
 	}
 	return qtde;

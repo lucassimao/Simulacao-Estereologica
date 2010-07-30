@@ -29,7 +29,7 @@ using namespace simulacao::math::mathVisitor;
 Poligono::Poligono(Cor cor,list<Ponto> v,double razaoDeAspectoOriginal,double razaoDeTruncamentoOriginal,double L0Original):
 Intercepto(cor),razaoDeAspectoOriginal( razaoDeAspectoOriginal ),	razaoDeTruncamentoOriginal( razaoDeTruncamentoOriginal ),L0Original( L0Original ) 
 {
-	//assert(v.size() >= 3 );
+	assert(v.size() >= 3 );
 	if (v.size()>3)
 		this->vertices = ordenarVertices(&v);
 	else this->vertices = v;
@@ -46,6 +46,7 @@ double Poligono::getPerimetro(){
 	double perimetro = 0;
 
 	list<SegmentoDeReta>::const_iterator segmentos = this->arestas.begin();
+	
 	while(segmentos!= this->arestas.end()){
 		SegmentoDeReta s= *segmentos;
 	
@@ -56,6 +57,7 @@ double Poligono::getPerimetro(){
 		perimetro += vetorEquivalente.magnitude();
 		segmentos++;
 	}
+	
 	return perimetro;
 }
 
@@ -63,25 +65,28 @@ inline Ponto Poligono::procurarVerticeComMenorZ(){
 	Ponto vertice = vertices.front();
 
 	list<Ponto>::const_iterator iter = vertices.begin();
+	
 	while(iter!= vertices.end()){
 		Ponto p = *iter;
 		if (p.z < vertice.z)
 			vertice = p;
 		++iter;
 	}
-
+	
 	return vertice;
 }
 
 inline Ponto Poligono::procurarVerticeComMaiorZ(){
 	Ponto vertice = vertices.front();
 	list<Ponto>::const_iterator iter = vertices.begin();
+	
 	while(iter!= vertices.end()){
 		Ponto p = *iter;
 		if (p.z > vertice.z)
 			vertice = p;
 		++iter;
 	}
+	
 
 	return vertice;
 }
@@ -125,17 +130,19 @@ list<SegmentoDeReta> Poligono::getArestasInterceptadas(RetaDeTeste& rt){
 		Vetor v0 = s.r0;
 		Vetor v1 = s.r1;
 
-		if (  (zLinha <= MAX(v0.z,v1.z)) && ( zLinha >= MIN(v0.z,v1.z)) 
-			&&  (xLinha1 >= MAX(v0.x,v1.x)) && ( xLinha0 <= MIN(v0.x,v1.x))   )
+		if (  (zLinha <= MAX(v0.z,v1.z)) && ( zLinha >= MIN(v0.z,v1.z)) &&  (xLinha1 >= MAX(v0.x,v1.x)) && ( xLinha0 <= MIN(v0.x,v1.x))   )
 			arestasInterceptadas.push_back(s);
 
 		++iter;
 	}
+	if (arestasInterceptadas.size()==1)
+		int a=2;
 	return arestasInterceptadas;
 }
 
 
 inline list<SegmentoDeReta> Poligono::coletarArestas(){
+	
 	list<SegmentoDeReta> arestas;
 
 	list<Ponto>::const_iterator iter = vertices.begin();
@@ -152,10 +159,13 @@ inline list<SegmentoDeReta> Poligono::coletarArestas(){
 	Ponto primeiroVertice = vertices.front();
 	arestas.push_back(SegmentoDeReta(ultimoVertice,primeiroVertice));
 	return arestas;
+	
 }
 
 void Poligono::accept(AbstractDrawVisitor *visitor){
+	
 	visitor->visit(this);
+	
 }
 void Poligono::accept(AbstractMathVisitor *visitor){
 	visitor->visit(this);

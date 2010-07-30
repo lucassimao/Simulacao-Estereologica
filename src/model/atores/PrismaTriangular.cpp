@@ -20,7 +20,7 @@ using namespace simulacao::model::interceptos;
 using std::vector;
 using std::map;
 using std::list;
-#define BETWEEN(x,y,z) (x <= y) && (y <= z)
+#define BETWEEN(x,y,z) ((x < y) && (y < z))
 
 
 PrismaTriangular::PrismaTriangular(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
@@ -134,6 +134,7 @@ Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoPos){
 
 		iterator++;
 	}
+	
 	return new Poligono(v,poligonoPontos,this->altura/this->base,0,this->base);
 }
 
@@ -285,6 +286,7 @@ inline vector<SegmentoDeReta> PrismaTriangular::getSegmentosDeRetaInterceptados(
 		++iteratorVerticesAcimaDoPlanoDeCorte;
 		
 	}
+
 	return segmentos;
 }
 

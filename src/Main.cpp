@@ -1,12 +1,13 @@
 #include <QMessageBox>
 #include <QString>
+#include <QDebug>
 #include <ctime>
 #include "gui/MainWindow.h"
-
 
 using namespace simulacao::gui;
 using namespace std;
 
+	
 int main(int argc,char **argv){
 	srand(time(0));
 	QApplication app(argc,argv);

@@ -27,10 +27,12 @@ vector<RetaDeTeste> Grade::getLinhasNoIntervalo(double z0, double z1){
 	
 	while(v != getLinhasIteratorEnd()){
 		RetaDeTeste l = *v;
-		if (l.linhaInicio.z <= z0 &&  l.linhaInicio.z >= z1)
+		double coordenadaZDaRetaDeTeste = l.linhaInicio.z;
+		if (coordenadaZDaRetaDeTeste <= z0 &&  coordenadaZDaRetaDeTeste >= z1)
 			linhasNoIntervalo.push_back(l);
 		++v;
 	}
+	
 	return linhasNoIntervalo;
 }
 

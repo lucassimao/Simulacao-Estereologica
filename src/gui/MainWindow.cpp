@@ -1,5 +1,5 @@
 #include <QMessageBox>
-#include <QtDebug>
+#include <QDebug>
 #include <QFileDialog>
 #include <QInputDialog>
 #include <string>
@@ -101,9 +101,10 @@ void MainWindow::actionExecutarCortesSistematicos(){
 		int qtde = dlg->intValue();
 
 		QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja que as informações sejam salvas");
+		qDebug() << dir;
 		if (dir.trimmed().size()>0){
 			long l = time(0);
-			QString dbFilename(tr("%1/%2.db").arg(dir).arg(l));
+			QString dbFilename(tr("%1/%2.db").arg(dir).arg(l));			
 			
 			string file = dbFilename.toStdString();
 			DataBaseFactory::getInstance()->criarBanco(file.c_str());
