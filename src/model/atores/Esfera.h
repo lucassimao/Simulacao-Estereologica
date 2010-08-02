@@ -20,6 +20,9 @@ namespace simulacao{
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
 				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
 				double getVolume(){
+					return Esfera::calcularVolume(this->raio);
+				}
+				static double calcularVolume(double raio){
 					return (4.0/3.0)*3.14*pow(raio,3);
 				}
 
