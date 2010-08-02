@@ -165,9 +165,7 @@ inline void MainWindow::criarCanvas(){
 	if (simulacao->isSimulacaoEmHardware())
 		statusTipoSimulacao->setText(tr("Simulação em Hardware"));
 	else
-		statusTipoSimulacao->setText(tr("Simulação em Software"));
-
-		
+		statusTipoSimulacao->setText(tr("Simulação em Software"));		
 
 }
 

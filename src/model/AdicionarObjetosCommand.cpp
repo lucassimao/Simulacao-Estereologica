@@ -62,6 +62,7 @@ void AdicionarObjetosCommand::execute(){
 
 		Parametros::getInstance()->setRaioEsfera(desc.raio);
 		Parametros::getInstance()->setCorEsfera(desc.cor);
+
 		simulacao->adicionarObjeto(ESFERA,desc.qtde);
 		++iter;
 	}
@@ -72,13 +73,24 @@ void AdicionarObjetosCommand::execute(){
 		PrismaDesc desc2 = *iter2;
 		double l0 = desc2.L0;
 		double razaoDeAspecto =  desc2.razaoDeAspecto;
+		double razaoDeTruncamento = desc2.razaoDeTruncamento;
+		Cor cor = desc2.cor;
+		int qtde = desc2.qtde;
 
-		Parametros::getInstance()->setL0DoPrismaTriangularTruncado(l0);
-		Parametros::getInstance()->setRazaoAspectoDoPrismaTriangularTruncado(razaoDeAspecto);
-		Parametros::getInstance()->setRazaoDeTruncamentoDoPrismaTriangularTruncado(desc2.razaoDeTruncamento);
-		Parametros::getInstance()->setCorDoPrismaTriangularTruncado(desc2.cor);
+		if (razaoDeTruncamento == 0){
+			Parametros::getInstance()->setBasePrisma(l0);
+			Parametros::getInstance()->setAlturaPrisma(razaoDeAspecto*l0);		
+			Parametros::getInstance()->setCorPrisma(cor);	
+			simulacao->adicionarObjeto(PRISMA_TRIANGULAR,qtde);
+		}
+		else{
+			Parametros::getInstance()->setL0DoPrismaTriangularTruncado(l0);
+			Parametros::getInstance()->setRazaoAspectoDoPrismaTriangularTruncado(razaoDeAspecto);
+			Parametros::getInstance()->setRazaoDeTruncamentoDoPrismaTriangularTruncado(razaoDeTruncamento);
+			Parametros::getInstance()->setCorDoPrismaTriangularTruncado(cor);
 
-		simulacao->adicionarObjeto(PRISMA_TRIANGULAR_TRUNCADO,desc2.qtde);
+			simulacao->adicionarObjeto(PRISMA_TRIANGULAR_TRUNCADO,qtde);
+		}
 		++iter2;
 	}
 	

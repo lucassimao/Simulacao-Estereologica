@@ -113,7 +113,7 @@ bool PrismaTriangularTruncado::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosit
 				verticeMaisBaixo = vertice.y;			
 	}
 
-	return (verticeMaisAlto >= planoGlobalPosition.y && verticeMaisBaixo <= planoGlobalPosition.y);
+	return (verticeMaisAlto > planoGlobalPosition.y && verticeMaisBaixo < planoGlobalPosition.y);
 }
 
 
@@ -133,7 +133,6 @@ Intercepto* PrismaTriangularTruncado::getIntercepto(NxVec3 planoPos){
 		}
 		iterator++;
 	}
-
 	return new Poligono(this->cor,poligonoPontos,this->razaoDeAspecto,this->razaoDeTruncamento,this->L0);
 }
 
@@ -159,8 +158,7 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 		NxVec3 vec = iteratorVerticesAcimaDoPlanoDeCorte->second;
 		map<int,NxVec3>::const_iterator iterator;
 
-		// ver arquivos PrismaTriangularTruncado.doc na pasta docs
-		// para entender a conexao entre os vertices
+		// ver arquivos PrismaTriangularTruncado.doc na pasta docs para entender a conexao entre os vertices
 		switch(indice_vertice){
 			case 0:
 				iterator = verticesAbaixoDoPlanoDeCorte.find(10);
@@ -169,27 +167,7 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(8);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 1:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(2);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(10);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(11);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
@@ -202,14 +180,14 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
 				break;
-			case 2:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(1);
+			case 1:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(10);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(3);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(7);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
@@ -222,14 +200,34 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
 				break;
-			case 3:
+			case 2:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(6);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
 				iterator = verticesAbaixoDoPlanoDeCorte.find(9);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(2);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(8);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				break;
+			case 3:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(11);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(10);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
@@ -249,13 +247,13 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(11);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(10);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(8);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
@@ -263,19 +261,19 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 				}
 				break;
 			case 5:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(11);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(6);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(4);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(7);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(8);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
@@ -283,7 +281,7 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 				}
 				break;
 			case 6:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(7);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
@@ -295,7 +293,7 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(8);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(1);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
@@ -303,19 +301,19 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 				}
 				break;
 			case 7:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(6);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
 				iterator = verticesAbaixoDoPlanoDeCorte.find(3);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(11);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(1);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
@@ -323,19 +321,19 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 				}
 				break;
 			case 8:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(6);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(11);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(4);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
+				iterator = verticesAbaixoDoPlanoDeCorte.find(2);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
@@ -343,7 +341,47 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 				}
 				break;
 			case 9:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(4);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(2);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				break;
+			case 10:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				iterator = verticesAbaixoDoPlanoDeCorte.find(3);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
 				iterator = verticesAbaixoDoPlanoDeCorte.find(1);
+				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
+					Vetor v1(vec.x,vec.y,vec.z);
+					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
+					segmentos.push_back(SegmentoDeReta(v1,v2));
+				}
+				break;
+			case 11:
+				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
@@ -356,46 +394,6 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 					segmentos.push_back(SegmentoDeReta(v1,v2));
 				}
 				iterator = verticesAbaixoDoPlanoDeCorte.find(3);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 10:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(1);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(4);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 11:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(7);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(8);
 				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
 					Vetor v1(vec.x,vec.y,vec.z);
 					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);

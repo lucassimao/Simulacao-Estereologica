@@ -43,8 +43,8 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		while(iter!=interceptos->end()){
 			Intercepto *i = *iter;
 			i->accept(visitor1);
-			//i->accept(visitor2);
-			//i->accept(visitor3);
+			i->accept(visitor2);
+			i->accept(visitor3);
 			++iter;
 		}
 

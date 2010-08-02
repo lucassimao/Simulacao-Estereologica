@@ -77,6 +77,7 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 	
 	
 	glPointSize(7);
+	if (0)
 	glBegin(GL_POINTS);
 	{
 		list<Ponto> vertices = poligono->getVertices();
@@ -90,22 +91,23 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 					Ponto p = *iterator;
 					glColor3f(cores[i].r,cores[i].g,cores[i].b);
 					++i;
-					glVertex3f(p.x,p.y+0.3,p.z);
+					glVertex3f(p.x,p.y,p.z);
 					++iterator;
 			}
 		}
 		else{
+			if(0)
 			while(iterator != vertices.end() ){
 					Ponto p = *iterator;
 					glColor3f(pink.r,pink.g,pink.b);
-					glVertex3f(p.x,p.y+0.3,p.z);
+					glVertex3f(p.x,p.y,p.z);
 					++iterator;
 			}
 
 		}
 	}
 	glEnd();
-		
+	
 
 	glPopAttrib();
 }

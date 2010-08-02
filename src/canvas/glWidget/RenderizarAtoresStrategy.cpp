@@ -20,7 +20,8 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 	{
 		NxActor* actor = *actors++;
 		Ator *ator = static_cast<Ator*>(actor->userData);
-	
+
+
 		if (ator){
 			Cor cor = ator->cor;		
 			glPushAttrib(GL_ALL_ATTRIB_BITS);

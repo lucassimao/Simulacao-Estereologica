@@ -94,7 +94,7 @@ namespace simulacao{
 			inline void setBasePrisma(double b){ if(b>0) prismaTriangular.base = b;}
 
 			inline Cor getCorPrisma(){ return prismaTriangular.cor;}
-			inline void setBasePrisma(Cor c){ prismaTriangular.cor = c;}
+			inline void setCorPrisma(Cor c){ prismaTriangular.cor = c;}
 
 
 			inline double getRazaoAspectoDoPrismaTriangularTruncado(){ return prismaTriangularTruncado.razaoDeAspecto;}
