@@ -26,6 +26,7 @@ namespace simulacao{
 				double getVolume(){
 					return (sqrt(3.0)/4.0)*( razaoDeAspecto *(1 -3*pow(razaoDeTruncamento,2))* pow(L0,3));
 				}
+				static double calcularVolume(double razaoDeAspecto,double razaoDeTruncamento,double L0);
 			private:
 				double razaoDeAspecto; // alpha
 				double razaoDeTruncamento; // beta

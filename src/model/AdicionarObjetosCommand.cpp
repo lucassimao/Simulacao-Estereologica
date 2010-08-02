@@ -1,7 +1,9 @@
 #include "AdicionarObjetosCommand.h"
 #include "Parametros.h"
+#include "atores\PrismaTriangularTruncado.h"
 #include <cmath>
 using namespace simulacao::model;
+using namespace simulacao::model::atores;
 
 AdicionarObjetosCommand::AdicionarObjetosCommand(SimulacaoCaixa *simulacao, double porcentagemFaseSolida){
 	this->simulacao = simulacao;
@@ -12,7 +14,7 @@ void AdicionarObjetosCommand::adicionarEsferas(double raio, double porcentagem, 
 	EsferaDesc desc;
 	desc.cor = cor;
 	desc.raio = raio;
-	double volumeTotalDaCaixa = pow(this->simulacao->getArestaDaCaixa(),3);
+	double volumeTotalDaCaixa = this->simulacao->getVolumeDaCaixa();
 	double volumeDaFaseSolida = (volumeTotalDaCaixa * porcentagemFaseSolida)/100.0;
 
 	double volumeTotalDasEsferas = (porcentagem*volumeDaFaseSolida)/100.0;
@@ -30,24 +32,10 @@ void AdicionarObjetosCommand::adicionarPrismas(double L0, double porcentagem, Co
 	desc.razaoDeAspecto = razaoDeAspecto;
 	desc.razaoDeTruncamento = razaoDeTruncamento;
 
-	double volumeTotalDaCaixa = pow(this->simulacao->getArestaDaCaixa(),3);
+	double volumeTotalDaCaixa = this->simulacao->getVolumeDaCaixa();
 	double volumeDaFaseSolida = (volumeTotalDaCaixa * porcentagemFaseSolida)/100.0;
-
 	double volumeTotalDosPrismas = (porcentagem*volumeDaFaseSolida)/100.0;
-	// para calcular o volume de um prisma triangular truncado
-	// eu primeiro calculo o volume de um prisma triangular normal (area da base vezes a altura)
-	// logo em seguida subtraio o volume equivalente dos cantos que são retirados
-	// para criar o truncamento
-	double alturaDoPrisma = L0 * razaoDeAspecto;
-	double volumeDeUmPrismaTriangular = alturaDoPrisma * (pow(L0,2)*sqrt(3.0))/4.0;
-
-	// agora calculando o volume do prisma que será retirado de cada vértice do prisma
-	// triangular p/ criar o prisma triangular truncado
-	double alturaDoPrismaDoVertice = L0 * razaoDeAspecto;
-	double arestaDoPrismaDoVertice = razaoDeTruncamento*L0; // parâmetro L1;
-	double volumeDeUmPrismaTriangularDoVertice = alturaDoPrismaDoVertice * (pow(arestaDoPrismaDoVertice,2)*sqrt(3.0))/4.0;
-
-	double volumeDeUmPrismaTriangularTruncado = volumeDeUmPrismaTriangular - 3*volumeDeUmPrismaTriangularDoVertice;
+	double volumeDeUmPrismaTriangularTruncado = PrismaTriangularTruncado::calcularVolume(razaoDeAspecto,razaoDeTruncamento,L0);
 
 	desc.qtde = volumeTotalDosPrismas/volumeDeUmPrismaTriangularTruncado;
 

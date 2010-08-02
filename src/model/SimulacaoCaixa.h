@@ -58,6 +58,11 @@ namespace simulacao{
 				Parametros *params = Parametros::getInstance();
 				return pow(params->getArestaDaCaixa(),3) - getVolumeFaseSolida();
 			}
+			
+			double getVolumeDaCaixa(){
+				Parametros *params = Parametros::getInstance();
+				return pow(params->getArestaDaCaixa(),3);
+			}
 
 			SimulacaoCaixa(void);
 			~SimulacaoCaixa(void);
@@ -76,10 +81,6 @@ namespace simulacao{
 
 			bool getExibirPontosTeste(){ return this->exibirPontosTeste;}
 			void setExibirPontosTeste(bool b){ this->exibirPontosTeste = b;}
-			
-			double getArestaDaCaixa(){
-				return 20.0;
-			}
 
 		};
 

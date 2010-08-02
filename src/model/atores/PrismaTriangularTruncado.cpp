@@ -88,6 +88,32 @@ PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,NxCCDSkeleton *
 
 }
 
+	// para calcular o volume de um prisma triangular truncado
+	// eu primeiro calculo o volume de um prisma triangular normal (area da base vezes a altura)
+	// logo em seguida subtraio o volume equivalente dos cantos que são retirados
+	// para criar o truncamento
+
+#define AREA_DO_TRIANGLO_EQUILATERO(LADO) ( pow(LADO,2)*sqrt(3.0)/4.0 )
+
+double PrismaTriangularTruncado::calcularVolume(double razaoDeAspecto,double razaoDeTruncamento,double L0){
+	if ( razaoDeAspecto < 0 || razaoDeAspecto > 1 )
+		throw new runtime_error("Razão de aspecto inválida. Apenas valores 0 <= razaoDeAspecto <= 1 são aceitos");
+		
+	if (razaoDeTruncamento<0 || razaoDeTruncamento>0.5)
+		throw new runtime_error("Razão de truncamento inválida. Apenas valores 0 <= razaoDeTruncamento <= 0.5 são aceitos");
+
+	double alturaDoPrisma = L0 * razaoDeAspecto;
+	double volumeDeUmPrismaTriangular = alturaDoPrisma * AREA_DO_TRIANGLO_EQUILATERO(L0);
+
+	// agora calculando o volume do prisma que será retirado de cada vértice do prisma
+	// triangular p/ criar o prisma triangular truncado
+	double alturaDoPrismaDoVertice = L0 * razaoDeAspecto;
+	double arestaDoPrismaDoVertice = razaoDeTruncamento*L0; // parâmetro L1;
+	double volumeDeUmPrismaTriangularDoVertice = alturaDoPrismaDoVertice * AREA_DO_TRIANGLO_EQUILATERO(arestaDoPrismaDoVertice);
+
+	return volumeDeUmPrismaTriangular - 3*volumeDeUmPrismaTriangularDoVertice;
+}
+
 bool PrismaTriangularTruncado::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	NxShape *mesh =  this->ator->getShapes()[0];
 	NxVec3 pos = ator->getGlobalPosition();
