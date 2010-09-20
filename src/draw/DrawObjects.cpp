@@ -644,24 +644,35 @@ void DrawConvex(NxShape* mesh, bool useShapeUserData)
 	NxU32 nbVerts = meshDesc.numVertices;
 	NxU32 nbTriangles = meshDesc.numTriangles;
 
+	//qDebug() << nbTriangles << endl;
+
 	Point* points = (Point *)meshDesc.points;
 	Triangle* triangles = (Triangle *)meshDesc.triangles;
 
-	/*Colorização das bordas
+
+	//Colorização das bordas
 	
-	NxVec3 vertice = (pose.M * points[12] + pose.t);
-	qDebug() << vertice.x << " " << vertice.y << " " << vertice.z << endl;
+	NxVec3 vertice1 = (pose.M * points[0] + pose.t);
+	NxVec3 vertice2 = (pose.M * points[1] + pose.t);
+	NxVec3 vertice3 = (pose.M * points[2] + pose.t);
+	NxVec3 vertice4 = (pose.M * points[3] + pose.t);
+
+	//qDebug() << vertice.x << " " << vertice.y << " " << vertice.z << endl;
 
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
-	glColor4f(1.0,0,0,1);
+	glColor4f(0,1.0,0,1);
 	glPointSize(9);
 	glBegin(GL_POINTS);
-		glVertex3f(vertice.x,vertice.y,vertice.z);
-	glEnd();
-	glPopAttrib();
-	*/
-	
-	
+		glVertex3f(vertice1.x,vertice1.y,vertice1.z);
+		glColor3f(0,0,1.0f);
+		glVertex3f(vertice2.x,vertice2.y,vertice2.z);
+		glColor3f(1.0f,0,1.0f);
+		glVertex3f(vertice3.x,vertice3.y,vertice3.z);
+		glColor3f(1.0f,1.0f,0);
+		glVertex3f(vertice4.x,vertice4.y,vertice4.z);
+	glEnd();	
+
+	glColor4f(1.0,0,0,1);
 
 	glPushMatrix();
 

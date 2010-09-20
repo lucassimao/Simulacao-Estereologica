@@ -23,7 +23,7 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 
 
 		if (ator){
-			Cor cor = ator->cor;		
+			Cor cor = ator->cor;
 			glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 			if (planoDeCorte && ator->estaInterceptadoPeloPlano(planoDeCorte->getNxActor()->getGlobalPosition()))

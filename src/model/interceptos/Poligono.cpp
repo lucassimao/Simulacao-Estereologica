@@ -32,7 +32,8 @@ Intercepto(cor),razaoDeAspectoOriginal( razaoDeAspectoOriginal ),	razaoDeTruncam
 	assert(v.size() >= 3 );
 	if (v.size()>3)
 		this->vertices = ordenarVertices(&v);
-	else this->vertices = v;
+	else 
+		this->vertices = v;
 
 	assert(this->vertices.size()>=3);
 	

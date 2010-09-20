@@ -26,11 +26,11 @@ using std::list;
 	ver arquivo docs/PrismaTriangularTruncado.doc
 */
 PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
+	
 	this->razaoDeAspecto = Parametros::getInstance()->getRazaoAspectoDoPrismaTriangularTruncado();
 	this->razaoDeTruncamento  = Parametros::getInstance()->getRazaoDeTruncamentoDoPrismaTriangularTruncado();
 	this->L0  = Parametros::getInstance()->getL0DoPrismaTriangularTruncado();
 	this->cor = Parametros::getInstance()->getCorDoPrismaTriangularTruncado();
-
 	
 	double L1  = this->L0 * razaoDeTruncamento;
 	double L2 = this->L0 - 2*L1;
@@ -54,7 +54,6 @@ PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,NxCCDSkeleton *
 		NxVec3(-L1/2.0,alturaDoPrisma,-a2),
 		NxVec3(L1/2.0,alturaDoPrisma,-a2),
 		NxVec3(L2/2.0 + L1/2.0 ,alturaDoPrisma,-alturaDoTrianguloDosCantos)
-
 	};
 
 
@@ -77,9 +76,10 @@ PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,NxCCDSkeleton *
 	actorDesc.body = &bodyDesc;
 	actorDesc.density = 10.0;
 
-	float px = 9 - (rand() % 19);
-	float py = 5 + (rand() % 19);
-	float pz = 9 - (rand() % 19);
+	
+	float px = 8 - (rand() % 18);
+	float py = 5 + (rand() % 12);
+	float pz = 8 - (rand() % 18);
 
 	actorDesc.globalPose.t  = NxVec3(px,py,pz);
 	this->ator = cena->createActor(actorDesc);
@@ -147,6 +147,8 @@ bool PrismaTriangularTruncado::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosit
 Intercepto* PrismaTriangularTruncado::getIntercepto(NxVec3 planoPos){
 	
 	vector<SegmentoDeReta> segmentosDeRetaInterceptados = getSegmentosDeRetaInterceptados(planoPos);
+	int a=segmentosDeRetaInterceptados.size();
+	
 	vector<SegmentoDeReta>::const_iterator iterator = segmentosDeRetaInterceptados.begin();
 	list<Ponto> poligonoPontos;
 
@@ -159,6 +161,9 @@ Intercepto* PrismaTriangularTruncado::getIntercepto(NxVec3 planoPos){
 		}
 		iterator++;
 	}
+	assert(poligonoPontos.size(),segmentosDeRetaInterceptados.size());
+	assert( poligonoPontos.size() <=8 );
+
 	return new Poligono(this->cor,poligonoPontos,this->razaoDeAspecto,this->razaoDeTruncamento,this->L0);
 }
 
@@ -170,13 +175,14 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 	map<int,NxVec3> verticesAbaixoDoPlanoDeCorte;
 
 	for(int i=0;i<12;++i)
-		if (vertices[i].y > planoPos.y)
+	{
+		if (vertices[i].y >= planoPos.y)
 			verticesAcimaDoPlanoDeCorte[i] = vertices[i];
 		else
 			verticesAbaixoDoPlanoDeCorte[i] = vertices[i];
+	}
 
 	map<int,NxVec3>::const_iterator iteratorVerticesAcimaDoPlanoDeCorte = verticesAcimaDoPlanoDeCorte.begin();
-
 	
 	while(iteratorVerticesAcimaDoPlanoDeCorte!=verticesAcimaDoPlanoDeCorte.end()){
 
@@ -438,15 +444,16 @@ inline NxVec3* PrismaTriangularTruncado::getPosicaoGlobalDosVertices(){
 	NxVec3 *vertices = (NxVec3 *) malloc(sizeof(NxVec3)*12);
 
 	NxShape *mesh =  this->ator->getShapes()[0];
-	NxMat34 pose = mesh->getGlobalPose();
 	NxConvexMeshDesc meshDesc;
 	mesh->isConvexMesh()->getConvexMesh().saveToDesc(meshDesc); 
 
 	NxU32 nbVerts = meshDesc.numVertices;	
+	assert(nbVerts ==12);
+	
 	// ver arquivo docs\PrismaTriangularTruncado.doc para
 	// conhecer a ordem em que esses pontos estão definidos
 	NxVec3* points = (NxVec3 *)meshDesc.points;
-
+	NxMat34 pose = mesh->getGlobalPose();
 	// convertendo de posicionamento local p/ global
 	for(register int i=0;i<12;++i)
 		vertices[i] = (pose.M * points[i] + pose.t);
