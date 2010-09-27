@@ -161,9 +161,9 @@ Intercepto* PrismaTriangularTruncado::getIntercepto(NxVec3 planoPos){
 		}
 		iterator++;
 	}
-	assert(poligonoPontos.size(),segmentosDeRetaInterceptados.size());
-	assert( poligonoPontos.size() <=8 );
 
+	assert(poligonoPontos.size(),segmentosDeRetaInterceptados.size());
+	
 	return new Poligono(this->cor,poligonoPontos,this->razaoDeAspecto,this->razaoDeTruncamento,this->L0);
 }
 
@@ -171,270 +171,38 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 	NxVec3 *vertices = getPosicaoGlobalDosVertices();
 	vector<SegmentoDeReta> segmentos;
 
-	map<int,NxVec3> verticesAcimaDoPlanoDeCorte;
-	map<int,NxVec3> verticesAbaixoDoPlanoDeCorte;
+	vector<NxVec3> verticesAcimaDoPlanoDeCorte;
+	vector<NxVec3> verticesAbaixoDoPlanoDeCorte;
 
 	for(int i=0;i<12;++i)
 	{
 		if (vertices[i].y >= planoPos.y)
-			verticesAcimaDoPlanoDeCorte[i] = vertices[i];
+			verticesAcimaDoPlanoDeCorte.push_back(vertices[i]);
 		else
-			verticesAbaixoDoPlanoDeCorte[i] = vertices[i];
+			verticesAbaixoDoPlanoDeCorte.push_back(vertices[i]);
 	}
 
-	map<int,NxVec3>::const_iterator iteratorVerticesAcimaDoPlanoDeCorte = verticesAcimaDoPlanoDeCorte.begin();
+
+	qDebug() << verticesAcimaDoPlanoDeCorte.size() << " " << verticesAbaixoDoPlanoDeCorte.size() << endl;
+
+	vector<NxVec3>::const_iterator iteratorVerticesAcimaDoPlanoDeCorte = verticesAcimaDoPlanoDeCorte.begin();
 	
 	while(iteratorVerticesAcimaDoPlanoDeCorte!=verticesAcimaDoPlanoDeCorte.end()){
 
-		int indice_vertice = iteratorVerticesAcimaDoPlanoDeCorte->first;
-		NxVec3 vec = iteratorVerticesAcimaDoPlanoDeCorte->second;
-		map<int,NxVec3>::const_iterator iterator;
-
-		// ver arquivos PrismaTriangularTruncado.doc na pasta docs para entender a conexao entre os vertices
-		switch(indice_vertice){
-			case 0:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(10);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(11);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(9);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 1:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(10);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(7);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(6);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 2:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(6);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(9);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(8);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 3:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(11);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(10);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(7);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 4:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(9);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(11);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(8);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 5:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(6);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(7);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(8);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 6:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(2);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(1);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 7:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(3);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(1);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 8:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(5);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(4);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(2);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 9:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(4);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(2);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 10:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(3);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(1);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-			case 11:
-				iterator = verticesAbaixoDoPlanoDeCorte.find(0);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(4);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				iterator = verticesAbaixoDoPlanoDeCorte.find(3);
-				if (iterator!=verticesAbaixoDoPlanoDeCorte.end()){
-					Vetor v1(vec.x,vec.y,vec.z);
-					Vetor v2(iterator->second.x,iterator->second.y,iterator->second.z);
-					segmentos.push_back(SegmentoDeReta(v1,v2));
-				}
-				break;
-		}
-		++iteratorVerticesAcimaDoPlanoDeCorte;
+		NxVec3 vec = *iteratorVerticesAcimaDoPlanoDeCorte;
+		Vetor v1(vec.x,vec.y,vec.z);
 		
+		vector<NxVec3>::const_iterator iteratorVerticesAbaixoDoPlanoDeCorte = verticesAbaixoDoPlanoDeCorte.begin();
+
+		while(iteratorVerticesAbaixoDoPlanoDeCorte != verticesAbaixoDoPlanoDeCorte.end()){
+			NxVec3 vec2 = *iteratorVerticesAbaixoDoPlanoDeCorte;
+			Vetor v2(vec2.x,vec2.y,vec2.z);
+
+			segmentos.push_back(SegmentoDeReta(v1,v2));
+			++iteratorVerticesAbaixoDoPlanoDeCorte;
+		}	
+				
+		++iteratorVerticesAcimaDoPlanoDeCorte;
 	}
 
 	return segmentos;

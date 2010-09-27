@@ -77,7 +77,7 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 	
 	
 	glPointSize(7);
-	if (1)
+	if (0)
 	glBegin(GL_POINTS);
 	{
 		list<Ponto> vertices = poligono->getVertices();

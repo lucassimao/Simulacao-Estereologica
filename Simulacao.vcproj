@@ -759,7 +759,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\utils\graham.cpp"
+					RelativePath=".\src\utils\jarvis.cpp"
 					>
 				</File>
 				<File
@@ -1163,7 +1163,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\utils\graham.h"
+					RelativePath=".\src\utils\jarvis.h"
 					>
 				</File>
 				<File

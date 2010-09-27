@@ -1,4 +1,3 @@
-#include <QtDebug>
 #include "SegmentoDeReta.h"
 #include "..\model\grade\RetaDeTeste.h"
 

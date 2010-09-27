@@ -15,10 +15,9 @@ using namespace simulacao::math::mathVisitor;
 
 
 #include "..\..\utils\Vetor.h"
-#include "..\..\utils\graham.h"
+#include "..\..\utils\jarvis.h"
 #include "..\..\utils\SegmentoDeReta.h"
 
-#include <QtDebug>
 #include <Nxvec3.h>
 
 #define MAX(a,b) ( (a>=b)?a:b )
@@ -31,7 +30,7 @@ Intercepto(cor),razaoDeAspectoOriginal( razaoDeAspectoOriginal ),	razaoDeTruncam
 {
 	assert(v.size() >= 3 );
 	if (v.size()>3)
-		this->vertices = ordenarVertices(&v);
+		this->vertices = ordenarVertices(v);
 	else 
 		this->vertices = v;
 
@@ -136,8 +135,6 @@ list<SegmentoDeReta> Poligono::getArestasInterceptadas(RetaDeTeste& rt){
 
 		++iter;
 	}
-	if (arestasInterceptadas.size()==1)
-		int a=2;
 	return arestasInterceptadas;
 }
 

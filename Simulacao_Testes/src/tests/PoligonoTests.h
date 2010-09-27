@@ -22,15 +22,14 @@ namespace {
 		Ponto p3 = {12,alturaDoPlanoDeCorte,0};
 		Ponto p4 = {7,alturaDoPlanoDeCorte,-10};
 
-		// adicionando os vértices aleatoriamente, para confirmar
-		// o algoritmo de ordenação
+		// adicionando os vértices aleatoriamente, para confirmar o algoritmo de ordenação
 		vertices.push_back(p2);
 		vertices.push_back(p4);
 		vertices.push_back(p1);
 		vertices.push_back(p3);
-		Ponto ps[] = {p1,p2,p3,p4};
+		Ponto ps[] = {p2,p3,p4,p1};
 
-		Poligono quadrado(c,vertices);
+		Poligono quadrado(c,vertices,0,0,0);
 		int i=0;
 		
 		list<Ponto> verticesOrdenadosDoQuadrado = quadrado.getVertices();
@@ -65,7 +64,7 @@ namespace {
 		vertices.push_back(p3);
 		vertices.push_back(p4);
 
-		Poligono quadrado(c,vertices);
+		Poligono quadrado(c,vertices,0,0,0);
 
 		ASSERT_EQ(100.0,quadrado.getArea());
 		ASSERT_EQ(40.0,quadrado.getPerimetro());
@@ -88,7 +87,7 @@ namespace {
 		vertices.push_back(p3);
 		
 
-		Poligono triangulo(c,vertices);
+		Poligono triangulo(c,vertices,0,0,0);
 		double perimetroPrevisto = 2.0 * sqrt(125.0) + 10;
 		double areaPrevista = 50;
 
@@ -117,7 +116,7 @@ namespace {
 		vertices.push_back(p5);
 		
 
-		Poligono pentagono(c,vertices);
+		Poligono pentagono(c,vertices,0,0,0);
 		double perimetroPrevisto = 2 * 9.73 + 30.47 +19.7067304492653*2;
 		double areaPrevista = 9.73*30.47 + (30.47*12.5)/2.0;
 
@@ -147,7 +146,7 @@ namespace {
 		vertices.push_back(p5);
 		vertices.push_back(p6);
 
-		Poligono pentagono(c,vertices);
+		Poligono pentagono(c,vertices,0,0,0);
 		double perimetroPrevisto = 6 * sqrt(50.0);
 		double areaPrevista = sqrt(50.0) * 10 + (10 * 5);
 
@@ -177,7 +176,7 @@ namespace {
 		vertices.push_back(p5);
 		vertices.push_back(p6);
 
-		Poligono pentagono(c,vertices);
+		Poligono pentagono(c,vertices,0,0,0);
 
 		Ponto pa = {0,alturaDoPlanoDeCorte,sqrt(50.0)/2.0};
 		Ponto pb = {10,alturaDoPlanoDeCorte,sqrt(50.0)/2.0};

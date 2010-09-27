@@ -12,7 +12,7 @@ namespace {
 		GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy strategy(alturaInicial,alturaFinal);
 
 		for(int i=0;i<10000;++i){
-			float altura = strategy.novaAltura();
+			double altura = strategy.novaAltura();
 			ASSERT_GE(altura,alturaInicial);
 			ASSERT_LE(altura,alturaFinal);
 		}
@@ -28,10 +28,10 @@ namespace {
 
 		GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy strategy(alturaMinima,alturaMaxima,qtdePlanos);
 		
-		ASSERT_EQ(alturaInicial,strategy.novaAltura());
+		ASSERT_NEAR(alturaInicial,strategy.novaAltura(),0.01);
 
 		for(int i=1;i<=10000;++i){
-			float f = strategy.novaAltura();
+			double f = strategy.novaAltura();
 			if (i%9 == 0)
 				ASSERT_EQ(alturaInicial,f);
 		}		
