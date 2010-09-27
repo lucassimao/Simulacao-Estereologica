@@ -2,6 +2,7 @@
 #define DEFS_H_INCLUDED
 
 #include <locale>
+#include <iostream>
 
 using namespace std;
 
@@ -22,11 +23,18 @@ enum InterceptoType{
 };
 
 
+typedef struct tponto Ponto;
 
-typedef struct{
+struct tponto{
 	double x,y,z;
-}Ponto;
 
+	bool operator==(Ponto ponto) const{
+		return (ponto.x == this->x) && (ponto.y == this->y) && (ponto.z == this->z);
+	}
+	bool operator!=(Ponto ponto) const{
+		return (ponto.x != this->x) || (ponto.y != this->y) || (ponto.z != this->z);
+	}
+};
 
 typedef struct {
 	float r,g,b;
