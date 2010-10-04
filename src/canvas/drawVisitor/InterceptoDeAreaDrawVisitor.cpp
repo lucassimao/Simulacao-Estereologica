@@ -41,6 +41,7 @@ inline void InterceptoDeAreaDrawVisitor::visit(Disco *disco){
 }
 
 inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
+	assert(poligono->getVertices().size()>=3);
 
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
@@ -62,20 +63,19 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 	glBegin(GL_POLYGON);
 	{
 		list<Ponto> vertices1 = poligono->getVertices();
-		if (vertices1.size()>=3){
-			list<Ponto>::const_iterator iterator = vertices1.begin();
+		list<Ponto>::const_iterator iterator = vertices1.begin();
 
-			while(iterator != vertices1.end() ){
-					Ponto p = *iterator;
-					glVertex3f(p.x,p.y,p.z);
-					++iterator;
-			}
+		while(iterator != vertices1.end() ){
+			Ponto p = *iterator;
+			glVertex3f(p.x,p.y,p.z);
+			++iterator;
 		}
+
 	}
 	glEnd();	
 	
 	
-	
+	/*
 	glPointSize(7);
 	if (0)
 	glBegin(GL_POINTS);
@@ -107,7 +107,7 @@ inline void InterceptoDeAreaDrawVisitor::visit(Poligono *poligono){
 		}
 	}
 	glEnd();
-	
+	*/
 
 	glPopAttrib();
 }

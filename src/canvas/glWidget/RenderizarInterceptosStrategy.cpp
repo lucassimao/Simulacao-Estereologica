@@ -95,57 +95,57 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 
 		if (simulacao->getExibirRetasTeste() || simulacao->getExibirPontosTeste()){
 	
-		glPushAttrib(GL_ALL_ATTRIB_BITS);
-		glEnable(GL_CULL_FACE); 
-		glCullFace(GL_FRONT); 
-		glDisable(GL_LIGHTING);
-		glColor4f(1.0f,0.0f,0.0f,0);
-		glLineWidth(0.2);
-		glPointSize(3.0f);
+			glPushAttrib(GL_ALL_ATTRIB_BITS);
+			glEnable(GL_CULL_FACE); 
+			glCullFace(GL_FRONT); 
+			glDisable(GL_LIGHTING);
+			glColor4f(1.0f,0.0f,0.0f,0);
+			glLineWidth(0.2);
+			glPointSize(3.0f);
 
-		if (simulacao->getExibirRetasTeste() ){
-			glBegin(GL_LINES);
-				vector<RetaDeTeste>::const_iterator linhas = this->grade->getLinhasIterator();
-				vector<RetaDeTeste>::const_iterator end = this->grade->getLinhasIteratorEnd();
-
-				while(linhas!=end){
-					RetaDeTeste l = *linhas;
-					glVertex3f(l.linhaInicio.x,l.linhaInicio.y,l.linhaInicio.z);
-					glVertex3f(l.linhaFim.x,l.linhaFim.y,l.linhaFim.z);
-					linhas++;
-				}
+			if (simulacao->getExibirRetasTeste()){
 				
-			glEnd();
-		}
-
-		
-		if (simulacao->getExibirPontosTeste()){
-			glColor4f(0.0f,0.0f,1.0f,0);
-			glBegin(GL_POINTS);
 				vector<RetaDeTeste>::const_iterator linhas = this->grade->getLinhasIterator();
 				vector<RetaDeTeste>::const_iterator end = this->grade->getLinhasIteratorEnd();
+				
+				glBegin(GL_LINES);
+					while(linhas!=end){
+						RetaDeTeste l = *linhas;
+						
+						glVertex3f(l.linhaInicio.x,l.linhaInicio.y,l.linhaInicio.z);
+						glVertex3f(l.linhaFim.x,l.linhaFim.y,l.linhaFim.z);
+						
+						linhas++;
+					}	
+				glEnd();
+				
+			}
 
-				while(linhas!=end){
-					RetaDeTeste l = *linhas;
+		
+			if (simulacao->getExibirPontosTeste()){
+				glColor4f(0.0f,0.0f,1.0f,0);
+				glBegin(GL_POINTS);
+					vector<RetaDeTeste>::const_iterator linhas = this->grade->getLinhasIterator();
+					vector<RetaDeTeste>::const_iterator end = this->grade->getLinhasIteratorEnd();
 
-					vector<Ponto>::const_iterator pontos = l.getPontosIterator();
-					vector<Ponto>::const_iterator end = l.getPontosIteratorEnd();
+					while(linhas!=end){
+						RetaDeTeste l = *linhas;
 
-					while(pontos!=end){
-						Ponto p = *pontos;
-						glVertex3f(p.x,p.y,p.z);
-						++pontos;
+						vector<Ponto>::const_iterator pontos = l.getPontosIterator();
+						vector<Ponto>::const_iterator end = l.getPontosIteratorEnd();
+
+						while(pontos!=end){
+							Ponto p = *pontos;
+							glVertex3f(p.x,p.y,p.z);
+							++pontos;
+						}
+						linhas++;
 					}
-
-					linhas++;
-				}
-			glEnd();	
-		}
+				glEnd();	
+			}	
 		
-		
-		glPopAttrib();	
+			glPopAttrib();	
 	}
-
 	DrawActor(simulacao->getPlanoDeCorte()->getNxActor(), NULL, false);
 
 

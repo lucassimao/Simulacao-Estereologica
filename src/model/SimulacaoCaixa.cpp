@@ -208,11 +208,8 @@ void SimulacaoCaixa::removerGraos(){
 	while (qtdeAtores--)
 	{
 		NxActor* ator = *atores++;
-
-		{
-			if (ator != caixa && ator!=atorPlanoDeCorte->getNxActor()){
-				getCena()->releaseActor(*ator);
-			}
+		if (ator != caixa && ator!=atorPlanoDeCorte->getNxActor()){
+			getCena()->releaseActor(*ator);
 		}
 
 	}

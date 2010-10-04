@@ -639,17 +639,17 @@ void DrawConvex(NxShape* mesh, bool useShapeUserData)
 	}
 	**/
 
+	
 	NxMat34 pose = mesh->getGlobalPose();
-
+	
 	NxU32 nbVerts = meshDesc.numVertices;
 	NxU32 nbTriangles = meshDesc.numTriangles;
-
+	
 	Point* points = (Point *)meshDesc.points;
 	Triangle* triangles = (Triangle *)meshDesc.triangles;
 
-
-	/*
 	
+	/*
 	NxVec3 vertice1 = (pose.M * points[0] + pose.t);
 	NxVec3 vertice2 = (pose.M * points[1] + pose.t);
 	NxVec3 vertice3 = (pose.M * points[2] + pose.t);
@@ -670,6 +670,7 @@ void DrawConvex(NxShape* mesh, bool useShapeUserData)
 		glVertex3f(vertice4.x,vertice4.y,vertice4.z);
 	glEnd();	
 
+	
 	glColor4f(1.0,0,0,1);
 	*/
 
