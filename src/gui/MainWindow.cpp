@@ -322,8 +322,6 @@ void MainWindow::usarGravidade(bool b){
 		simulacao->habilitarGravidade();
 	else
 		simulacao->desabilitarGravidade();
-	
-
 }
 
 void MainWindow::novaSimulacao(){

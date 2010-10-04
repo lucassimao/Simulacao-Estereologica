@@ -26,6 +26,7 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->atorPlanoDeCorte = 0;
 	this->shapePlanoDeCorte = 0;
 	this->exibirCaixa = true;
+	this->_exibirPlanoDeCorte = true;
 	this->caixa = criarCaixa();
 	this->exibirPontosTeste=true;
 	this->exibirRetasTeste=true;
@@ -147,8 +148,6 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 	}
 }
 
-
-
 void SimulacaoCaixa::novoPlanoDeCorte(){
 
 	float altura = this->alturaPlanoStrategy->novaAltura();
@@ -164,18 +163,17 @@ void SimulacaoCaixa::novoPlanoDeCorte(){
 		actorDesc.shapes.pushBack(&planeDesc);
 		atorPlanoDeCorte = new PlanoDeCorte(getCena()->createActor(actorDesc));
 		Parametros::getInstance()->addObserver(atorPlanoDeCorte);
-
 	}
 	else
 		atorPlanoDeCorte->setAltura(altura); 
 }
 
 void SimulacaoCaixa::exibirPlanoDeCorte(){ 
-	novoPlanoDeCorte();
+	this->_exibirPlanoDeCorte = true;
 }
 
 void SimulacaoCaixa::esconderPlanoDeCorte(){ 
-	if(atorPlanoDeCorte) {getCena()->releaseActor(*atorPlanoDeCorte->getNxActor());  delete atorPlanoDeCorte;atorPlanoDeCorte=NULL;} 
+	this->_exibirPlanoDeCorte = false;
 }
 
 void SimulacaoCaixa::selecionarGraosInterceptados(){

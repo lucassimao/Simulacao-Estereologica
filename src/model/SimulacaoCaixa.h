@@ -24,14 +24,16 @@ namespace simulacao{
 		class SimulacaoCaixa : public Simulacao
 		{
 		private:
-			bool exibirCaixa;
 			NxActor *caixa;
 			MeshFactory *meshFactory;
 			PlanoDeCorte *atorPlanoDeCorte;
 			NxPlane *shapePlanoDeCorte;
 			AbstractGeradorDeAlturaDoPlanoDeCorteStrategy *alturaPlanoStrategy;
+			bool exibirCaixa;
+			bool _exibirPlanoDeCorte;
 			bool exibirRetasTeste;
 			bool exibirPontosTeste;
+
 
 			void criarCCDS();
 			NxActor *criarCaixa();
@@ -41,7 +43,10 @@ namespace simulacao{
 				return this->caixa;
 			}
 			PlanoDeCorte *getPlanoDeCorte(){
-				return this->atorPlanoDeCorte;
+				if (this->_exibirPlanoDeCorte)
+					return this->atorPlanoDeCorte;
+				else
+					return NULL;
 			}
 
 
@@ -81,7 +86,6 @@ namespace simulacao{
 
 			bool getExibirPontosTeste(){ return this->exibirPontosTeste;}
 			void setExibirPontosTeste(bool b){ this->exibirPontosTeste = b;}
-
 		};
 
 	}
