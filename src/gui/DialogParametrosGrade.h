@@ -2,7 +2,7 @@
 #define DIALOGO_PARAMETROS_GRADE_H
 
 #include <QDialog>
-#include "forms\ui_configurarGradeDePontos.h"
+#include "..\..\forms\ui_configurarGradeDePontos.h"
 
 namespace simulacao	{
 	namespace gui {

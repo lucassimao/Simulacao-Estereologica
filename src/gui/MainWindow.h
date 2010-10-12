@@ -5,7 +5,7 @@
 #include <QMainWindow>
 #include "..\model\SimulacaoCaixa.h"
 #include "..\canvas\glWidget\CaixaGraosGLWidget.h"
-#include "forms\ui_gui.h"
+#include "..\..\forms\ui_gui.h"
 
 class QLabel;
 using namespace simulacao::model;

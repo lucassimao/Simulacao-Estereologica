@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QStandardItemModel>
-#include "forms\ui_adicaoSistematizadaDeEsferas.h"
+#include "..\..\forms\ui_adicaoSistematizadaDeEsferas.h"
 #include "..\model\AdicionarObjetosCommand.h"
 #include "..\model\SimulacaoCaixa.h"
 

@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QStandardItemModel>
-#include "forms\ui_adicaoSistematizadaDePrismas.h"
+#include "..\..\forms\ui_adicaoSistematizadaDePrismas.h"
 #include "..\model\AdicionarObjetosCommand.h"
 #include "..\model\SimulacaoCaixa.h"
 
