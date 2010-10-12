@@ -13,21 +13,22 @@ PlanoDeCorte::~PlanoDeCorte(void){
 }
 
 void PlanoDeCorte::update(Observable* obs){
-	int qtdeLinha = Parametros::getInstance()->getParametrosDaGrade().qtdeLinhas; 
-	int qtdePontos = Parametros::getInstance()->getParametrosDaGrade().qtdePontos;
-
-	this->grade = new Grade(9,-9,altura,qtdeLinha,qtdePontos);
+	this->grade = novaGrade(this->altura);
 }
 
 bool PlanoDeCorte::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	return false;
 }
 
+Grade* PlanoDeCorte::novaGrade(float h){
+	int qtdeLinha = Parametros::getInstance()->getParametrosDaGrade().qtdeLinhas; 
+	int qtdePontos = Parametros::getInstance()->getParametrosDaGrade().qtdePontos;
+	return new Grade(9,-9,h,qtdeLinha,qtdePontos);
+}
+
 Grade *PlanoDeCorte::getGrade(){
 	if (!grade){
-		int qtdeLinha = Parametros::getInstance()->getParametrosDaGrade().qtdeLinhas; 
-		int qtdePontos = Parametros::getInstance()->getParametrosDaGrade().qtdePontos;
-		this->grade = new Grade(9,-9,altura,qtdeLinha,qtdePontos);
+		this->grade = novaGrade(this->altura);
 	}
 	return grade;
 }
@@ -35,4 +36,5 @@ Grade *PlanoDeCorte::getGrade(){
 void PlanoDeCorte::setAltura(double h){
 	this->altura = h;
 	this->ator->setGlobalPosition(NxVec3(0,altura,0));
+	this->grade = novaGrade(h);
 }

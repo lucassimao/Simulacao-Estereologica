@@ -19,6 +19,8 @@ namespace simulacao{
 			private:
 				Grade *grade;
 				double altura;
+
+				Grade* novaGrade(float h);
 			public:
 				PlanoDeCorte(NxActor * nxActor);
 				~PlanoDeCorte(void);
