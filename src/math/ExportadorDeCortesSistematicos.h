@@ -14,6 +14,7 @@
 #include "..\math\ColetorDeAreasVisitor.h"
 #include "..\math\ColetorDePontosVisitor.h"
 #include "..\utils\DAO.h"
+#include "..\utils\DataBaseFactory.h"
 #include "..\defs.h"
 #include "..\model\Parametros.h"
 
@@ -42,7 +43,7 @@ namespace simulacao{
 				void SalvarQtdeDePontosInternos(int plano_pk, ofstream &outFile);
 
 			public:
-				ExportadorDeCortesSistematicos(string &diretorio, const char* bancoDeDados, int qtdePlanos,SimulacaoCaixa *simulacao);
+				ExportadorDeCortesSistematicos(string &diretorio, int qtdePlanos,SimulacaoCaixa *simulacao);
 				void exportar();
 		
 		};

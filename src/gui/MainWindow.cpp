@@ -33,7 +33,6 @@ using std::ofstream;
 
 #include "..\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.h"
 #include "..\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
-#include "..\utils\DataBaseFactory.h"
 
 using namespace simulacao::model;
 
@@ -101,14 +100,9 @@ void MainWindow::actionExecutarCortesSistematicos(){
 		int qtde = dlg->intValue();
 
 		QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja que as informações sejam salvas");
-		qDebug() << dir;
+
 		if (dir.trimmed().size()>0){
-			long l = time(0);
-			QString dbFilename(tr("%1/%2.db").arg(dir).arg(l));			
-			
-			string file = dbFilename.toStdString();
-			DataBaseFactory::getInstance()->criarBanco(file.c_str());
-			ExportadorDeCortesSistematicos exportador(dir.toStdString(), file.c_str(),qtde,this->simulacao);
+			ExportadorDeCortesSistematicos exportador(dir.toStdString(),qtde,this->simulacao);
 			exportador.exportar();
 			QMessageBox::information(this, tr("Exportação concluída"),tr("Os dados foram exportados com sucesso!"));
 		

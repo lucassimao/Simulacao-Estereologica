@@ -1,15 +1,27 @@
 #include "ExportadorDeCortesSistematicos.h"
 
 #define PI 3.1415926
+#define BANCO_EM_MEMORIA
 
-ExportadorDeCortesSistematicos::ExportadorDeCortesSistematicos(string &diretorio,const char* bancoDeDados, int qtdePlanos,SimulacaoCaixa *simulacao){
+ExportadorDeCortesSistematicos::ExportadorDeCortesSistematicos(string &diretorio, int qtdePlanos,SimulacaoCaixa *simulacao){
 	 	
 	this->diretorio = diretorio;
 	this->qtdePlanos = qtdePlanos;
 	this->simulacao=simulacao;
+	
+	string bancoDeDadosFile;
 
-	int rc = sqlite3_open(bancoDeDados,&(this->db));
-    if (rc)
+	#ifdef BANCO_EM_MEMORIA
+		bancoDeDadosFile = ":memory:";
+	#else
+		long timestamp = time(0);
+		ostringstream dbFilename;
+		dbFilename << diretorio << "/" << timestamp << ".db";		
+		bancoDeDadosFile = dbFilename.str();
+	#endif
+
+	this->db = DataBaseFactory::getInstance()->criarBanco(bancoDeDadosFile.c_str());
+    if (!this->db)
     {
 		throw runtime_error( sqlite3_errmsg(db) );
 	    sqlite3_close(db);
@@ -220,10 +232,12 @@ void ExportadorDeCortesSistematicos::exportar(){
 
 	for(int i=0;i< this->qtdePlanos;++i){
 		
+		simulacao->novoPlanoDeCorte();
+
 		NxU32 qtdeAtores = simulacao->getQtdeObjetos();
 		NxActor** atores = simulacao->getAtores();
 		vector<Intercepto*> interceptos;
-		simulacao->novoPlanoDeCorte();
+		
 		NxVec3 planoGlobalPosition = planoDeCorte->getGlobalPosition();
 
 		ColetorDeInterceptosLinearesVisitor *visitor1 = new ColetorDeInterceptosLinearesVisitor(simulacao->getGrade());

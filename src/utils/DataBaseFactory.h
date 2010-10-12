@@ -1,6 +1,8 @@
 #ifndef DATABASE_FACTORY
 #define DATABASE_FACTORY
 
+#include "..\sqlite3\sqlite3.h"
+
 class DataBaseFactory{
 
 	private:
@@ -14,7 +16,7 @@ class DataBaseFactory{
 
 			return DataBaseFactory::instance;
 		}
-		bool criarBanco(const char*);
+		sqlite3 *criarBanco(const char*);
 };
 
 
