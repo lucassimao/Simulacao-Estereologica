@@ -510,17 +510,6 @@
     <addaction name="actionDistribui_o_de_gr_os"/>
     <addaction name="menuAdi_o_Sistem_tica"/>
    </widget>
-   <widget class="QMenu" name="menuPoros_CellUnit">
-    <property name="title">
-     <string>Poros CellUnit</string>
-    </property>
-    <addaction name="actionTetaedro"/>
-    <addaction name="actionEctaedro"/>
-    <addaction name="actionCubo_simples"/>
-    <addaction name="actionC_bico_de_corpo_centrado"/>
-    <addaction name="separator"/>
-    <addaction name="actionCores"/>
-   </widget>
    <widget class="QMenu" name="menuAjuda">
     <property name="title">
      <string>Ajuda</string>
@@ -530,7 +519,6 @@
    </widget>
    <addaction name="menuArquivo"/>
    <addaction name="menuOp_es"/>
-   <addaction name="menuPoros_CellUnit"/>
    <addaction name="menuAjuda"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
