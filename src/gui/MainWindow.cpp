@@ -111,6 +111,10 @@ void MainWindow::actionExecutarCortesSistematicos(){
 
 }
 
+void MainWindow::adicionarPrismasSistematicamenteComVolumeDaCaixaAjustavel(){
+	exit(0);
+}
+
 void MainWindow::adicionarPrismasSistematicamente(){
 	AdicionarPrismasSistematicamenteDialog *dlg = new AdicionarPrismasSistematicamenteDialog(this,this->simulacao);
 	int result =  dlg->exec();

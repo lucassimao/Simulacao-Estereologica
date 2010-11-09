@@ -501,8 +501,21 @@
      <property name="title">
       <string>Adição Sistemática</string>
      </property>
-     <addaction name="actionAdicaoSistematicaEsferas"/>
-     <addaction name="actionAdicaoSistematicaPrismaTriangular"/>
+     <widget class="QMenu" name="menuCom_volume_da_Caixa_Fixo">
+      <property name="title">
+       <string>Com Volume da Caixa Fixo</string>
+      </property>
+      <addaction name="actionAdicaoSistematicaEsferas"/>
+      <addaction name="actionAdicaoSistematicaPrismaTriangular"/>
+     </widget>
+     <widget class="QMenu" name="menuCom_Volume_da_Caixa_Ajust_vel">
+      <property name="title">
+       <string>Com Volume da Caixa Ajustável</string>
+      </property>
+      <addaction name="actionAdicaoSistematicaPrismaTriangularComVolumeAjustavel"/>
+     </widget>
+     <addaction name="menuCom_volume_da_Caixa_Fixo"/>
+     <addaction name="menuCom_Volume_da_Caixa_Ajust_vel"/>
     </widget>
     <addaction name="actionPercola_o"/>
     <addaction name="actionExecutarCortesSistematicos"/>
@@ -683,6 +696,11 @@
   <action name="actionPrismas_Triangulares_Truncados">
    <property name="text">
     <string>Prismas Triangulares Truncados</string>
+   </property>
+  </action>
+  <action name="actionAdicaoSistematicaPrismaTriangularComVolumeAjustavel">
+   <property name="text">
+    <string>Prismas Triangulares</string>
    </property>
   </action>
  </widget>
@@ -1008,6 +1026,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAdicaoSistematicaPrismaTriangularComVolumeAjustavel</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>adicionarPrismasSistematicamenteComVolumeDaCaixaAjustavel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>adicionarObjetos()</slot>
@@ -1030,5 +1064,6 @@
   <slot>adicionarEsferasSistematicamente()</slot>
   <slot>adicionarPrismasSistematicamente()</slot>
   <slot>actionExecutarCortesSistematicos()</slot>
+  <slot>adicionarPrismasSistematicamenteComVolumeDaCaixaAjustavel()</slot>
  </slots>
 </ui>

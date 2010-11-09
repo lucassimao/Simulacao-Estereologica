@@ -30,7 +30,7 @@ namespace simulacao	{
 			void adicionarDescricao();
 			void removerDescricao();
 			void sair();
-			void adicionarEsferas();
+			void adicionarPrismas();
 			void manterProporcaoEntrePorcentagemEQuantidade(QStandardItem *);
 			void manterProporcaoEntrePorcentagemEQuantidade();
 		private:

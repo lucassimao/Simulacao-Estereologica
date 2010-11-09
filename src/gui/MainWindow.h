@@ -49,6 +49,7 @@ namespace simulacao	{
 
 			void adicionarEsferasSistematicamente();
 			void adicionarPrismasSistematicamente();
+			void adicionarPrismasSistematicamenteComVolumeDaCaixaAjustavel();
 			void actionExecutarCortesSistematicos();
 		public:
 			MainWindow();

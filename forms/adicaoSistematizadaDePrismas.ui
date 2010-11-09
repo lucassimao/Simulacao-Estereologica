@@ -21,7 +21,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>91</width>
+     <width>121</width>
      <height>16</height>
     </rect>
    </property>
@@ -32,13 +32,13 @@
     </font>
    </property>
    <property name="text">
-    <string>Fase sólida (%):</string>
+    <string>Fração de vazio(%):</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="textFaseSolida">
+  <widget class="QLineEdit" name="textFracaoVazia">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>130</x>
      <y>10</y>
      <width>71</width>
      <height>21</height>
@@ -233,7 +233,7 @@
    <sender>btnOK</sender>
    <signal>clicked()</signal>
    <receiver>AdicionarPrismasSistematicamenteDialog</receiver>
-   <slot>adicionarEsferas()</slot>
+   <slot>adicionarPrismas()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>299</x>
@@ -249,7 +249,7 @@
  <slots>
   <slot>adicionarDescricao()</slot>
   <slot>removerDescricao()</slot>
-  <slot>adicionarEsferas()</slot>
+  <slot>adicionarPrismas()</slot>
   <slot>sair()</slot>
  </slots>
 </ui>

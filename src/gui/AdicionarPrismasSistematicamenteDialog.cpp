@@ -29,8 +29,8 @@ AdicionarPrismasSistematicamenteDialog::AdicionarPrismasSistematicamenteDialog(Q
 	QIntValidator *valQuantidade = new QIntValidator(this);
 	valPercentual->setBottom(0);
 
-	ui->textFaseSolida->setValidator(valPercentual);
-	ui->textFaseSolida->setText("50");
+	ui->textFracaoVazia->setValidator(valPercentual);
+	ui->textFracaoVazia->setText("50");
 		
 	QItemEditorFactory *factory = new QItemEditorFactory;
 
@@ -49,7 +49,7 @@ AdicionarPrismasSistematicamenteDialog::AdicionarPrismasSistematicamenteDialog(Q
 	model->setHeaderData( COLUNA_COR, Qt::Horizontal, QObject::tr("Cor") );
 
 	connect(model,SIGNAL(itemChanged(QStandardItem *)),this,SLOT(manterProporcaoEntrePorcentagemEQuantidade(QStandardItem *)));
-	connect(ui->textFaseSolida,SIGNAL(textChanged (const QString &)),this,SLOT(manterProporcaoEntrePorcentagemEQuantidade()));
+	connect(ui->textFracaoVazia,SIGNAL(textChanged (const QString &)),this,SLOT(manterProporcaoEntrePorcentagemEQuantidade()));
   
 	ui->tableEspecificacao->setModel(model);
     
@@ -78,9 +78,9 @@ AdicionarPrismasSistematicamenteDialog::AdicionarPrismasSistematicamenteDialog(Q
 
 double AdicionarPrismasSistematicamenteDialog::getPorcentagemFaseSolida(){
 	bool valorValido  = false;
-	double porcentagemFaseSolida = ui->textFaseSolida->text().toDouble(&valorValido);
+	double fracaoVazia = ui->textFracaoVazia->text().toDouble(&valorValido);
 	if (valorValido)
-		return porcentagemFaseSolida;
+		return 100-fracaoVazia;
 	else return 0;
 }
 
@@ -192,10 +192,10 @@ void AdicionarPrismasSistematicamenteDialog::sair(){
 	this->reject();
 }
 
-void AdicionarPrismasSistematicamenteDialog::adicionarEsferas(){
+void AdicionarPrismasSistematicamenteDialog::adicionarPrismas(){
 	
 	bool valorValido  = false;
-	double porcentagemFaseSolida = ui->textFaseSolida->text().toDouble(&valorValido);
+	double porcentagemFaseSolida = ui->textFracaoVazia->text().toDouble(&valorValido);
 	
 	if (valorValido){
 		int linhas = this->model->rowCount();
@@ -224,8 +224,8 @@ void AdicionarPrismasSistematicamenteDialog::adicionarEsferas(){
 	else
 	{
 		QMessageBox *msg = new QMessageBox(QMessageBox::Information,tr("Informação"),
-			tr("Forneça a porcentagem da fase sólida!"),QMessageBox::Ok,this);
-		ui->textFaseSolida->setFocus();
+			tr("Forneça a porcentagem da fração vazia!"),QMessageBox::Ok,this);
+		ui->textFracaoVazia->setFocus();
 		msg->show();
 	}
 }
