@@ -129,7 +129,7 @@ bool PrismaTriangularTruncado::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosit
 	// alto e baixo em termos da coordenada Y
 	NxReal verticeMaisAlto=_FPCLASS_NINF, verticeMaisBaixo=_FPCLASS_PINF;
 
-	for(int i=0;i<nbVerts;++i){
+	for(NxU32 i=0; i < nbVerts ; ++i){
 		NxVec3 vertice = (pose.M * points[i] + pose.t);
 
 		if ( verticeMaisAlto < vertice.y)
