@@ -25,9 +25,9 @@ const NxReal CaixaGraosGLWidget::gCameraSpeed = 250;
 int mx, my;
 
 CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao)
-: QGLWidget(parent),gCameraPos(NxVec3(0.65125149,29.323162,48.303276)),
-	gCameraForward(NxVec3(-0.011699641,-0.28244135,-0.95921326)),gCameraAspectRatio(1),
-	gCameraRight(NxVec3(0.95747489,0,-0.011678438))
+: QGLWidget(parent),gCameraPos(NxVec3(0.6,29,48)),
+	gCameraForward(NxVec3(0,-0.3,-1)),gCameraAspectRatio(1),
+	gCameraRight(NxVec3(1,0,0))
 {
 	srand(time(0));
 	setFormat(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer));
@@ -73,14 +73,15 @@ void CaixaGraosGLWidget::initializeGL()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
 	glEnable(GL_LIGHTING);
-	float AmbientColor[]	=  { 0.0f, 0.0f, 0.0f, 0.1f };
-	glLightfv(GL_LIGHT0, GL_AMBIENT, AmbientColor);
+	
+	//float AmbientColor[]	=  { 0.0f, 0.0f, 0.0f, 0.1f };
+	//glLightfv(GL_LIGHT0, GL_AMBIENT, AmbientColor);
 
-	float DiffuseColor[]	=  {1.0f, 1.0f, 1.0f, 1.0f };		
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, DiffuseColor);
+	//float DiffuseColor[]	=  {1.0f, 1.0f, 1.0f, 1.0f };		
+	//glLightfv(GL_LIGHT0, GL_DIFFUSE, DiffuseColor);
 
-	float SpecularColor[]	= { 0.0f, 0.0f, 0.0f, 1.0f };		
-	glLightfv(GL_LIGHT0, GL_SPECULAR, SpecularColor);
+	//float SpecularColor[]	= { 0.0f, 0.0f, 0.0f, 1.0f };		
+	//glLightfv(GL_LIGHT0, GL_SPECULAR, SpecularColor);
 
 	float Position[]		= {80.0f,80.0f, 70.0f,1.0f };	
 	glLightfv(GL_LIGHT0, GL_POSITION, Position);
@@ -140,9 +141,6 @@ void CaixaGraosGLWidget::posicionarCameraNoPontoInicial(){
 }
 
 
-
-
-
 inline void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides)
 {
 	NxU32 numTrigs;
@@ -158,6 +156,7 @@ inline void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawB
 		trigs = (const NxTriangle32*)tm.getBase(0, NX_ARRAY_TRIANGLES);
 		verts = (const NxPoint*)tm.getBase(0, NX_ARRAY_VERTICES);
 		normals = (const NxPoint*)tm.getBase(0, NX_ARRAY_NORMALS);
+		
 	}
 	else if(cuboid->getShapes()[0]->getType() == NX_SHAPE_CONVEX)
 	{
@@ -167,6 +166,7 @@ inline void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawB
 		trigs = (const NxTriangle32*)tm.getBase(0, NX_ARRAY_TRIANGLES);
 		verts = (const NxPoint*)tm.getBase(0, NX_ARRAY_VERTICES);
 		normals = (const NxPoint*)tm.getBase(0, NX_ARRAY_NORMALS);
+		
 	}
 	else return;
 
@@ -214,19 +214,13 @@ inline void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawB
 
 void CaixaGraosGLWidget::SetupCamera(){
 
-	// Setup camera
-
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(40.0f, gCameraAspectRatio, 10.0f, 100.0f);//angulo de visão da caixa
+	gluPerspective(40.0f, gCameraAspectRatio, 10.0f, 1000.0f);//angulo de visão da caixa
 	gluLookAt(gCameraPos.x,gCameraPos.y,gCameraPos.z,gCameraPos.x + gCameraForward.x, 
 		gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z, 0.0f,1.0f, 0.0f);
-
-	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-
 }
 
 void CaixaGraosGLWidget::mousePressEvent(QMouseEvent *event)
@@ -288,20 +282,18 @@ void CaixaGraosGLWidget::habilitarMudancaDeEstrategiaDeVisualizacao(bool b){
 }
 
 void CaixaGraosGLWidget::keyPressEvent ( QKeyEvent * event ){
-
 	double deltaTime = 1.0/60.0;
+
 	switch (event->key())
 	{
-
-	case Qt::Key_W :{ gCameraPos += gCameraForward*gCameraSpeed*deltaTime; break; }
-	case Qt::Key_S :{ gCameraPos -= gCameraForward*gCameraSpeed*deltaTime; break; }
-	case Qt::Key_A :{ gCameraPos -= gCameraRight*gCameraSpeed*deltaTime; break; }
-	case Qt::Key_D :{ gCameraPos += gCameraRight*gCameraSpeed*deltaTime; break; }
-	case Qt::Key_Z :{ gCameraPos -= NxVec3(0,0.4,0)*gCameraSpeed*deltaTime; break; }
-	case Qt::Key_Q :{ gCameraPos += NxVec3(0,0.4,0)*gCameraSpeed*deltaTime; break; }
+		case Qt::Key_W :{ gCameraPos += gCameraForward*gCameraSpeed*deltaTime; break; }
+		case Qt::Key_S :{ gCameraPos -= gCameraForward*gCameraSpeed*deltaTime; break; }
+		case Qt::Key_A :{ gCameraPos -= gCameraRight*gCameraSpeed*deltaTime; break; }
+		case Qt::Key_D :{ gCameraPos += gCameraRight*gCameraSpeed*deltaTime; break; }
+		case Qt::Key_Z :{ gCameraPos -= NxVec3(0,0.4,0)*gCameraSpeed*deltaTime; break; }
+		case Qt::Key_Q :{ gCameraPos += NxVec3(0,0.4,0)*gCameraSpeed*deltaTime; break; }
 	}
 	updateGL();
-
 }
 
 void CaixaGraosGLWidget::mouseMoveEvent(QMouseEvent *event)
