@@ -10,6 +10,7 @@ using namespace simulacao::model;
 using namespace simulacao::gui;
 using namespace simulacao::canvas;
 
+#include "AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.h"
 #include "AdicionarEsferasSistematicamenteDialog.h"
 #include "AdicionarPrismasSistematicamenteDialog.h"
 #include "DialogParametrosGrade.h"
@@ -112,7 +113,16 @@ void MainWindow::actionExecutarCortesSistematicos(){
 }
 
 void MainWindow::adicionarPrismasSistematicamenteComVolumeDaCaixaAjustavel(){
-	exit(0);
+	AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog *dlg = new AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog(this,this->simulacao);
+	int result =  dlg->exec();
+	if (result ==  QInputDialog::DialogCode::Accepted)
+	{
+		AdicionarObjetosCommand *command = dlg->getCommand();
+		if (command){
+			command->execute();
+			atualizarQuantidadeDeGraosEmCena();
+		}
+	}
 }
 
 void MainWindow::adicionarPrismasSistematicamente(){

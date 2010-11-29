@@ -711,6 +711,10 @@
 				Name="gui"
 				>
 				<File
+					RelativePath=".\src\gui\AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\gui\AdicionarEsferasSistematicamenteDialog.cpp"
 					>
 				</File>
@@ -756,6 +760,10 @@
 				</File>
 				<File
 					RelativePath=".\src\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\utils\GlobalPoseFactory.cpp"
 					>
 				</File>
 				<File
@@ -983,6 +991,32 @@
 				Name="gui"
 				>
 				<File
+					RelativePath=".\src\gui\AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.h"
+					>
+					<FileConfiguration
+						Name="Release_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.h -o moc\moc_AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.h"
+							Outputs="moc\moc_AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.cpp"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.h -o moc\moc_AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.h"
+							Outputs="moc\moc_AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.cpp"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\src\gui\AdicionarEsferasSistematicamenteDialog.h"
 					>
 					<FileConfiguration
@@ -1163,6 +1197,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\utils\GlobalPoseFactory.h"
+					>
+				</File>
+				<File
 					RelativePath=".\src\utils\jarvis.h"
 					>
 				</File>
@@ -1230,15 +1268,15 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			>
 			<File
+				RelativePath="moc\moc_AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="moc\moc_AdicionarEsferasSistematicamenteDialog.cpp"
 				>
 			</File>
 			<File
 				RelativePath="moc\moc_AdicionarPrismasSistematicamenteDialog.cpp"
-				>
-			</File>
-			<File
-				RelativePath="moc\moc_AdicionarPrismasSistematicamenteItemModel.cpp"
 				>
 			</File>
 			<File

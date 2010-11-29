@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\gtest-1.4.0\include&quot;;&quot;C:\Users\user\Programação em C++\Simulacao\src&quot;"
+				AdditionalIncludeDirectories="&quot;C:\gtest-1.4.0\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\NxCharacter\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\Physics\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\PhysXLoader\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\Cooking\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\Foundation\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\Graphics\include\win32&quot;;..\src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="0"
@@ -198,10 +198,6 @@
 				</File>
 				<File
 					RelativePath="..\src\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\utils\graham.cpp"
 					>
 				</File>
 				<File
