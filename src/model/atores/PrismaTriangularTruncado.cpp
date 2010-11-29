@@ -12,11 +12,14 @@
 #include "../../utils/Vetor.h"
 #include "../../model/interceptos/Intercepto.h"
 #include "../../model/interceptos/Poligono.h"
+#include "../../utils/GlobalPoseFactory.h"
+
 
 using std::runtime_error;
 using simulacao::model::Parametros;
 using namespace simulacao::model::atores;
 using namespace simulacao::model::interceptos;
+using namespace simulacao::utils;
 using std::vector;
 using std::map;
 using std::list;
@@ -76,12 +79,7 @@ PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,NxCCDSkeleton *
 	actorDesc.body = &bodyDesc;
 	actorDesc.density = 10.0;
 
-	
-	float px = 8 - (rand() % 18);
-	float py = 5 + (rand() % 12);
-	float pz = 8 - (rand() % 18);
-
-	actorDesc.globalPose.t  = NxVec3(px,py,pz);
+	actorDesc.globalPose.t  = GlobalPoseFactory::getInstance()->newGlobalPosition();
 	this->ator = cena->createActor(actorDesc);
 	this->ator->userData =  (void *)this;
 
