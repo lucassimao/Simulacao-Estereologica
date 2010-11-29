@@ -124,7 +124,7 @@ void SimulacaoCaixa::criarCaixa(){
 
 	NxBodyDesc BodyDesc;
 	NxActorDesc actorDesc;
-	actorDesc.globalPose.t = NxVec3(0,10,0);
+	actorDesc.globalPose.t = NxVec3(0,Parametros::getInstance()->getCentroDeMassaDaCaixa(),0);
 	NxTriangleMeshShapeDesc meshShapeDesc;
 
 	meshShapeDesc.meshData = this->meshFactory->criarTriangleMesh(8,12,vertices,triangulos);

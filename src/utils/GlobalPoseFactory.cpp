@@ -16,7 +16,7 @@ NxVec3 GlobalPoseFactory::newGlobalPosition(){
 	int arestaDaCaixa = (int) Parametros::getInstance()->getArestaDaCaixa();
 
 	newGlobalPosition.x = arestaDaCaixa/4 - (rand() % (arestaDaCaixa/2)); 
-	newGlobalPosition.y = 2 + rand() % (arestaDaCaixa-arestaDaCaixa/2); 
+	newGlobalPosition.y = Parametros::getInstance()->getAlturaDaBaseDaCaixa() + ( rand() % (arestaDaCaixa - arestaDaCaixa/2) ); 
 	newGlobalPosition.z = arestaDaCaixa/4 - (rand() % (arestaDaCaixa/2));  
 	return newGlobalPosition;
 }

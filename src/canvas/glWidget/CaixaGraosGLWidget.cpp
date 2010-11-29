@@ -16,6 +16,7 @@
 #include "..\..\draw\cooking.h"
 #include "..\..\draw\Stream.h"
 #include "..\..\defs.h"
+#include "..\..\model\Parametros.h"
 
 
 using namespace simulacao::canvas::glWidget;
@@ -162,11 +163,11 @@ inline void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawB
 		for(int j=0;j<3;j++)
 		{
 			pVertList[vertIndex++] = verts[trigs[i].v[j]].x;
-			pVertList[vertIndex++] = verts[trigs[i].v[j]].y+10; // y=10 é o centro de massa da caixa (x=0,y=10,z=0)
+			pVertList[vertIndex++] = verts[trigs[i].v[j]].y + Parametros::getInstance()->getCentroDeMassaDaCaixa();
 			pVertList[vertIndex++] = verts[trigs[i].v[j]].z;
 
 			pNormList[normIndex++] = normals[trigs[i].v[j]].x;
-			pNormList[normIndex++] = normals[trigs[i].v[j]].y+10; // y=10 é o centro de massa da caixa (x=0,y=10,z=0)
+			pNormList[normIndex++] = normals[trigs[i].v[j]].y + Parametros::getInstance()->getCentroDeMassaDaCaixa();
 			pNormList[normIndex++] = normals[trigs[i].v[j]].z;
 		}
 	}
