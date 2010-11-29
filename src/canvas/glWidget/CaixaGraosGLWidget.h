@@ -44,7 +44,6 @@ namespace simulacao {
 
 			inline void drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides = NX_FALSE);
 			
-			NxActor* box;
 			SimulacaoCaixa *simulacao;
 			NxTriangleMesh * staticTriangleMesh;
 			RenderizacaoStrategy *renderizacaoStrategy;

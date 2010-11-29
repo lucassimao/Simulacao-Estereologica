@@ -25,7 +25,7 @@ const NxReal CaixaGraosGLWidget::gCameraSpeed = 250;
 int mx, my;
 
 CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao)
-: QGLWidget(parent),gCameraPos(NxVec3(0.6,29,48)),
+: QGLWidget(parent),gCameraPos(NxVec3(0,25,48)),
 	gCameraForward(NxVec3(0,-0.3,-1)),gCameraAspectRatio(1),
 	gCameraRight(NxVec3(1,0,0))
 {
@@ -38,7 +38,6 @@ CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao
 	timer->start(0);
 
 	this->simulacao = simulacao;
-	box = this->simulacao->getCaixa();
 	this->simulacao->novoPlanoDeCorte();
 	this->mudancaDeEstrategiaDeVisualizacaoHabilitada = false;
 }
@@ -56,7 +55,7 @@ void CaixaGraosGLWidget::draw()
 
 	this->renderizacaoStrategy->draw(this->simulacao);
 	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
-	drawCuboid(box);
+	drawCuboid(this->simulacao->getCaixa());
 
 }
 
@@ -143,32 +142,15 @@ void CaixaGraosGLWidget::posicionarCameraNoPontoInicial(){
 
 inline void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides)
 {
-	NxU32 numTrigs;
-	const NxTriangle32* trigs;
-	const NxPoint* verts;
-	const NxPoint* normals;
+	assert(cuboid->getShapes()[0]->getType()== NX_SHAPE_MESH);
 
-	if(cuboid->getShapes()[0]->getType()== NX_SHAPE_MESH)
-	{
-		NxTriangleMesh & tm = static_cast<NxTriangleMeshShape*>(cuboid->getShapes()[0])->getTriangleMesh();
+	NxTriangleMesh & tm = static_cast<NxTriangleMeshShape*>(cuboid->getShapes()[0])->getTriangleMesh();
 
-		numTrigs = tm.getCount(0, NX_ARRAY_TRIANGLES);
-		trigs = (const NxTriangle32*)tm.getBase(0, NX_ARRAY_TRIANGLES);
-		verts = (const NxPoint*)tm.getBase(0, NX_ARRAY_VERTICES);
-		normals = (const NxPoint*)tm.getBase(0, NX_ARRAY_NORMALS);
-		
-	}
-	else if(cuboid->getShapes()[0]->getType() == NX_SHAPE_CONVEX)
-	{
-		NxConvexMesh & tm = static_cast<NxConvexShape*>(cuboid->getShapes()[0])->getConvexMesh();
+	NxU32 numTrigs = tm.getCount(0, NX_ARRAY_TRIANGLES);
+	const NxTriangle32* trigs = (const NxTriangle32*)tm.getBase(0, NX_ARRAY_TRIANGLES);
+	const NxPoint* verts = (const NxPoint*)tm.getBase(0, NX_ARRAY_VERTICES);
+	const NxPoint* normals = (const NxPoint*)tm.getBase(0, NX_ARRAY_NORMALS);
 
-		numTrigs = tm.getCount(0, NX_ARRAY_TRIANGLES);
-		trigs = (const NxTriangle32*)tm.getBase(0, NX_ARRAY_TRIANGLES);
-		verts = (const NxPoint*)tm.getBase(0, NX_ARRAY_VERTICES);
-		normals = (const NxPoint*)tm.getBase(0, NX_ARRAY_NORMALS);
-		
-	}
-	else return;
 
 	float* pVertList = new float[numTrigs*3*3];
 	float* pNormList = new float[numTrigs*3*3];
@@ -180,11 +162,11 @@ inline void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawB
 		for(int j=0;j<3;j++)
 		{
 			pVertList[vertIndex++] = verts[trigs[i].v[j]].x;
-			pVertList[vertIndex++] = verts[trigs[i].v[j]].y+15;
+			pVertList[vertIndex++] = verts[trigs[i].v[j]].y+10; // y=10 é o centro de massa da caixa (x=0,y=10,z=0)
 			pVertList[vertIndex++] = verts[trigs[i].v[j]].z;
 
 			pNormList[normIndex++] = normals[trigs[i].v[j]].x;
-			pNormList[normIndex++] = normals[trigs[i].v[j]].y+15;
+			pNormList[normIndex++] = normals[trigs[i].v[j]].y+10; // y=10 é o centro de massa da caixa (x=0,y=10,z=0)
 			pNormList[normIndex++] = normals[trigs[i].v[j]].z;
 		}
 	}
