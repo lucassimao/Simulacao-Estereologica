@@ -27,7 +27,7 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->shapePlanoDeCorte = 0;
 	this->exibirCaixa = true;
 	this->_exibirPlanoDeCorte = true;
-	this->caixa = criarCaixa();
+	criarCaixa();
 	this->exibirPontosTeste=true;
 	this->exibirRetasTeste=true;
 	
@@ -86,10 +86,15 @@ void SimulacaoCaixa::criarCCDS(){
 
 }
 
-NxActor * SimulacaoCaixa::criarCaixa(){
+void SimulacaoCaixa::criarCaixa(){
+
+	if (this->caixa != NULL){
+		this->cena->releaseActor(*this->caixa);
+		this->caixa = NULL;
+	}
 	// definindo os vertices
-	double arestaDaCaixadeGraos = Parametros::getInstance()->getArestaDaCaixa()/2.0;
-	NxVec3 dim(arestaDaCaixadeGraos,arestaDaCaixadeGraos,arestaDaCaixadeGraos);
+	double arestaDaCaixadeGraosRadii = Parametros::getInstance()->getArestaDaCaixa()/2.0;
+	NxVec3 dim(arestaDaCaixadeGraosRadii,arestaDaCaixadeGraosRadii,arestaDaCaixadeGraosRadii);
 
 	NxU32 triangulos[3 * 12] = { 
 		0,1,3,
@@ -119,12 +124,21 @@ NxActor * SimulacaoCaixa::criarCaixa(){
 
 	NxBodyDesc BodyDesc;
 	NxActorDesc actorDesc;
-	actorDesc.globalPose.t = NxVec3(0,15,0);// Define a altura dos objetos no eixo y
+	actorDesc.globalPose.t = NxVec3(0,10,0);
 	NxTriangleMeshShapeDesc meshShapeDesc;
 
 	meshShapeDesc.meshData = this->meshFactory->criarTriangleMesh(8,12,vertices,triangulos);
 	actorDesc.shapes.pushBack(&meshShapeDesc);
-	return cena->createActor(actorDesc);
+	
+	this->caixa = cena->createActor(actorDesc);
+
+	if (this->atorPlanoDeCorte != NULL){
+		NxActor *ator = atorPlanoDeCorte->getNxActor();
+		this->cena->releaseActor(*ator);
+		delete this->atorPlanoDeCorte;
+		this->atorPlanoDeCorte= NULL;
+		novoPlanoDeCorte();
+	}
 
 }
 
@@ -152,14 +166,13 @@ void SimulacaoCaixa::novoPlanoDeCorte(){
 
 	float altura = this->alturaPlanoStrategy->novaAltura();
 
-	if (atorPlanoDeCorte == NULL){
-		
+	if (atorPlanoDeCorte == NULL){		
 		NxPlaneShapeDesc planeDesc;
-		NxActorDesc actorDesc;
-		actorDesc.globalPose.t = NxVec3(0,altura,0);
 		planeDesc.normal = NxVec3(0.0f,1.0f,0.0f);
 		planeDesc.d = 0;
 
+		NxActorDesc actorDesc;
+		actorDesc.globalPose.t = NxVec3(0,altura,0);		
 		actorDesc.shapes.pushBack(&planeDesc);
 		atorPlanoDeCorte = new PlanoDeCorte(getCena()->createActor(actorDesc));
 		Parametros::getInstance()->addObserver(atorPlanoDeCorte);

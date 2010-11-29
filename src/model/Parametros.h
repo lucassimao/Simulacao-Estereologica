@@ -76,7 +76,7 @@ namespace simulacao{
 				return this->grade;
 			}
 
-			inline double getAlturaDaBaseDaCaixa(){ return 5.0f;}
+			inline double getAlturaDaBaseDaCaixa(){ return 0;}
 
 			inline double getArestaDaCaixa(){ return arestaDaCaixa;}
 			inline void setArestaDaCaixa(double a){ if(a>0) this->arestaDaCaixa = a;}

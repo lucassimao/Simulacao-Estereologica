@@ -43,6 +43,17 @@ void AdicionarObjetosCommand::adicionarPrismas(double L0, double porcentagem, Co
 
 }
 
+void AdicionarObjetosCommand::adicionarPrismas(double L0, int quantidade, Cor cor, double razaoDeAspecto, double razaoDeTruncamento){
+	PrismaDesc desc;
+	desc.cor = cor;
+	desc.L0 = L0;
+	desc.qtde = quantidade;
+	desc.razaoDeAspecto = razaoDeAspecto;
+	desc.razaoDeTruncamento = razaoDeTruncamento;
+
+	this->prismas.push_back(desc);
+}
+
 void AdicionarObjetosCommand::execute(){
 	vector<EsferaDesc>::const_iterator iter = this->esferas.begin();
 	while(iter != this->esferas.end()){

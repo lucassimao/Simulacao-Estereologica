@@ -36,9 +36,10 @@ namespace simulacao{
 
 
 			void criarCCDS();
-			NxActor *criarCaixa();
+			
 
 		public:
+			void criarCaixa();
 			NxActor* getCaixa(){
 				return this->caixa;
 			}
