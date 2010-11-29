@@ -3,10 +3,12 @@
 #include "..\Parametros.h"
 #include "..\..\model\interceptos\Intercepto.h"
 #include "..\..\model\interceptos\Disco.h"
+#include "..\..\utils\GlobalPoseFactory.h"
 
 using std::runtime_error;
 using namespace simulacao::model::atores;
 using namespace simulacao::model::interceptos;
+using namespace simulacao::utils;
 
 Esfera::Esfera(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 {
@@ -26,11 +28,7 @@ Esfera::Esfera(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 		actorDesc2.body = &bodyDesc2;
 		actorDesc2.density=10.0f;
 
-		float px = 9 - (rand() % 20);
-		float py = 5 + (rand() % 20);
-		float pz = 9 - (rand() % 20);
-
-		actorDesc2.globalPose.t = NxVec3(px,py,pz);
+		actorDesc2.globalPose.t = GlobalPoseFactory::getInstance()->newGlobalPosition();
 		NxActor *esfera =  cena->createActor(actorDesc2);
 		esfera->userData = (void *)this;
 		this->ator = esfera;
