@@ -5,7 +5,7 @@ using namespace simulacao::model;
 
 Parametros* Parametros::instance = 0;
 
-Parametros::Parametros(){
+void Parametros::loadDefaultValues(){
 	Cor c = VERMELHO;
 	
 	this->esfera.raio=0.8;
@@ -24,4 +24,7 @@ Parametros::Parametros(){
 	this->grade.pontosAleatorios=false;
 	this->grade.qtdeLinhas=20;
 	this->grade.qtdePontos=10;
+}
+Parametros::Parametros(){
+	loadDefaultValues();
 }

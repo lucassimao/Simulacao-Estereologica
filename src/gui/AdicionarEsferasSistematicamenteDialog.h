@@ -9,11 +9,6 @@
 
 using namespace simulacao::model;
 
-#define COLUNA_RAIO 0
-#define COLUNA_PORCENTAGEM 1
-#define COLUNA_QUANTIDADE 2
-#define COLUNA_COR 3
-
 namespace simulacao	{
 	namespace gui {
 
@@ -27,6 +22,12 @@ namespace simulacao	{
 
 			double getPorcentagemFaseSolida();
 			double getRaio(int row);
+
+			#define COLUNA_RAIO 0
+			#define COLUNA_PORCENTAGEM 1
+			#define COLUNA_QUANTIDADE 2
+			#define COLUNA_COR 3
+
 		private slots:
 			void adicionarDescricao();
 			void removerDescricao();

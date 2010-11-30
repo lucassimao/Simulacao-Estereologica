@@ -6,7 +6,7 @@ using namespace simulacao::model;
 using namespace simulacao::model::grade;
 
 Grade::Grade(float z0, float z1, float altura,int linhas,int pontosPorLinha){
-	double deltaZ =  (abs(z0) + abs(z1) +1.0)/linhas;
+	double deltaZ =  (abs(z0) + abs(z1))/linhas;
 	double larguraDaCaixa = Parametros::getInstance()->getArestaDaCaixa()/2.0;
 
 	for(int i=0;i<linhas;++i){

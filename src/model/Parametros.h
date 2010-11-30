@@ -52,6 +52,7 @@ namespace simulacao{
 
 
 		public:
+			void loadDefaultValues();
 			static Parametros* getInstance(){
 				if (!Parametros::instance)
 					instance = new Parametros();

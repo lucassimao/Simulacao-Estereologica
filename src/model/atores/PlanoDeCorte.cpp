@@ -23,7 +23,9 @@ bool PlanoDeCorte::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 Grade* PlanoDeCorte::novaGrade(float h){
 	int qtdeLinha = Parametros::getInstance()->getParametrosDaGrade().qtdeLinhas; 
 	int qtdePontos = Parametros::getInstance()->getParametrosDaGrade().qtdePontos;
-	return new Grade(9,-9,h,qtdeLinha,qtdePontos);
+	float z0 = (Parametros::getInstance()->getArestaDaCaixa())/2.0f;
+	float z1 = -1*z0;
+	return new Grade(z0-0.5f, z1,h,qtdeLinha,qtdePontos);
 }
 
 Grade *PlanoDeCorte::getGrade(){

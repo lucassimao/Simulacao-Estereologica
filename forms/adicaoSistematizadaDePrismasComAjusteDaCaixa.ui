@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AdicionarPrismasSistematicamenteDialog</class>
- <widget class="QDialog" name="AdicionarPrismasSistematicamenteDialog">
+ <class>AdicionarPrismasSistematicamenteComAjusteDeCaixaDialog</class>
+ <widget class="QDialog" name="AdicionarPrismasSistematicamenteComAjusteDeCaixaDialog">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -140,7 +140,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>329</y>
+     <y>379</y>
      <width>351</width>
      <height>16</height>
     </rect>
@@ -160,7 +160,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>350</y>
+     <y>400</y>
      <width>351</width>
      <height>16</height>
     </rect>
@@ -176,6 +176,86 @@
     <string>Obs: A razão de truncamento é um valor  [0; 0.5]</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>332</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Volume acumulado da fase sólida:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelVolumeFaseSolida">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>332</y>
+     <width>181</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>346</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Lado da Caixa:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelLadoDaCaixa">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>345</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
  </widget>
  <resources>
   <include location="resources.qrc"/>
@@ -184,7 +264,7 @@
   <connection>
    <sender>btnAdicionar</sender>
    <signal>clicked()</signal>
-   <receiver>AdicionarPrismasSistematicamenteDialog</receiver>
+   <receiver>AdicionarPrismasSistematicamenteComAjusteDeCaixaDialog</receiver>
    <slot>adicionarDescricao()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -200,7 +280,7 @@
   <connection>
    <sender>btnRemover</sender>
    <signal>clicked()</signal>
-   <receiver>AdicionarPrismasSistematicamenteDialog</receiver>
+   <receiver>AdicionarPrismasSistematicamenteComAjusteDeCaixaDialog</receiver>
    <slot>removerDescricao()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -216,7 +296,7 @@
   <connection>
    <sender>btnCancelar</sender>
    <signal>clicked()</signal>
-   <receiver>AdicionarPrismasSistematicamenteDialog</receiver>
+   <receiver>AdicionarPrismasSistematicamenteComAjusteDeCaixaDialog</receiver>
    <slot>sair()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -232,7 +312,7 @@
   <connection>
    <sender>btnOK</sender>
    <signal>clicked()</signal>
-   <receiver>AdicionarPrismasSistematicamenteDialog</receiver>
+   <receiver>AdicionarPrismasSistematicamenteComAjusteDeCaixaDialog</receiver>
    <slot>adicionarPrismas()</slot>
    <hints>
     <hint type="sourcelabel">

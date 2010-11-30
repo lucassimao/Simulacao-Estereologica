@@ -267,6 +267,7 @@ void MainWindow::adicionarObjetos(){
 
 }
 
+
 void MainWindow::pararSimulacao(){
 	//QMessageBox::warning(this, tr("teste"),tr("pararSimulacao"));
 	if (simulacao->getStatus() == PAUSADO){
@@ -350,7 +351,8 @@ void MainWindow::novaSimulacao(){
 	ui->checkBoxExibirPlanoDeCorte->setChecked(true);
 	ui->checkBoxExibirPontosTeste->setChecked(true);
 	ui->checkBoxExibirRetasTeste->setChecked(true);
-	
+
+	Parametros::getInstance()->loadDefaultValues();
 	criarCanvas();
 	atualizarQuantidadeDeGraosEmCena();
 	

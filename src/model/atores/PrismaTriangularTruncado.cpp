@@ -24,11 +24,12 @@ using std::vector;
 using std::map;
 using std::list;
 
+
 /** 
 	Sobre a estrutura, vertices e o significado das variáveis definidas neste construtor
 	ver arquivo docs/PrismaTriangularTruncado.doc
 */
-PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
+PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,MeshFactory *meshFactory):Ator(){
 	
 	this->razaoDeAspecto = Parametros::getInstance()->getRazaoAspectoDoPrismaTriangularTruncado();
 	this->razaoDeTruncamento  = Parametros::getInstance()->getRazaoDeTruncamentoDoPrismaTriangularTruncado();
@@ -77,13 +78,11 @@ PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,NxCCDSkeleton *
 	actorDesc.shapes.pushBack(&convexShapeDesc);
 
 	actorDesc.body = &bodyDesc;
-	actorDesc.density = 10.0;
+	actorDesc.density = 10;
 
 	actorDesc.globalPose.t  = GlobalPoseFactory::getInstance()->newGlobalPosition();
 	this->ator = cena->createActor(actorDesc);
 	this->ator->userData =  (void *)this;
-
-
 }
 
 double PrismaTriangularTruncado::calcularVolume(double razaoDeAspecto,double razaoDeTruncamento,double L0){
@@ -94,7 +93,7 @@ double PrismaTriangularTruncado::calcularVolume(double razaoDeAspecto,double raz
 		throw new runtime_error("Razão de truncamento inválida. Apenas valores 0 <= razaoDeTruncamento <= 0.5 são aceitos");
 
 	double volume =  (sqrt(3.0)/4.0)*razaoDeAspecto*(1 - 3*pow(razaoDeTruncamento,2))*pow(L0,3);
-	assert (volume>0);
+	assert (volume>=0);
 	return volume;
 }
 

@@ -81,8 +81,7 @@ void AdicionarObjetosCommand::execute(){
 			Parametros::getInstance()->setAlturaPrisma(razaoDeAspecto*l0);		
 			Parametros::getInstance()->setCorPrisma(cor);	
 			simulacao->adicionarObjeto(PRISMA_TRIANGULAR,qtde);
-		}
-		else{
+		}else{
 			Parametros::getInstance()->setL0DoPrismaTriangularTruncado(l0);
 			Parametros::getInstance()->setRazaoAspectoDoPrismaTriangularTruncado(razaoDeAspecto);
 			Parametros::getInstance()->setRazaoDeTruncamentoDoPrismaTriangularTruncado(razaoDeTruncamento);

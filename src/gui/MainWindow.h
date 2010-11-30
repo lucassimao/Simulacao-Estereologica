@@ -27,6 +27,7 @@ namespace simulacao	{
 
 			inline void criarCanvas();
 			inline void atualizarQuantidadeDeGraosEmCena();
+			
 		private slots:
 			void adicionarObjetos();
 			void pararSimulacao();

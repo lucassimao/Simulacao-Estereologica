@@ -1308,6 +1308,10 @@
 				>
 			</File>
 			<File
+				RelativePath="forms\ui_adicaoSistematizadaDePrismasComAjusteDaCaixa.h"
+				>
+			</File>
+			<File
 				RelativePath="forms\ui_configurarGradeDePontos.h"
 				>
 			</File>
@@ -1371,6 +1375,32 @@
 						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\adicaoSistematizadaDePrismas.ui -o forms\ui_adicaoSistematizadaDePrismas.h&#x0D;&#x0A;"
 						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\adicaoSistematizadaDePrismas.ui"
 						Outputs="forms\ui_adicaoSistematizadaDePrismas.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\forms\adicaoSistematizadaDePrismasComAjusteDaCaixa.ui"
+				>
+				<FileConfiguration
+					Name="Release_PhysX_v2.8.3|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\adicaoSistematizadaDePrismasComAjusteDaCaixa.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\adicaoSistematizadaDePrismasComAjusteDaCaixa.ui -o forms\ui_adicaoSistematizadaDePrismasComAjusteDaCaixa.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\adicaoSistematizadaDePrismasComAjusteDaCaixa.ui"
+						Outputs="forms\ui_adicaoSistematizadaDePrismasComAjusteDaCaixa.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_PhysX_v2.8.3|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\adicaoSistematizadaDePrismasComAjusteDaCaixa.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\adicaoSistematizadaDePrismasComAjusteDaCaixa.ui -o forms\ui_adicaoSistematizadaDePrismasComAjusteDaCaixa.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\adicaoSistematizadaDePrismasComAjusteDaCaixa.ui"
+						Outputs="forms\ui_adicaoSistematizadaDePrismasComAjusteDaCaixa.h"
 					/>
 				</FileConfiguration>
 			</File>

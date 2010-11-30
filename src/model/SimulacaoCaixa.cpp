@@ -156,11 +156,12 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 			break;
 		case PRISMA_TRIANGULAR_TRUNCADO:
 			for(long l=0;l<qtde;++l){
-				new PrismaTriangularTruncado(cena,NULL,meshFactory);
+				new PrismaTriangularTruncado(cena,meshFactory);
 			}
 			break;
 	}
 }
+
 
 void SimulacaoCaixa::novoPlanoDeCorte(){
 

@@ -22,7 +22,7 @@ Esfera::Esfera(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 		//sphereDesc.shapeFlags |= NX_SF_DYNAMIC_DYNAMIC_CCD;
 		sphereDesc.radius = this->raio;
 
-		sphereDesc.ccdSkeleton = ccds;
+		//sphereDesc.ccdSkeleton = ccds;
 		actorDesc2.shapes.pushBack(&sphereDesc);
 
 		actorDesc2.body = &bodyDesc2;
