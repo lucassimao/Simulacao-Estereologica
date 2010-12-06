@@ -218,7 +218,11 @@ void ExportadorDeCortesSistematicos::exportarParaArquivo(){
 }
 
 void ExportadorDeCortesSistematicos::exportar(){
-	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(this->qtdePlanos));
+	Parametros *p = Parametros::getInstance();
+	double h0 = p->getAlturaDaBaseDaCaixa();
+	double h1 = p->getArestaDaCaixa() + p->getAlturaDaBaseDaCaixa();
+	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(h0,h1,this->qtdePlanos));
+
 	DAO dao(this->db);
 	
 	NxActor* caixa = simulacao->getCaixa();

@@ -22,7 +22,6 @@ namespace simulacao{
 			double aproximarDeltaH(double h0,double h1,int qtdePlanos);
 
 		public:
-			GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(int qtdePlanos);
 			GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(double h0,double h1, int qtdePlanos);
 			double novaAltura();
 		};

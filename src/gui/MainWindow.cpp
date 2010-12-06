@@ -301,7 +301,10 @@ void MainWindow::mudarEstrategiaDeAlturasDoPlanodeCorte(bool b){
 		res = dlg->exec();
 		if (res == QInputDialog::DialogCode::Accepted){
 			int qtdePlanos = dlg->intValue();
-			simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(qtdePlanos));
+			Parametros *p = Parametros::getInstance();
+			double h0 = p->getAlturaDaBaseDaCaixa();
+			double h1 = p->getArestaDaCaixa() + p->getAlturaDaBaseDaCaixa();
+			simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(h0,h1,qtdePlanos));
 			simulacao->novoPlanoDeCorte();
 		}
 		else
