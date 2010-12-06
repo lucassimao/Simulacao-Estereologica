@@ -30,6 +30,7 @@ namespace simulacao{
 			public:
 				AdicionarObjetosCommand(SimulacaoCaixa *simulacao, double porcentagemFaseSolida);
 				void adicionarEsferas(double raio, double porcentagem, Cor cor);
+				void adicionarEsferas(double raio, int quantidade, Cor cor);
 				void adicionarPrismas(double L0, double porcentagem, Cor cor, double razaoDeAspecto, double razaoDeTruncamento);
 				void adicionarPrismas(double L0, int quantidade, Cor cor, double razaoDeAspecto, double razaoDeTruncamento);
 				void execute();

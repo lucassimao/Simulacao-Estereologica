@@ -22,7 +22,15 @@ void AdicionarObjetosCommand::adicionarEsferas(double raio, double porcentagem, 
 	desc.qtde = volumeTotalDasEsferas/volumeDeUmaUnicaEsfera;
 
 	this->esferas.push_back(desc);
+}
 
+void AdicionarObjetosCommand::adicionarEsferas(double raio, int quantidade, Cor cor){
+	EsferaDesc desc;
+	desc.cor = cor;
+	desc.raio = raio;
+	desc.qtde = quantidade;
+
+	this->esferas.push_back(desc);
 }
 
 void AdicionarObjetosCommand::adicionarPrismas(double L0, double porcentagem, Cor cor, double razaoDeAspecto, double razaoDeTruncamento){

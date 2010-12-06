@@ -711,6 +711,10 @@
 				Name="gui"
 				>
 				<File
+					RelativePath=".\src\gui\AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\gui\AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.cpp"
 					>
 				</File>
@@ -991,6 +995,21 @@
 				Name="gui"
 				>
 				<File
+					RelativePath=".\src\gui\AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.h"
+					>
+					<FileConfiguration
+						Name="Debug_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="src\gui\AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.h -o moc\moc_AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.h"
+							Outputs="moc\moc_AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.cpp"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\src\gui\AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.h"
 					>
 					<FileConfiguration
@@ -1268,6 +1287,10 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			>
 			<File
+				RelativePath="moc\moc_AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="moc\moc_AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.cpp"
 				>
 			</File>
@@ -1353,6 +1376,32 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\forms\adicaoSistematizadaDeEsferasComAjusteDaCaixa.ui"
+				>
+				<FileConfiguration
+					Name="Release_PhysX_v2.8.3|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\adicaoSistematizadaDeEsferasComAjusteDaCaixa.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\adicaoSistematizadaDeEsferasComAjusteDaCaixa.ui -o forms\ui_adicaoSistematizadaDeEsferasComAjusteDaCaixa.h"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\adicaoSistematizadaDeEsferasComAjusteDaCaixa.ui"
+						Outputs="forms\ui_adicaoSistematizadaDeEsferasComAjusteDaCaixa.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_PhysX_v2.8.3|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\adicaoSistematizadaDeEsferasComAjusteDaCaixa.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\adicaoSistematizadaDeEsferasComAjusteDaCaixa.ui -o forms\ui_adicaoSistematizadaDeEsferasComAjusteDaCaixa.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\adicaoSistematizadaDeEsferasComAjusteDaCaixa.ui"
+						Outputs="forms\ui_adicaoSistematizadaDeEsferasComAjusteDaCaixa.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\forms\adicaoSistematizadaDePrismas.ui"
 				>
 				<FileConfiguration
@@ -1399,7 +1448,7 @@
 						Name="VCCustomBuildTool"
 						Description="UIC forms\adicaoSistematizadaDePrismasComAjusteDaCaixa.ui"
 						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\adicaoSistematizadaDePrismasComAjusteDaCaixa.ui -o forms\ui_adicaoSistematizadaDePrismasComAjusteDaCaixa.h&#x0D;&#x0A;"
-						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\adicaoSistematizadaDePrismasComAjusteDaCaixa.ui"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe forms\adicaoSistematizadaDePrismasComAjusteDaCaixa.ui"
 						Outputs="forms\ui_adicaoSistematizadaDePrismasComAjusteDaCaixa.h"
 					/>
 				</FileConfiguration>
