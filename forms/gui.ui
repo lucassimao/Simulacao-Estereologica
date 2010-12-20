@@ -517,6 +517,7 @@
      </widget>
      <addaction name="menuCom_volume_da_Caixa_Fixo"/>
      <addaction name="menuCom_Volume_da_Caixa_Ajust_vel"/>
+     <addaction name="actionDistribui_o_Log_Normal"/>
     </widget>
     <addaction name="actionPercola_o"/>
     <addaction name="actionExecutarCortesSistematicos"/>
@@ -707,6 +708,11 @@
   <action name="actionEsferas">
    <property name="text">
     <string>Esferas</string>
+   </property>
+  </action>
+  <action name="actionDistribui_o_Log_Normal">
+   <property name="text">
+    <string>Distribuição Log Normal</string>
    </property>
   </action>
  </widget>
@@ -1064,6 +1070,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionDistribui_o_Log_Normal</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>distribuicaoLogNormal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>adicionarObjetos()</slot>
@@ -1088,5 +1110,6 @@
   <slot>actionExecutarCortesSistematicos()</slot>
   <slot>adicionarPrismasSistematicamenteComVolumeDaCaixaAjustavel()</slot>
   <slot>adicionarEsferasSistematicamenteComVolumeDaCaixaAjustavel()</slot>
+  <slot>distribuicaoLogNormal()</slot>
  </slots>
 </ui>

@@ -735,6 +735,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\gui\DistribuicaoLogNormalDialog.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\gui\MainWindow.cpp"
 					>
 				</File>
@@ -1140,6 +1144,32 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath=".\src\gui\DistribuicaoLogNormalDialog.h"
+					>
+					<FileConfiguration
+						Name="Release_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\DistribuicaoLogNormalDialog.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DistribuicaoLogNormalDialog.h -o moc\moc_DistribuicaoLogNormalDialog.cpp"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DistribuicaoLogNormalDialog.h"
+							Outputs="moc\moc_DistribuicaoLogNormalDialog.cpp"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\DistribuicaoLogNormalDialog.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DistribuicaoLogNormalDialog.h -o moc\moc_DistribuicaoLogNormalDialog.cpp"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DistribuicaoLogNormalDialog.h"
+							Outputs="moc\moc_DistribuicaoLogNormalDialog.cpp"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\src\gui\MainWindow.h"
 					>
 					<FileConfiguration
@@ -1315,6 +1345,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\moc\moc_DistribuicaoLogNormalDialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="moc\moc_MainWindow.cpp"
 				>
 			</File>
@@ -1384,7 +1418,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="UIC forms\adicaoSistematizadaDeEsferasComAjusteDaCaixa.ui"
-						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\adicaoSistematizadaDeEsferasComAjusteDaCaixa.ui -o forms\ui_adicaoSistematizadaDeEsferasComAjusteDaCaixa.h"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\adicaoSistematizadaDeEsferasComAjusteDaCaixa.ui -o forms\ui_adicaoSistematizadaDeEsferasComAjusteDaCaixa.h&#x0D;&#x0A;"
 						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\adicaoSistematizadaDeEsferasComAjusteDaCaixa.ui"
 						Outputs="forms\ui_adicaoSistematizadaDeEsferasComAjusteDaCaixa.h"
 					/>
@@ -1476,6 +1510,32 @@
 						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\configurarGradeDePontos.ui -o forms\ui_configurarGradeDePontos.h&#x0D;&#x0A;"
 						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\configurarGradeDePontos.ui"
 						Outputs="forms\ui_configurarGradeDePontos.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\forms\distribuicaoLogNormal.ui"
+				>
+				<FileConfiguration
+					Name="Release_PhysX_v2.8.3|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\distribuicaoLogNormal.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoLogNormal.ui -o forms\ui_distribuicaoLogNormal.h"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoLogNormal.ui"
+						Outputs="forms\ui_distribuicaoLogNormal.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_PhysX_v2.8.3|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\distribuicaoLogNormal.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoLogNormal.ui -o forms\ui_distribuicaoLogNormal.h"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoLogNormal.ui"
+						Outputs="forms\ui_distribuicaoLogNormal.h"
 					/>
 				</FileConfiguration>
 			</File>

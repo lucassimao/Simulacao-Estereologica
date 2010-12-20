@@ -10,6 +10,7 @@ using namespace simulacao::model;
 using namespace simulacao::gui;
 using namespace simulacao::canvas;
 
+#include "DistribuicaoLogNormalDialog.h"
 #include "AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog.h"
 #include "AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.h"
 #include "AdicionarEsferasSistematicamenteDialog.h"
@@ -71,6 +72,21 @@ void MainWindow::configurarGrade(){
 		DialogParametrosGrade *dialog = new DialogParametrosGrade(this);
 		dialog->setModal(true);
 		dialog->setVisible(true);
+}
+
+
+void MainWindow::distribuicaoLogNormal(){
+	DistribuicaoLogNormalDialog *dlg = new DistribuicaoLogNormalDialog(this,this->simulacao);
+	int result =  dlg->exec();
+
+	if (result ==  QInputDialog::DialogCode::Accepted)
+	{
+		AdicionarObjetosCommand *command = dlg->getCommand();
+		if (command){
+			command->execute();
+			atualizarQuantidadeDeGraosEmCena();
+		}
+	}
 }
 
 void MainWindow::adicionarEsferasSistematicamente(){
@@ -182,7 +198,6 @@ inline void MainWindow::criarCanvas(){
 	view->setAcceptDrops(true);
 	ui->horizontalLayout_2->addWidget(view);
 	
-	
 
 	if (simulacao->isSimulacaoEmHardware())
 		statusTipoSimulacao->setText(tr("Simulação em Hardware"));
@@ -191,7 +206,6 @@ inline void MainWindow::criarCanvas(){
 
 }
 
-	
 void MainWindow::configurarParametros(){
 
 	int res;
@@ -202,7 +216,6 @@ void MainWindow::configurarParametros(){
 	switch(ui->comboBoxTipoGrao->currentIndex())
 	{
 	case 0:
-		
 		dlg->setLabelText(tr("Raio da esfera:"));
 		dlg->setDoubleValue(Parametros::getInstance()->getRaioEsfera());
 		res = dlg->exec();
