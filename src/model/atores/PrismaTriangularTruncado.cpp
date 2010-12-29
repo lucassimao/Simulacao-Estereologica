@@ -80,7 +80,12 @@ PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,MeshFactory *me
 	actorDesc.body = &bodyDesc;
 	actorDesc.density = 10;
 
-	actorDesc.globalPose.t  = GlobalPoseFactory::getInstance()->newGlobalPosition();
+	NxVec3 posicaoInicial = GlobalPoseFactory::getInstance()->newGlobalPosition();
+	if (posicaoInicial.y + alturaDoPrisma >= Parametros::getInstance()->getAlturaDoTopoDaCaixa()){
+		posicaoInicial.y -= 2*alturaDoPrisma;
+	}
+
+	actorDesc.globalPose.t  = posicaoInicial;
 	this->ator = cena->createActor(actorDesc);
 	this->ator->userData =  (void *)this;
 }

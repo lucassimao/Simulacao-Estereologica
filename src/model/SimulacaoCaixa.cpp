@@ -1,5 +1,6 @@
 #include <QtDebug>
 #include <vector>
+#include <QTimer>
 #include <NxPhysics.h>
 #include <NxExportedUtils.h>
 #include "SimulacaoCaixa.h"
@@ -18,7 +19,7 @@ using namespace simulacao::model;
 using namespace simulacao::model::atores;
 using namespace simulacao::model::interceptos;
 
-NxCCDSkeleton * ccds;
+//NxCCDSkeleton * ccds;
 
 SimulacaoCaixa::SimulacaoCaixa(void)
 {
@@ -31,7 +32,7 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->exibirPontosTeste=true;
 	this->exibirRetasTeste=true;
 	
-	criarCCDS();
+	//criarCCDS();
 }
 
 SimulacaoCaixa::~SimulacaoCaixa(void)
@@ -39,6 +40,7 @@ SimulacaoCaixa::~SimulacaoCaixa(void)
 	removerGraos();
 }
 
+/*
 void SimulacaoCaixa::criarCCDS(){
 	MemoryWriteBuffer buf;
 	NxVec3 dim(0.5f, 0.5f , 0.5f);
@@ -84,7 +86,7 @@ void SimulacaoCaixa::criarCCDS(){
 	stm.flags |= NX_MF_FLIPNORMALS;
 	ccds = physicsSDK->createCCDSkeleton(stm);
 
-}
+}*/
 
 void SimulacaoCaixa::criarCaixa(){
 
@@ -92,10 +94,10 @@ void SimulacaoCaixa::criarCaixa(){
 		this->cena->releaseActor(*this->caixa);
 		this->caixa = NULL;
 	}
-	// definindo os vertices
-	double arestaDaCaixadeGraosRadii = Parametros::getInstance()->getArestaDaCaixa()/2.0;
-	NxVec3 dim(arestaDaCaixadeGraosRadii,arestaDaCaixadeGraosRadii,arestaDaCaixadeGraosRadii);
 
+	double arestaDaCaixaDeGraosRadii = Parametros::getInstance()->getArestaDaCaixa()/2.0;
+	NxVec3 dim(arestaDaCaixaDeGraosRadii,arestaDaCaixaDeGraosRadii,arestaDaCaixaDeGraosRadii);
+	
 	NxU32 triangulos[3 * 12] = { 
 		0,1,3,
 		0,3,2,
@@ -122,14 +124,13 @@ void SimulacaoCaixa::criarCaixa(){
 	vertices[6].set(-dim.x,  dim.y, -dim.z);
 	vertices[7].set(-dim.x,  dim.y,  dim.z);
 
-	NxBodyDesc BodyDesc;
-	NxActorDesc actorDesc;
-	actorDesc.globalPose.t = NxVec3(0,Parametros::getInstance()->getCentroDeMassaDaCaixa(),0);
 	NxTriangleMeshShapeDesc meshShapeDesc;
-
 	meshShapeDesc.meshData = this->meshFactory->criarTriangleMesh(8,12,vertices,triangulos);
+
+	NxActorDesc actorDesc;
+	actorDesc.globalPose.t = NxVec3(0,arestaDaCaixaDeGraosRadii,0);
 	actorDesc.shapes.pushBack(&meshShapeDesc);
-	
+
 	this->caixa = cena->createActor(actorDesc);
 
 	if (this->atorPlanoDeCorte != NULL){
@@ -142,12 +143,21 @@ void SimulacaoCaixa::criarCaixa(){
 
 }
 
+void SimulacaoCaixa::adicionarEsfera(){
+	for(long l=0;l<10;++l)
+		new Esfera(cena,NULL);
+}
+
 void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 	switch(tipo){
 		case ESFERA:
-			for(long l=0;l<qtde;++l){
-				new Esfera(cena,ccds);
+			/*while (qtde>10){cd pro
+				QTimer::singleShot(5000, this, SLOT(adicionarEsfera()));
+				qtde -= 10;
 			}
+			QTimer::singleShot(5000, this, SLOT(adicionarEsfera()));*/
+			for(long l=0;l<qtde;++l)
+				new Esfera(cena,NULL);
 			break;
 		case PRISMA_TRIANGULAR:
 			for(long l=0;l<qtde;++l){
@@ -160,6 +170,7 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 			}
 			break;
 	}
+	
 }
 
 

@@ -56,7 +56,7 @@ void CaixaGraosGLWidget::draw()
 
 	this->renderizacaoStrategy->draw(this->simulacao);
 	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
-	drawCuboid(this->simulacao->getCaixa());
+	drawCuboid(this->simulacao->getCaixa(),false);
 
 }
 
@@ -74,16 +74,7 @@ void CaixaGraosGLWidget::initializeGL()
 
 	glEnable(GL_LIGHTING);
 	
-	//float AmbientColor[]	=  { 0.0f, 0.0f, 0.0f, 0.1f };
-	//glLightfv(GL_LIGHT0, GL_AMBIENT, AmbientColor);
-
-	//float DiffuseColor[]	=  {1.0f, 1.0f, 1.0f, 1.0f };		
-	//glLightfv(GL_LIGHT0, GL_DIFFUSE, DiffuseColor);
-
-	//float SpecularColor[]	= { 0.0f, 0.0f, 0.0f, 1.0f };		
-	//glLightfv(GL_LIGHT0, GL_SPECULAR, SpecularColor);
-
-	float Position[]		= {80.0f,80.0f, 70.0f,1.0f };	
+	float Position[] = {80.0f,80.0f, 70.0f,1.0f };	
 	glLightfv(GL_LIGHT0, GL_POSITION, Position);
 
 	glEnable(GL_LIGHT0);
@@ -141,33 +132,32 @@ void CaixaGraosGLWidget::posicionarCameraNoPontoInicial(){
 }
 
 
-inline void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides)
-{
+inline void CaixaGraosGLWidget::drawCuboid(const NxActor * cuboid, NX_BOOL drawBothSides){
+	
 	assert(cuboid->getShapes()[0]->getType()== NX_SHAPE_MESH);
 
 	NxTriangleMesh & tm = static_cast<NxTriangleMeshShape*>(cuboid->getShapes()[0])->getTriangleMesh();
-
-	NxU32 numTrigs = tm.getCount(0, NX_ARRAY_TRIANGLES);
 	const NxTriangle32* trigs = (const NxTriangle32*)tm.getBase(0, NX_ARRAY_TRIANGLES);
 	const NxPoint* verts = (const NxPoint*)tm.getBase(0, NX_ARRAY_VERTICES);
 	const NxPoint* normals = (const NxPoint*)tm.getBase(0, NX_ARRAY_NORMALS);
 
-
+	NxU32 numTrigs = tm.getCount(0, NX_ARRAY_TRIANGLES);
 	float* pVertList = new float[numTrigs*3*3];
 	float* pNormList = new float[numTrigs*3*3];
 
 	int vertIndex = 0;
 	int normIndex = 0;
+	double arestaDaCaixaDeGraosRadii = Parametros::getInstance()->getArestaDaCaixa()/2.0;
+
 	for(unsigned int i=0;i<numTrigs;i++)
 	{
-		for(int j=0;j<3;j++)
-		{
+		for(int j=0;j<3;j++){
 			pVertList[vertIndex++] = verts[trigs[i].v[j]].x;
-			pVertList[vertIndex++] = verts[trigs[i].v[j]].y + Parametros::getInstance()->getCentroDeMassaDaCaixa();
+			pVertList[vertIndex++] = verts[trigs[i].v[j]].y + arestaDaCaixaDeGraosRadii;
 			pVertList[vertIndex++] = verts[trigs[i].v[j]].z;
-
+			
 			pNormList[normIndex++] = normals[trigs[i].v[j]].x;
-			pNormList[normIndex++] = normals[trigs[i].v[j]].y + Parametros::getInstance()->getCentroDeMassaDaCaixa();
+			pNormList[normIndex++] = normals[trigs[i].v[j]].y + arestaDaCaixaDeGraosRadii;
 			pNormList[normIndex++] = normals[trigs[i].v[j]].z;
 		}
 	}

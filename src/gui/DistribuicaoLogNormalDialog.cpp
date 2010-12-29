@@ -111,9 +111,6 @@ void DistribuicaoLogNormalDialog::configurarValidadoresDosCamposDeTexto(){
 	QIntValidator *intValidator = new QIntValidator(this);
 	intValidator->setBottom(0);
 
-	ui->textDeltaX->setValidator(intValidator);
-	ui->textXn->setValidator(intValidator);
-	ui->textX0->setValidator(intValidator);
 	ui->textN0->setValidator(intValidator);
 
 	QDoubleValidator *fracaoDeVazioValidator = new QDoubleValidator(this) ;
@@ -125,17 +122,25 @@ void DistribuicaoLogNormalDialog::configurarValidadoresDosCamposDeTexto(){
 	ui->textRazaoDeAspecto->setValidator(razaoDeAspectoValidator);
 
 	QDoubleValidator *razaoDeTruncamentoValidator = new QDoubleValidator(this);
-	razaoDeTruncamentoValidator->setRange(0,0.5,3);
+	razaoDeTruncamentoValidator->setRange(0,0.49,3);
 	ui->textRazaoDeTruncamento->setValidator(razaoDeTruncamentoValidator);
 
 	QDoubleValidator *sigmaMiValidator = new QDoubleValidator(this);
 	razaoDeTruncamentoValidator->setRange(0,100,2);
 	ui->textSigma->setValidator(sigmaMiValidator);
 	ui->textMi->setValidator(sigmaMiValidator);
+
+	QDoubleValidator *doubleValidator = new QDoubleValidator(this);
+	doubleValidator->setBottom(0);
+	doubleValidator->setDecimals(3);
+
+	ui->textDeltaX->setValidator(doubleValidator);
+	ui->textXn->setValidator(doubleValidator);
+	ui->textX0->setValidator(doubleValidator);
 }
 
-int DistribuicaoLogNormalDialog::getX0(){ return ui->textX0->text().toInt(); }
-int DistribuicaoLogNormalDialog::getXn(){ return ui->textXn->text().toInt(); }
+float DistribuicaoLogNormalDialog::getX0(){ return ui->textX0->text().toFloat(); }
+float DistribuicaoLogNormalDialog::getXn(){ return ui->textXn->text().toFloat(); }
 double DistribuicaoLogNormalDialog::getMi(){ return ui->textMi->text().toDouble(); }
 double DistribuicaoLogNormalDialog::getSigma(){ return ui->textSigma->text().toDouble(); }
 double DistribuicaoLogNormalDialog::getRazaoDeAspecto(){ return ui->textRazaoDeAspecto->text().toDouble(); }
@@ -144,8 +149,8 @@ double DistribuicaoLogNormalDialog::getN0(){ return ui->textN0->text().toDouble(
 float DistribuicaoLogNormalDialog::getDeltaX(){ return ui->textDeltaX->text().toFloat(); }
 
 void DistribuicaoLogNormalDialog::criarDistribuicaoDeGraos(){
-	int x0 = getX0();
-	int xn = getXn();
+	float x0 = getX0();
+	float xn = getXn();
 	float deltaX = getDeltaX();
 	double mi = getMi();
 	double sigma = getSigma();

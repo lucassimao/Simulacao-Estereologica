@@ -15,13 +15,14 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 	NxU32 nbActors = simulacao->getQtdeObjetos();
 	NxActor** actors = simulacao->getAtores();
 	PlanoDeCorte *planoDeCorte = simulacao->getPlanoDeCorte();
+	NxActor *caixa = simulacao->getCaixa();
 	
 	while (nbActors--)
 	{
 		NxActor* actor = *actors++;
+		if (actor == caixa) continue;
+
 		Ator *ator = static_cast<Ator*>(actor->userData);
-
-
 		if (ator){
 			Cor cor = ator->cor;
 			glPushAttrib(GL_ALL_ATTRIB_BITS);
@@ -34,8 +35,7 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 			DrawActor(actor, NULL, false);
 			glPopAttrib();
 		}
-		else
-		{
+		else{
 			DrawActor(actor, NULL, false);	
 		}
 				

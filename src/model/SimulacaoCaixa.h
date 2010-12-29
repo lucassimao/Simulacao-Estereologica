@@ -9,6 +9,7 @@
 #include "..\model\atores\PlanoDeCorte.h"
 #include "grade\Grade.h"
 #include "Parametros.h"
+#include <QObject>
 /**
 * Definição de uma simulação simples, 
 * objetos idênticos
@@ -21,8 +22,14 @@ using namespace simulacao::model::grade;
 namespace simulacao{
 	namespace model{
 
-		class SimulacaoCaixa : public Simulacao
+		class SimulacaoCaixa : public QObject, public Simulacao
 		{
+		Q_OBJECT
+
+
+		private slots:
+			void adicionarEsfera();
+
 		private:
 			NxActor *caixa;
 			MeshFactory *meshFactory;
@@ -33,7 +40,7 @@ namespace simulacao{
 			bool _exibirPlanoDeCorte;
 			bool exibirRetasTeste;
 			bool exibirPontosTeste;
-			void criarCCDS();			
+			//void criarCCDS();			
 
 		public:
 			void criarCaixa();

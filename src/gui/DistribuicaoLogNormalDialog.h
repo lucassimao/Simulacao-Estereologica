@@ -25,8 +25,8 @@ namespace simulacao	{
 			void configurarCamadaDeViewDaTabela();
 			void configurarValidadoresDosCamposDeTexto();
 
-			int getX0();
-			int getXn();
+			float getX0();
+			float getXn();
 			double getMi();
 			double getSigma();
 			double getN0();

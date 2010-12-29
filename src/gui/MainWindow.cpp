@@ -296,9 +296,7 @@ void MainWindow::adicionarObjetos(){
 
 
 void MainWindow::pararSimulacao(){
-	//QMessageBox::warning(this, tr("teste"),tr("pararSimulacao"));
 	if (simulacao->getStatus() == PAUSADO){
-		
 		simulacao->setStatus(EXECUCAO);
 		ui->btnParar->setText(tr("Pausar"));
 	}

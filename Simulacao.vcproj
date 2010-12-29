@@ -1170,6 +1170,33 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath=".\src\model\SimulacaoCaixa.h"
+					>
+					<FileConfiguration
+						Name="Release_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\model\SimulacaoCaixa.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\model\SimulacaoCaixa.h -o moc\moc_SimulacaoCaixa.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\model\SimulacaoCaixa.h"
+							Outputs="moc\moc_SimulacaoCaixa.cpp"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\model\SimulacaoCaixa.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\model\SimulacaoCaixa.h -o moc\moc_SimulacaoCaixa.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\model\SimulacaoCaixa.h"
+							Outputs="moc\moc_SimulacaoCaixa.cpp"
+						/>
+					</FileConfiguration>
+				</File>
+				
+				<File
 					RelativePath=".\src\gui\MainWindow.h"
 					>
 					<FileConfiguration
@@ -1346,6 +1373,10 @@
 			</File>
 			<File
 				RelativePath=".\moc\moc_DistribuicaoLogNormalDialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="moc\moc_SimulacaoCaixa.cpp"
 				>
 			</File>
 			<File

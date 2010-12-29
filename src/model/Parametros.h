@@ -77,9 +77,10 @@ namespace simulacao{
 				return this->grade;
 			}
 
-			inline double getCentroDeMassaDaCaixa(){ return 10.0; }
+			inline double getCentroDeMassaDaCaixa(){ return getArestaDaCaixa()/2.0; }
 
 			inline double getAlturaDaBaseDaCaixa(){ return getCentroDeMassaDaCaixa() - getArestaDaCaixa()/2.0;}
+			inline double getAlturaDoTopoDaCaixa(){ return getCentroDeMassaDaCaixa() + getArestaDaCaixa()/2.0;}
 
 			inline double getArestaDaCaixa(){ return arestaDaCaixa;}
 			inline void setArestaDaCaixa(double a){ if(a>0) this->arestaDaCaixa = a;}

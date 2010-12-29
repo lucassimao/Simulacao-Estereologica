@@ -62,7 +62,19 @@ PrismaTriangular::PrismaTriangular(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory
 	actorDesc.body = &bodyDesc;
 	actorDesc.density = 10.0;
 
-	actorDesc.globalPose.t  = GlobalPoseFactory::getInstance()->newGlobalPosition();
+	NxVec3 posicaoInicial = GlobalPoseFactory::getInstance()->newGlobalPosition();
+	if (posicaoInicial.y + altura >= Parametros::getInstance()->getAlturaDoTopoDaCaixa()){
+		posicaoInicial.y -= 2*altura;
+	}
+
+	if (posicaoInicial.x + base >= Parametros::getInstance()->getArestaDaCaixa()/2.0){
+		posicaoInicial.x -= 2*base;
+	}else
+	if (posicaoInicial.x - base < - Parametros::getInstance()->getArestaDaCaixa()/2.0){
+		posicaoInicial.x += 2*base;
+	}
+
+	actorDesc.globalPose.t  = posicaoInicial;
 	this->ator = cena->createActor(actorDesc);
 	this->ator->userData =  (void *)this;
 
