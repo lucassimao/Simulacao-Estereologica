@@ -3,6 +3,7 @@
 #include "RenderizarAtoresStrategy.h"
 #include "..\..\draw\DrawObjects.h"
 #include "..\..\model\atores\Ator.h"
+#include "..\..\utils\GlobalPoseFactory.h"
 
 using namespace simulacao::model::atores;
 using namespace simulacao::canvas::glWidget;
@@ -26,6 +27,11 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 		if (ator){
 			Cor cor = ator->cor;
 			glPushAttrib(GL_ALL_ATTRIB_BITS);
+			
+			NxVec3 caixaGlobalPosition = simulacao->getCaixa()->getGlobalPosition(); 
+			if (ator->estaForaDaCaixa(caixaGlobalPosition,Parametros::getInstance()->getArestaDaCaixa())){
+				actor->setGlobalPosition(NxVec3(0,0,0));
+			}
 
 			if (planoDeCorte && ator->estaInterceptadoPeloPlano(planoDeCorte->getNxActor()->getGlobalPosition()))
 				glColor4f(1.0f, 0, 0, 1.0f);

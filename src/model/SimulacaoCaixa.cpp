@@ -151,11 +151,6 @@ void SimulacaoCaixa::adicionarEsfera(){
 void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
 	switch(tipo){
 		case ESFERA:
-			/*while (qtde>10){cd pro
-				QTimer::singleShot(5000, this, SLOT(adicionarEsfera()));
-				qtde -= 10;
-			}
-			QTimer::singleShot(5000, this, SLOT(adicionarEsfera()));*/
 			for(long l=0;l<qtde;++l)
 				new Esfera(cena,NULL);
 			break;

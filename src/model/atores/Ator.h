@@ -25,6 +25,7 @@ namespace simulacao{
 				~Ator(void);
 				
 				Cor cor;
+				bool estaForaDaCaixa(NxVec3 globalPositionDaCaixa,double arestaDaCaixa);
 				virtual bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition) = 0;
 				virtual Intercepto* getIntercepto(NxVec3 planoGlobalPosition) = 0;
 				virtual double getVolume() = 0;

@@ -83,6 +83,8 @@ PrismaTriangular::PrismaTriangular(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory
 PrismaTriangular::~PrismaTriangular(){
 
 }
+
+
 bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	NxShape *mesh =  this->ator->getShapes()[0];
 	NxVec3 pos = ator->getGlobalPosition();

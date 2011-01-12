@@ -18,6 +18,7 @@ namespace simulacao{
 				Esfera(NxScene *,NxCCDSkeleton *ccds);
 				~Esfera(void);
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
+				bool estaForaDaCaixa(NxVec3 globalPositionDaCaixa,double arestaDaCaixa);
 				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
 				double getVolume(){
 					return Esfera::calcularVolume(this->raio);

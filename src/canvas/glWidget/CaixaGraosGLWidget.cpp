@@ -45,23 +45,20 @@ CaixaGraosGLWidget::CaixaGraosGLWidget(QWidget *parent,SimulacaoCaixa *simulacao
 
 void CaixaGraosGLWidget::draw()
 {
-
 	SetupCamera();
 
-	if (*simulacao)
-	{
+	if (*simulacao){
 		simulacao->GetPhysicsResults();
+		this->renderizacaoStrategy->draw(this->simulacao);
+		glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
+		drawCuboid(this->simulacao->getCaixa(),false);	
 		simulacao->iniciarSimulacao();
+	}else{
+		this->renderizacaoStrategy->draw(this->simulacao);
+		glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
+		drawCuboid(this->simulacao->getCaixa(),false);	
 	}
-
-	this->renderizacaoStrategy->draw(this->simulacao);
-	glColor4f(0.0f, 0.0f, 0.4f, 1.0f);
-	drawCuboid(this->simulacao->getCaixa(),false);
-
 }
-
-
-
 
 void CaixaGraosGLWidget::initializeGL()
 {

@@ -37,6 +37,7 @@ Esfera::Esfera(NxScene *cena,NxCCDSkeleton *ccds):Ator()
 Esfera::~Esfera(void)
 {
 }
+
 Intercepto* Esfera::getIntercepto(NxVec3 planoGlobalPosition){
 	if (estaInterceptadoPeloPlano(planoGlobalPosition))
 	{

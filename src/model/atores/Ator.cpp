@@ -19,3 +19,18 @@ Ator::Ator()
 Ator::~Ator(void)
 {
 }
+
+bool Ator::estaForaDaCaixa(NxVec3 globalPositionDaCaixa,double arestaDaCaixa){
+	NxVec3 globalPositionAtor = this->ator->getGlobalPosition();
+	double metadeArestaDaCaixa = arestaDaCaixa/2.0;
+
+	if (globalPositionAtor.x <=  globalPositionDaCaixa.x - metadeArestaDaCaixa) return true;
+	if (globalPositionAtor.x >=  globalPositionDaCaixa.x + metadeArestaDaCaixa) return true;
+
+	if (globalPositionAtor.y <=  globalPositionDaCaixa.y - metadeArestaDaCaixa) return true;
+	if (globalPositionAtor.y >=  globalPositionDaCaixa.y + metadeArestaDaCaixa) return true;
+
+	if (globalPositionAtor.z <=  globalPositionDaCaixa.z - metadeArestaDaCaixa) return true;
+	if (globalPositionAtor.z >=  globalPositionDaCaixa.z + metadeArestaDaCaixa) return true;
+	return false;
+}
