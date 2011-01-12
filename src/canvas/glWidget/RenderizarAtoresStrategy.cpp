@@ -30,7 +30,7 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 			
 			NxVec3 caixaGlobalPosition = simulacao->getCaixa()->getGlobalPosition(); 
 			if (ator->estaForaDaCaixa(caixaGlobalPosition,Parametros::getInstance()->getArestaDaCaixa())){
-				actor->setGlobalPosition(NxVec3(0,0,0));
+				actor->setGlobalPosition(GlobalPoseFactory::getInstance()->newGlobalPosition());
 			}
 
 			if (planoDeCorte && ator->estaInterceptadoPeloPlano(planoDeCorte->getNxActor()->getGlobalPosition()))
