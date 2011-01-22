@@ -2,10 +2,12 @@
 #include <QString>
 #include <QDebug>
 #include <ctime>
+#include <cstdio>
 #include "gui/MainWindow.h"
 
 using namespace simulacao::gui;
 using namespace std;
+
 
 	
 int main(int argc,char **argv){
@@ -20,5 +22,4 @@ int main(int argc,char **argv){
 	win.setVisible(true);
 
     return app.exec();
-
 }

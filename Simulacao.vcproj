@@ -534,7 +534,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; &quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot;"
-				AdditionalDependencies="c:\Qt\2009.02\qt\lib\qtmaind.lib c:\Qt\2009.02\qt\lib\QtGuid4.lib c:\Qt\2009.02\qt\lib\QtOpenGLd4.lib c:\Qt\2009.02\qt\lib\QtCored4.lib PhysXLoader.lib PhysXCore.lib PhysXCooking.lib NxCharacter.lib glut32.lib"
+				AdditionalDependencies="c:\Qt\2009.02\qt\lib\qtmaind.lib c:\Qt\2009.02\qt\lib\QtGuid4.lib c:\Qt\2009.02\qt\lib\QtOpenGLd4.lib c:\Qt\2009.02\qt\lib\QtCored4.lib PhysXLoader.lib PhysXCore.lib PhysXCooking.lib NxCharacter.lib glut32.lib libs\libjpeg-static-mtdll-debug.lib"
 				ShowProgress="2"
 				OutputFile="Debug_PhysX_v2.8.3\Simulacao.exe"
 				SuppressStartupBanner="true"
@@ -1152,7 +1152,7 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\DistribuicaoLogNormalDialog.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DistribuicaoLogNormalDialog.h -o moc\moc_DistribuicaoLogNormalDialog.cpp"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DistribuicaoLogNormalDialog.h -o moc\moc_DistribuicaoLogNormalDialog.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DistribuicaoLogNormalDialog.h"
 							Outputs="moc\moc_DistribuicaoLogNormalDialog.cpp"
 						/>
@@ -1163,9 +1163,35 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="MOC src\gui\DistribuicaoLogNormalDialog.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DistribuicaoLogNormalDialog.h -o moc\moc_DistribuicaoLogNormalDialog.cpp"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DistribuicaoLogNormalDialog.h -o moc\moc_DistribuicaoLogNormalDialog.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DistribuicaoLogNormalDialog.h"
 							Outputs="moc\moc_DistribuicaoLogNormalDialog.cpp"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\src\gui\MainWindow.h"
+					>
+					<FileConfiguration
+						Name="Release_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\MainWindow.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\MainWindow.h -o moc\moc_MainWindow.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\MainWindow.h"
+							Outputs="moc\moc_MainWindow.cpp"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\MainWindow.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\MainWindow.h -o moc\moc_MainWindow.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\MainWindow.h"
+							Outputs="moc\moc_MainWindow.cpp"
 						/>
 					</FileConfiguration>
 				</File>
@@ -1192,33 +1218,6 @@
 							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\model\SimulacaoCaixa.h -o moc\moc_SimulacaoCaixa.cpp&#x0D;&#x0A;"
 							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\model\SimulacaoCaixa.h"
 							Outputs="moc\moc_SimulacaoCaixa.cpp"
-						/>
-					</FileConfiguration>
-				</File>
-				
-				<File
-					RelativePath=".\src\gui\MainWindow.h"
-					>
-					<FileConfiguration
-						Name="Release_PhysX_v2.8.3|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							Description="MOC src\gui\MainWindow.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\MainWindow.h -o moc\moc_MainWindow.cpp&#x0D;&#x0A;"
-							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\MainWindow.h"
-							Outputs="moc\moc_MainWindow.cpp"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug_PhysX_v2.8.3|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							Description="MOC src\gui\MainWindow.h"
-							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\MainWindow.h -o moc\moc_MainWindow.cpp&#x0D;&#x0A;"
-							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\MainWindow.h"
-							Outputs="moc\moc_MainWindow.cpp"
 						/>
 					</FileConfiguration>
 				</File>
@@ -1257,6 +1256,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\utils\CImg.h"
+					>
+				</File>
+				<File
 					RelativePath=".\src\utils\DAO.h"
 					>
 				</File>
@@ -1281,6 +1284,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\utils\jpeg_buffer.h"
+					>
+				</File>
+				<File
 					RelativePath=".\src\utils\MeshFactory.h"
 					>
 				</File>
@@ -1300,6 +1307,26 @@
 					RelativePath=".\src\utils\Vetor.h"
 					>
 				</File>
+				<Filter
+					Name="jpeglib"
+					>
+					<File
+						RelativePath=".\src\utils\jpeglib\jconfig.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\utils\jpeglib\jerror.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\utils\jpeglib\jmorecfg.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\utils\jpeglib\jpeglib.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="math"
@@ -1376,11 +1403,11 @@
 				>
 			</File>
 			<File
-				RelativePath="moc\moc_SimulacaoCaixa.cpp"
+				RelativePath="moc\moc_MainWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath="moc\moc_MainWindow.cpp"
+				RelativePath="moc\moc_SimulacaoCaixa.cpp"
 				>
 			</File>
 			<File
@@ -1553,7 +1580,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="UIC forms\distribuicaoLogNormal.ui"
-						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoLogNormal.ui -o forms\ui_distribuicaoLogNormal.h"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoLogNormal.ui -o forms\ui_distribuicaoLogNormal.h&#x0D;&#x0A;"
 						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoLogNormal.ui"
 						Outputs="forms\ui_distribuicaoLogNormal.h"
 					/>
@@ -1564,7 +1591,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="UIC forms\distribuicaoLogNormal.ui"
-						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoLogNormal.ui -o forms\ui_distribuicaoLogNormal.h"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoLogNormal.ui -o forms\ui_distribuicaoLogNormal.h&#x0D;&#x0A;"
 						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoLogNormal.ui"
 						Outputs="forms\ui_distribuicaoLogNormal.h"
 					/>

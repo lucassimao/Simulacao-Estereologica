@@ -85,6 +85,8 @@ namespace simulacao{
 			inline double getArestaDaCaixa(){ return arestaDaCaixa;}
 			inline void setArestaDaCaixa(double a){ if(a>0) this->arestaDaCaixa = a;}
 
+			inline double getLarguraDoPlanoDeCorte(){ return getArestaDaCaixa(); }
+
 			inline double getRaioEsfera(){ return esfera.raio;}
 			inline void setRaioEsfera(double r){ if(r>0) esfera.raio = r;}
 

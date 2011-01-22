@@ -118,12 +118,14 @@ void MainWindow::actionExecutarCortesSistematicos(){
 		int qtde = dlg->intValue();
 
 		QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja que as informações sejam salvas");
-
+		int res = QMessageBox::question(this, tr("Pergunta"),tr("Deseja exportar também as imagens de cada plano de corte?"),
+			QMessageBox::StandardButton::Ok|QMessageBox::StandardButton::No);
+		
 		if (dir.trimmed().size()>0){
-			ExportadorDeCortesSistematicos exportador(dir.toStdString(),qtde,this->simulacao);
+			bool exportarImagens = (res == QMessageBox::StandardButton::Ok);
+			ExportadorDeCortesSistematicos exportador(dir.toStdString(),qtde,this->simulacao,exportarImagens);
 			exportador.exportar();
 			QMessageBox::information(this, tr("Exportação concluída"),tr("Os dados foram exportados com sucesso!"));
-		
 		}
 	}
 

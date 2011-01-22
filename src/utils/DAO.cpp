@@ -47,11 +47,11 @@ __int64 DAO::salvarInterceptosLineares(int planoDeCorte_id,ColetorDeInterceptosL
 	return ultimoInterceptoID;
 }
 
-__int64 DAO::salvarPlano(double y){
+__int64 DAO::salvarPlano(double y,double largura){
 	char *errStr;
 	ostringstream  insert;
 
-	insert << "insert into planoDeCorte('altura') values(" << y << ");";	
+	insert << "insert into planoDeCorte('altura','largura') values(" << y << "," << largura << ");";	
 	
     int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
 
@@ -70,9 +70,12 @@ __int64 DAO::salvarDisco(int planoDeCorte_id, Disco *d){
 	char *errStr;
 	ostringstream  insert;
 	
+	double corR = d->getCor().r, corG = d->getCor().g, corB = d->getCor().b;
+
 	insert << "insert into discos('planoDeCorte_fk','raioOriginal','raio','xcentro',";
-	insert << "'ycentro','zcentro') values(" << planoDeCorte_id << "," << d->raioDaEsferaDeOrigem;
-	insert << ","<< d->raio <<","<< d->centro.x  << ","<< d->centro.y  << ","<< d->centro.z << ");";	
+	insert << "'ycentro','zcentro','r','g','b') values(" << planoDeCorte_id << "," << d->raioDaEsferaDeOrigem;
+	insert << ","<< d->raio <<","<< d->centro.x  << ","<< d->centro.y  << ","<< d->centro.z << ",";	
+	insert << corR << "," << corG << "," << corB << ");";	
 	
     int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
@@ -91,14 +94,14 @@ __int64 DAO::salvarPoligono(int planoDeCorte_id, Poligono *p){
 	ostringstream  insert;
 
 	insert << "insert into poligonos('razaoDeAspectoOriginaria','razaoDeTruncamentoOriginaria',";
-	insert << "'planoDeCorte_fk','L0','area','perimetro') values("<< p->razaoDeAspectoOriginal;
+	insert << "'planoDeCorte_fk','L0','area','perimetro','r','g','b') values("<< p->razaoDeAspectoOriginal;
 	insert << ","<< p->razaoDeTruncamentoOriginal <<","<< planoDeCorte_id <<",";
-	insert << p->L0Original << "," << p->getArea() << "," << p->getPerimetro() << ");";	
+	insert << p->L0Original << "," << p->getArea() << "," << p->getPerimetro() << ",";	
+	insert << p->getCor().r << "," << p->getCor().g << "," << p->getCor().b << ");";	
 	
     int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
     {
-		qDebug() << errStr;
         throw runtime_error(errStr);
         sqlite3_free(errStr);
 		return false;

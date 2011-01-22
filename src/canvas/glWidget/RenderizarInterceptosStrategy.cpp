@@ -103,6 +103,7 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 			glLineWidth(0.2);
 			glPointSize(3.0f);
 
+
 			if (simulacao->getExibirRetasTeste()){
 				
 				vector<RetaDeTeste>::const_iterator linhas = this->grade->getLinhasIterator();
