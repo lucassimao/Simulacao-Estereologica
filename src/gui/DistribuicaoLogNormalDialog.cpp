@@ -66,6 +66,7 @@ void DistribuicaoLogNormalDialog::adicionarPrismas(){
 		QModelIndex cell3 = model->index(row,COLUNA_IMAGEM_NAO_NORMALIZADA);
 		QModelIndex cell4 = model->index(row,COLUNA_IMAGEM_NORMALIZADA);
 		QModelIndex cell5 = model->index(row,COLUNA_QUANTIDADE);
+		QModelIndex cell6 = model->index(row,COLUNA_COR);
 
 		double L0 = this->model->data(cell2, Qt::DisplayRole).toDouble();
 		int quantidade = this->model->data(cell5, Qt::DisplayRole).toInt();
@@ -73,8 +74,9 @@ void DistribuicaoLogNormalDialog::adicionarPrismas(){
 		double volumeDoPrisma = PrismaTriangularTruncado::calcularVolume(razaoDeAspecto,razaoDeTruncamento,L0);
 
 		volumeTotal += volumeDoPrisma*quantidade;
-
-		Cor c = {1.0f,1.0f,1.0f};
+		
+		QColor cor = qVariantValue<QColor>(this->model->data(cell6, Qt::DisplayRole));
+		Cor c = {cor.red()/255.0f,cor.green()/255.0f,cor.blue()/255.0f};
 		
 		command->adicionarPrismas(L0,quantidade,c,razaoDeAspecto,razaoDeTruncamento);
 	}
@@ -92,17 +94,23 @@ void DistribuicaoLogNormalDialog::configurarEditorDeCores(){
 }
 
 void DistribuicaoLogNormalDialog::configurarModeloDaTabela(){
-	model = new QStandardItemModel(0,5,this);
+	model = new QStandardItemModel(0,6,this);
 
 	model->setHeaderData( COLUNA_X, Qt::Horizontal, QObject::tr("X") );
 	model->setHeaderData( COLUNA_L0, Qt::Horizontal, QObject::tr("L0") );
 	model->setHeaderData( COLUNA_IMAGEM_NAO_NORMALIZADA, Qt::Horizontal,  QObject::tr("f(x,o,u) não normalizada"));
 	model->setHeaderData( COLUNA_IMAGEM_NORMALIZADA, Qt::Horizontal, QObject::tr("f(x,o,u) normalizada") );
 	model->setHeaderData( COLUNA_QUANTIDADE, Qt::Horizontal, QObject::tr("Quantidade") );
+	model->setHeaderData( COLUNA_COR, Qt::Horizontal, QObject::tr("Cor") );
+
 	ui->tableDistribuicao->setModel(model);
 }
 
 void DistribuicaoLogNormalDialog::configurarCamadaDeViewDaTabela(){
+	ui->tableDistribuicao->setColumnWidth(COLUNA_X,50);
+	ui->tableDistribuicao->setColumnWidth(COLUNA_L0,80);
+	ui->tableDistribuicao->setColumnWidth(COLUNA_COR,145);
+	ui->tableDistribuicao->setColumnWidth(COLUNA_QUANTIDADE,80);
 	ui->tableDistribuicao->setColumnWidth(COLUNA_IMAGEM_NORMALIZADA,150);
 	ui->tableDistribuicao->setColumnWidth(COLUNA_IMAGEM_NAO_NORMALIZADA,150);
 }
@@ -169,6 +177,7 @@ void DistribuicaoLogNormalDialog::criarDistribuicaoDeGraos(){
 		QModelIndex cell3 = model->index(row,COLUNA_IMAGEM_NAO_NORMALIZADA);
 		QModelIndex cell4 = model->index(row,COLUNA_IMAGEM_NORMALIZADA);
 		QModelIndex cell5 = model->index(row,COLUNA_QUANTIDADE);
+		QModelIndex cell6 = model->index(row,COLUNA_COR);
 
 		double xi = x0 + deltaX*i;
 		model->setData(cell1,QVariant(xi));
@@ -178,6 +187,7 @@ void DistribuicaoLogNormalDialog::criarDistribuicaoDeGraos(){
 		model->setData(cell3,QVariant(logNormal));
 		model->setData(cell4,QVariant(0.0));
 		model->setData(cell5,QVariant(0.0));
+		model->setData(cell6,QColor("red"));
 	}	
 
 	//normalizando a imagem da função
