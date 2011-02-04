@@ -22,7 +22,7 @@ Ator::~Ator(void)
 
 bool Ator::estaForaDaCaixa(NxVec3 globalPositionDaCaixa,double arestaDaCaixa){
 	NxVec3 globalPositionAtor = this->ator->getGlobalPosition();
-	double metadeArestaDaCaixa = arestaDaCaixa/2.0;
+	double metadeArestaDaCaixa = arestaDaCaixa/2.0 + 1;
 
 	if (globalPositionAtor.x <=  globalPositionDaCaixa.x - metadeArestaDaCaixa) return true;
 	if (globalPositionAtor.x >=  globalPositionDaCaixa.x + metadeArestaDaCaixa) return true;
