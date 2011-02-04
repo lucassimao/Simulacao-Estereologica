@@ -173,7 +173,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Obs: A razão de truncamento é um valor  [0; 0.5]</string>
+    <string>Obs: A razão de truncamento é um valor  [0; 0.5[</string>
    </property>
   </widget>
  </widget>
