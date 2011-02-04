@@ -7,6 +7,8 @@ PlanoDeCorte::PlanoDeCorte(NxActor * nxActor):Ator()
 	this->ator = nxActor;
 	this->altura = nxActor->getGlobalPosition().y;
 	this->grade = 0;
+	Cor c = VERDE;
+	this->cor = c;
 }
 
 PlanoDeCorte::~PlanoDeCorte(void){

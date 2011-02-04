@@ -147,8 +147,14 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		
 			glPopAttrib();	
 	}
-	if (simulacao->getPlanoDeCorte())
-		DrawActor(simulacao->getPlanoDeCorte()->getNxActor(), NULL, false);
+	if (simulacao->getPlanoDeCorte()){
+		glPushAttrib(GL_ALL_ATTRIB_BITS);
+			PlanoDeCorte *planoDeCorte = simulacao->getPlanoDeCorte();
+			Cor cor = planoDeCorte->cor;
+			glColor3f(cor.r,cor.g,cor.b);
+			DrawActor(planoDeCorte->getNxActor(), NULL, false);
+		glPopAttrib();
+	}
 
 
 }

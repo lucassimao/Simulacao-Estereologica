@@ -2,6 +2,8 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QInputDialog>
+#include <QColorDialog>
+#include <QColor>
 #include <string>
 #include "MainWindow.h"
 
@@ -99,6 +101,15 @@ void MainWindow::adicionarEsferasSistematicamente(){
 			command->execute();
 			atualizarQuantidadeDeGraosEmCena();
 		}
+	}
+}
+
+void MainWindow::configurarCorDoPlanoDeCorte(){
+	QColorDialog dialog;
+	QColor cor = dialog.getColor(Qt::green,this,"Selecione a cor para o plano de corte");
+	if (cor.isValid()){
+		Cor c = {cor.red()/255.0f,cor.green()/255.0f,cor.blue()/255.0f};
+		simulacao->getPlanoDeCorte()->cor = c;
 	}
 }
 

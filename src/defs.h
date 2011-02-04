@@ -40,7 +40,8 @@ typedef struct {
 	float r,g,b;
 } Cor;
 
-#define VERMELHO {1.0,0,0}
+#define VERMELHO {1.0f,0,0}
+#define VERDE {0,1.0f,0}
 
 // classe que permite numeros decimais serem salvos em arquivo usando 
 // virgula com seprador decimal

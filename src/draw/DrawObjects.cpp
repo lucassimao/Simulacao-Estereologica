@@ -145,7 +145,6 @@ void DrawPlane(NxShape* plane)
 
 	glPushMatrix();
 	glDisable(GL_LIGHTING);
-	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 	pose.t.y -= 0.1f;
 	SetupGLMatrix(pose.t, pose.M);
 	double arestaDaCaixadeGraos = Parametros::getInstance()->getArestaDaCaixa()/2.0;

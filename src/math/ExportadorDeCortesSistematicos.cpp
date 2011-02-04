@@ -61,8 +61,9 @@ void ExportadorDeCortesSistematicos::exportarImagemDePlanoDeCorte(int plano_pk,d
 	double zoom = 600/largura;
 	double translacaoOrigem = largura/2.0;
 
-	const unsigned char verde[] = { 0, 255, 0 };
-	img.draw_rectangle(0,0,largura*zoom,largura*zoom,verde);
+	Cor c = simulacao->getPlanoDeCorte()->cor;
+	const unsigned char cor[] = { c.r*255, c.g*255, c.b*255 };
+	img.draw_rectangle(0,0,largura*zoom,largura*zoom,cor);
 	
 	exportarImagemDosDiscos(plano_pk,img,zoom,translacaoOrigem);	
 	exportarImagemDosPoligonos(plano_pk,img,zoom,translacaoOrigem);

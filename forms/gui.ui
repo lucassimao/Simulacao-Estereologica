@@ -374,6 +374,16 @@
               </property>
              </spacer>
             </item>
+            <item>
+             <widget class="QPushButton" name="btnPlanoDeCorteCor">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Cor do Plano</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
@@ -1086,6 +1096,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnPlanoDeCorteCor</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>configurarCorDoPlanoDeCorte()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>215</x>
+     <y>369</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>adicionarObjetos()</slot>
@@ -1111,5 +1137,6 @@
   <slot>adicionarPrismasSistematicamenteComVolumeDaCaixaAjustavel()</slot>
   <slot>adicionarEsferasSistematicamenteComVolumeDaCaixaAjustavel()</slot>
   <slot>distribuicaoLogNormal()</slot>
+  <slot>configurarCorDoPlanoDeCorte()</slot>
  </slots>
 </ui>
