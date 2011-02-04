@@ -195,7 +195,7 @@ void AdicionarPrismasSistematicamenteDialog::sair(){
 void AdicionarPrismasSistematicamenteDialog::adicionarPrismas(){
 	
 	bool valorValido  = false;
-	double porcentagemFaseSolida = ui->textFracaoVazia->text().toDouble(&valorValido);
+	double porcentagemFaseSolida = getPorcentagemFaseSolida();
 	
 	if (valorValido){
 		int linhas = this->model->rowCount();
