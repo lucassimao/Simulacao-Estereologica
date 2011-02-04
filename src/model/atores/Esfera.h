@@ -15,7 +15,7 @@ namespace simulacao{
 			private:
 				double raio;
 			public:
-				Esfera(NxScene *,NxCCDSkeleton *ccds);
+				Esfera(NxScene *,Cor cor);
 				~Esfera(void);
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
 				bool estaForaDaCaixa(NxVec3 globalPositionDaCaixa,double arestaDaCaixa);

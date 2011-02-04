@@ -10,10 +10,10 @@ using namespace simulacao::model::atores;
 using namespace simulacao::model::interceptos;
 using namespace simulacao::utils;
 
-Esfera::Esfera(NxScene *cena,NxCCDSkeleton *ccds):Ator()
+Esfera::Esfera(NxScene *cena,Cor cor):Ator()
 {
 		this->raio = Parametros::getInstance()->getRaioEsfera();
-		this->cor = Parametros::getInstance()->getCorEsfera();
+		this->cor = cor;
 
 		NxActorDesc actorDesc2;
 		NxBodyDesc bodyDesc2;

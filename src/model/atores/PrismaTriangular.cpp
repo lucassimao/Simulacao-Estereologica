@@ -25,10 +25,10 @@ using std::list;
 #define BETWEEN(x,y,z) ((x < y) && (y < z))
 
 
-PrismaTriangular::PrismaTriangular(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory *meshFactory):Ator(){
+PrismaTriangular::PrismaTriangular(NxScene *cena,MeshFactory *meshFactory,Cor cor):Ator(){
 	this->altura = Parametros::getInstance()->getAlturaPrisma();
 	this->base  = Parametros::getInstance()->getBasePrisma();
-	this->cor = Parametros::getInstance()->getCorPrisma();
+	this->cor = cor;
 
 
 	const double raiz_de_3 = sqrt(3.0);

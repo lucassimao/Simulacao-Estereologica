@@ -17,7 +17,7 @@ namespace simulacao{
 
 			class PrismaTriangular: public Ator{
 			public:
-				PrismaTriangular(NxScene *cena,NxCCDSkeleton *ccds,MeshFactory *meshFactory);
+				PrismaTriangular(NxScene *cena,MeshFactory *meshFactory,Cor cor);
 				~PrismaTriangular();
 
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);

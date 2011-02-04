@@ -27,8 +27,8 @@ namespace simulacao{
 		Q_OBJECT
 
 
-		private slots:
-			void adicionarEsfera();
+		//private slots:
+		//	void adicionarEsfera();
 
 		private:
 			NxActor *caixa;
@@ -77,7 +77,7 @@ namespace simulacao{
 			SimulacaoCaixa(void);
 			~SimulacaoCaixa(void);
 
-			void adicionarObjeto(TipoDeGrao,NxI64);
+			void adicionarObjeto(TipoDeGrao,NxI64,Cor);
 			void novoPlanoDeCorte();
 			void selecionarGraosInterceptados();
 			void removerGraos();

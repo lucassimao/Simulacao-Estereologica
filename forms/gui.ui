@@ -344,6 +344,16 @@
            </widget>
           </item>
           <item>
+           <widget class="QCheckBox" name="checkBoxSolicitarCor">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>Solicitar cor antes de adicionar grãos</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
              <widget class="QPushButton" name="btnNovoPlanodeCorte">
@@ -362,6 +372,16 @@
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="btnPlanoDeCorteCor">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Cor do Plano</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer_5">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -373,16 +393,6 @@
                </size>
               </property>
              </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btnPlanoDeCorteCor">
-              <property name="cursor">
-               <cursorShape>PointingHandCursor</cursorShape>
-              </property>
-              <property name="text">
-               <string>Cor do Plano</string>
-              </property>
-             </widget>
             </item>
            </layout>
           </item>

@@ -143,25 +143,20 @@ void SimulacaoCaixa::criarCaixa(){
 
 }
 
-void SimulacaoCaixa::adicionarEsfera(){
-	for(long l=0;l<10;++l)
-		new Esfera(cena,NULL);
-}
-
-void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde){
+void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde,Cor cor){
 	switch(tipo){
 		case ESFERA:
 			for(long l=0;l<qtde;++l)
-				new Esfera(cena,NULL);
+				new Esfera(cena,cor);
 			break;
 		case PRISMA_TRIANGULAR:
 			for(long l=0;l<qtde;++l){
-				new PrismaTriangular(cena,NULL,meshFactory);
+				new PrismaTriangular(cena,meshFactory,cor);
 			}
 			break;
 		case PRISMA_TRIANGULAR_TRUNCADO:
 			for(long l=0;l<qtde;++l){
-				new PrismaTriangularTruncado(cena,meshFactory);
+				new PrismaTriangularTruncado(cena,meshFactory,cor);
 			}
 			break;
 	}

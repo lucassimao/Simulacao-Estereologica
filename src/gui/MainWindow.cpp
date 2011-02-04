@@ -289,17 +289,28 @@ void MainWindow::configurarParametros(){
 void MainWindow::adicionarObjetos(){
 
 	long qtde =  ui->textNumeroGraos->text().toLong();
+	Cor corDoGrao = VERMELHO;
+
+	if (ui->checkBoxSolicitarCor->isChecked()){
+		QColorDialog dialog;
+		QColor cor = dialog.getColor(Qt::green,this,"Selecione a cor para o plano de corte");
+		if (cor.isValid()){
+			corDoGrao.r = cor.red()/255.0f;
+			corDoGrao.g = cor.green()/255.0f;
+			corDoGrao.b = cor.blue()/255.0f;
+		}
+	}
 
 	switch(ui->comboBoxTipoGrao->currentIndex())
 	{
 	case 0:
-		simulacao->adicionarObjeto(ESFERA,qtde);
+		simulacao->adicionarObjeto(ESFERA,qtde,corDoGrao);
 		break;
 	case 1:
-		simulacao->adicionarObjeto(PRISMA_TRIANGULAR,qtde);
+		simulacao->adicionarObjeto(PRISMA_TRIANGULAR,qtde,corDoGrao);
 		break;
 	case 2:
-		simulacao->adicionarObjeto(PRISMA_TRIANGULAR_TRUNCADO,qtde);
+		simulacao->adicionarObjeto(PRISMA_TRIANGULAR_TRUNCADO,qtde,corDoGrao);
 		break;
 	}	
 

@@ -29,12 +29,12 @@ using std::list;
 	Sobre a estrutura, vertices e o significado das variáveis definidas neste construtor
 	ver arquivo docs/PrismaTriangularTruncado.doc
 */
-PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,MeshFactory *meshFactory):Ator(){
+PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,MeshFactory *meshFactory,Cor cor):Ator(){
 	
 	this->razaoDeAspecto = Parametros::getInstance()->getRazaoAspectoDoPrismaTriangularTruncado();
 	this->razaoDeTruncamento  = Parametros::getInstance()->getRazaoDeTruncamentoDoPrismaTriangularTruncado();
 	this->L0  = Parametros::getInstance()->getL0DoPrismaTriangularTruncado();
-	this->cor = Parametros::getInstance()->getCorDoPrismaTriangularTruncado();
+	this->cor = cor;
 	
 	double L1  = this->L0 * razaoDeTruncamento;
 	double L2 = this->L0 - 2*L1;
