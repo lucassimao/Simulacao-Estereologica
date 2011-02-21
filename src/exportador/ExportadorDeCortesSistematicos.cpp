@@ -97,7 +97,7 @@ sqlite3* ExportadorDeCortesSistematicos::exportar(){
 			}
 		}
 		dao.salvarInterceptosLineares(planoID,visitor1);
-		dao.salvarEstatisticas(planoID,visitor3->getAreaTotalColetada(),400,
+		dao.salvarEstatisticas(planoID,visitor3->getAreaTotalColetada(),larguraDoPlanoDeCorte*larguraDoPlanoDeCorte,
 			visitor2->getQtdeDePontosInternosAInterceptosDeArea(),qtdeLinhaNaGrade,volumeFaseSolida,volumeFaseLigante);
 	}
 	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
