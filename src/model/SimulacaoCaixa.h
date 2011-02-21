@@ -34,7 +34,6 @@ namespace simulacao{
 			NxActor *caixa;
 			MeshFactory *meshFactory;
 			PlanoDeCorte *atorPlanoDeCorte;
-			NxPlane *shapePlanoDeCorte;
 			AbstractGeradorDeAlturaDoPlanoDeCorteStrategy *alturaPlanoStrategy;
 			bool exibirCaixa;
 			bool _exibirPlanoDeCorte;

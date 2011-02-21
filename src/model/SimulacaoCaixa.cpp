@@ -25,7 +25,6 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 {
 	this->meshFactory = new MeshFactory(this->physicsSDK);
 	this->atorPlanoDeCorte = 0;
-	this->shapePlanoDeCorte = 0;
 	this->exibirCaixa = true;
 	this->_exibirPlanoDeCorte = true;
 	criarCaixa();
