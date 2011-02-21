@@ -41,7 +41,17 @@ namespace simulacao{
 			bool exibirPontosTeste;
 
 		public:
+			SimulacaoCaixa(void);
+
 			void criarCaixa();
+			void exibirPlanoDeCorte();
+			void esconderPlanoDeCorte();
+			double getVolumeFaseSolida();
+			void adicionarObjeto(TipoDeGrao,NxI64,Cor);
+			void novoPlanoDeCorte();
+			void selecionarGraosInterceptados();
+			void removerGraos();
+
 			NxActor* getCaixa(){
 				return this->caixa;
 			}
@@ -52,15 +62,9 @@ namespace simulacao{
 					return NULL;
 			}
 
-
-			void exibirPlanoDeCorte();
-			void esconderPlanoDeCorte();
-
 			Grade * getGrade(){
 				return getPlanoDeCorte()->getGrade();			
 			}
-			
-			double getVolumeFaseSolida();
 
 			double getVolumeFaseLigante(){
 				Parametros *params = Parametros::getInstance();
@@ -71,14 +75,6 @@ namespace simulacao{
 				Parametros *params = Parametros::getInstance();
 				return pow(params->getArestaDaCaixa(),3);
 			}
-
-			SimulacaoCaixa(void);
-			~SimulacaoCaixa(void);
-
-			void adicionarObjeto(TipoDeGrao,NxI64,Cor);
-			void novoPlanoDeCorte();
-			void selecionarGraosInterceptados();
-			void removerGraos();
 			
 			void setGeradorDeAlturaDoPlanoStrategy(AbstractGeradorDeAlturaDoPlanoDeCorteStrategy* strategy){
 				this->alturaPlanoStrategy = strategy;
@@ -89,6 +85,8 @@ namespace simulacao{
 
 			bool getExibirPontosTeste(){ return this->exibirPontosTeste;}
 			void setExibirPontosTeste(bool b){ this->exibirPontosTeste = b;}
+
+			~SimulacaoCaixa(void);
 		};
 
 	}
