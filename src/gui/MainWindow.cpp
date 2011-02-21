@@ -27,8 +27,11 @@ using namespace simulacao::canvas::glWidget;
 
 #include "..\math\ColetorDeAreasVisitor.h"
 #include "..\math\ColetorDeInterceptosLinearesVisitor.h"
-#include "..\math\ExportadorDeCortesSistematicos.h"
+#include "..\exportador\ExportadorDeCortesSistematicos.h"
+#include "..\exportador\ExportadorParaArquivo.h"
+#include "..\exportador\ExportadorParaImagem.h"
 
+using namespace simulacao::exportador;
 using namespace simulacao::math;
 using namespace simulacao::math::mathVisitor;
 
@@ -41,6 +44,8 @@ using std::ofstream;
 #include "..\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
 
 using namespace simulacao::model;
+
+#include "..\sqlite3\sqlite3.h"
 
 MainWindow::MainWindow(){
 	ui = new Ui_MainWindow();
@@ -76,7 +81,6 @@ void MainWindow::configurarGrade(){
 		dialog->setModal(true);
 		dialog->setVisible(true);
 }
-
 
 
 void MainWindow::distribuicaoLogNormal(){
@@ -135,9 +139,18 @@ void MainWindow::actionExecutarCortesSistematicos(){
 			QMessageBox::StandardButton::Ok|QMessageBox::StandardButton::No);
 		
 		if (dir.trimmed().size()>0){
+			ExportadorDeCortesSistematicos exportador(qtde,this->simulacao);
+			sqlite3 *db = exportador.exportar();
+			
+			ExportadorParaArquivo exportador1(dir.toStdString(),db);
+			exportador1.exportar();
+			
 			bool exportarImagens = (res == QMessageBox::StandardButton::Ok);
-			ExportadorDeCortesSistematicos exportador(dir.toStdString(),qtde,this->simulacao,exportarImagens);
-			exportador.exportar();
+			if (exportarImagens){
+				ExportadorParaImagem exportador2(dir.toStdString(),db);
+				exportador2.exportar();
+			}
+
 			QMessageBox::information(this, tr("Exportação concluída"),tr("Os dados foram exportados com sucesso!"));
 		}
 	}

@@ -56,6 +56,7 @@ namespace simulacao	{
 			void actionExecutarCortesSistematicos();
 			void distribuicaoLogNormal();
 
+
 		public:
 			MainWindow();
 			~MainWindow();
