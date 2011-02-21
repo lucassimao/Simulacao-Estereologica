@@ -39,7 +39,6 @@ namespace simulacao{
 			bool _exibirPlanoDeCorte;
 			bool exibirRetasTeste;
 			bool exibirPontosTeste;
-			//void criarCCDS();			
 
 		public:
 			void criarCaixa();

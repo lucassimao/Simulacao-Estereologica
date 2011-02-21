@@ -19,8 +19,6 @@ using namespace simulacao::model;
 using namespace simulacao::model::atores;
 using namespace simulacao::model::interceptos;
 
-//NxCCDSkeleton * ccds;
-
 SimulacaoCaixa::SimulacaoCaixa(void)
 {
 	this->meshFactory = new MeshFactory(this->physicsSDK);
@@ -31,61 +29,12 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->exibirPontosTeste=true;
 	this->exibirRetasTeste=true;
 	
-	//criarCCDS();
 }
 
 SimulacaoCaixa::~SimulacaoCaixa(void)
 {
 	removerGraos();
 }
-
-/*
-void SimulacaoCaixa::criarCCDS(){
-	MemoryWriteBuffer buf;
-	NxVec3 dim(0.5f, 0.5f , 0.5f);
-
-	NxU32 triangles[3 * 12] = { 
-		0,1,3,
-		0,3,2,
-		3,7,6,
-		3,6,2,
-		1,5,7,
-		1,7,3,
-		4,6,7,
-		4,7,5,
-		1,0,4,
-		5,1,4,
-		4,0,2,
-		4,2,6
-	};
-	NxVec3 points[8];
-
-
-	points[0].set( dim.x, -dim.y, -dim.z);
-	points[1].set( dim.x, -dim.y,  dim.z);
-	points[2].set( dim.x,  dim.y, -dim.z);
-	points[3].set( dim.x,  dim.y,  dim.z);
-
-	points[4].set(-dim.x, -dim.y, -dim.z);
-	points[5].set(-dim.x, -dim.y,  dim.z);
-	points[6].set(-dim.x,  dim.y, -dim.z);
-	points[7].set(-dim.x,  dim.y,  dim.z);
-
-	NxSimpleTriangleMesh stm;
-	stm.numVertices = 8;
-	stm.numTriangles = 12;
-	stm.pointStrideBytes = sizeof(NxVec3);
-	stm.triangleStrideBytes = sizeof(NxU32)*3;
-
-	for (NxU32 i = 0; i < 8; i++)
-		points[i].arrayMultiply(points[i], NxVec3(0.8f, 0.8f, 0.9f));
-
-	stm.points = points;
-	stm.triangles = triangles;
-	stm.flags |= NX_MF_FLIPNORMALS;
-	ccds = physicsSDK->createCCDSkeleton(stm);
-
-}*/
 
 void SimulacaoCaixa::criarCaixa(){
 
