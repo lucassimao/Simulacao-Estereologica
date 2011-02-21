@@ -18,6 +18,7 @@ using namespace simulacao::canvas;
 #include "AdicionarEsferasSistematicamenteDialog.h"
 #include "AdicionarPrismasSistematicamenteDialog.h"
 #include "DialogParametrosGrade.h"
+#include "DistribuicaoDeInterceptosDialog.h"
 #include "..\model\Parametros.h"
 #include "..\canvas\glWidget\RenderizacaoStrategy.h"
 #include "..\canvas\glWidget\RenderizarAtoresStrategy.h"
@@ -75,6 +76,7 @@ void MainWindow::configurarGrade(){
 		dialog->setModal(true);
 		dialog->setVisible(true);
 }
+
 
 
 void MainWindow::distribuicaoLogNormal(){
@@ -372,10 +374,18 @@ void MainWindow::exibirSobre(){
 }
 
 void MainWindow::exibirPlanoDeCorte(bool b){
-	if(b)
+	if(b){
 		simulacao->exibirPlanoDeCorte();
-	else
+		ui->btnNovoPlanodeCorte->setEnabled(true);
+		ui->btnPlanoDeCorteCor->setEnabled(true);
+		ui->btnPlanovsGraos->setEnabled(true);
+	}
+	else{
 		simulacao->esconderPlanoDeCorte();
+		ui->btnNovoPlanodeCorte->setEnabled(false);
+		ui->btnPlanoDeCorteCor->setEnabled(false);
+		ui->btnPlanovsGraos->setEnabled(false);
+	}
 }
 void MainWindow::usarGravidade(bool b){
 	

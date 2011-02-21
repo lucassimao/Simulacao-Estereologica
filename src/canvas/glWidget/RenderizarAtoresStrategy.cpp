@@ -45,11 +45,13 @@ inline void RenderizarAtoresStrategy::draw(SimulacaoCaixa *simulacao) {
 		}			
 	}
 	
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
-		Cor cor = planoDeCorte->cor;
-		glColor3f(cor.r,cor.g,cor.b);
-		DrawActor(planoDeCorte->getNxActor(), NULL, false);
-	glPopAttrib();
+	if (planoDeCorte){
+		glPushAttrib(GL_ALL_ATTRIB_BITS);
+			Cor cor = planoDeCorte->cor;
+			glColor3f(cor.r,cor.g,cor.b);
+			DrawActor(planoDeCorte->getNxActor(), NULL, false);
+		glPopAttrib();
+	}
 
 	glDisable(GL_LIGHTING);
 }
