@@ -25,7 +25,7 @@ sqlite3 * DataBaseFactory::criarBanco(const char* arquivo){
         return NULL;
 	}
 
-    rc = sqlite3_exec(db, "create table planoDeCorte(id int PRIMARY KEY, altura double,largura double);", 0, 0, &errStr);
+    rc = sqlite3_exec(db, "create table planoDeCorte(id int PRIMARY KEY, altura double,largura double,r float,g float,b float);", 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
     {
         throw runtime_error(errStr);

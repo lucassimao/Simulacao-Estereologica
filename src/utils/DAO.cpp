@@ -47,11 +47,12 @@ __int64 DAO::salvarInterceptosLineares(int planoDeCorte_id,ColetorDeInterceptosL
 	return ultimoInterceptoID;
 }
 
-__int64 DAO::salvarPlano(double y,double largura){
+__int64 DAO::salvarPlano(double y,double largura,Cor cor){
 	char *errStr;
 	ostringstream  insert;
 
-	insert << "insert into planoDeCorte('altura','largura') values(" << y << "," << largura << ");";	
+	insert << "insert into planoDeCorte('altura','largura','r','g','b') values(" << y << "," << largura;	
+	insert << "," << cor.r << "," << cor.g << "," << cor.b << ");";	
 	
     int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
 
