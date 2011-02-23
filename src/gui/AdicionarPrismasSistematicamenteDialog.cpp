@@ -31,16 +31,16 @@ AdicionarPrismasSistematicamenteDialog::AdicionarPrismasSistematicamenteDialog(Q
 
 	ui->textFracaoVazia->setValidator(valPercentual);
 	ui->textFracaoVazia->setText("50");
-		
+
 	QItemEditorFactory *factory = new QItemEditorFactory;
 
-    QItemEditorCreatorBase *colorListCreator = new QStandardItemEditorCreator<ColorListEditor>();
+	QItemEditorCreatorBase *colorListCreator = new QStandardItemEditorCreator<ColorListEditor>();
 
-    factory->registerEditor(QVariant::Color, colorListCreator);
-    QItemEditorFactory::setDefaultFactory(factory);
+	factory->registerEditor(QVariant::Color, colorListCreator);
+	QItemEditorFactory::setDefaultFactory(factory);
 
 	model = new QStandardItemModel(0,6,this);
- 
+
 	model->setHeaderData( COLUNA_L0, Qt::Horizontal, QObject::tr("L0") );
 	model->setHeaderData( COLUNA_RAZAO_DE_ASPECTO, Qt::Horizontal, QObject::tr("Razão de Aspecto") );
 	model->setHeaderData( COLUNA_RAZAO_DE_TRUNCAMENTO, Qt::Horizontal, QObject::tr("Razão de truncamento") );
@@ -50,10 +50,10 @@ AdicionarPrismasSistematicamenteDialog::AdicionarPrismasSistematicamenteDialog(Q
 
 	connect(model,SIGNAL(itemChanged(QStandardItem *)),this,SLOT(manterProporcaoEntrePorcentagemEQuantidade(QStandardItem *)));
 	connect(ui->textFracaoVazia,SIGNAL(textChanged (const QString &)),this,SLOT(manterProporcaoEntrePorcentagemEQuantidade()));
-  
+
 	ui->tableEspecificacao->setModel(model);
-    
-	
+
+
 	TextBoxDelegate *texBox1 = new TextBoxDelegate(valPercentual);
 	TextBoxDelegate *texBox2 = new TextBoxDelegate(valQuantidade);
 
@@ -73,7 +73,7 @@ AdicionarPrismasSistematicamenteDialog::AdicionarPrismasSistematicamenteDialog(Q
 	ui->tableEspecificacao->setColumnWidth(COLUNA_PORCENTAGEM,90);
 	ui->tableEspecificacao->setColumnWidth(COLUNA_QUANTIDADE,75);
 	ui->tableEspecificacao->setColumnWidth(COLUNA_COR,160);
-	 
+
 }
 
 double AdicionarPrismasSistematicamenteDialog::getPorcentagemFaseSolida(){
@@ -130,7 +130,7 @@ void AdicionarPrismasSistematicamenteDialog::manterProporcaoEntrePorcentagemEQua
 				int qtde = this->model->data(colunaQtde, Qt::DisplayRole).toInt();
 				double volumeTotalDosPrismas =  qtde*volumeDeUmPrismaTriangularTruncado;
 				double porcentagemDaFaseSolida = (100.0 * volumeTotalDosPrismas)/volumeDaFaseSolida;
-				
+
 				if (porcentagemDaFaseSolida>0)	this->model->setData(colunaPorcentagem,QVariant(porcentagemDaFaseSolida));
 			}
 			break;
@@ -184,7 +184,7 @@ void AdicionarPrismasSistematicamenteDialog::removerDescricao(){
 		// como apenas um item estara selecionado devido configurações anteriores ...
 		QModelIndex index = list.at(0);
 		this->model->removeRow(index.row());		
-		
+
 	}
 }
 
@@ -193,39 +193,30 @@ void AdicionarPrismasSistematicamenteDialog::sair(){
 }
 
 void AdicionarPrismasSistematicamenteDialog::adicionarPrismas(){
-	
-	bool valorValido  = false;
+
 	double porcentagemFaseSolida = getPorcentagemFaseSolida();
-	
-	if (valorValido){
-		int linhas = this->model->rowCount();
-		command = new AdicionarObjetosCommand(this->simulacao,porcentagemFaseSolida);
 
-		for(int row=0;row<linhas;++row){
-			QModelIndex colunaL0 = this->model->index(row,COLUNA_L0);
-			QModelIndex colunaRazaoDeAspecto = this->model->index(row,COLUNA_RAZAO_DE_ASPECTO);
-			QModelIndex colunaRazaoDeTruncamento = this->model->index(row,COLUNA_RAZAO_DE_TRUNCAMENTO);
-			QModelIndex colunaPorcentagem = this->model->index(row,COLUNA_PORCENTAGEM);
-			QModelIndex colunaCor = this->model->index(row,COLUNA_COR);
+	int linhas = this->model->rowCount();
+	command = new AdicionarObjetosCommand(this->simulacao,porcentagemFaseSolida);
+
+	for(int row=0;row<linhas;++row){
+		QModelIndex colunaL0 = this->model->index(row,COLUNA_L0);
+		QModelIndex colunaRazaoDeAspecto = this->model->index(row,COLUNA_RAZAO_DE_ASPECTO);
+		QModelIndex colunaRazaoDeTruncamento = this->model->index(row,COLUNA_RAZAO_DE_TRUNCAMENTO);
+		QModelIndex colunaPorcentagem = this->model->index(row,COLUNA_PORCENTAGEM);
+		QModelIndex colunaCor = this->model->index(row,COLUNA_COR);
 
 
-			double l0 = this->model->data(colunaL0, Qt::DisplayRole).toDouble();
-			double razaoDeAspecto = this->model->data(colunaRazaoDeAspecto, Qt::DisplayRole).toDouble();
-			double razaoDeTruncamento = this->model->data(colunaRazaoDeTruncamento, Qt::DisplayRole).toDouble();
-			double porcentagem = this->model->data(colunaPorcentagem, Qt::DisplayRole).toDouble();
-			QColor cor = qVariantValue<QColor>(this->model->data(colunaCor, Qt::DisplayRole));
+		double l0 = this->model->data(colunaL0, Qt::DisplayRole).toDouble();
+		double razaoDeAspecto = this->model->data(colunaRazaoDeAspecto, Qt::DisplayRole).toDouble();
+		double razaoDeTruncamento = this->model->data(colunaRazaoDeTruncamento, Qt::DisplayRole).toDouble();
+		double porcentagem = this->model->data(colunaPorcentagem, Qt::DisplayRole).toDouble();
+		QColor cor = qVariantValue<QColor>(this->model->data(colunaCor, Qt::DisplayRole));
 
-			Cor c = {cor.red()/255.0f,cor.green()/255.0f,cor.blue()/255.0f};
-			
-			command->adicionarPrismas(l0,porcentagem,c,razaoDeAspecto,razaoDeTruncamento);
-		}
-		this->accept();
+		Cor c = {cor.red()/255.0f,cor.green()/255.0f,cor.blue()/255.0f};
+
+		command->adicionarPrismas(l0,porcentagem,c,razaoDeAspecto,razaoDeTruncamento);
 	}
-	else
-	{
-		QMessageBox *msg = new QMessageBox(QMessageBox::Information,tr("Informação"),
-			tr("Forneça a porcentagem da fração vazia!"),QMessageBox::Ok,this);
-		ui->textFracaoVazia->setFocus();
-		msg->show();
-	}
+	this->accept();
+
 }
