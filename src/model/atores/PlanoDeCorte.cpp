@@ -27,7 +27,7 @@ Grade* PlanoDeCorte::novaGrade(float h){
 	int qtdePontos = Parametros::getInstance()->getParametrosDaGrade().qtdePontos;
 	float z0 = (Parametros::getInstance()->getArestaDaCaixa())/2.0f;
 	float z1 = -1*z0;
-	return new Grade(z0-0.5f, z1,h,qtdeLinha,qtdePontos);
+	return new Grade(z0, z1,h,qtdeLinha,qtdePontos);
 }
 
 Grade *PlanoDeCorte::getGrade(){

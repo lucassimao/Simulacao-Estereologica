@@ -1,24 +1,25 @@
 #include "Grade.h"
 #include "..\Parametros.h"
 #include <cmath>
+#include <cassert>
 
 using namespace simulacao::model;
 using namespace simulacao::model::grade;
 
-Grade::Grade(float z0, float z1, float altura,int linhas,int pontosPorLinha){
-	double deltaZ =  (abs(z0) + abs(z1))/linhas;
+Grade::Grade(float z0, float z1, float altura,int qtdeLinhas,int pontosPorLinha){
+	double deltaZ =  (abs(z0) + abs(z1))/(qtdeLinhas+1.0);
 	double larguraDaCaixa = Parametros::getInstance()->getArestaDaCaixa()/2.0;
 
-	for(int i=0;i<linhas;++i){
+	for(int i=1;i<=qtdeLinhas;++i){
 		double z = z0 - deltaZ*i ;
 		Ponto p0 = {-larguraDaCaixa,altura, z};
 		Ponto p1 = {larguraDaCaixa,altura, z};
 
-		RetaDeTeste l(p0,p1,pontosPorLinha);
-		this->linhas.push_back(l);
+		RetaDeTeste reta(p0,p1,pontosPorLinha);
+		this->linhas.push_back(reta);
 	}
+	assert(this->linhas.size() == qtdeLinhas);
 	
-
 }
 
 vector<RetaDeTeste> Grade::getLinhasNoIntervalo(double z0, double z1){
