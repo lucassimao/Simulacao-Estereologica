@@ -335,12 +335,14 @@ void MainWindow::adicionarObjetos(){
 
 	if (ui->checkBoxSolicitarCor->isChecked()){
 		QColorDialog dialog;
-		QColor cor = dialog.getColor(Qt::green,this,"Selecione a cor para o plano de corte");
+		QColor cor = dialog.getColor(Qt::green,this,"Selecione a cor dos grãos a serem adicionados");
 		if (cor.isValid()){
 			corDoGrao.r = cor.red()/255.0f;
 			corDoGrao.g = cor.green()/255.0f;
 			corDoGrao.b = cor.blue()/255.0f;
-		}
+		}else{
+			return; // aborta a adição dos objetos
+		}	
 	}
 
 	switch(ui->comboBoxTipoGrao->currentIndex())
