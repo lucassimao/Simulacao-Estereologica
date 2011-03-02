@@ -30,6 +30,7 @@ using namespace simulacao::canvas::glWidget;
 #include "..\exportador\ExportadorDeCortesSistematicos.h"
 #include "..\exportador\ExportadorParaArquivo.h"
 #include "..\exportador\ExportadorParaImagem.h"
+#include "..\exportador\ProcessadorDeClassesDeIntercepto.h"
 
 using namespace simulacao::exportador;
 using namespace simulacao::math;
@@ -82,6 +83,31 @@ void MainWindow::configurarGrade(){
 		dialog->setVisible(true);
 }
 
+void MainWindow::exibirDistribuicaoDeInterceptos(){
+	int res;
+	
+	QInputDialog *dlg = new QInputDialog(this);
+
+	dlg->setIntMinimum(1);
+	dlg->setIntMaximum(1000000);
+	dlg->setInputMode(QInputDialog::InputMode::IntInput);
+	dlg->setLabelText(tr("Quantidade de planos de corte:"));
+	dlg->setIntValue(10);
+	res = dlg->exec();
+
+	if (res == QInputDialog::DialogCode::Accepted){
+		int qtdeDePlanosDeCorte = dlg->intValue();
+		ExportadorDeCortesSistematicos exportador(qtdeDePlanosDeCorte,this->simulacao);
+		sqlite3* db = exportador.exportar();
+		ProcessadorDeClassesDeIntercepto processador(db);
+
+		DistribuicaoDeInterceptosDialog *dlg = new DistribuicaoDeInterceptosDialog(this,&processador);
+		dlg->exec();
+
+		sqlite3_close(db);
+	}
+
+}
 
 void MainWindow::distribuicaoLogNormal(){
 	DistribuicaoLogNormalDialog *dlg = new DistribuicaoLogNormalDialog(this,this->simulacao);
@@ -150,6 +176,7 @@ void MainWindow::actionExecutarCortesSistematicos(){
 				ExportadorParaImagem exportador2(dir.toStdString(),db);
 				exportador2.exportar();
 			}
+			sqlite3_close(db);
 
 			QMessageBox::information(this, tr("Exportação concluída"),tr("Os dados foram exportados com sucesso!"));
 		}

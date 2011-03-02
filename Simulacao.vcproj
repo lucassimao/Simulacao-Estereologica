@@ -735,6 +735,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\gui\DistribuicaoDeInterceptosDialog.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\gui\DistribuicaoLogNormalDialog.cpp"
 					>
 				</File>
@@ -818,16 +822,32 @@
 					RelativePath=".\src\math\ColetorDePontosVisitor.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\src\math\ExportadorDeCortesSistematicos.cpp"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="sqlite3"
 				>
 				<File
 					RelativePath=".\src\sqlite3\sqlite3.c"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="exportador"
+				>
+				<File
+					RelativePath=".\src\exportador\ExportadorDeCortesSistematicos.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\exportador\ExportadorParaArquivo.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\exportador\ExportarParaImagem.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\exportador\ProcessadorDeClassesDeIntercepto.cpp"
 					>
 				</File>
 			</Filter>
@@ -1144,6 +1164,32 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath=".\src\gui\DistribuicaoDeInterceptosDialog.h"
+					>
+					<FileConfiguration
+						Name="Release_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\DistribuicaoDeInterceptosDialog.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DistribuicaoDeInterceptosDialog.h -o moc\moc_DistribuicaoDeInterceptosDialog.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DistribuicaoDeInterceptosDialog.h"
+							Outputs="moc\moc_DistribuicaoDeInterceptosDialog.cpp"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="MOC src\gui\DistribuicaoDeInterceptosDialog.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\DistribuicaoDeInterceptosDialog.h -o moc\moc_DistribuicaoDeInterceptosDialog.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\DistribuicaoDeInterceptosDialog.h"
+							Outputs="moc\moc_DistribuicaoDeInterceptosDialog.cpp"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\src\gui\DistribuicaoLogNormalDialog.h"
 					>
 					<FileConfiguration
@@ -1347,10 +1393,6 @@
 					RelativePath=".\src\math\ColetorDePontosVisitor.h"
 					>
 				</File>
-				<File
-					RelativePath=".\src\math\ExportadorDeCortesSistematicos.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="sqlite3"
@@ -1361,6 +1403,26 @@
 				</File>
 				<File
 					RelativePath=".\src\sqlite3\sqlite3ext.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="exportador"
+				>
+				<File
+					RelativePath=".\src\exportador\ExportadorDeCortesSistematicos.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\exportador\ExportadorParaArquivo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\exportador\ExportadorParaImagem.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\exportador\ProcessadorDeClassesDeIntercepto.h"
 					>
 				</File>
 			</Filter>
@@ -1399,6 +1461,10 @@
 				>
 			</File>
 			<File
+				RelativePath="moc\moc_DistribuicaoDeInterceptosDialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\moc\moc_DistribuicaoLogNormalDialog.cpp"
 				>
 			</File>
@@ -1428,6 +1494,10 @@
 			</File>
 			<File
 				RelativePath="forms\ui_configurarGradeDePontos.h"
+				>
+			</File>
+			<File
+				RelativePath="forms\ui_distribuicaoDeInterceptos.h"
 				>
 			</File>
 			<File
@@ -1568,6 +1638,32 @@
 						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\configurarGradeDePontos.ui -o forms\ui_configurarGradeDePontos.h&#x0D;&#x0A;"
 						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe;forms\configurarGradeDePontos.ui"
 						Outputs="forms\ui_configurarGradeDePontos.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\forms\distribuicaoDeInterceptos.ui"
+				>
+				<FileConfiguration
+					Name="Release_PhysX_v2.8.3|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\distribuicaoDeInterceptos.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoDeInterceptos.ui -o forms\ui_distribuicaoDeInterceptos.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoDeInterceptos.ui"
+						Outputs="forms\ui_distribuicaoDeInterceptos.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_PhysX_v2.8.3|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="UIC forms\distribuicaoDeInterceptos.ui"
+						CommandLine="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoDeInterceptos.ui -o forms\ui_distribuicaoDeInterceptos.h&#x0D;&#x0A;"
+						AdditionalDependencies="C:\Qt\2009.02\qt\bin\uic.exe forms\distribuicaoDeInterceptos.ui"
+						Outputs="forms\ui_distribuicaoDeInterceptos.h"
 					/>
 				</FileConfiguration>
 			</File>

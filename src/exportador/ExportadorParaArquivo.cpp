@@ -30,6 +30,7 @@ void ExportadorParaArquivo::exportar(){
     }
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+
 }
 
 void ExportadorParaArquivo::exportarPlano(int planoDeCorteID){
