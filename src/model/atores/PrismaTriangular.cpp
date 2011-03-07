@@ -10,7 +10,7 @@
 #include "../../draw/cooking.h"
 #include "../../utils/SegmentoDeReta.h"
 #include "../../utils/Vetor.h"
-#include "../../model/interceptos/Intercepto.h"
+#include "../../model/interceptos/InterceptoDeArea.h"
 #include "../../model/interceptos/Poligono.h"
 #include "../../utils/GlobalPoseFactory.h"
 
@@ -127,7 +127,7 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 
 
 
-Intercepto* PrismaTriangular::getIntercepto(NxVec3 planoPos){
+InterceptoDeArea* PrismaTriangular::getIntercepto(NxVec3 planoPos){
 
 	vector<SegmentoDeReta> segmentosDeRetaInterceptados = getSegmentosDeRetaInterceptados(planoPos);
 	vector<SegmentoDeReta>::const_iterator iterator = segmentosDeRetaInterceptados.begin();

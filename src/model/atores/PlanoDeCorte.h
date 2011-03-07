@@ -26,7 +26,7 @@ namespace simulacao{
 				~PlanoDeCorte(void);
 				
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
-				Intercepto* getIntercepto(NxVec3 planoGlobalPosition) { return NULL;}
+				InterceptoDeArea* getIntercepto(NxVec3 planoGlobalPosition) { return NULL;}
 				NxActor *getNxActor(){ return this->ator;}
 				void update(Observable* obs);
 				

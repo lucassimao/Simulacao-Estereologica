@@ -4,7 +4,6 @@ using namespace simulacao::exportador;
 
 #define BANCO_EM_MEMORIA
 
-
 ExportadorDeCortesSistematicos::ExportadorDeCortesSistematicos(int qtdePlanos,SimulacaoCaixa *simulacao){
 
 	this->qtdePlanos = qtdePlanos;
@@ -19,7 +18,7 @@ sqlite3* ExportadorDeCortesSistematicos::newDb(){
 	#else
 		long timestamp = time(0);
 		ostringstream dbFilename;
-		dbFilename << diretorio << "/" << timestamp << ".db";		
+		dbFilename << "C:\\Users\\user\\Desktop\\" << timestamp << ".db";		
 		bancoDeDadosFile = dbFilename.str();
 	#endif
 
@@ -30,42 +29,36 @@ sqlite3* ExportadorDeCortesSistematicos::newDb(){
 		return db;
 	}else
 	{
-		throw runtime_error( sqlite3_errmsg(db) );
-	    sqlite3_close(db);
+		qDebug() << sqlite3_errmsg(db);
+		throw runtime_error( sqlite3_errmsg(db) );	
+		sqlite3_close(db);
 	}
 }
 
 
 sqlite3* ExportadorDeCortesSistematicos::exportar(){
+	sqlite3 *db = newDb();
+	DAO dao(db);
+
 	Parametros *p = Parametros::getInstance();
 	double h0 = p->getAlturaDaBaseDaCaixa();
 	double h1 = p->getArestaDaCaixa() + p->getAlturaDaBaseDaCaixa();
 	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(h0,h1,this->qtdePlanos));
-
-	sqlite3 *db = newDb();
-	DAO dao(db);
 	
 	NxActor* caixa = simulacao->getCaixa();
 	NxActor* planoDeCorte = simulacao->getPlanoDeCorte()->getNxActor();
 	
-	Parametros *params = Parametros::getInstance();
-	int qtdeLinhaNaGrade = params->getQtdeLinhasNaGrade()* params->getQtdePontosPorLinhaNaGrade();
-	double larguraDoPlanoDeCorte = params->getLarguraDoPlanoDeCorte();
+	int qtdeDePontosNaGrade = p->getQtdeLinhasNaGrade()* p->getQtdePontosPorLinhaNaGrade();
+	double larguraDoPlanoDeCorte = p->getLarguraDoPlanoDeCorte();
 	
-	double volumeFaseSolida = simulacao->getVolumeFaseSolida();
-	double volumeFaseLigante = simulacao->getVolumeFaseLigante();
-
 	for(int i=0;i< this->qtdePlanos;++i){
-
-		vector<Intercepto*> interceptos;
-
 		simulacao->novoPlanoDeCorte();
 
 		NxActor** atores = simulacao->getAtores();
 		NxVec3 planoGlobalPosition = planoDeCorte->getGlobalPosition();
 		NxU32 qtdeAtores = simulacao->getQtdeObjetos();
 		
-		ColetorDeInterceptosLinearesVisitor *visitor1 = new ColetorDeInterceptosLinearesVisitor(simulacao->getGrade());
+		//ColetorDeInterceptosLinearesVisitor *visitor1 = new ColetorDeInterceptosLinearesVisitor(simulacao->getGrade());
 		ColetorDePontosVisitor *visitor2 = new ColetorDePontosVisitor(simulacao->getGrade());
 		ColetorDeAreasVisitor *visitor3 = new ColetorDeAreasVisitor(simulacao->getGrade());
 		
@@ -79,26 +72,37 @@ sqlite3* ExportadorDeCortesSistematicos::exportar(){
 				Ator *a = (Ator *)ator->userData;	
 
 				if (a->estaInterceptadoPeloPlano(planoGlobalPosition)){
-					Intercepto *intercepto = a->getIntercepto(planoGlobalPosition);
+					InterceptoDeArea *intercepto = a->getIntercepto(planoGlobalPosition);
 
-					intercepto->accept(visitor1);
+					//intercepto->accept(visitor1);
 					intercepto->accept(visitor2);
 					intercepto->accept(visitor3);
+					
+					__int64 interceptoID;
 
 					switch(intercepto->getType()){
 						case Type_Disco:
-							dao.salvarDisco(planoID,static_cast<Disco*>(intercepto));
+							interceptoID = dao.salvarDisco(planoID,static_cast<Disco*>(intercepto));
 							break;
 						case Type_Poligono:
-							dao.salvarPoligono(planoID,static_cast<Poligono*>(intercepto));
+							interceptoID = dao.salvarPoligono(planoID,static_cast<Poligono*>(intercepto));
 							break;
 					}
+
+					vector<InterceptoLinear*> interceptosLineares = intercepto->getInterceptosLineares(simulacao->getGrade());			
+					dao.salvarInterceptosLineares(interceptoID,interceptosLineares,intercepto->getType());
 				}
 			}
 		}
-		dao.salvarInterceptosLineares(planoID,visitor1);
-		dao.salvarEstatisticas(planoID,visitor3->getAreaTotalColetada(),larguraDoPlanoDeCorte*larguraDoPlanoDeCorte,
-			visitor2->getQtdeDePontosInternosAInterceptosDeArea(),qtdeLinhaNaGrade,volumeFaseSolida,volumeFaseLigante);
+
+		double areaTotalColetada = visitor3->getAreaTotalColetada();
+		double areaDoPlanoDeCorte = pow(larguraDoPlanoDeCorte,2.0);
+		int qtdePontosInternosAInterceptosDeArea = visitor2->getQtdeDePontosInternosAInterceptosDeArea();
+		double volumeFaseSolida = simulacao->getVolumeFaseSolida();
+		double volumeFaseLigante = simulacao->getVolumeFaseLigante();
+
+		dao.salvarEstatisticas(planoID,areaTotalColetada,areaDoPlanoDeCorte,qtdePontosInternosAInterceptosDeArea,
+								qtdeDePontosNaGrade,volumeFaseSolida,volumeFaseLigante);
 	}
 	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
 	return db;

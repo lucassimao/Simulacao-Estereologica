@@ -26,7 +26,7 @@ using namespace simulacao::math::mathVisitor;
 
 
 Poligono::Poligono(Cor cor,list<Ponto> v,double razaoDeAspectoOriginal,double razaoDeTruncamentoOriginal,double L0Original):
-Intercepto(cor),razaoDeAspectoOriginal( razaoDeAspectoOriginal ),	razaoDeTruncamentoOriginal( razaoDeTruncamentoOriginal ),L0Original( L0Original ) 
+InterceptoDeArea(cor),razaoDeAspectoOriginal( razaoDeAspectoOriginal ),	razaoDeTruncamentoOriginal( razaoDeTruncamentoOriginal ),L0Original( L0Original ) 
 {
 	assert(v.size() >= 3 );
 	if (v.size()>3)
@@ -89,6 +89,38 @@ inline Ponto Poligono::procurarVerticeComMaiorZ(){
 	
 
 	return vertice;
+}
+
+vector<InterceptoLinear*> Poligono::getInterceptosLineares(Grade *grade){
+	vector<InterceptoLinear*> interceptosLineares;
+
+	double z0 = this->verticeComMaiorZ.z;
+	double z1 = this->verticeComMenorZ.z;
+	
+	vector<RetaDeTeste> linhas = grade->getLinhasNoIntervalo(z0,z1);
+	vector<RetaDeTeste>::const_iterator iterator = linhas.begin();
+	
+	while(iterator!=linhas.end()){
+			RetaDeTeste retaDeTeste = *iterator;
+
+			list<SegmentoDeReta> arestasInterceptadas = this->getArestasInterceptadas(retaDeTeste);
+			if  (arestasInterceptadas.size()==2){
+				SegmentoDeReta seg1 = arestasInterceptadas.front();
+				Ponto p1;
+				seg1.interceptar(retaDeTeste,&p1);
+				
+				SegmentoDeReta seg2 = arestasInterceptadas.back();
+				Ponto p2;
+				seg2.interceptar(retaDeTeste,&p2);
+
+				InterceptoLinear *interceptosLinear= new InterceptoLinear(p1,p2);
+				interceptosLineares.push_back(interceptosLinear);
+			}			
+
+			++iterator;
+		}
+
+	return interceptosLineares;
 }
 
 double Poligono::getArea(){

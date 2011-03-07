@@ -11,12 +11,22 @@ ProcessadorDeClassesDeIntercepto::ProcessadorDeClassesDeIntercepto(sqlite3 *db){
 	this->db = db;
 }
 
-int ProcessadorDeClassesDeIntercepto::getQuantidadeDeInterceptosDeAreaNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeIntercepto classe){
+int ProcessadorDeClassesDeIntercepto::getQuantidadeDeInterceptosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGrao classe,TipoDeIntercepto tipoDeIntercepto){
 	sqlite3_stmt *poligonos_stmt = 0;
 	ostringstream  poligonos_select;
 	poligonos_select << "select count(*) from poligonos where ";
-	poligonos_select << "razaoDeAspectoOriginaria=?1 and razaoDeTruncamentoOriginaria=?2 and L0 = ?3 ";
-	poligonos_select << " and area between ?4 and ?5;";
+	poligonos_select << "razaoDeAspectoOriginaria=?1 and razaoDeTruncamentoOriginaria=?2 and L0 = ?3 and ";
+	switch(tipoDeIntercepto){
+		case Area:
+			poligonos_select << " area between ?4 and ?5;";
+			break;
+		case Perimetro:
+			poligonos_select << " perimetro between ?4 and ?5;";
+			break;
+		case Linear:
+			poligonos_select << " exists (select rowid from interceptosLineares_poligonos where poligono_fk = poligonos.rowid ";
+			poligonos_select << " and tamanho between ?4 and ?5);";
+	}
 
 
 	int res = sqlite3_prepare_v2(this->db,poligonos_select.str().c_str(),-1,&poligonos_stmt,NULL);
@@ -56,9 +66,21 @@ int ProcessadorDeClassesDeIntercepto::getQuantidadeDeInterceptosDeAreaNoInterval
 
 }
 
-double ProcessadorDeClassesDeIntercepto::getMenorInterceptoDeArea(){
+double ProcessadorDeClassesDeIntercepto::getMenorIntercepto(TipoDeIntercepto tipoDeIntercepto){
 	sqlite3_stmt *poligonos_stmt = 0;
-	const char *classes_select =  "select min(area) from poligonos;";
+	const char *classes_select;
+
+	switch(tipoDeIntercepto){
+		case Area:
+			classes_select = "select min(area) from poligonos;";
+			break;
+		case Perimetro:
+			classes_select = "select min(perimetro) from poligonos;";
+			break;
+		case Linear:
+			classes_select = "select min(tamanho) from interceptosLineares_poligonos;";
+			break;
+	}
 
 	int res = sqlite3_prepare_v2(this->db,classes_select,-1,&poligonos_stmt,NULL);
 	
@@ -69,20 +91,31 @@ double ProcessadorDeClassesDeIntercepto::getMenorInterceptoDeArea(){
 		}
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
 		
-		double menorArea = sqlite3_column_double(poligonos_stmt,0);
+		double menorIntercepto = sqlite3_column_double(poligonos_stmt,0);
 		res = sqlite3_step(poligonos_stmt);
 		assert(res == SQLITE_DONE);
 		sqlite3_finalize(poligonos_stmt);
-		return menorArea;
+		return menorIntercepto;
     }
 	else{
 		throw exception(sqlite3_errmsg(this->db));
 	}
 
 }
-double ProcessadorDeClassesDeIntercepto::getMaiorInterceptoDeArea(){
+double ProcessadorDeClassesDeIntercepto::getMaiorIntercepto(TipoDeIntercepto tipoDeIntercepto){
 	sqlite3_stmt *poligonos_stmt = 0;
-	const char *classes_select =  "select max(area) from poligonos;";
+	const char *classes_select;
+	switch(tipoDeIntercepto){
+		case Area:
+			classes_select = "select max(area) from poligonos;";
+			break;
+		case Perimetro:
+			classes_select = "select max(perimetro) from poligonos;";
+			break;
+		case Linear:
+			classes_select = "select max(tamanho) from interceptosLineares_poligonos;";
+			break;
+	}		
 
 	int res = sqlite3_prepare_v2(this->db,classes_select,-1,&poligonos_stmt,NULL);
 	
@@ -93,19 +126,19 @@ double ProcessadorDeClassesDeIntercepto::getMaiorInterceptoDeArea(){
 		}
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
 		
-		double maiorArea = sqlite3_column_double(poligonos_stmt,0);
+		double maiorIntercepto = sqlite3_column_double(poligonos_stmt,0);
 		res = sqlite3_step(poligonos_stmt);
 		assert(res == SQLITE_DONE);
 		sqlite3_finalize(poligonos_stmt);
-		return maiorArea;
+		return maiorIntercepto;
     }
 	else{
 		throw exception(sqlite3_errmsg(this->db));
 	}
 }
 
-vector<ClasseDeIntercepto> ProcessadorDeClassesDeIntercepto::getClassesDeIntercepto(){
-	vector<ClasseDeIntercepto> vetor;
+vector<ClasseDeGrao> ProcessadorDeClassesDeIntercepto::getClassesDeGrao(){
+	vector<ClasseDeGrao> vetor;
 
 	sqlite3_stmt *poligonos_stmt = 0;
 	const char *classes_select =  "select distinct razaoDeAspectoOriginaria, razaoDeTruncamentoOriginaria, L0 from poligonos;";
@@ -120,7 +153,7 @@ vector<ClasseDeIntercepto> ProcessadorDeClassesDeIntercepto::getClassesDeInterce
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
 		
 		while (res != SQLITE_DONE){
-			ClasseDeIntercepto classe;
+			ClasseDeGrao classe;
 			
 			classe.razaoDeAspecto = sqlite3_column_double(poligonos_stmt,0);
 			classe.razaoDeTruncamento = sqlite3_column_double(poligonos_stmt,1);
@@ -137,12 +170,12 @@ vector<ClasseDeIntercepto> ProcessadorDeClassesDeIntercepto::getClassesDeInterce
 
 
 	struct{
-		bool operator()(ClasseDeIntercepto &c1, ClasseDeIntercepto &c2) const{
+		bool operator()(ClasseDeGrao &c1, ClasseDeGrao &c2) const{
 			return c1.getDiametroEquivalente() < c2.getDiametroEquivalente();
 		}
-	} ClasseDeInterceptoCmp;
+	} ClasseDeGraoCmp;
 
-	sort(vetor.begin(),vetor.end(),ClasseDeInterceptoCmp);
+	sort(vetor.begin(),vetor.end(),ClasseDeGraoCmp);
 
 	return vetor;
 }

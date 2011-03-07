@@ -1,11 +1,14 @@
-#ifndef INTERCEPTO_H
-#define INTERCEPTO_H
+#ifndef INTERCEPTO_DE_AREA_H
+#define INTERCEPTO_DE_AREA_H
 
 #include <NxPhysics.h>
 #include <vector>
 #include "..\..\defs.h"
+#include "InterceptoLinear.h"
+#include "..\grade\grade.h"
 
 using std::vector;
+using namespace simulacao::model::grade;
 
 namespace simulacao{
 	namespace canvas{
@@ -27,12 +30,12 @@ namespace simulacao{
 	namespace model { 
 		namespace interceptos{
 
-			class Intercepto{
+			class InterceptoDeArea{
 			protected:
 				Cor cor;
 			public:
-				Intercepto();
-				Intercepto(Cor);
+				InterceptoDeArea();
+				InterceptoDeArea(Cor);
 
 				virtual void accept(AbstractDrawVisitor *) = 0;
 				virtual void accept(AbstractMathVisitor *) = 0;
@@ -41,6 +44,8 @@ namespace simulacao{
 				virtual double getPerimetro() = 0;
 
 				Cor getCor() const { return cor;};
+				virtual vector<InterceptoLinear*> getInterceptosLineares(Grade *grade) = 0;
+
 			};
 
 		}

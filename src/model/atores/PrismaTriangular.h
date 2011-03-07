@@ -3,11 +3,11 @@
 
 #include "../../utils/MeshFactory.h"
 #include "../../utils/SegmentoDeReta.h"
-#include "../../model/interceptos/Intercepto.h"
+#include "../../model/interceptos/InterceptoDeArea.h"
 #include "Ator.h"
 
 using namespace simulacao::utils;
-using simulacao::model::interceptos::Intercepto;
+using simulacao::model::interceptos::InterceptoDeArea;
 
 namespace simulacao{
 
@@ -21,7 +21,7 @@ namespace simulacao{
 				~PrismaTriangular();
 
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
-				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
+				InterceptoDeArea* getIntercepto(NxVec3 planoGlobalPosition);
 				inline NxVec3* getPosicaoGlobalDosVertices();
 				double getVolume(){
 					return this->altura*((pow(this->base,2.0)*sqrt(3.0))/4.0);

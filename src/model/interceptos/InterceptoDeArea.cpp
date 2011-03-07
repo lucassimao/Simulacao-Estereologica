@@ -1,14 +1,14 @@
-#include "Intercepto.h"
+#include "InterceptoDeArea.h"
 #include <stdexcept>
 
 using std::runtime_error;
 using namespace simulacao::model::interceptos;
 
-Intercepto::Intercepto(){
+InterceptoDeArea::InterceptoDeArea(){
 	Cor vermelho = {1.0,0,0};
 	this->cor = vermelho;
 }
 
-Intercepto::Intercepto(Cor cor){
+InterceptoDeArea::InterceptoDeArea(Cor cor){
 	this->cor = cor;
 }

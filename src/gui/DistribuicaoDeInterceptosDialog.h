@@ -23,9 +23,10 @@ namespace simulacao	{
 			void gerarDistribuicao();
 		private:
 			QStandardItemModel *tableModel;
-			vector<ClasseDeIntercepto> classesDeIntercepto;
+			vector<ClasseDeGrao> classesDeGrao;
 
 			void criarCabecalhosDaTabela();
+			void limparTabela();
 
 		public:
 			DistribuicaoDeInterceptosDialog(QWidget *parent,ProcessadorDeClassesDeIntercepto *processador);

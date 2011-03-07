@@ -15,10 +15,14 @@
 #include "..\utils\DataBaseFactory.h"
 #include "..\defs.h"
 #include "..\model\Parametros.h"
+#include "..\model\interceptos\InterceptoLinear.h"
+
+
 
 
 using namespace simulacao::math;
 using namespace simulacao::model;
+using namespace simulacao::model::interceptos;
 using namespace simulacao::math::mathVisitor;
 using namespace std;
 using simulacao::model::SimulacaoCaixa;

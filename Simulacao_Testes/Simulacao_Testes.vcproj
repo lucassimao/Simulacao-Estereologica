@@ -228,7 +228,7 @@
 					Name="interceptos"
 					>
 					<File
-						RelativePath="..\src\model\interceptos\Intercepto.cpp"
+						RelativePath="..\src\model\interceptos\InterceptoDeArea.cpp"
 						>
 					</File>
 					<File
@@ -322,7 +322,7 @@
 					Name="interceptos"
 					>
 					<File
-						RelativePath="..\src\model\interceptos\Intercepto.h"
+						RelativePath="..\src\model\interceptos\InterceptoDeArea.h"
 						>
 					</File>
 					<File

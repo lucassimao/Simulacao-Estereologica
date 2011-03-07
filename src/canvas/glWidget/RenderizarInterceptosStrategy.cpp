@@ -3,7 +3,7 @@
 #include <vector>
 #include "RenderizarInterceptosStrategy.h"
 #include "GL\glut.h"
-#include "..\..\model\interceptos\Intercepto.h"
+#include "..\..\model\interceptos\InterceptoDeArea.h"
 #include "..\..\model\atores\Ator.h"
 #include "..\..\draw\DrawObjects.h"
 #include "..\..\math\ColetorDePontosVisitor.h"
@@ -19,7 +19,7 @@ using namespace simulacao::model::atores;
 
 
 RenderizarInterceptosStrategy::RenderizarInterceptosStrategy(Grade *grade){
-	interceptos = new vector<Intercepto*>();
+	interceptos = new vector<InterceptoDeArea*>();
 	this->grade = grade;
 	interceptoDeAreaDrawVisitor = new InterceptoDeAreaDrawVisitor();
 	interceptoLinearDrawVisitor = new InterceptoLinearDrawVisitor(this->grade);
@@ -37,11 +37,11 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 		ColetorDeInterceptosLinearesVisitor *visitor2 = new ColetorDeInterceptosLinearesVisitor(this->grade);
 		ColetorDePontosVisitor *visitor3 = new ColetorDePontosVisitor(this->grade);
 
-		vector<Intercepto*>::const_iterator  iter= this->interceptos->begin();
+		vector<InterceptoDeArea*>::const_iterator  iter= this->interceptos->begin();
 		locale myloc(locale(),new WithComma);
 		
 		while(iter!=interceptos->end()){
-			Intercepto *i = *iter;
+			InterceptoDeArea *i = *iter;
 			i->accept(visitor1);
 			i->accept(visitor2);
 			i->accept(visitor3);
@@ -80,11 +80,11 @@ inline void RenderizarInterceptosStrategy::draw(SimulacaoCaixa *simulacao){
 	}
 		
 		// aqui inicia o desenho dos interceptos de area
-		vector<Intercepto*>::const_iterator iterator = interceptos->begin();
+		vector<InterceptoDeArea*>::const_iterator iterator = interceptos->begin();
 		
 		while(iterator!=interceptos->end())
 		{
-			Intercepto *intercepto = *iterator;
+			InterceptoDeArea *intercepto = *iterator;
 			
 			intercepto->accept(this->interceptoDeAreaDrawVisitor);
 			if (simulacao->getExibirRetasTeste())
@@ -171,7 +171,7 @@ inline void RenderizarInterceptosStrategy::coletarInterceptos(SimulacaoCaixa *si
 			if (ator != simulacao->getCaixa() && ator!= simulacao->getPlanoDeCorte()->getNxActor()){
 				Ator *a = (Ator *)ator->userData;
 				NxVec3 planoGlobalPosition = simulacao->getPlanoDeCorte()->getNxActor()->getGlobalPosition();
-				Intercepto* i = a->getIntercepto(planoGlobalPosition);
+				InterceptoDeArea* i = a->getIntercepto(planoGlobalPosition);
 				interceptos->push_back(i);					
 			}
 		}

@@ -1,10 +1,10 @@
 #ifndef ESFERA_H
 #define ESFERA_H
 
-#include "..\..\model\interceptos\Intercepto.h"
+#include "..\..\model\interceptos\InterceptoDeArea.h"
 #include "Ator.h"
 
-using simulacao::model::interceptos::Intercepto;
+using simulacao::model::interceptos::InterceptoDeArea;
 
 namespace simulacao{
 	namespace model{
@@ -19,7 +19,7 @@ namespace simulacao{
 				~Esfera(void);
 				bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition);
 				bool estaForaDaCaixa(NxVec3 globalPositionDaCaixa,double arestaDaCaixa);
-				Intercepto* getIntercepto(NxVec3 planoGlobalPosition);
+				InterceptoDeArea* getIntercepto(NxVec3 planoGlobalPosition);
 				double getVolume(){
 					return Esfera::calcularVolume(this->raio);
 				}

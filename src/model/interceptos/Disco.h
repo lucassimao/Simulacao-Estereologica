@@ -1,7 +1,7 @@
 #ifndef DISCO_H
 #define DISCO_H
 
-#include "Intercepto.h"
+#include "InterceptoDeArea.h"
 #include "..\..\defs.h"
 
 using std::vector;
@@ -10,7 +10,7 @@ namespace simulacao{
 	namespace model {
 		namespace interceptos{
 
-			class Disco: public Intercepto{		
+			class Disco: public InterceptoDeArea{		
 			public:
 				const Ponto centro;
 				const double raio;
@@ -23,6 +23,7 @@ namespace simulacao{
 				double getPerimetro();
 				void accept(AbstractDrawVisitor *visitor);
 				void accept(AbstractMathVisitor *);		
+				vector<InterceptoLinear*> getInterceptosLineares(Grade *grade);
 				InterceptoType getType(){ return Type_Disco;	}
 
 			};

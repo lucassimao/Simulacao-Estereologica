@@ -22,7 +22,7 @@ class DAO{
 		__int64 salvarPoligono(int planoDeCorte_id, Poligono *p);
 		__int64 salvarEstatisticas(int planoDeCorte_fk, double areaDosInterceptosColetados,
 									double areaDoPlano, int qtdePontosInternos, int qtdePontosNaGrade, double volumeFaseSolida,double volumeFaseLigante);
-		__int64 salvarInterceptosLineares(int planoDeCorte_id,ColetorDeInterceptosLinearesVisitor *visitor);
+		void salvarInterceptosLineares(__int64 interceptoDeArea_id,vector<InterceptoLinear*> interceptosLineares,InterceptoType tipoIntercepto);
 		
 };
 

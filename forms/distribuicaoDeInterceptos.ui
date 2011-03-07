@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>822</width>
-    <height>525</height>
+    <width>1062</width>
+    <height>565</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
+     <x>20</x>
+     <y>26</y>
      <width>131</width>
      <height>16</height>
     </rect>
@@ -35,11 +35,11 @@
     <string>Quantidade de Classes:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="textQtdeSubClasses">
+  <widget class="QLineEdit" name="textQtdeClassesDeIntercepto">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>10</y>
+     <x>160</x>
+     <y>26</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -51,8 +51,8 @@
   <widget class="QPushButton" name="btnSalvar">
    <property name="geometry">
     <rect>
-     <x>648</x>
-     <y>470</y>
+     <x>888</x>
+     <y>510</y>
      <width>80</width>
      <height>30</height>
     </rect>
@@ -70,8 +70,8 @@
   <widget class="QPushButton" name="btnSair">
    <property name="geometry">
     <rect>
-     <x>730</x>
-     <y>470</y>
+     <x>970</x>
+     <y>510</y>
      <width>80</width>
      <height>30</height>
     </rect>
@@ -90,17 +90,26 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>48</y>
-     <width>791</width>
+     <y>101</y>
+     <width>1041</width>
      <height>401</height>
     </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+   <property name="cornerButtonEnabled">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QPushButton" name="btnGerarDistribuicao">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>4</y>
+     <x>240</x>
+     <y>20</y>
      <width>80</width>
      <height>30</height>
     </rect>
@@ -114,6 +123,85 @@
    <property name="autoDefault">
     <bool>false</bool>
    </property>
+  </widget>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>71</y>
+     <width>1040</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="lineWidth">
+    <number>2</number>
+   </property>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>337</x>
+      <y>9</y>
+      <width>361</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Tamanho do Grão (Diâmetro Equivalente)</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>748</x>
+     <y>7</y>
+     <width>301</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Tipo de distribuição</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QRadioButton" name="radioButtonArea">
+       <property name="text">
+        <string>Área</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButtonPerimetro">
+       <property name="text">
+        <string>Perímetro</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButtonComprimentoLinear">
+       <property name="text">
+        <string>Comprimento Linear</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources>
@@ -165,6 +253,54 @@
     <hint type="destinationlabel">
      <x>330</x>
      <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButtonArea</sender>
+   <signal>clicked()</signal>
+   <receiver>DistribuicaoDeInterceptosDialog</receiver>
+   <slot>gerarDistribuicao()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>784</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>530</x>
+     <y>282</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButtonComprimentoLinear</sender>
+   <signal>clicked()</signal>
+   <receiver>DistribuicaoDeInterceptosDialog</receiver>
+   <slot>gerarDistribuicao()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>970</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>530</x>
+     <y>282</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButtonPerimetro</sender>
+   <signal>clicked()</signal>
+   <receiver>DistribuicaoDeInterceptosDialog</receiver>
+   <slot>gerarDistribuicao()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>857</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>530</x>
+     <y>282</y>
     </hint>
    </hints>
   </connection>

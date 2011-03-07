@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include "Esfera.h"
 #include "..\Parametros.h"
-#include "..\..\model\interceptos\Intercepto.h"
+#include "..\..\model\interceptos\InterceptoDeArea.h"
 #include "..\..\model\interceptos\Disco.h"
 #include "..\..\utils\GlobalPoseFactory.h"
 
@@ -38,7 +38,7 @@ Esfera::~Esfera(void)
 {
 }
 
-Intercepto* Esfera::getIntercepto(NxVec3 planoGlobalPosition){
+InterceptoDeArea* Esfera::getIntercepto(NxVec3 planoGlobalPosition){
 	if (estaInterceptadoPeloPlano(planoGlobalPosition))
 	{
 		NxVec3 pos = ator->getGlobalPosition();

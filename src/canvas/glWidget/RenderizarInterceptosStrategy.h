@@ -4,7 +4,7 @@
 #include <vector>
 #include "RenderizacaoStrategy.h"
 #include "..\..\model\SimulacaoCaixa.h"
-#include "..\..\model\interceptos\Intercepto.h"
+#include "..\..\model\interceptos\InterceptoDeArea.h"
 #include "..\..\model\grade\Grade.h"
 #include "..\drawVisitor\InterceptoDeAreaDrawVisitor.h"
 #include "..\drawVisitor\InterceptoLinearDrawVisitor.h"
@@ -23,7 +23,7 @@ namespace simulacao{
 
 			class RenderizarInterceptosStrategy: public RenderizacaoStrategy{
 			private:
-				vector<Intercepto*> *interceptos;
+				vector<InterceptoDeArea*> *interceptos;
 				InterceptoDeAreaDrawVisitor *interceptoDeAreaDrawVisitor;
 				InterceptoLinearDrawVisitor *interceptoLinearDrawVisitor;
 				Grade *grade;
@@ -34,7 +34,7 @@ namespace simulacao{
 				inline void draw(SimulacaoCaixa *simulacao);
 				virtual inline RenderizacaoStrategyType getTypeOf(){ return RenderizarInterceptos;}
 
-				vector<Intercepto*> * getInterceptos(){ return this->interceptos; };
+				vector<InterceptoDeArea*> * getInterceptos(){ return this->interceptos; };
 
 			};
 

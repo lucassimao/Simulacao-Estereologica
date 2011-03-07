@@ -56,8 +56,7 @@ void ColetorDeInterceptosLinearesVisitor::visit(Poligono *poligono){
 
 				double distancia = pow(pow(p1.x - p2.x,2) + pow(p1.y - p2.y,2) + pow(p1.z - p2.z,2),0.5); 
 				this->interceptosLineares.push_back(distancia);
-			}
-			
+			}			
 
 			++iterator;
 		}

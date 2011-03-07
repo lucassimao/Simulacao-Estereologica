@@ -3,7 +3,7 @@
 
 #include <list>
 #include <vector>
-#include "Intercepto.h"
+#include "InterceptoDeArea.h"
 #include "..\grade\RetaDeTeste.h"
 #include "..\..\defs.h"
 #include "..\..\utils\SegmentoDeReta.h"
@@ -17,7 +17,7 @@ namespace simulacao{
 	namespace model {
 		namespace interceptos{
 
-			class Poligono: public Intercepto{	
+			class Poligono: public InterceptoDeArea{	
 			private:
 				inline list<SegmentoDeReta> coletarArestas();
 				list<Ponto> vertices;
@@ -40,6 +40,7 @@ namespace simulacao{
 				list<Ponto> getVertices() const{ return this->vertices; };
 				list<SegmentoDeReta> getArestas(){ return this->arestas;};
 				list<SegmentoDeReta> getArestasInterceptadas(RetaDeTeste&);
+				vector<InterceptoLinear*> getInterceptosLineares(Grade *grade);
 				
 				InterceptoType getType(){ return Type_Poligono;	}
 				

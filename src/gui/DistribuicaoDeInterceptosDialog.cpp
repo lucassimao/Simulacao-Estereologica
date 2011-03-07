@@ -18,40 +18,53 @@ void DistribuicaoDeInterceptosDialog::salvar(){
 	this->close();
 }
 
-void DistribuicaoDeInterceptosDialog::gerarDistribuicao(){
-	QStringList labelDaLinha;
-	int qtdeDeSubclasses = ui->textQtdeSubClasses->text().toInt();
-
-	double menorInterceptoDeArea = this->processador->getMenorInterceptoDeArea();
-	double maiorInterceptoDeArea = this->processador->getMaiorInterceptoDeArea();
-
-	double intervaloDeClasse = (maiorInterceptoDeArea - menorInterceptoDeArea)/qtdeDeSubclasses;
-	
+void DistribuicaoDeInterceptosDialog::limparTabela(){
 	this->tableModel->removeRows(0, this->tableModel->rowCount());
+}
+
+void DistribuicaoDeInterceptosDialog::gerarDistribuicao(){
+	TipoDeIntercepto tipoDeIntercepto;
+
+	if (this->ui->radioButtonArea->isChecked()){
+		tipoDeIntercepto = Area;
+	}else if (this->ui->radioButtonComprimentoLinear->isChecked()){
+		tipoDeIntercepto = Linear;
+	}else{
+		tipoDeIntercepto = Perimetro;
+	}
+
+	double menorIntercepto = this->processador->getMenorIntercepto(tipoDeIntercepto);
+	double maiorIntercepto = this->processador->getMaiorIntercepto(tipoDeIntercepto);
+	int qtdeClassesDeIntercepto = this->ui->textQtdeClassesDeIntercepto->text().toInt();
+	double intervaloDeClasse = (maiorIntercepto - menorIntercepto)/qtdeClassesDeIntercepto;
 	
-	for(int i=0; i < qtdeDeSubclasses; ++i){
+	limparTabela();
+
+	QStringList labelDaLinha;
+	for(int i=0; i < qtdeClassesDeIntercepto; ++i){
 		int row = this->tableModel->rowCount();
 		this->tableModel->insertRow(row);
 
-		double subClasseMinima = menorInterceptoDeArea + i*intervaloDeClasse;
-		double subClasseMaxima = subClasseMinima + intervaloDeClasse;
-		labelDaLinha << tr("%1  |-  %2").arg(subClasseMinima).arg(subClasseMaxima);
+		double limiteInferior = menorIntercepto + i*intervaloDeClasse;
+		double limiteSuperior = limiteInferior + intervaloDeClasse;
+		labelDaLinha << tr("%1  |-  %2").arg(limiteInferior).arg(limiteSuperior);
 		
-		int qtdeDeClassesDeIntercepto = this->classesDeIntercepto.size();
-		int qtdeTotalDeInterceptosDeAreaNoIntervalo = 0;
+		int qtdeDeClassesDeGrao = this->classesDeGrao.size();
+		int qtdeTotalDeInterceptosNoIntervalo = 0;
 
-		for(int coluna=0; coluna < qtdeDeClassesDeIntercepto;++coluna){
+		for(int coluna=0; coluna < qtdeDeClassesDeGrao;++coluna){
 			QModelIndex cell = this->tableModel->index(row,coluna);
-			ClasseDeIntercepto classe = this->classesDeIntercepto[coluna];
+			ClasseDeGrao classe = this->classesDeGrao[coluna];
 
-			int qtde = processador->getQuantidadeDeInterceptosDeAreaNoIntervalo(subClasseMinima,subClasseMaxima,classe);
-			qtdeTotalDeInterceptosDeAreaNoIntervalo += qtde;
+			int qtde = processador->getQuantidadeDeInterceptosNoIntervalo(limiteInferior,limiteSuperior,classe,tipoDeIntercepto);
 			this->tableModel->setData(cell,QVariant(qtde));
+
+			qtdeTotalDeInterceptosNoIntervalo += qtde; // acumulando p/ totalização
 		}
 
-		int indiceDaColunaDeTotais = classesDeIntercepto.size();
+		int indiceDaColunaDeTotais = this->classesDeGrao.size();
 		QModelIndex cellTotais = this->tableModel->index(row,indiceDaColunaDeTotais);
-		this->tableModel->setData(cellTotais,QVariant(qtdeTotalDeInterceptosDeAreaNoIntervalo));
+		this->tableModel->setData(cellTotais,QVariant(qtdeTotalDeInterceptosNoIntervalo));
 	}
 
 	labelDaLinha << "Totais";
@@ -74,23 +87,21 @@ void DistribuicaoDeInterceptosDialog::gerarDistribuicao(){
 }
 
 void DistribuicaoDeInterceptosDialog::criarCabecalhosDaTabela(){
-	this->classesDeIntercepto = processador->getClassesDeIntercepto();
-	
-	this->tableModel = new QStandardItemModel(0,classesDeIntercepto.size() + 1,this);
+	this->classesDeGrao = processador->getClassesDeGrao();
+	int qtdeColunas = this->classesDeGrao.size() + 1;
+
+	this->tableModel = new QStandardItemModel(0,qtdeColunas,this);
 	ui->tableDistribuicao->setModel(tableModel);
 
-	for(int idx=0; idx < classesDeIntercepto.size(); ++idx){ 
-		ClasseDeIntercepto classe = classesDeIntercepto[idx];
-		tableModel->setHeaderData( idx, Qt::Horizontal, 
-			QObject::tr("D.eq(%1,%2,%3) = %4").arg(classe.razaoDeAspecto)
-											.arg(classe.razaoDeTruncamento)
-											.arg(classe.L0)
-											.arg(classe.getDiametroEquivalente()) );
-		
-		ui->tableDistribuicao->setColumnWidth(idx,180);
+	for(int colunaIdx=0; colunaIdx < (qtdeColunas-1); ++colunaIdx){ 
+		ClasseDeGrao classe = this->classesDeGrao[colunaIdx];
+		double diametroEquivalenteDaClasseDeGrao = classe.getDiametroEquivalente();
+
+		tableModel->setHeaderData( colunaIdx , Qt::Horizontal, QObject::tr("%1").arg(diametroEquivalenteDaClasseDeGrao));
+		ui->tableDistribuicao->setColumnWidth(colunaIdx,60);
 	}
 
-	int indiceDaColunaDeTotais = classesDeIntercepto.size();
+	int indiceDaColunaDeTotais = qtdeColunas-1;
 	tableModel->setHeaderData(indiceDaColunaDeTotais,Qt::Horizontal,"Totais");
 }
 

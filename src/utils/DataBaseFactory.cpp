@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <QtDebug>
 #include "DataBaseFactory.h"
 #include "../sqlite3/sqlite3.h"
 
@@ -16,10 +17,10 @@ sqlite3 * DataBaseFactory::criarBanco(const char* arquivo){
     int rc;
     char *errStr;
 
-
     rc = sqlite3_open(arquivo,&db);
     if (rc)
     {
+		qDebug() << sqlite3_errmsg(db);
 		throw runtime_error( sqlite3_errmsg(db) );
 	    sqlite3_close(db);
         return NULL;
@@ -65,13 +66,23 @@ sqlite3 * DataBaseFactory::criarBanco(const char* arquivo){
 		return NULL;
     }
 
-	rc = sqlite3_exec(db,"create table interceptosLineares(id int PRIMARY KEY,planoDeCorte_fk int,tamanho double, FOREIGN KEY(planoDeCorte_fk) references planoDeCorte(id));", 0, 0, &errStr);
+	rc = sqlite3_exec(db,"create table interceptosLineares_poligonos(id int PRIMARY KEY,poligono_fk int,x0 double,y0 double,z0 double,x1 double,y1 double,z1 double, tamanho double, FOREIGN KEY(poligono_fk) references poligonos(id));", 0, 0, &errStr);
+	if ( rc!=SQLITE_OK )
+    {
+		qDebug() << errStr;
+        throw runtime_error(errStr);
+        sqlite3_free(errStr);
+		return NULL;
+    }
+
+	rc = sqlite3_exec(db,"create table interceptosLineares_discos(id int PRIMARY KEY,disco_fk int,x0 double,y0 double,z0 double,x1 double,y1 double,z1 double, tamanho double, FOREIGN KEY(disco_fk) references discos(id));", 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
     {
         throw runtime_error(errStr);
         sqlite3_free(errStr);
 		return NULL;
     }
+
 
 	return db;
 }

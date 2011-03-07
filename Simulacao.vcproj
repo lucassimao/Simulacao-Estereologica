@@ -646,7 +646,11 @@
 						>
 					</File>
 					<File
-						RelativePath=".\src\model\interceptos\Intercepto.cpp"
+						RelativePath=".\src\model\interceptos\InterceptoDeArea.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\interceptos\InterceptoLinear.cpp"
 						>
 					</File>
 					<File
@@ -932,7 +936,11 @@
 						>
 					</File>
 					<File
-						RelativePath=".\src\model\interceptos\Intercepto.h"
+						RelativePath=".\src\model\interceptos\InterceptoDeArea.h"
+						>
+					</File>
+					<File
+						RelativePath=".\src\model\interceptos\InterceptoLinear.h"
 						>
 					</File>
 					<File

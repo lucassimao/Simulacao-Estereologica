@@ -19,32 +19,60 @@ DAO::DAO(sqlite3 *db):db(db){
 
 }
 
-__int64 DAO::salvarInterceptosLineares(int planoDeCorte_id,ColetorDeInterceptosLinearesVisitor *visitor){
-	char *errStr;
+void DAO::salvarInterceptosLineares(__int64 interceptoDeArea_id,vector<InterceptoLinear*> interceptosLineares,InterceptoType tipoIntercepto){	
+	vector<InterceptoLinear*>::const_iterator iterator = interceptosLineares.begin();
 	ostringstream  insert;
-	
-	vector<double>::const_iterator iterator = visitor->interceptosLineares.begin();
+	switch(tipoIntercepto){
+		case Type_Poligono:
+			insert << "insert into interceptosLineares_poligonos('poligono_fk','x0','y0','z0','x1','y1','z1','tamanho') ";
+			break;
+		case Type_Disco:
+			insert << "insert into interceptosLineares_discos('disco_fk','x0','y0','z0','x1','y1','z1','tamanho') ";
+			break;			
+	}
+	insert << "values(?1,?2,?3,?4,?5,?6,?7,?8);";
 
-	while(iterator!=visitor->interceptosLineares.end()){
-		double interceptoLinear  = *iterator;
+	while(iterator != interceptosLineares.end()){
+		InterceptoLinear *interceptoLinear  = *iterator;
+		sqlite3_stmt *insert_stmt = 0;
 
-		insert << "insert into interceptosLineares('planoDeCorte_fk','tamanho')";
-		insert << " values(" << planoDeCorte_id << "," << interceptoLinear << ");";
+		int res = sqlite3_prepare_v2(this->db,insert.str().c_str(),-1,&insert_stmt,NULL);
+		if( res==SQLITE_OK && insert_stmt ){
+			res = sqlite3_bind_int(insert_stmt,1,interceptoDeArea_id);
+			assert(res == SQLITE_OK);
+
+			res = sqlite3_bind_double(insert_stmt,2,interceptoLinear->p0.x);
+			assert(res == SQLITE_OK);
+
+			res = sqlite3_bind_double(insert_stmt,3,interceptoLinear->p0.y);
+			assert(res == SQLITE_OK);
+
+			res = sqlite3_bind_double(insert_stmt,4,interceptoLinear->p0.z);
+			assert(res == SQLITE_OK);
+
+			res = sqlite3_bind_double(insert_stmt,5,interceptoLinear->p1.x);
+			assert(res == SQLITE_OK);
+
+			res = sqlite3_bind_double(insert_stmt,6,interceptoLinear->p1.y);
+			assert(res == SQLITE_OK);
+
+			res = sqlite3_bind_double(insert_stmt,7,interceptoLinear->p1.z);
+			assert(res == SQLITE_OK);
+
+			res = sqlite3_bind_double(insert_stmt,8,interceptoLinear->tamanho());
+			assert(res == SQLITE_OK);
+
+			res = sqlite3_step(insert_stmt);
+			assert(res == SQLITE_DONE);
+
+			sqlite3_finalize(insert_stmt);	
+		}
+		else{
+			qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+		}
+
 		++iterator;
 	}
-
-	int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
-	if ( rc!=SQLITE_OK )
-	{
-		qDebug() << errStr;
-		throw runtime_error(errStr);
-		sqlite3_free(errStr);
-		return -1;
-	}
-
-
-	__int64 ultimoInterceptoID = sqlite3_last_insert_rowid(this->db);
-	return ultimoInterceptoID;
 }
 
 __int64 DAO::salvarPlano(double y,double largura,Cor cor){
