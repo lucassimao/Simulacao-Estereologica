@@ -57,8 +57,7 @@ sqlite3* ExportadorDeCortesSistematicos::exportar(){
 		NxActor** atores = simulacao->getAtores();
 		NxVec3 planoGlobalPosition = planoDeCorte->getGlobalPosition();
 		NxU32 qtdeAtores = simulacao->getQtdeObjetos();
-		
-		//ColetorDeInterceptosLinearesVisitor *visitor1 = new ColetorDeInterceptosLinearesVisitor(simulacao->getGrade());
+			
 		ColetorDePontosVisitor *visitor2 = new ColetorDePontosVisitor(simulacao->getGrade());
 		ColetorDeAreasVisitor *visitor3 = new ColetorDeAreasVisitor(simulacao->getGrade());
 		
@@ -74,7 +73,6 @@ sqlite3* ExportadorDeCortesSistematicos::exportar(){
 				if (a->estaInterceptadoPeloPlano(planoGlobalPosition)){
 					InterceptoDeArea *intercepto = a->getIntercepto(planoGlobalPosition);
 
-					//intercepto->accept(visitor1);
 					intercepto->accept(visitor2);
 					intercepto->accept(visitor3);
 					
