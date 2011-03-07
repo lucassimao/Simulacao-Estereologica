@@ -136,8 +136,11 @@ void ExportadorParaArquivo::salvarAreaDosDiscos(int plano_pk, ofstream &outFile)
 void ExportadorParaArquivo::salvarInterceptosLineares(int plano_pk, ofstream &outFile){
 	sqlite3_stmt *interceptos_stmt = 0;
 	ostringstream  interceptos_select;
-	interceptos_select << "select tamanho from interceptosLineares where planoDeCorte_fk = ?1 order by tamanho;";
-
+	interceptos_select << "select tamanho from interceptosLineares_poligonos where poligono_fk in ";
+	interceptos_select << "(select rowid from poligonos where planoDeCorte_fk = ?1) ";
+	interceptos_select << " union all " ;
+	interceptos_select << "select tamanho from interceptosLineares_discos where disco_fk in ";
+	interceptos_select << "(select rowid from discos where planoDeCorte_fk = ?1) order by tamanho; ";
 
 	int res = sqlite3_prepare_v2(this->db,interceptos_select.str().c_str(),-1,&interceptos_stmt,NULL);
 	
