@@ -126,10 +126,12 @@ void ExportadorParaArquivo::exportarPlano(int planoDeCorteID){
 }
 
 void ExportadorParaArquivo::salvarInterceptosDaFaseSolida(int plano_pk){
+	locale ptBR(locale(),new WithComma);
 	ostringstream fileName;
 	fileName << this->destino << "/interceptosDaFaseSolida_plano_" << plano_pk << ".csv"; 
 
 	ofstream interceptosDaFaseSolidaFile(fileName.str().c_str(),std::ios::out);
+	interceptosDaFaseSolidaFile.imbue(ptBR);
 
 	sqlite3_stmt *stmt = 0;
 	ostringstream select;
