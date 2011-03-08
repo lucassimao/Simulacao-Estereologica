@@ -95,7 +95,7 @@ __int64 DAO::salvarPlano(double y,double largura,Cor cor){
 	return planoDeCorteID;
 }
 
-__int64 DAO::salvarDisco(int planoDeCorte_id, Disco *d){
+__int64 DAO::salvarDisco(__int64 planoDeCorte_id, Disco *d){
 	char *errStr;
 	ostringstream  insert;
 	
@@ -109,7 +109,7 @@ __int64 DAO::salvarDisco(int planoDeCorte_id, Disco *d){
     int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
     {
-		//qDebug() << errStr;
+		qDebug() << errStr;
         throw runtime_error(errStr);
         sqlite3_free(errStr);
 		return -1;
@@ -118,7 +118,7 @@ __int64 DAO::salvarDisco(int planoDeCorte_id, Disco *d){
 	return discoID;
 }
 
-__int64 DAO::salvarPoligono(int planoDeCorte_id, Poligono *p){
+__int64 DAO::salvarPoligono(__int64 planoDeCorte_id, Poligono *p){
 	char *errStr;
 	ostringstream  insert;
 

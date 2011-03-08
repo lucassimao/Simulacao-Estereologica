@@ -72,7 +72,7 @@ sqlite3* ExportadorDeCortesSistematicos::exportar(){
 
 				if (a->estaInterceptadoPeloPlano(planoGlobalPosition)){
 					InterceptoDeArea *intercepto = a->getIntercepto(planoGlobalPosition);
-
+															
 					intercepto->accept(visitor2);
 					intercepto->accept(visitor3);
 					
