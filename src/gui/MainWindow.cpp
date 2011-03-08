@@ -98,10 +98,8 @@ void MainWindow::exibirDistribuicaoDeInterceptos(){
 	if (res == QInputDialog::DialogCode::Accepted){
 		int qtdeDePlanosDeCorte = dlg->intValue();
 		ExportadorDeCortesSistematicos exportador(qtdeDePlanosDeCorte,this->simulacao);
-		sqlite3* db = exportador.exportar();
-		ProcessadorDeClassesDeIntercepto processador(db);
-
-		DistribuicaoDeInterceptosDialog *dlg = new DistribuicaoDeInterceptosDialog(this,&processador);
+		sqlite3* db = exportador.exportar();		
+		DistribuicaoDeInterceptosDialog *dlg = new DistribuicaoDeInterceptosDialog(this,db);
 		dlg->exec();
 
 		sqlite3_close(db);
@@ -146,31 +144,34 @@ void MainWindow::configurarCorDoPlanoDeCorte(){
 }
 
 void MainWindow::actionExecutarCortesSistematicos(){
-	int res;
-	
-	QInputDialog *dlg = new QInputDialog(this);
 
+	QInputDialog *dlg = new QInputDialog(this);
 	dlg->setIntMinimum(1);
-	dlg->setIntMaximum(1000000);
+	dlg->setIntMaximum(100000000);
 	dlg->setInputMode(QInputDialog::InputMode::IntInput);
 	dlg->setLabelText(tr("Quantidade de planos de corte:"));
 	dlg->setIntValue(1);
-	res = dlg->exec();
+	int res = dlg->exec();
 
 	if (res == QInputDialog::DialogCode::Accepted){
-		int qtde = dlg->intValue();
+		int qtdeDePlanos = dlg->intValue();
+
+		dlg->setLabelText(tr("Quantidade de classes de intercepto:"));
+		res = dlg->exec();
+		int qtdeDeClassesDeIntercepto = dlg->intValue();
 
 		QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja que as informações sejam salvas");
-		int res = QMessageBox::question(this, tr("Pergunta"),tr("Deseja exportar também as imagens de cada plano de corte?"),
-			QMessageBox::StandardButton::Ok|QMessageBox::StandardButton::No);
-		
+	
 		if (dir.trimmed().size()>0){
-			ExportadorDeCortesSistematicos exportador(qtde,this->simulacao);
+			ExportadorDeCortesSistematicos exportador(qtdeDePlanos,this->simulacao);
 			sqlite3 *db = exportador.exportar();
 			
-			ExportadorParaArquivo exportador1(dir.toStdString(),db);
+			ExportadorParaArquivo exportador1(dir.toStdString(),db,qtdeDeClassesDeIntercepto);
 			exportador1.exportar();
 			
+			res = QMessageBox::question(this, tr("Pergunta"),tr("Deseja exportar também as imagens de cada plano de corte?"),
+				QMessageBox::StandardButton::Ok|QMessageBox::StandardButton::No);
+
 			bool exportarImagens = (res == QMessageBox::StandardButton::Ok);
 			if (exportarImagens){
 				ExportadorParaImagem exportador2(dir.toStdString(),db);

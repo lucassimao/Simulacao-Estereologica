@@ -24,12 +24,13 @@ namespace simulacao	{
 		private:
 			QStandardItemModel *tableModel;
 			vector<ClasseDeGrao> classesDeGrao;
+			sqlite3 *db;
 
 			void criarCabecalhosDaTabela();
 			void limparTabela();
 
 		public:
-			DistribuicaoDeInterceptosDialog(QWidget *parent,ProcessadorDeClassesDeIntercepto *processador);
+			DistribuicaoDeInterceptosDialog(QWidget *parent,sqlite3 *db);
 
 		};
 	}

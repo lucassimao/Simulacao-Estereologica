@@ -1,11 +1,16 @@
+#include <QFileDialog>
+#include <QMessageBox>
 #include "distribuicaodeinterceptosdialog.h"
+#include "..\exportador\ExportadorParaArquivo.h"
 
 using namespace simulacao::gui;
+using namespace simulacao::exportador;
 
-DistribuicaoDeInterceptosDialog::DistribuicaoDeInterceptosDialog(QWidget *parent,ProcessadorDeClassesDeIntercepto *processador){
+DistribuicaoDeInterceptosDialog::DistribuicaoDeInterceptosDialog(QWidget *parent,sqlite3 *db):QDialog(parent){
 	ui = new Ui_DistribuicaoDeInterceptosDialog();
 	ui->setupUi(this);
-	this->processador = processador;
+	this->db = db;
+	this->processador = new ProcessadorDeClassesDeIntercepto(db);
 
 	criarCabecalhosDaTabela();
 }
@@ -15,7 +20,13 @@ void DistribuicaoDeInterceptosDialog::sair(){
 }
 
 void DistribuicaoDeInterceptosDialog::salvar(){
-	this->close();
+	QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja armazenar a tabela");
+	if (dir.trimmed().size()>0){
+		int qtdeClassesDeIntercepto = this->ui->textQtdeClassesDeIntercepto->text().toInt();
+		ExportadorParaArquivo exportador1(dir.toStdString(),this->db,qtdeClassesDeIntercepto);
+		exportador1.salvarTabelaDeProbabilidades();
+		QMessageBox::information(this, tr("Exportação concluída"),tr("As tabelas foram exportadas com sucesso!"));
+	}
 }
 
 void DistribuicaoDeInterceptosDialog::limparTabela(){

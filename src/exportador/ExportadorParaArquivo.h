@@ -20,11 +20,13 @@ namespace simulacao{
 		class ExportadorParaArquivo{
 		
 		public:
-			ExportadorParaArquivo(string &destino, sqlite3* db);
+			ExportadorParaArquivo(string &destino, sqlite3* db,int qtdeClassesDeIntercepto);
 			void exportar();
+			void salvarTabelaDeProbabilidades();
 		private:
 			string destino;
 			sqlite3 *db;
+			int qtdeClassesDeIntercepto;
 
 			void exportarPlano(int plano_pk);
 			void salvarAreaDosPoligonos(int plano_pk, ofstream &outFile);

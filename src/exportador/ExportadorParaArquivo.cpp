@@ -1,10 +1,12 @@
 #include "ExportadorParaArquivo.h"
+#include "ProcessadorDeClassesDeIntercepto.h"
 
 using namespace simulacao::exportador;
 
-ExportadorParaArquivo::ExportadorParaArquivo(string &destino, sqlite3* db){
+ExportadorParaArquivo::ExportadorParaArquivo(string &destino, sqlite3* db,int qtdeClassesDeIntercepto){
 	this->destino = destino;
 	this->db = db;
+	this->qtdeClassesDeIntercepto = qtdeClassesDeIntercepto;
 }
 
 void ExportadorParaArquivo::exportar(){
@@ -26,10 +28,62 @@ void ExportadorParaArquivo::exportar(){
 			exportarPlano(planoPK);
 			res = sqlite3_step(planoDeCorte_stmt);
 		}
-		sqlite3_finalize(planoDeCorte_stmt);		
+		sqlite3_finalize(planoDeCorte_stmt);
+		salvarTabelaDeProbabilidades();
     }
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+
+}
+
+void ExportadorParaArquivo::salvarTabelaDeProbabilidades(){
+	ProcessadorDeClassesDeIntercepto processador(this->db);
+
+	vector<ClasseDeGrao> classesDeGrao = processador.getClassesDeGrao();
+	map<TipoDeIntercepto,const char*> mapa;
+	mapa[Linear] = "Comprimento_Linear";
+	mapa[Area] = "Area";
+	mapa[Perimetro] = "Perimetro";
+
+	locale ptBR(locale(),new WithComma);
+
+	map<TipoDeIntercepto,const char*>::const_iterator iterator = mapa.begin();
+	while(iterator != mapa.end()){
+		TipoDeIntercepto tipoDeIntercepto = (*iterator).first;
+		const char *descricao = (*iterator).second;
+
+		ostringstream nomeDoArqivo;
+		nomeDoArqivo << this->destino << "/tabelaProbabilidade_para_" << descricao << ".csv"; 
+		ofstream arquivo(nomeDoArqivo.str().c_str(),std::ios::out);
+		arquivo.imbue(ptBR);
+
+		double menorIntercepto = processador.getMenorIntercepto(tipoDeIntercepto);
+		double maiorIntercepto = processador.getMaiorIntercepto(tipoDeIntercepto);
+		double deltaIntercepto = (maiorIntercepto - menorIntercepto)/this->qtdeClassesDeIntercepto;
+
+		ostringstream cabecalho;
+		for(int i=0; i<classesDeGrao.size() ;++i){ cabecalho << ";" << classesDeGrao[i].getDiametroEquivalente(); }
+		arquivo << cabecalho.str() << std::endl;
+
+		ostringstream tabela;
+		for(int i=0; i < this->qtdeClassesDeIntercepto ; ++i){
+
+			double limInferior = menorIntercepto + i*deltaIntercepto;
+			double limSuperior = limInferior + deltaIntercepto;
+
+			tabela << limInferior << " |- " << limSuperior;
+
+			for(int j=0;j< classesDeGrao.size();++j){
+				ClasseDeGrao classeDeGrao = classesDeGrao[j];
+				tabela << ";" << processador.getQuantidadeDeInterceptosNoIntervalo(limInferior,limSuperior,classeDeGrao,tipoDeIntercepto);
+			}
+			tabela << std::endl;
+		}
+		arquivo << tabela.str();
+		arquivo.close();
+
+		++iterator;
+	}
 
 }
 
