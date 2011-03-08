@@ -9,8 +9,10 @@
 #include <cassert>
 #include "..\sqlite3\sqlite3.h"
 #include "..\defs.h"
+#include "..\model\interceptos\InterceptoLinear.h"
 
 using namespace std;
+using namespace simulacao::model::interceptos;
 
 #define PI 3.1415926
 
@@ -28,12 +30,18 @@ namespace simulacao{
 			sqlite3 *db;
 			int qtdeClassesDeIntercepto;
 
+			struct{
+				bool operator()(InterceptoLinear *i1, InterceptoLinear *i2) const{
+					return i1->p0.x < i2->p0.x;
+				}
+			} InterceptoLinearCmp;
+
 			void exportarPlano(int plano_pk);
 			void salvarAreaDosPoligonos(int plano_pk, ofstream &outFile);
 			void salvarAreaDosDiscos(int plano_pk, ofstream &outFile);
 			void salvarInterceptosLineares(int plano_pk, ofstream &outFile);
 			void salvarQtdeDePontosInternos(int plano_pk, ofstream &outFile);
-
+			void salvarInterceptosDaFaseSolida(int plano_pk);
 		};
 	}
 }

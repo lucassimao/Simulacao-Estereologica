@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "ExportadorParaArquivo.h"
 #include "ProcessadorDeClassesDeIntercepto.h"
 
@@ -12,7 +13,7 @@ ExportadorParaArquivo::ExportadorParaArquivo(string &destino, sqlite3* db,int qt
 void ExportadorParaArquivo::exportar(){
 	sqlite3_stmt *planoDeCorte_stmt = 0;
 	ostringstream  planoDeCorte_select;
-	planoDeCorte_select << "select rowid,altura from planoDeCorte;";
+	planoDeCorte_select << "select rowid from planoDeCorte;";
 
 	int res = sqlite3_prepare_v2(this->db,planoDeCorte_select.str().c_str(),-1,&planoDeCorte_stmt,NULL);
 	
@@ -35,6 +36,7 @@ void ExportadorParaArquivo::exportar(){
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
 }
+
 
 void ExportadorParaArquivo::salvarTabelaDeProbabilidades(){
 	ProcessadorDeClassesDeIntercepto processador(this->db);
@@ -119,6 +121,82 @@ void ExportadorParaArquivo::exportarPlano(int planoDeCorteID){
 
 	salvarQtdeDePontosInternos(planoDeCorteID,pontosInternosFile);
 	pontosInternosFile.close();
+
+	salvarInterceptosDaFaseSolida(planoDeCorteID);
+}
+
+void ExportadorParaArquivo::salvarInterceptosDaFaseSolida(int plano_pk){
+	ostringstream fileName;
+	fileName << this->destino << "/interceptosDaFaseSolida_plano_" << plano_pk << ".csv"; 
+
+	ofstream interceptosDaFaseSolidaFile(fileName.str().c_str(),std::ios::out);
+
+	sqlite3_stmt *stmt = 0;
+	ostringstream select;
+	select << "select x0,y0,z0,x1,y1,z1 from interceptosLineares_discos where disco_fk in ";
+	select << "(select rowid from discos where planoDeCorte_fk = ?1);";
+
+	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
+	map<double,vector<InterceptoLinear*>> interceptosLineares;
+
+    if( res==SQLITE_OK && stmt ){
+		res = sqlite3_bind_int(stmt,1,plano_pk);
+		assert(res == SQLITE_OK);
+		
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+		
+		while(res != SQLITE_DONE){
+			Ponto p0,p1;
+			p0.x = sqlite3_column_double(stmt,0);
+			p0.y = sqlite3_column_double(stmt,1);
+			p0.z = sqlite3_column_double(stmt,2);
+
+			p1.x = sqlite3_column_double(stmt,3);
+			p1.y = sqlite3_column_double(stmt,4);
+			p1.z = sqlite3_column_double(stmt,5);			
+
+			if (interceptosLineares.count(p0.z)==0){
+				interceptosLineares[p0.z] = vector<InterceptoLinear*>();
+			}
+			interceptosLineares[p0.z].push_back(new InterceptoLinear(p0,p1));
+
+			res = sqlite3_step(stmt);
+		}	
+
+		sqlite3_finalize(stmt);
+		
+		map<double,vector<InterceptoLinear*>>::const_iterator iterator = interceptosLineares.begin();
+
+		while(iterator != interceptosLineares.end()){
+			vector<InterceptoLinear*> vetor = (*iterator).second;
+						
+			if (vetor.size() > 1){
+				sort(vetor.begin(),vetor.end(),InterceptoLinearCmp);				
+				int iLinearAtual = 0;
+
+				while(iLinearAtual+1 < vetor.size()){
+					InterceptoLinear *iLinear = vetor[iLinearAtual];
+					InterceptoLinear *iLinearSeguinte = vetor[iLinearAtual+1];
+
+					if (iLinear->p1.x != iLinearSeguinte->p0.x){
+						interceptosDaFaseSolidaFile << (iLinearSeguinte->p0.x - iLinear->p1.x) << std::endl;
+					}
+					++iLinearAtual;
+				}
+			}
+
+			++iterator;
+		}
+		interceptosDaFaseSolidaFile.close();
+		
+		
+    }
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+	
 }
 
 void ExportadorParaArquivo::salvarAreaDosPoligonos( int plano_pk, ofstream &outFile){
