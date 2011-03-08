@@ -136,7 +136,11 @@ void ExportadorParaArquivo::salvarInterceptosDaFaseSolida(int plano_pk){
 	sqlite3_stmt *stmt = 0;
 	ostringstream select;
 	select << "select x0,y0,z0,x1,y1,z1 from interceptosLineares_discos where disco_fk in ";
-	select << "(select rowid from discos where planoDeCorte_fk = ?1);";
+	select << "(select rowid from discos where planoDeCorte_fk = ?1)";
+	select << " union ";
+	select << "select x0,y0,z0,x1,y1,z1 from interceptosLineares_poligonos where poligono_fk in ";
+	select << "(select rowid from poligonos where planoDeCorte_fk = ?1);";
+
 
 	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
 	map<double,vector<InterceptoLinear*>> interceptosLineares;
