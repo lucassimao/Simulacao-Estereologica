@@ -204,8 +204,7 @@ void ExportadorParaArquivo::salvarInterceptosDaFaseSolida(int plano_pk){
 void ExportadorParaArquivo::salvarAreaDosPoligonos( int plano_pk, ofstream &outFile){
 	sqlite3_stmt *poligonos_stmt = 0;
 	ostringstream  poligonos_select;
-	poligonos_select << "select rowid,area,perimetro,L0,razaoDeAspectoOriginaria,razaoDeTruncamentoOriginaria ";
-	poligonos_select << "from poligonos where planoDeCorte_fk = ?1;";
+	poligonos_select << "select area from poligonos where planoDeCorte_fk = ?1;";
 
 
 	int res = sqlite3_prepare_v2(this->db,poligonos_select.str().c_str(),-1,&poligonos_stmt,NULL);
@@ -220,9 +219,7 @@ void ExportadorParaArquivo::salvarAreaDosPoligonos( int plano_pk, ofstream &outF
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
 		
 		while(res != SQLITE_DONE){
-			//int poligono_pk = sqlite3_column_int(poligonos_stmt,0);
-			double area = sqlite3_column_double(poligonos_stmt,1);
-			//double perimetro = sqlite3_column_double(poligonos_stmt,2);
+			double area = sqlite3_column_double(poligonos_stmt,0);
 			outFile << area << endl;
 			res = sqlite3_step(poligonos_stmt);
 		}	
