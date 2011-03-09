@@ -839,10 +839,6 @@
 				Name="exportador"
 				>
 				<File
-					RelativePath=".\src\exportador\ExportadorDeCortesSistematicos.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\exportador\ExportadorParaArquivo.cpp"
 					>
 				</File>
@@ -1417,10 +1413,6 @@
 			<Filter
 				Name="exportador"
 				>
-				<File
-					RelativePath=".\src\exportador\ExportadorDeCortesSistematicos.h"
-					>
-				</File>
 				<File
 					RelativePath=".\src\exportador\ExportadorParaArquivo.h"
 					>

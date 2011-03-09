@@ -4,17 +4,23 @@
 #include <NxPhysics.h>
 #include "..\defs.h"
 #include "..\utils\AbstractGeradorDeAlturaDoPlanoDeCorteStrategy.h"
+#include "..\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.h"
+#include "..\utils\GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy.h"
 #include "..\utils\MeshFactory.h"
+#include "..\math\ColetorDeAreasVisitor.h"
+#include "..\math\ColetorDePontosVisitor.h"
+#include "..\utils\DAO.h"
+#include "..\utils\DataBaseFactory.h"
 #include "Simulacao.h"
+#include "..\sqlite3\sqlite3.h"
 #include "..\model\atores\PlanoDeCorte.h"
 #include "grade\Grade.h"
 #include "Parametros.h"
 #include <QObject>
 /**
-* Definição de uma simulação simples, 
-* objetos idênticos
-*
+* Definição de uma simulação simples, objetos idênticos
 */
+using namespace simulacao::math::mathVisitor;
 using namespace simulacao::utils;
 using namespace simulacao::model::atores;
 using namespace simulacao::model::grade;
@@ -51,6 +57,7 @@ namespace simulacao{
 			void novoPlanoDeCorte();
 			void selecionarGraosInterceptados();
 			void removerGraos();
+			sqlite3 *executarCortesSistematicos(int);
 
 			NxActor* getCaixa(){
 				return this->caixa;

@@ -27,7 +27,6 @@ using namespace simulacao::canvas::glWidget;
 
 #include "..\math\ColetorDeAreasVisitor.h"
 #include "..\math\ColetorDeInterceptosLinearesVisitor.h"
-#include "..\exportador\ExportadorDeCortesSistematicos.h"
 #include "..\exportador\ExportadorParaArquivo.h"
 #include "..\exportador\ExportadorParaImagem.h"
 #include "..\exportador\ProcessadorDeClassesDeIntercepto.h"
@@ -97,8 +96,7 @@ void MainWindow::exibirDistribuicaoDeInterceptos(){
 
 	if (res == QInputDialog::DialogCode::Accepted){
 		int qtdeDePlanosDeCorte = dlg->intValue();
-		ExportadorDeCortesSistematicos exportador(qtdeDePlanosDeCorte,this->simulacao);
-		sqlite3* db = exportador.exportar();		
+		sqlite3* db = this->simulacao->executarCortesSistematicos(qtdeDePlanosDeCorte);		
 		DistribuicaoDeInterceptosDialog *dlg = new DistribuicaoDeInterceptosDialog(this,db);
 		dlg->exec();
 
@@ -163,8 +161,7 @@ void MainWindow::actionExecutarCortesSistematicos(){
 		QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja que as informações sejam salvas");
 	
 		if (dir.trimmed().size()>0){
-			ExportadorDeCortesSistematicos exportador(qtdeDePlanos,this->simulacao);
-			sqlite3 *db = exportador.exportar();
+			sqlite3 *db = this->simulacao->executarCortesSistematicos(qtdeDePlanos);
 			
 			ExportadorParaArquivo exportador1(dir.toStdString(),db,qtdeDeClassesDeIntercepto);
 			exportador1.exportar();

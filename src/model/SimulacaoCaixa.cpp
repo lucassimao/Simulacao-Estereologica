@@ -111,6 +111,70 @@ void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde,Cor cor){
 	
 }
 
+sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematicos){
+	sqlite3 *db = DataBaseFactory::getInstance()->criarBanco(":memory:");
+
+    if (!db){
+		qDebug() << sqlite3_errmsg(db);
+		sqlite3_close(db);
+		throw runtime_error( sqlite3_errmsg(db) );	
+	}
+
+	DAO dao(db);
+
+	Parametros *p = Parametros::getInstance();
+	double h0 = p->getAlturaDaBaseDaCaixa();
+	double h1 = p->getArestaDaCaixa() + p->getAlturaDaBaseDaCaixa();
+	this->setGeradorDeAlturaDoPlanoStrategy(new GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(h0,h1,qtdeDeCortesSistematicos));
+	
+	int qtdeDePontosNaGrade = p->getQtdeLinhasNaGrade()* p->getQtdePontosPorLinhaNaGrade();
+	double larguraDoPlanoDeCorte = p->getLarguraDoPlanoDeCorte();
+
+	for(int i=0; i< qtdeDeCortesSistematicos; ++i){
+		this->novoPlanoDeCorte();
+
+		NxActor** atores = this->getAtores();
+		NxVec3 planoGlobalPosition = this->atorPlanoDeCorte->getNxActor()->getGlobalPosition();
+		NxU32 qtdeAtores = this->getQtdeObjetos();
+			
+		ColetorDePontosVisitor *visitor2 = new ColetorDePontosVisitor(this->getGrade());
+		ColetorDeAreasVisitor *visitor3 = new ColetorDeAreasVisitor(this->getGrade());
+		
+		__int64 planoID = dao.salvarPlano(planoGlobalPosition.y,larguraDoPlanoDeCorte,this->getPlanoDeCorte()->cor);
+
+		while (qtdeAtores--)
+		{
+			NxActor* ator = *atores++;
+			if (ator != this->caixa && ator!= this->atorPlanoDeCorte->getNxActor()){
+				Ator *a = (Ator *)ator->userData;	
+
+				if (a->estaInterceptadoPeloPlano(planoGlobalPosition)){
+					InterceptoDeArea *intercepto = a->getIntercepto(planoGlobalPosition);
+															
+					intercepto->accept(visitor2);
+					intercepto->accept(visitor3);
+					
+					__int64 interceptoID = dao.salvarInterceptoDeArea(planoID,intercepto);
+
+					vector<InterceptoLinear*> interceptosLineares = intercepto->getInterceptosLineares(this->getGrade());			
+					dao.salvarInterceptosLineares(interceptoID,interceptosLineares,intercepto->getType());
+				}
+			}
+		}
+
+		double areaTotalColetada = visitor3->getAreaTotalColetada();
+		double areaDoPlanoDeCorte = pow(larguraDoPlanoDeCorte,2.0);
+		int qtdePontosInternosAInterceptosDeArea = visitor2->getQtdeDePontosInternosAInterceptosDeArea();
+		double volumeFaseSolida = this->getVolumeFaseSolida();
+		double volumeFaseLigante = this->getVolumeFaseLigante();
+
+		dao.salvarEstatisticas(planoID,areaTotalColetada,areaDoPlanoDeCorte,qtdePontosInternosAInterceptosDeArea,
+								qtdeDePontosNaGrade,volumeFaseSolida,volumeFaseLigante);
+	}
+	this->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
+
+	return db;
+}
 
 void SimulacaoCaixa::novoPlanoDeCorte(){
 
