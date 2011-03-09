@@ -128,7 +128,9 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 	this->setGeradorDeAlturaDoPlanoStrategy(new GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(h0,h1,qtdeDeCortesSistematicos));
 	
 	int qtdeDePontosNaGrade = p->getQtdeLinhasNaGrade()* p->getQtdePontosPorLinhaNaGrade();
-	double larguraDoPlanoDeCorte = p->getLarguraDoPlanoDeCorte();
+	double areaDoPlanoDeCorte = pow(p->getLarguraDoPlanoDeCorte(),2.0);
+	double volumeFaseSolida = this->getVolumeFaseSolida();
+	double volumeFaseLigante = this->getVolumeFaseLigante();
 
 	for(int i=0; i< qtdeDeCortesSistematicos; ++i){
 		this->novoPlanoDeCorte();
@@ -140,7 +142,7 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 		ColetorDePontosVisitor *visitor2 = new ColetorDePontosVisitor(this->getGrade());
 		ColetorDeAreasVisitor *visitor3 = new ColetorDeAreasVisitor(this->getGrade());
 		
-		__int64 planoID = dao.salvarPlano(planoGlobalPosition.y,larguraDoPlanoDeCorte,this->getPlanoDeCorte()->cor);
+		__int64 planoID = dao.salvarPlano(planoGlobalPosition.y,p->getLarguraDoPlanoDeCorte(),this->getPlanoDeCorte()->cor);
 
 		while (qtdeAtores--)
 		{
@@ -163,10 +165,7 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 		}
 
 		double areaTotalColetada = visitor3->getAreaTotalColetada();
-		double areaDoPlanoDeCorte = pow(larguraDoPlanoDeCorte,2.0);
 		int qtdePontosInternosAInterceptosDeArea = visitor2->getQtdeDePontosInternosAInterceptosDeArea();
-		double volumeFaseSolida = this->getVolumeFaseSolida();
-		double volumeFaseLigante = this->getVolumeFaseLigante();
 
 		dao.salvarEstatisticas(planoID,areaTotalColetada,areaDoPlanoDeCorte,qtdePontosInternosAInterceptosDeArea,
 								qtdeDePontosNaGrade,volumeFaseSolida,volumeFaseLigante);
