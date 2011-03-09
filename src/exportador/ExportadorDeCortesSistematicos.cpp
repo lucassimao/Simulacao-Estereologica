@@ -76,16 +76,7 @@ sqlite3* ExportadorDeCortesSistematicos::exportar(){
 					intercepto->accept(visitor2);
 					intercepto->accept(visitor3);
 					
-					__int64 interceptoID;
-
-					switch(intercepto->getType()){
-						case Type_Disco:
-							interceptoID = dao.salvarDisco(planoID,static_cast<Disco*>(intercepto));
-							break;
-						case Type_Poligono:
-							interceptoID = dao.salvarPoligono(planoID,static_cast<Poligono*>(intercepto));
-							break;
-					}
+					__int64 interceptoID = dao.salvarInterceptoDeArea(planoID,intercepto);
 
 					vector<InterceptoLinear*> interceptosLineares = intercepto->getInterceptosLineares(simulacao->getGrade());			
 					dao.salvarInterceptosLineares(interceptoID,interceptosLineares,intercepto->getType());

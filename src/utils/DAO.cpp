@@ -95,6 +95,17 @@ __int64 DAO::salvarPlano(double y,double largura,Cor cor){
 	return planoDeCorteID;
 }
 
+__int64 DAO::salvarInterceptoDeArea(__int64 planoDeCorte_id,InterceptoDeArea *interceptoDeArea){
+	switch(interceptoDeArea->getType()){
+		case Type_Disco:
+			return salvarDisco(planoDeCorte_id,static_cast<Disco*>(interceptoDeArea));
+			break;
+		case Type_Poligono:
+			return salvarPoligono(planoDeCorte_id,static_cast<Poligono*>(interceptoDeArea));
+			break;
+	}
+}
+
 __int64 DAO::salvarDisco(__int64 planoDeCorte_id, Disco *d){
 	char *errStr;
 	ostringstream  insert;

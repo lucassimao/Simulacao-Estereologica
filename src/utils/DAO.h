@@ -14,12 +14,14 @@ using namespace simulacao::math::mathVisitor;
 class DAO{
 	private:
 		sqlite3 *db;
+		__int64 salvarDisco(__int64 planoDeCorte_id,Disco *d);
+		__int64 salvarPoligono(__int64 planoDeCorte_id, Poligono *p);
+
 	public:
 		DAO( sqlite3 *db);
 		// esses métodos retornam a chave primária. Retornam -1 se o registro ñ foi salvo
 		__int64 salvarPlano(double y, double largura,Cor cor);
-		__int64 salvarDisco(__int64 planoDeCorte_id,Disco *d);
-		__int64 salvarPoligono(__int64 planoDeCorte_id, Poligono *p);
+		__int64 salvarInterceptoDeArea(__int64 planoDeCorte_id,InterceptoDeArea *interceptoDeArea);
 		__int64 salvarEstatisticas(int planoDeCorte_fk, double areaDosInterceptosColetados,
 									double areaDoPlano, int qtdePontosInternos, int qtdePontosNaGrade, double volumeFaseSolida,double volumeFaseLigante);
 		void salvarInterceptosLineares(__int64 interceptoDeArea_id,vector<InterceptoLinear*> interceptosLineares,InterceptoType tipoIntercepto);
