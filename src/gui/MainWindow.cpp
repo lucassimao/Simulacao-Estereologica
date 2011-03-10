@@ -156,27 +156,29 @@ void MainWindow::actionExecutarCortesSistematicos(){
 
 		dlg->setLabelText(tr("Quantidade de classes de intercepto:"));
 		res = dlg->exec();
-		int qtdeDeClassesDeIntercepto = dlg->intValue();
+		if (res == QInputDialog::DialogCode::Accepted){
+			int qtdeDeClassesDeIntercepto = dlg->intValue();
 
-		QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja que as informações sejam salvas");
-	
-		if (dir.trimmed().size()>0){
-			sqlite3 *db = this->simulacao->executarCortesSistematicos(qtdeDePlanos);
-			
-			ExportadorParaArquivo exportador1(dir.toStdString(),db,qtdeDeClassesDeIntercepto);
-			exportador1.exportar();
-			
-			res = QMessageBox::question(this, tr("Pergunta"),tr("Deseja exportar também as imagens de cada plano de corte?"),
-				QMessageBox::StandardButton::Ok|QMessageBox::StandardButton::No);
+			QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja que as informações sejam salvas");
+		
+			if (dir.trimmed().size()>0){
+				sqlite3 *db = this->simulacao->executarCortesSistematicos(qtdeDePlanos);
+				
+				ExportadorParaArquivo exportador1(dir.toStdString(),db,qtdeDeClassesDeIntercepto);
+				exportador1.exportar();
+				
+				res = QMessageBox::question(this, tr("Pergunta"),tr("Deseja exportar também as imagens de cada plano de corte?"),
+					QMessageBox::StandardButton::Ok|QMessageBox::StandardButton::No);
 
-			bool exportarImagens = (res == QMessageBox::StandardButton::Ok);
-			if (exportarImagens){
-				ExportadorParaImagem exportador2(dir.toStdString(),db);
-				exportador2.exportar();
+				bool exportarImagens = (res == QMessageBox::StandardButton::Ok);
+				if (exportarImagens){
+					ExportadorParaImagem exportador2(dir.toStdString(),db);
+					exportador2.exportar();
+				}
+				sqlite3_close(db);
+
+				QMessageBox::information(this, tr("Exportação concluída"),tr("Os dados foram exportados com sucesso!"));
 			}
-			sqlite3_close(db);
-
-			QMessageBox::information(this, tr("Exportação concluída"),tr("Os dados foram exportados com sucesso!"));
 		}
 	}
 
