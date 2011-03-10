@@ -4,13 +4,12 @@
 
 using namespace simulacao::exportador;
 
-ExportadorParaArquivo::ExportadorParaArquivo(string &destino, sqlite3* db,int qtdeClassesDeIntercepto){
+ExportadorParaArquivo::ExportadorParaArquivo(string &destino, sqlite3* db){
 	this->destino = destino;
 	this->db = db;
-	this->qtdeClassesDeIntercepto = qtdeClassesDeIntercepto;
 }
 
-void ExportadorParaArquivo::exportar(){
+void ExportadorParaArquivo::exportarPlanosDeCorte(){
 	sqlite3_stmt *planoDeCorte_stmt = 0;
 	ostringstream  planoDeCorte_select;
 	planoDeCorte_select << "select rowid from planoDeCorte;";
@@ -26,11 +25,10 @@ void ExportadorParaArquivo::exportar(){
 		
 		while (res != SQLITE_DONE){
 			int planoPK = sqlite3_column_int(planoDeCorte_stmt,0);
-			exportarPlano(planoPK);
+			exportarPlanoDeCorte(planoPK);
 			res = sqlite3_step(planoDeCorte_stmt);
 		}
 		sqlite3_finalize(planoDeCorte_stmt);
-		salvarTabelaDeProbabilidades();
     }
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
@@ -38,7 +36,7 @@ void ExportadorParaArquivo::exportar(){
 }
 
 
-void ExportadorParaArquivo::salvarTabelaDeProbabilidades(){
+void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeIntercepto){
 	ProcessadorDeClassesDeIntercepto processador(this->db);
 
 	vector<ClasseDeGrao> classesDeGrao = processador.getClassesDeGrao();
@@ -61,14 +59,14 @@ void ExportadorParaArquivo::salvarTabelaDeProbabilidades(){
 
 		double menorIntercepto = processador.getMenorIntercepto(tipoDeIntercepto);
 		double maiorIntercepto = processador.getMaiorIntercepto(tipoDeIntercepto);
-		double deltaIntercepto = (maiorIntercepto - menorIntercepto)/this->qtdeClassesDeIntercepto;
+		double deltaIntercepto = (maiorIntercepto - menorIntercepto)/qtdeClassesDeIntercepto;
 
 		ostringstream cabecalho;
-		for(int i=0; i<classesDeGrao.size() ;++i){ cabecalho << ";" << classesDeGrao[i].getDiametroEquivalente(); }
+		for(int i=0; i<classesDeGrao.size() ;++i){ cabecalho << "," << classesDeGrao[i].getDiametroEquivalente(); }
 		arquivo << cabecalho.str() << std::endl;
 
 		ostringstream tabela;
-		for(int i=0; i < this->qtdeClassesDeIntercepto ; ++i){
+		for(int i=0; i < qtdeClassesDeIntercepto ; ++i){
 
 			double limInferior = menorIntercepto + i*deltaIntercepto;
 			double limSuperior = limInferior + deltaIntercepto;
@@ -77,7 +75,7 @@ void ExportadorParaArquivo::salvarTabelaDeProbabilidades(){
 
 			for(int j=0;j< classesDeGrao.size();++j){
 				ClasseDeGrao classeDeGrao = classesDeGrao[j];
-				tabela << ";" << processador.getQuantidadeDeInterceptosNoIntervalo(limInferior,limSuperior,classeDeGrao,tipoDeIntercepto);
+				tabela << "," << processador.getQuantidadeDeInterceptosNoIntervalo(limInferior,limSuperior,classeDeGrao,tipoDeIntercepto);
 			}
 			tabela << std::endl;
 		}
@@ -89,7 +87,7 @@ void ExportadorParaArquivo::salvarTabelaDeProbabilidades(){
 
 }
 
-void ExportadorParaArquivo::exportarPlano(int planoDeCorteID){
+void ExportadorParaArquivo::exportarPlanoDeCorte(int planoDeCorteID){
 	
 	locale ptBR(locale(),new WithComma);
 

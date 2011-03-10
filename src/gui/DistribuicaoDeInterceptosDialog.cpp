@@ -23,8 +23,8 @@ void DistribuicaoDeInterceptosDialog::salvar(){
 	QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja armazenar a tabela");
 	if (dir.trimmed().size()>0){
 		int qtdeClassesDeIntercepto = this->ui->textQtdeClassesDeIntercepto->text().toInt();
-		ExportadorParaArquivo exportador1(dir.toStdString(),this->db,qtdeClassesDeIntercepto);
-		exportador1.salvarTabelaDeProbabilidades();
+		ExportadorParaArquivo exportador1(dir.toStdString(),this->db);
+		exportador1.exportarTabelasDeProbabilidade(qtdeClassesDeIntercepto);
 		QMessageBox::information(this, tr("Exportação concluída"),tr("As tabelas foram exportadas com sucesso!"));
 	}
 }

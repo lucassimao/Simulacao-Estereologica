@@ -22,9 +22,10 @@ namespace simulacao{
 		class ExportadorParaArquivo{
 		
 		public:
-			ExportadorParaArquivo(string &destino, sqlite3* db,int qtdeClassesDeIntercepto);
-			void exportar();
-			void salvarTabelaDeProbabilidades();
+			ExportadorParaArquivo(string &destino, sqlite3* db);
+			void exportarPlanosDeCorte();
+			void exportarTabelasDeProbabilidade(int qtdeClassesDeIntercepto);
+
 		private:
 			string destino;
 			sqlite3 *db;
@@ -36,7 +37,7 @@ namespace simulacao{
 				}
 			} InterceptoLinearCmp;
 
-			void exportarPlano(int plano_pk);
+			void exportarPlanoDeCorte(int plano_pk);
 			void salvarAreaDosPoligonos(int plano_pk, ofstream &outFile);
 			void salvarAreaDosDiscos(int plano_pk, ofstream &outFile);
 			void salvarInterceptosLineares(int plano_pk, ofstream &outFile);
