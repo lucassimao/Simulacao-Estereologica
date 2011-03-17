@@ -201,8 +201,8 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(int plano_pk){
 					InterceptoLinear *iLinear = vetor[iLinearAtual];
 					InterceptoLinear *iLinearSeguinte = vetor[iLinearAtual+1];
 
-					if (iLinear->p1.x != iLinearSeguinte->p0.x){
-						interceptosDaFaseSolidaFile << (iLinearSeguinte->p0.x - iLinear->p1.x) << std::endl;
+					if ((iLinearSeguinte->p0.x - iLinear->p1.x)>0){
+						interceptosDaFaseSolidaFile << iLinearSeguinte->p0.x - iLinear->p1.x << std::endl;
 					}
 					++iLinearAtual;
 				}
