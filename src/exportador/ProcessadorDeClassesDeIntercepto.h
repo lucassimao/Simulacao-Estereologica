@@ -22,7 +22,7 @@ namespace simulacao{
 			
 			double getDiametroEquivalente() { 
 				double raizDe3 = sqrt(3.0);
-				return pow( (3*raizDe3/2*PI)*razaoDeAspecto*(1 - 3*pow(razaoDeTruncamento,2)), 1/3.0 ) * L0;
+				return pow( (3*raizDe3/(2*PI))*razaoDeAspecto*(1 - 3*pow(razaoDeTruncamento,2)), 1/3.0 ) * L0;
 			};
 		}ClasseDeGrao;
 
