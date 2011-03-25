@@ -50,7 +50,7 @@ using namespace simulacao::model;
 MainWindow::MainWindow(){
 	ui = new Ui_MainWindow();
 	ui->setupUi(this);
-	
+
 	ui->textNumeroGraos->setValidator(new QIntValidator(this));
 
 	statusTipoSimulacao = new QLabel(tr(""));
@@ -62,7 +62,7 @@ MainWindow::MainWindow(){
 	statusQtdeObjetos->setMinimumSize(statusQtdeObjetos->sizeHint());
 
 	statusBar()->addWidget(statusTipoSimulacao);
-    statusBar()->addWidget(statusQtdeObjetos, 1);
+	statusBar()->addWidget(statusQtdeObjetos, 1);
 
 
 	criarCanvas();
@@ -77,14 +77,14 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::configurarGrade(){
-		DialogParametrosGrade *dialog = new DialogParametrosGrade(this);
-		dialog->setModal(true);
-		dialog->setVisible(true);
+	DialogParametrosGrade *dialog = new DialogParametrosGrade(this);
+	dialog->setModal(true);
+	dialog->setVisible(true);
 }
 
 void MainWindow::exibirDistribuicaoDeInterceptos(){
 	int res;
-	
+
 	QInputDialog *dlg = new QInputDialog(this);
 
 	dlg->setIntMinimum(1);
@@ -162,16 +162,16 @@ void MainWindow::actionExecutarCortesSistematicos(){
 		int qtdeDeClassesDeIntercepto = dlg->intValue();
 
 		QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja que as informações sejam salvas");
-	
+
 		if (dir.trimmed().size()>0){
 			sqlite3 *db = this->simulacao->executarCortesSistematicos(qtdeDePlanos);
-			
+
 			ExportadorParaArquivo exportador1(dir.toStdString(),db);
 			exportador1.exportarPlanosDeCorte();
 			if (gerarDistribuicaoDeInterceptos){
 				exportador1.exportarTabelasDeProbabilidade(qtdeDeClassesDeIntercepto);
 			}
-			
+
 			res = QMessageBox::question(this, tr("Pergunta"),tr("Deseja exportar também as imagens de cada plano de corte?"),
 				QMessageBox::StandardButton::Ok|QMessageBox::StandardButton::No);
 
@@ -184,7 +184,7 @@ void MainWindow::actionExecutarCortesSistematicos(){
 
 			QMessageBox::information(this, tr("Exportação concluída"),tr("Os dados foram exportados com sucesso!"));
 		}
-		
+
 	}
 
 }
@@ -240,10 +240,10 @@ void MainWindow::exibirVisaoSuperior(bool b){
 }
 
 inline void MainWindow::criarCanvas(){
-	
+
 	simulacao = new SimulacaoCaixa;
 	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
-	
+
 
 	view = new CaixaGraosGLWidget(this,simulacao);
 	view->setStrategy(new RenderizarAtoresStrategy());
@@ -257,7 +257,7 @@ inline void MainWindow::criarCanvas(){
 	view->setSizePolicy(sizePolicy2);
 	view->setAcceptDrops(true);
 	ui->horizontalLayout_2->addWidget(view);
-	
+
 
 	if (simulacao->isSimulacaoEmHardware())
 		statusTipoSimulacao->setText(tr("Simulação em Hardware"));
@@ -353,13 +353,13 @@ void MainWindow::adicionarObjetos(){
 	switch(ui->comboBoxTipoGrao->currentIndex())
 	{
 	case 0:
-		simulacao->adicionarObjeto(ESFERA,qtde,corDoGrao);
+		simulacao->adicionarEsferas(qtde,corDoGrao);
 		break;
 	case 1:
-		simulacao->adicionarObjeto(PRISMA_TRIANGULAR,qtde,corDoGrao);
+		simulacao->adicionarPrismas(qtde,corDoGrao);
 		break;
 	case 2:
-		simulacao->adicionarObjeto(PRISMA_TRIANGULAR_TRUNCADO,qtde,corDoGrao);
+		simulacao->adicionarPrismasTruncados(qtde,corDoGrao);
 		break;
 	}	
 
@@ -435,7 +435,7 @@ void MainWindow::exibirPlanoDeCorte(bool b){
 	}
 }
 void MainWindow::usarGravidade(bool b){
-	
+
 	if (b)
 		simulacao->habilitarGravidade();
 	else
@@ -464,7 +464,7 @@ void MainWindow::novaSimulacao(){
 	Parametros::getInstance()->loadDefaultValues();
 	criarCanvas();
 	atualizarQuantidadeDeGraosEmCena();
-	
+
 }
 
 void MainWindow::usarGraosAleatorios(bool b){
@@ -474,7 +474,7 @@ void MainWindow::usarGraosAleatorios(bool b){
 
 /** Exibe os grãos que estão sendo interceptados pelo plano */
 void MainWindow::exibirGraosInterceptados(){
-	
+
 	simulacao->selecionarGraosInterceptados();
 	atualizarQuantidadeDeGraosEmCena();
 

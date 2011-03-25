@@ -6,10 +6,6 @@
 
 using namespace std;
 
-enum TipoDeGrao{
-	ESFERA,PRISMA_TRIANGULAR_TRUNCADO,PRISMA_TRIANGULAR
-};
-
 enum Status{
 	PAUSADO, EXECUCAO,PARADO
 };

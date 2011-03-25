@@ -66,11 +66,9 @@ void AdicionarObjetosCommand::execute(){
 	vector<EsferaDesc>::const_iterator iter = this->esferas.begin();
 	while(iter != this->esferas.end()){
 		EsferaDesc desc = *iter;
-
 		Parametros::getInstance()->setRaioEsfera(desc.raio);
-		//Parametros::getInstance()->setCorEsfera(desc.cor);
 
-		simulacao->adicionarObjeto(ESFERA,desc.qtde,desc.cor);
+		simulacao->adicionarEsferas(desc.qtde,desc.cor);
 		++iter;
 	}
 
@@ -87,15 +85,14 @@ void AdicionarObjetosCommand::execute(){
 		if (razaoDeTruncamento == 0){
 			Parametros::getInstance()->setBasePrisma(l0);
 			Parametros::getInstance()->setAlturaPrisma(razaoDeAspecto*l0);		
-			//Parametros::getInstance()->setCorPrisma(cor);	
-			simulacao->adicionarObjeto(PRISMA_TRIANGULAR,qtde,cor);
+				
+			simulacao->adicionarPrismas(qtde,cor);
 		}else{
 			Parametros::getInstance()->setL0DoPrismaTriangularTruncado(l0);
 			Parametros::getInstance()->setRazaoAspectoDoPrismaTriangularTruncado(razaoDeAspecto);
 			Parametros::getInstance()->setRazaoDeTruncamentoDoPrismaTriangularTruncado(razaoDeTruncamento);
-			//Parametros::getInstance()->setCorDoPrismaTriangularTruncado(cor);
 
-			simulacao->adicionarObjeto(PRISMA_TRIANGULAR_TRUNCADO,qtde,cor);
+			simulacao->adicionarPrismasTruncados(qtde,cor);
 		}
 		++iter2;
 	}

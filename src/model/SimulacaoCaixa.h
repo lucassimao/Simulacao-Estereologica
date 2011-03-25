@@ -53,7 +53,9 @@ namespace simulacao{
 			void exibirPlanoDeCorte();
 			void esconderPlanoDeCorte();
 			double getVolumeFaseSolida();
-			void adicionarObjeto(TipoDeGrao,NxI64,Cor);
+			void adicionarEsferas(int qtde,Cor cor);
+			void adicionarPrismas(int qtde,Cor cor);
+			void adicionarPrismasTruncados(int qtde,Cor cor);
 			void novoPlanoDeCorte();
 			void selecionarGraosInterceptados();
 			void removerGraos();

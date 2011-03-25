@@ -28,7 +28,7 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	criarCaixa();
 	this->exibirPontosTeste=true;
 	this->exibirRetasTeste=true;
-	
+
 }
 
 SimulacaoCaixa::~SimulacaoCaixa(void)
@@ -45,7 +45,7 @@ void SimulacaoCaixa::criarCaixa(){
 
 	double arestaDaCaixaDeGraosRadii = Parametros::getInstance()->getArestaDaCaixa()/2.0;
 	NxVec3 dim(arestaDaCaixaDeGraosRadii,arestaDaCaixaDeGraosRadii,arestaDaCaixaDeGraosRadii);
-	
+
 	NxU32 triangulos[3 * 12] = { 
 		0,1,3,
 		0,3,2,
@@ -91,30 +91,25 @@ void SimulacaoCaixa::criarCaixa(){
 
 }
 
-void SimulacaoCaixa::adicionarObjeto(TipoDeGrao tipo,NxI64 qtde,Cor cor){
-	switch(tipo){
-		case ESFERA:
-			for(long l=0;l<qtde;++l)
-				new Esfera(cena,cor);
-			break;
-		case PRISMA_TRIANGULAR:
-			for(long l=0;l<qtde;++l){
-				new PrismaTriangular(cena,meshFactory,cor);
-			}
-			break;
-		case PRISMA_TRIANGULAR_TRUNCADO:
-			for(long l=0;l<qtde;++l){
-				new PrismaTriangularTruncado(cena,meshFactory,cor);
-			}
-			break;
+void SimulacaoCaixa::adicionarEsferas(int qtde,Cor cor){
+	for(int l=0;l<qtde;++l)
+		new Esfera(cena,cor);
+}
+void SimulacaoCaixa::adicionarPrismas(int qtde,Cor cor){
+	for(int l=0;l<qtde;++l){
+		new PrismaTriangular(cena,meshFactory,cor);
 	}
-	
+}
+void SimulacaoCaixa::adicionarPrismasTruncados(int qtde,Cor cor){
+	for(int l=0;l<qtde;++l){
+		new PrismaTriangularTruncado(cena,meshFactory,cor);
+	}
 }
 
 sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematicos){
 	sqlite3 *db = DataBaseFactory::getInstance()->criarBanco(":memory:");
 
-    if (!db){
+	if (!db){
 		qDebug() << sqlite3_errmsg(db);
 		sqlite3_close(db);
 		throw runtime_error( sqlite3_errmsg(db) );	
@@ -126,7 +121,7 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 	double h0 = p->getAlturaDaBaseDaCaixa();
 	double h1 = p->getArestaDaCaixa() + p->getAlturaDaBaseDaCaixa();
 	this->setGeradorDeAlturaDoPlanoStrategy(new GeradorSistematicoDeAlturaDoPlanoDeCorteStrategy(h0,h1,qtdeDeCortesSistematicos));
-	
+
 	int qtdeDePontosNaGrade = p->getQtdeLinhasNaGrade()* p->getQtdePontosPorLinhaNaGrade();
 	double areaDoPlanoDeCorte = pow(p->getLarguraDoPlanoDeCorte(),2.0);
 	double volumeFaseSolida = this->getVolumeFaseSolida();
@@ -138,10 +133,10 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 		NxActor** atores = this->getAtores();
 		NxVec3 planoGlobalPosition = this->atorPlanoDeCorte->getNxActor()->getGlobalPosition();
 		NxU32 qtdeAtores = this->getQtdeObjetos();
-			
+
 		ColetorDePontosVisitor *visitor2 = new ColetorDePontosVisitor(this->getGrade());
 		ColetorDeAreasVisitor *visitor3 = new ColetorDeAreasVisitor(this->getGrade());
-		
+
 		__int64 planoID = dao.salvarPlano(planoGlobalPosition.y,p->getLarguraDoPlanoDeCorte(),this->getPlanoDeCorte()->cor);
 
 		while (qtdeAtores--)
@@ -152,10 +147,10 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 
 				if (a->estaInterceptadoPeloPlano(planoGlobalPosition)){
 					InterceptoDeArea *intercepto = a->getIntercepto(planoGlobalPosition);
-															
+
 					intercepto->accept(visitor2);
 					intercepto->accept(visitor3);
-					
+
 					__int64 interceptoID = dao.salvarInterceptoDeArea(planoID,intercepto);
 
 					vector<InterceptoLinear*> interceptosLineares = intercepto->getInterceptosLineares(this->getGrade());			
@@ -168,7 +163,7 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 		int qtdePontosInternosAInterceptosDeArea = visitor2->getQtdeDePontosInternosAInterceptosDeArea();
 
 		dao.salvarEstatisticas(planoID,areaTotalColetada,areaDoPlanoDeCorte,qtdePontosInternosAInterceptosDeArea,
-								qtdeDePontosNaGrade,volumeFaseSolida,volumeFaseLigante);
+			qtdeDePontosNaGrade,volumeFaseSolida,volumeFaseLigante);
 	}
 	this->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
 
