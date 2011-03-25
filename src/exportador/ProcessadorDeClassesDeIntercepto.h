@@ -17,25 +17,62 @@ namespace simulacao{
 
 	namespace exportador{
 
-		typedef struct{
+		class ClasseDeGrao{			
+		public:
+			virtual double getDiametroEquivalente()  = 0;
+		};
+
+		class ClasseDeGraoEsferico : public ClasseDeGrao{
+		public:
+			double raio;
+
+			double getDiametroEquivalente() { 
+				return raio*2;
+			};
+		};
+
+		class ClasseDeGraoPrismatico : public ClasseDeGrao{
+		public:
 			double L0,razaoDeAspecto, razaoDeTruncamento;
-			
+
 			double getDiametroEquivalente() { 
 				double raizDe3 = sqrt(3.0);
 				return pow( (3*raizDe3/(2*PI))*razaoDeAspecto*(1 - 3*pow(razaoDeTruncamento,2)), 1/3.0 ) * L0;
 			};
-		}ClasseDeGrao;
+		};
 
 		typedef enum { Linear, Area, Perimetro} TipoDeIntercepto;
+
+		enum TipoDeGrao{ Esferico,Prismatico };
+
 
 		class ProcessadorDeClassesDeIntercepto{
 		private:
 			sqlite3 *db;
+			TipoDeGrao tipoDeGrao;
+
+			struct{
+				bool operator()(ClasseDeGrao *c1, ClasseDeGrao *c2) const{
+					return c1->getDiametroEquivalente() < c2->getDiametroEquivalente();
+				}
+			} ClasseDeGraoCmp;
+
+			TipoDeGrao getTipoDeGraoNaSimulacao();
+
+			int getQuantidadeDeInterceptosEsfericosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGraoEsferico *classe,TipoDeIntercepto tipoDeIntercepto);
+			double getMenorInterceptoEsferico(TipoDeIntercepto tipoDeIntercepto);
+			double getMaiorInterceptoEsferico(TipoDeIntercepto tipoDeIntercepto);
+			vector<ClasseDeGrao*> getClassesDeGraoEsfericos();
+
+			int getQuantidadeDeInterceptosPrismaticosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGraoPrismatico *classe,TipoDeIntercepto tipoDeIntercepto);
+			double getMenorInterceptoPrismatico(TipoDeIntercepto tipoDeIntercepto);
+			double getMaiorInterceptoPrismatico(TipoDeIntercepto tipoDeIntercepto);
+			vector<ClasseDeGrao*> getClassesDeGraoPrismaticos();
 		public:
 			ProcessadorDeClassesDeIntercepto(sqlite3 *db);
 			// Esse método retorna as classes de grão presentes na simulação em ordem crescente de diâmetro equivalente
-			vector<ClasseDeGrao> getClassesDeGrao();
-			int getQuantidadeDeInterceptosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGrao classe,TipoDeIntercepto tipoDeIntercepto);
+			vector<ClasseDeGrao*> getClassesDeGrao();
+			int getQuantidadeDeInterceptosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGrao *classe,TipoDeIntercepto tipoDeIntercepto);
 			double getMenorIntercepto(TipoDeIntercepto tipoDeIntercepto);
 			double getMaiorIntercepto(TipoDeIntercepto tipoDeIntercepto);
 		};

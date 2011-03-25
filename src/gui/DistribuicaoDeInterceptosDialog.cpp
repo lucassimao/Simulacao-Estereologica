@@ -65,7 +65,7 @@ void DistribuicaoDeInterceptosDialog::gerarDistribuicao(){
 
 		for(int coluna=0; coluna < qtdeDeClassesDeGrao;++coluna){
 			QModelIndex cell = this->tableModel->index(row,coluna);
-			ClasseDeGrao classe = this->classesDeGrao[coluna];
+			ClasseDeGrao *classe = this->classesDeGrao[coluna];
 
 			int qtde = processador->getQuantidadeDeInterceptosNoIntervalo(limiteInferior,limiteSuperior,classe,tipoDeIntercepto);
 			this->tableModel->setData(cell,QVariant(qtde));
@@ -105,8 +105,8 @@ void DistribuicaoDeInterceptosDialog::criarCabecalhosDaTabela(){
 	ui->tableDistribuicao->setModel(tableModel);
 
 	for(int colunaIdx=0; colunaIdx < (qtdeColunas-1); ++colunaIdx){ 
-		ClasseDeGrao classe = this->classesDeGrao[colunaIdx];
-		double diametroEquivalenteDaClasseDeGrao = classe.getDiametroEquivalente();
+		ClasseDeGrao *classe = this->classesDeGrao[colunaIdx];
+		double diametroEquivalenteDaClasseDeGrao = classe->getDiametroEquivalente();
 
 		tableModel->setHeaderData( colunaIdx , Qt::Horizontal, QObject::tr("%1").arg(diametroEquivalenteDaClasseDeGrao));
 		ui->tableDistribuicao->setColumnWidth(colunaIdx,60);

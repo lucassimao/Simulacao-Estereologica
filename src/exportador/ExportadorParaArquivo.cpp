@@ -39,7 +39,7 @@ void ExportadorParaArquivo::exportarPlanosDeCorte(){
 void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeIntercepto){
 	ProcessadorDeClassesDeIntercepto processador(this->db);
 
-	vector<ClasseDeGrao> classesDeGrao = processador.getClassesDeGrao();
+	vector<ClasseDeGrao*> classesDeGrao = processador.getClassesDeGrao();
 	map<TipoDeIntercepto,const char*> mapa;
 	mapa[Linear] = "Comprimento_Linear";
 	mapa[Area] = "Area";
@@ -62,7 +62,7 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 		double deltaIntercepto = (maiorIntercepto - menorIntercepto)/qtdeClassesDeIntercepto;
 
 		ostringstream cabecalho;
-		for(int i=0; i<classesDeGrao.size() ;++i){ cabecalho << "," << classesDeGrao[i].getDiametroEquivalente(); }
+		for(int i=0; i<classesDeGrao.size() ;++i){ cabecalho << "," << classesDeGrao[i]->getDiametroEquivalente(); }
 		arquivo << cabecalho.str() << ",Total" << std::endl;
 
 		vector<int> quantidadePorClasseDeGrao(classesDeGrao.size(),0);
@@ -77,7 +77,7 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 			
 			int totalPorClasseDeIntercepto = 0; 
 			for(int j=0;j< classesDeGrao.size();++j){
-				ClasseDeGrao classeDeGrao = classesDeGrao[j];
+				ClasseDeGrao *classeDeGrao = classesDeGrao[j];
 				int quantidadeDeInterceptosNoIntervalo = processador.getQuantidadeDeInterceptosNoIntervalo(limInferior,limSuperior,classeDeGrao,tipoDeIntercepto);
 				tabela << "," << quantidadeDeInterceptosNoIntervalo;
 				totalPorClasseDeIntercepto += quantidadeDeInterceptosNoIntervalo;

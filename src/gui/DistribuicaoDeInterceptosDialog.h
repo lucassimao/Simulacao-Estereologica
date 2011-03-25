@@ -23,7 +23,7 @@ namespace simulacao	{
 			void gerarDistribuicao();
 		private:
 			QStandardItemModel *tableModel;
-			vector<ClasseDeGrao> classesDeGrao;
+			vector<ClasseDeGrao*> classesDeGrao;
 			sqlite3 *db;
 
 			void criarCabecalhosDaTabela();
