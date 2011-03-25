@@ -40,6 +40,8 @@ void DistribuicaoDeInterceptosDialog::gerarDistribuicao(){
 		tipoDeIntercepto = Area;
 	}else if (this->ui->radioButtonComprimentoLinear->isChecked()){
 		tipoDeIntercepto = Linear;
+	}else if (this->ui->radioButtonPoro->isChecked()){
+		tipoDeIntercepto = Poro;
 	}else{
 		tipoDeIntercepto = Perimetro;
 	}
