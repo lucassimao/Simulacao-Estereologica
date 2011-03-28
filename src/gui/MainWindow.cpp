@@ -89,12 +89,12 @@ void MainWindow::exibirDistribuicaoDeInterceptos(){
 
 	dlg->setIntMinimum(1);
 	dlg->setIntMaximum(1000000);
-	dlg->setInputMode(QInputDialog::InputMode::IntInput);
+	dlg->setInputMode(QInputDialog::IntInput);
 	dlg->setLabelText(tr("Quantidade de planos de corte:"));
 	dlg->setIntValue(10);
 	res = dlg->exec();
 
-	if (res == QInputDialog::DialogCode::Accepted){
+	if (res == QInputDialog::Accepted){
 		int qtdeDePlanosDeCorte = dlg->intValue();
 		sqlite3* db = this->simulacao->executarCortesSistematicos(qtdeDePlanosDeCorte);		
 		DistribuicaoDeInterceptosDialog *dlg = new DistribuicaoDeInterceptosDialog(this,db);
@@ -109,7 +109,7 @@ void MainWindow::distribuicaoLogNormal(){
 	DistribuicaoLogNormalDialog *dlg = new DistribuicaoLogNormalDialog(this,this->simulacao);
 	int result =  dlg->exec();
 
-	if (result ==  QInputDialog::DialogCode::Accepted)
+	if (result ==  QInputDialog::Accepted)
 	{
 		AdicionarObjetosCommand *command = dlg->getCommand();
 		if (command){
@@ -122,7 +122,7 @@ void MainWindow::distribuicaoLogNormal(){
 void MainWindow::adicionarEsferasSistematicamente(){
 	AdicionarEsferasSistematicamenteDialog *dlg = new AdicionarEsferasSistematicamenteDialog(this,this->simulacao);
 	int result =  dlg->exec();
-	if (result ==  QInputDialog::DialogCode::Accepted)
+	if (result ==  QInputDialog::Accepted)
 	{
 		AdicionarObjetosCommand *command = dlg->getCommand();
 		if (command){
@@ -146,19 +146,19 @@ void MainWindow::actionExecutarCortesSistematicos(){
 	QInputDialog *dlg = new QInputDialog(this);
 	dlg->setIntMinimum(1);
 	dlg->setIntMaximum(100000000);
-	dlg->setInputMode(QInputDialog::InputMode::IntInput);
+	dlg->setInputMode(QInputDialog::IntInput);
 	dlg->setLabelText(tr("Quantidade de planos de corte:"));
 	dlg->setIntValue(1);
 	int res = dlg->exec();
 
-	if (res == QInputDialog::DialogCode::Accepted){
+	if (res == QInputDialog::Accepted){
 		int qtdeDePlanos = dlg->intValue();
 
 		dlg->setLabelText(tr("Quantidade de classes de intercepto:"));
 		dlg->setCancelButtonText(tr("Não Gerar Distribuição de grãos"));
 
 		res = dlg->exec();
-		bool gerarDistribuicaoDeInterceptos = (res == QInputDialog::DialogCode::Accepted);
+		bool gerarDistribuicaoDeInterceptos = (res == QInputDialog::Accepted);
 		int qtdeDeClassesDeIntercepto = dlg->intValue();
 
 		QString dir = QFileDialog::getExistingDirectory(this,"Selecione o diretório onde deseja que as informações sejam salvas");
@@ -173,9 +173,9 @@ void MainWindow::actionExecutarCortesSistematicos(){
 			}
 
 			res = QMessageBox::question(this, tr("Pergunta"),tr("Deseja exportar também as imagens de cada plano de corte?"),
-				QMessageBox::StandardButton::Ok|QMessageBox::StandardButton::No);
+				QMessageBox::Ok|QMessageBox::No);
 
-			bool exportarImagens = (res == QMessageBox::StandardButton::Ok);
+			bool exportarImagens = (res == QMessageBox::Ok);
 			if (exportarImagens){
 				ExportadorParaImagem exportador2(dir.toStdString(),db);
 				exportador2.exportar();
@@ -192,7 +192,7 @@ void MainWindow::actionExecutarCortesSistematicos(){
 void MainWindow::adicionarEsferasSistematicamenteComVolumeDaCaixaAjustavel(){
 	AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog *dlg = new AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog(this,this->simulacao);
 	int result =  dlg->exec();
-	if (result ==  QInputDialog::DialogCode::Accepted)
+	if (result ==  QInputDialog::Accepted)
 	{
 		AdicionarObjetosCommand *command = dlg->getCommand();
 		if (command){
@@ -205,7 +205,7 @@ void MainWindow::adicionarEsferasSistematicamenteComVolumeDaCaixaAjustavel(){
 void MainWindow::adicionarPrismasSistematicamenteComVolumeDaCaixaAjustavel(){
 	AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog *dlg = new AdicaoSistematicaDePrismasComVolumeDeCaixaAjustavelDialog(this,this->simulacao);
 	int result =  dlg->exec();
-	if (result ==  QInputDialog::DialogCode::Accepted)
+	if (result ==  QInputDialog::Accepted)
 	{
 		AdicionarObjetosCommand *command = dlg->getCommand();
 		if (command){
@@ -218,7 +218,7 @@ void MainWindow::adicionarPrismasSistematicamenteComVolumeDaCaixaAjustavel(){
 void MainWindow::adicionarPrismasSistematicamente(){
 	AdicionarPrismasSistematicamenteDialog *dlg = new AdicionarPrismasSistematicamenteDialog(this,this->simulacao);
 	int result =  dlg->exec();
-	if (result ==  QInputDialog::DialogCode::Accepted)
+	if (result ==  QInputDialog::Accepted)
 	{
 		AdicionarObjetosCommand *command = dlg->getCommand();
 		if (command){
@@ -271,7 +271,7 @@ void MainWindow::configurarParametros(){
 	int res;
 	QInputDialog *dlg = new QInputDialog(this);
 	dlg->setDoubleMinimum(0.1);
-	dlg->setInputMode(QInputDialog::InputMode::DoubleInput);
+	dlg->setInputMode(QInputDialog::DoubleInput);
 
 	switch(ui->comboBoxTipoGrao->currentIndex())
 	{
@@ -280,7 +280,7 @@ void MainWindow::configurarParametros(){
 		dlg->setDoubleValue(Parametros::getInstance()->getRaioEsfera());
 		res = dlg->exec();
 
-		if (res == QInputDialog::DialogCode::Accepted){
+		if (res == QInputDialog::Accepted){
 			Parametros::getInstance()->setRaioEsfera(dlg->doubleValue());
 		}
 		break;
@@ -289,14 +289,14 @@ void MainWindow::configurarParametros(){
 		dlg->setDoubleValue(Parametros::getInstance()->getAlturaPrisma());
 		res = dlg->exec();
 
-		if (res == QInputDialog::DialogCode::Accepted){
+		if (res == QInputDialog::Accepted){
 			Parametros::getInstance()->setAlturaPrisma(dlg->doubleValue());
 
 			dlg->setLabelText(tr("Base do Prisma:"));
 			dlg->setDoubleValue(Parametros::getInstance()->getBasePrisma());
 			res = dlg->exec();
 
-			if (res == QInputDialog::DialogCode::Accepted){
+			if (res == QInputDialog::Accepted){
 				Parametros::getInstance()->setBasePrisma(dlg->doubleValue());
 			}
 		}
@@ -309,7 +309,7 @@ void MainWindow::configurarParametros(){
 		dlg->setDoubleValue(Parametros::getInstance()->getRazaoAspectoDoPrismaTriangularTruncado());
 		res = dlg->exec();
 
-		if (res == QInputDialog::DialogCode::Accepted){
+		if (res == QInputDialog::Accepted){
 			Parametros::getInstance()->setRazaoAspectoDoPrismaTriangularTruncado(dlg->doubleValue());
 
 			dlg->setDoubleMinimum(0.01);
@@ -318,7 +318,7 @@ void MainWindow::configurarParametros(){
 			dlg->setDoubleValue(Parametros::getInstance()->getRazaoDeTruncamentoDoPrismaTriangularTruncado());
 			res = dlg->exec();
 
-			if (res == QInputDialog::DialogCode::Accepted){
+			if (res == QInputDialog::Accepted){
 				Parametros::getInstance()->setRazaoDeTruncamentoDoPrismaTriangularTruncado(dlg->doubleValue());
 
 				dlg->setDoubleMinimum(0);
@@ -326,7 +326,7 @@ void MainWindow::configurarParametros(){
 				dlg->setLabelText(tr("L0:"));
 				dlg->setDoubleValue(Parametros::getInstance()->getL0DoPrismaTriangularTruncado());
 				res = dlg->exec();
-				if (res == QInputDialog::DialogCode::Accepted)
+				if (res == QInputDialog::Accepted)
 					Parametros::getInstance()->setL0DoPrismaTriangularTruncado(dlg->doubleValue());
 			}
 		}
@@ -393,11 +393,11 @@ void MainWindow::mudarEstrategiaDeAlturasDoPlanodeCorte(bool b){
 		QInputDialog *dlg = new QInputDialog(this);
 		dlg->setIntMinimum(1);
 		dlg->setIntMaximum(INT_MAX);
-		dlg->setInputMode(QInputDialog::InputMode::IntInput);
+		dlg->setInputMode(QInputDialog::IntInput);
 
 		dlg->setLabelText(tr("Quantidade de planos:"));
 		res = dlg->exec();
-		if (res == QInputDialog::DialogCode::Accepted){
+		if (res == QInputDialog::Accepted){
 			int qtdePlanos = dlg->intValue();
 			Parametros *p = Parametros::getInstance();
 			double h0 = p->getAlturaDaBaseDaCaixa();
