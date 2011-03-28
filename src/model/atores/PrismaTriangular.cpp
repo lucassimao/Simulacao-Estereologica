@@ -70,13 +70,13 @@ PrismaTriangular::PrismaTriangular(NxScene *cena,MeshFactory *meshFactory,Cor co
 	if (posicaoInicial.x + base >= Parametros::getInstance()->getArestaDaCaixa()/2.0){
 		posicaoInicial.x -= 2*base;
 	}else
-	if (posicaoInicial.x - base < - Parametros::getInstance()->getArestaDaCaixa()/2.0){
-		posicaoInicial.x += 2*base;
-	}
+		if (posicaoInicial.x - base < - Parametros::getInstance()->getArestaDaCaixa()/2.0){
+			posicaoInicial.x += 2*base;
+		}
 
-	actorDesc.globalPose.t  = posicaoInicial;
-	this->ator = cena->createActor(actorDesc);
-	this->ator->userData =  (void *)this;
+		actorDesc.globalPose.t  = posicaoInicial;
+		this->ator = cena->createActor(actorDesc);
+		this->ator->userData =  (void *)this;
 
 
 }
@@ -97,31 +97,21 @@ bool PrismaTriangular::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition){
 	NxU32 nbVerts = meshDesc.numVertices;	
 	NxVec3* points = (NxVec3 *)meshDesc.points;
 
-	NxVec3 verticeMaisAlto = (pose.M * points[0] + pose.t);
-	NxVec3 verticeMaisBaixo = (pose.M * points[1] + pose.t);
+	double verticeMaisAlto = (pose.M * points[0] + pose.t).y;
+	double verticeMaisBaixo = (pose.M * points[1] + pose.t).y;
 
 	for(int i=0;i<nbVerts;++i){
 		NxVec3 vertice = (pose.M * points[i] + pose.t);
-		
-		if ( verticeMaisAlto.y < vertice.y ){
-			verticeMaisAlto.y = vertice.y;
-			verticeMaisAlto.x = vertice.x;
-			verticeMaisAlto.z = vertice.z;
+
+		if ( verticeMaisAlto < vertice.y ){
+			verticeMaisAlto = vertice.y;
 		}
-		else if (verticeMaisBaixo.y > vertice.y){
-				verticeMaisBaixo.y = vertice.y;
-				verticeMaisBaixo.x = vertice.x;
-				verticeMaisBaixo.z = vertice.z;
+		else if (verticeMaisBaixo > vertice.y){
+			verticeMaisBaixo = vertice.y;
 		}
 	}
 
-	bool temp = BETWEEN(-10,verticeMaisAlto.x,10);
-	bool temp1 = BETWEEN(-10,verticeMaisBaixo.x,10);
-	bool temp2 = BETWEEN(verticeMaisBaixo.y, planoGlobalPosition.y, verticeMaisAlto.y);
-	bool temp3 = BETWEEN(-10,verticeMaisAlto.z,10);
-	bool temp4 = BETWEEN(-10,verticeMaisBaixo.z,10);
-	
-	return temp && temp1 && temp2 && temp3 && temp4;
+	return BETWEEN(verticeMaisBaixo, planoGlobalPosition.y, verticeMaisAlto);
 
 }
 
@@ -144,7 +134,7 @@ InterceptoDeArea* PrismaTriangular::getIntercepto(NxVec3 planoPos){
 
 		iterator++;
 	}
-	
+
 	return new Poligono(this->cor,poligonoPontos,this->altura/this->base,0,this->base);
 }
 
@@ -294,7 +284,7 @@ inline vector<SegmentoDeReta> PrismaTriangular::getSegmentosDeRetaInterceptados(
 				break;
 		}
 		++iteratorVerticesAcimaDoPlanoDeCorte;
-		
+
 	}
 
 	return segmentos;
@@ -316,6 +306,6 @@ inline NxVec3* PrismaTriangular::getPosicaoGlobalDosVertices(){
 	// convertendo de posicionamento local p/ global
 	for(register int i=0;i<6;++i)
 		vertices[i] = (pose.M * points[i] + pose.t);
-	
+
 	return vertices;
 }
