@@ -14,10 +14,11 @@ namespace simulacao{
 			class InterceptoLinear{
 			public:
 				InterceptoLinear(Ponto p0,Ponto p1);
-				const Ponto p0, p1;		
+				const Ponto p0, p1;
 
 				double tamanho();
 			};
+
 
 		}
 	}

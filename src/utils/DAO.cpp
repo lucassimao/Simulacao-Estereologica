@@ -1,8 +1,10 @@
 #include <sstream>
 #include <QDebug>
+#include <algorithm>
 #include <string>
 #include "..\sqlite3\sqlite3.h"
 #include "..\model\interceptos\Disco.h"
+#include "..\model\interceptos\InterceptoLinear.h"
 #include "..\model\grade\Grade.h"
 #include "..\model\grade\RetaDeTeste.h"
 
@@ -93,6 +95,112 @@ __int64 DAO::salvarPlano(double y,double largura,Cor cor){
 	// recupera o rowid do planoDeCorte recentemente inserido
 	__int64 planoDeCorteID = sqlite3_last_insert_rowid(this->db);
 	return planoDeCorteID;
+}
+
+void DAO::salvarInterceptosPorosos(__int64 planoDeCorte_id){
+	sqlite3_stmt *stmt = 0;
+	ostringstream select;
+	select << "select x0,y0,z0,x1,y1,z1 from interceptosLineares_discos where disco_fk in ";
+	select << "(select rowid from discos where planoDeCorte_fk = ?1)";
+	select << " union ";
+	select << "select x0,y0,z0,x1,y1,z1 from interceptosLineares_poligonos where poligono_fk in ";
+	select << "(select rowid from poligonos where planoDeCorte_fk = ?1);";
+	
+	sqlite3_stmt *interceptoPorosoStmt = 0;
+	const char *interceptoPorosoInsert = "insert into interceptosPorosos(plano_fk,x0,y0,z0,x1,y1,z1,tamanho) values(?,?,?,?,?,?,?,?);";
+		
+
+	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
+	map<double,vector<InterceptoLinear*>> interceptosLineares;
+
+    if( res==SQLITE_OK && stmt ){
+		res = sqlite3_bind_int(stmt,1,planoDeCorte_id);
+		assert(res == SQLITE_OK);
+		
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+		
+		while(res != SQLITE_DONE){
+			Ponto p0,p1;
+			p0.x = sqlite3_column_double(stmt,0);
+			p0.y = sqlite3_column_double(stmt,1);
+			p0.z = sqlite3_column_double(stmt,2);
+
+			p1.x = sqlite3_column_double(stmt,3);
+			p1.y = sqlite3_column_double(stmt,4);
+			p1.z = sqlite3_column_double(stmt,5);			
+
+			if (interceptosLineares.count(p0.z)==0){
+				interceptosLineares[p0.z] = vector<InterceptoLinear*>();
+			}
+			interceptosLineares[p0.z].push_back(new InterceptoLinear(p0,p1));
+
+			res = sqlite3_step(stmt);
+		}	
+
+		sqlite3_finalize(stmt);
+		struct {
+			bool operator()(InterceptoLinear *i1, InterceptoLinear *i2) const{
+				return i1->p0.x < i2->p0.x;
+			}
+		}InterceptoLinearCmp;		
+		
+		map<double,vector<InterceptoLinear*>>::const_iterator iterator = interceptosLineares.begin();
+
+		while(iterator != interceptosLineares.end()){
+			vector<InterceptoLinear*> vetor = (*iterator).second;
+						
+			if (vetor.size() > 1){
+				sort(vetor.begin(),vetor.end(),InterceptoLinearCmp);				
+				int iLinearAtual = 0;
+
+				while(iLinearAtual+1 < vetor.size()){
+					InterceptoLinear *iLinear = vetor[iLinearAtual];
+					InterceptoLinear *iLinearSeguinte = vetor[iLinearAtual+1];
+
+					if ((iLinearSeguinte->p0.x - iLinear->p1.x)>0){
+						double interceptoPoro = iLinearSeguinte->p0.x - iLinear->p1.x;
+						
+						int res = sqlite3_prepare_v2(this->db,interceptoPorosoInsert,-1,&interceptoPorosoStmt,NULL);
+						assert(res==SQLITE_OK && interceptoPorosoStmt);
+
+						res = sqlite3_bind_int(interceptoPorosoStmt,1,planoDeCorte_id);
+						assert(res == SQLITE_OK);
+						res = sqlite3_bind_double(interceptoPorosoStmt,2,iLinear->p1.x);
+						assert(res == SQLITE_OK);
+						res = sqlite3_bind_double(interceptoPorosoStmt,3,iLinear->p1.y);
+						assert(res == SQLITE_OK);
+						res = sqlite3_bind_double(interceptoPorosoStmt,4,iLinear->p1.z);
+						assert(res == SQLITE_OK);
+						res = sqlite3_bind_double(interceptoPorosoStmt,5,iLinearSeguinte->p0.x);
+						assert(res == SQLITE_OK);
+						res = sqlite3_bind_double(interceptoPorosoStmt,6,iLinearSeguinte->p0.y);
+						assert(res == SQLITE_OK);
+						res = sqlite3_bind_double(interceptoPorosoStmt,7,iLinearSeguinte->p0.z);
+						assert(res == SQLITE_OK);
+						res = sqlite3_bind_double(interceptoPorosoStmt,8,interceptoPoro);
+						assert(res == SQLITE_OK);
+
+						res = sqlite3_step(interceptoPorosoStmt);
+						assert(res == SQLITE_DONE);
+
+						sqlite3_finalize(interceptoPorosoStmt);
+
+					}
+					++iLinearAtual;
+				}
+			}
+
+			++iterator;
+		}
+		
+    }
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+	
+
 }
 
 __int64 DAO::salvarInterceptoDeArea(__int64 planoDeCorte_id,InterceptoDeArea *interceptoDeArea){

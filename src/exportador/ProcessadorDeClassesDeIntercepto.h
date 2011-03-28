@@ -41,7 +41,7 @@ namespace simulacao{
 			};
 		};
 
-		typedef enum { Linear, Area, Perimetro} TipoDeIntercepto;
+		typedef enum { Linear, Area, Perimetro,Poro} TipoDeIntercepto;
 
 		enum TipoDeGrao{ Esferico,Prismatico };
 

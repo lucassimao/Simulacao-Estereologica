@@ -16,10 +16,13 @@ class DAO{
 		sqlite3 *db;
 		__int64 salvarDisco(__int64 planoDeCorte_id,Disco *d);
 		__int64 salvarPoligono(__int64 planoDeCorte_id, Poligono *p);
+		
+
 
 	public:
 		DAO( sqlite3 *db);
 		// esses métodos retornam a chave primária. Retornam -1 se o registro ñ foi salvo
+		void salvarInterceptosPorosos(__int64 planoDeCorte_id);
 		__int64 salvarPlano(double y, double largura,Cor cor);
 		__int64 salvarInterceptoDeArea(__int64 planoDeCorte_id,InterceptoDeArea *interceptoDeArea);
 		__int64 salvarEstatisticas(int planoDeCorte_fk, double areaDosInterceptosColetados,

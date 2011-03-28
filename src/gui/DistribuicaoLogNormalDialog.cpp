@@ -211,7 +211,7 @@ double DistribuicaoLogNormalDialog::calcularDistribuicaoLogNormal(double x, doub
 	if(x==0 || sigma==0)
 		return 0;
 	else
-		return (1.0/x*sigma*sqrt(2*M_PI)) *  exp(-0.5*pow((log(x) - mi)/sigma,2));
+		return (1.0/(x*sigma*sqrt(2*M_PI))) *  exp(-0.5*pow((log(x) - mi)/sigma,2));
 }
 
 

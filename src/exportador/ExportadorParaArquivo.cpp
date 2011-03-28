@@ -15,21 +15,21 @@ void ExportadorParaArquivo::exportarPlanosDeCorte(){
 	planoDeCorte_select << "select rowid from planoDeCorte;";
 
 	int res = sqlite3_prepare_v2(this->db,planoDeCorte_select.str().c_str(),-1,&planoDeCorte_stmt,NULL);
-	
-    if( res==SQLITE_OK && planoDeCorte_stmt ){
-		
+
+	if( res==SQLITE_OK && planoDeCorte_stmt ){
+
 		do{
 			res = sqlite3_step(planoDeCorte_stmt);
 		}
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
-		
+
 		while (res != SQLITE_DONE){
 			int planoPK = sqlite3_column_int(planoDeCorte_stmt,0);
 			exportarPlanoDeCorte(planoPK);
 			res = sqlite3_step(planoDeCorte_stmt);
 		}
 		sqlite3_finalize(planoDeCorte_stmt);
-    }
+	}
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
@@ -74,7 +74,7 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 			double limSuperior = limInferior + deltaIntercepto;
 
 			tabela << limInferior << " |- " << limSuperior;
-			
+
 			int totalPorClasseDeIntercepto = 0; 
 			for(int j=0;j< classesDeGrao.size();++j){
 				ClasseDeGrao *classeDeGrao = classesDeGrao[j];
@@ -104,7 +104,7 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 }
 
 void ExportadorParaArquivo::exportarPlanoDeCorte(int planoDeCorteID){
-	
+
 	locale ptBR(locale(),new WithComma);
 
 	ostringstream arquivoAreasDoPlano;
@@ -159,15 +159,15 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(int plano_pk){
 	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
 	map<double,vector<InterceptoLinear*>> interceptosLineares;
 
-    if( res==SQLITE_OK && stmt ){
+	if( res==SQLITE_OK && stmt ){
 		res = sqlite3_bind_int(stmt,1,plano_pk);
 		assert(res == SQLITE_OK);
-		
+
 		do{
 			res = sqlite3_step(stmt);
 		}
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
-		
+
 		while(res != SQLITE_DONE){
 			Ponto p0,p1;
 			p0.x = sqlite3_column_double(stmt,0);
@@ -187,12 +187,17 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(int plano_pk){
 		}	
 
 		sqlite3_finalize(stmt);
-		
+		struct {
+			bool operator()(InterceptoLinear *i1, InterceptoLinear *i2) const{
+				return i1->p0.x < i2->p0.x;
+			}
+		}InterceptoLinearCmp;
 		map<double,vector<InterceptoLinear*>>::const_iterator iterator = interceptosLineares.begin();
+
 
 		while(iterator != interceptosLineares.end()){
 			vector<InterceptoLinear*> vetor = (*iterator).second;
-						
+
 			if (vetor.size() > 1){
 				sort(vetor.begin(),vetor.end(),InterceptoLinearCmp);				
 				int iLinearAtual = 0;
@@ -211,12 +216,12 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(int plano_pk){
 			++iterator;
 		}
 		interceptosDaFaseSolidaFile.close();
-		
-		
-    }
+
+
+	}
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
-	
+
 }
 
 void ExportadorParaArquivo::salvarAreaDosPoligonos( int plano_pk, ofstream &outFile){
@@ -226,16 +231,16 @@ void ExportadorParaArquivo::salvarAreaDosPoligonos( int plano_pk, ofstream &outF
 
 
 	int res = sqlite3_prepare_v2(this->db,poligonos_select.str().c_str(),-1,&poligonos_stmt,NULL);
-	
-    if( res==SQLITE_OK && poligonos_stmt ){
+
+	if( res==SQLITE_OK && poligonos_stmt ){
 		res = sqlite3_bind_int(poligonos_stmt,1,plano_pk);
 		assert(res == SQLITE_OK);
-		
+
 		do{
 			res = sqlite3_step(poligonos_stmt);
 		}
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
-		
+
 		while(res != SQLITE_DONE){
 			double area = sqlite3_column_double(poligonos_stmt,0);
 			outFile << area << endl;
@@ -243,8 +248,8 @@ void ExportadorParaArquivo::salvarAreaDosPoligonos( int plano_pk, ofstream &outF
 		}	
 
 		sqlite3_finalize(poligonos_stmt);
-		
-    }
+
+	}
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
@@ -257,16 +262,16 @@ void ExportadorParaArquivo::salvarAreaDosDiscos(int plano_pk, ofstream &outFile)
 
 
 	int res = sqlite3_prepare_v2(this->db,discos_select.str().c_str(),-1,&discos_stmt,NULL);
-	
-    if( res==SQLITE_OK && discos_stmt ){
+
+	if( res==SQLITE_OK && discos_stmt ){
 		res = sqlite3_bind_int(discos_stmt,1,plano_pk);
 		assert(res == SQLITE_OK);
-		
+
 		do{
 			res = sqlite3_step(discos_stmt);
 		}
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
-		
+
 		while (res != SQLITE_DONE){
 			double raio = sqlite3_column_double(discos_stmt,0);
 			//double perimetro = 2*PI *raio;
@@ -275,7 +280,7 @@ void ExportadorParaArquivo::salvarAreaDosDiscos(int plano_pk, ofstream &outFile)
 			res = sqlite3_step(discos_stmt);
 		}
 		sqlite3_finalize(discos_stmt);		
-    }
+	}
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
@@ -292,16 +297,16 @@ void ExportadorParaArquivo::salvarInterceptosLineares(int plano_pk, ofstream &ou
 	interceptos_select << "(select rowid from discos where planoDeCorte_fk = ?1) order by tamanho; ";
 
 	int res = sqlite3_prepare_v2(this->db,interceptos_select.str().c_str(),-1,&interceptos_stmt,NULL);
-	
-    if( res==SQLITE_OK && interceptos_stmt ){
+
+	if( res==SQLITE_OK && interceptos_stmt ){
 		res = sqlite3_bind_int(interceptos_stmt,1,plano_pk);
 		assert(res == SQLITE_OK);
-		
+
 		do{
 			res = sqlite3_step(interceptos_stmt);
 		}
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
-		
+
 		while (res != SQLITE_DONE){
 			double tamanho = sqlite3_column_double(interceptos_stmt,0);
 			outFile << tamanho << endl;
@@ -309,7 +314,7 @@ void ExportadorParaArquivo::salvarInterceptosLineares(int plano_pk, ofstream &ou
 			res = sqlite3_step(interceptos_stmt);
 		}
 		sqlite3_finalize(interceptos_stmt);		
-    }
+	}
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
@@ -322,16 +327,16 @@ void ExportadorParaArquivo::salvarQtdeDePontosInternos(int plano_pk, ofstream &o
 
 
 	int res = sqlite3_prepare_v2(this->db,interceptos_select.str().c_str(),-1,&stmt,NULL);
-	
-    if( res==SQLITE_OK && stmt ){
+
+	if( res==SQLITE_OK && stmt ){
 		res = sqlite3_bind_int(stmt,1,plano_pk);
 		assert(res == SQLITE_OK);
-		
+
 		do{
 			res = sqlite3_step(stmt);
 		}
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
-		
+
 		while (res != SQLITE_DONE){
 			int qtdeDePontosInternosAosInterceptos = sqlite3_column_int(stmt,0);
 			outFile << qtdeDePontosInternosAosInterceptos << endl;
@@ -339,7 +344,7 @@ void ExportadorParaArquivo::salvarQtdeDePontosInternos(int plano_pk, ofstream &o
 			res = sqlite3_step(stmt);
 		}
 		sqlite3_finalize(stmt);		
-    }
+	}
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 }

@@ -83,6 +83,14 @@ sqlite3 * DataBaseFactory::criarBanco(const char* arquivo){
 		return NULL;
     }
 
+	rc = sqlite3_exec(db,"create table interceptosPorosos(plano_fk int,x0 double,y0 double,z0 double,x1 double,y1 double,z1 double, tamanho double);", 0, 0, &errStr);
+	if ( rc!=SQLITE_OK )
+    {
+		qDebug() << errStr;
+        throw runtime_error(errStr);
+        sqlite3_free(errStr);
+		return NULL;
+    }
 
 	return db;
 }

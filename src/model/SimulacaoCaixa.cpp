@@ -155,9 +155,11 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 
 					vector<InterceptoLinear*> interceptosLineares = intercepto->getInterceptosLineares(this->getGrade());			
 					dao.salvarInterceptosLineares(interceptoID,interceptosLineares,intercepto->getType());
+
 				}
 			}
 		}
+		dao.salvarInterceptosPorosos(planoID);
 
 		double areaTotalColetada = visitor3->getAreaTotalColetada();
 		int qtdePontosInternosAInterceptosDeArea = visitor2->getQtdeDePontosInternosAInterceptosDeArea();

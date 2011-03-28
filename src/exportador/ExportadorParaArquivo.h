@@ -31,12 +31,6 @@ namespace simulacao{
 			sqlite3 *db;
 			int qtdeClassesDeIntercepto;
 
-			struct{
-				bool operator()(InterceptoLinear *i1, InterceptoLinear *i2) const{
-					return i1->p0.x < i2->p0.x;
-				}
-			} InterceptoLinearCmp;
-
 			void exportarPlanoDeCorte(int plano_pk);
 			void salvarAreaDosPoligonos(int plano_pk, ofstream &outFile);
 			void salvarAreaDosDiscos(int plano_pk, ofstream &outFile);

@@ -87,7 +87,7 @@ int ProcessadorDeClassesDeIntercepto::getQuantidadeDeInterceptosPrismaticosNoInt
 int ProcessadorDeClassesDeIntercepto::getQuantidadeDeInterceptosEsfericosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGraoEsferico *classe,TipoDeIntercepto tipoDeIntercepto){
 	sqlite3_stmt *discos_stmt = 0;
 	ostringstream  discos_select;
-	discos_select << "select count(*) from discos where raioOriginal=?1 and ";
+	discos_select << "select count(*) from discos disco where raioOriginal=?1 and ";
 
 	switch(tipoDeIntercepto){
 		case Area:
@@ -97,7 +97,7 @@ int ProcessadorDeClassesDeIntercepto::getQuantidadeDeInterceptosEsfericosNoInter
 			discos_select << " (2*3.14159265*raio) between ?2 and ?3;";
 			break;
 		case Linear:
-			discos_select << " exists (select rowid from interceptosLineares_discos where disco_fk = discos.rowid ";
+			discos_select << " exists (select rowid from interceptosLineares_discos where disco_fk = disco.rowid ";
 			discos_select << " and tamanho between ?2 and ?3);";
 	}
 
