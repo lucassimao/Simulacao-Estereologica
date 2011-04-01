@@ -23,7 +23,7 @@ AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog::AdicaoSistematicaDeEs
 
 	QDoubleValidator *valPercentual = new QDoubleValidator(this);
 	valPercentual->setBottom(0);
-	valPercentual->setDecimals(3);
+	valPercentual->setDecimals(10);
 	valPercentual->setTop(100);
 
 	QIntValidator *valQuantidade = new QIntValidator(this);
