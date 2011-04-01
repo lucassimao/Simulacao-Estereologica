@@ -53,7 +53,7 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 		const char *descricao = (*iterator).second;
 
 		ostringstream nomeDoArqivo;
-		nomeDoArqivo << this->destino << "/tabelaProbabilidade_para_" << descricao << ".csv"; 
+		nomeDoArqivo << this->destino << "/distribuicaoDeInterceptos_para_" << descricao << ".csv"; 
 		ofstream arquivo(nomeDoArqivo.str().c_str(),std::ios::out);
 		arquivo.imbue(ptBR);
 
