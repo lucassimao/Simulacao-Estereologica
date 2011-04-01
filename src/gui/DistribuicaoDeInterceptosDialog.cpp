@@ -9,6 +9,7 @@ using namespace simulacao::exportador;
 DistribuicaoDeInterceptosDialog::DistribuicaoDeInterceptosDialog(QWidget *parent,sqlite3 *db):QDialog(parent){
 	ui = new Ui_DistribuicaoDeInterceptosDialog();
 	ui->setupUi(this);
+	this->setWindowFlags(Qt::Window);
 	this->db = db;
 	this->processador = new ProcessadorDeClassesDeIntercepto(db);
 
@@ -97,6 +98,7 @@ void DistribuicaoDeInterceptosDialog::gerarDistribuicao(){
 	}
 
 	tableModel->setVerticalHeaderLabels(labelDaLinha);
+	
 }
 
 void DistribuicaoDeInterceptosDialog::criarCabecalhosDaTabela(){
