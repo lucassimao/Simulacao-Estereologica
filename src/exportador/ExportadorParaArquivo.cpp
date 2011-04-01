@@ -62,8 +62,8 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 		double deltaIntercepto = (maiorIntercepto - menorIntercepto)/qtdeClassesDeIntercepto;
 
 		ostringstream cabecalho;
-		for(int i=0; i<classesDeGrao.size() ;++i){ cabecalho << "," << classesDeGrao[i]->getDiametroEquivalente(); }
-		arquivo << cabecalho.str() << ",Total" << std::endl;
+		for(int i=0; i<classesDeGrao.size() ;++i){ cabecalho << ";" << classesDeGrao[i]->getDiametroEquivalente(); }
+		arquivo << cabecalho.str() << ";Total" << std::endl;
 
 		vector<int> quantidadePorClasseDeGrao(classesDeGrao.size(),0);
 
@@ -79,12 +79,12 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 			for(int j=0;j< classesDeGrao.size();++j){
 				ClasseDeGrao *classeDeGrao = classesDeGrao[j];
 				int quantidadeDeInterceptosNoIntervalo = processador.getQuantidadeDeInterceptosNoIntervalo(limInferior,limSuperior,classeDeGrao,tipoDeIntercepto);
-				tabela << "," << quantidadeDeInterceptosNoIntervalo;
+				tabela << ";" << quantidadeDeInterceptosNoIntervalo;
 				totalPorClasseDeIntercepto += quantidadeDeInterceptosNoIntervalo;
 
 				quantidadePorClasseDeGrao[j] += quantidadeDeInterceptosNoIntervalo;
 			}
-			tabela << "," << totalPorClasseDeIntercepto;
+			tabela << ";" << totalPorClasseDeIntercepto;
 			tabela << std::endl;
 		}
 		arquivo << tabela.str();
@@ -93,9 +93,9 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 		int total = 0;
 		for(int j=0;j< classesDeGrao.size();++j){
 			total += quantidadePorClasseDeGrao[j];
-			arquivo << "," << quantidadePorClasseDeGrao[j];
+			arquivo << ";" << quantidadePorClasseDeGrao[j];
 		}
-		arquivo << "," << total << std::endl;
+		arquivo << ";" << total << std::endl;
 		arquivo.close();
 
 		++iterator;
