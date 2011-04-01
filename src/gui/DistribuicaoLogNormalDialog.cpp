@@ -19,6 +19,7 @@ using namespace simulacao::model::atores;
 DistribuicaoLogNormalDialog::DistribuicaoLogNormalDialog(QWidget *parent, SimulacaoCaixa *simulacao):QDialog(parent){
 	ui = new Ui_DistribuicaoLogNormalDialog();
 	ui->setupUi(this);
+	this->setWindowFlags( Qt::Window);
 	this->command = NULL;
 	this->simulacao = simulacao;
 	this->raise();
