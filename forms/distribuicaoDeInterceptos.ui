@@ -37,7 +37,105 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="8" colspan="2">
+   <item row="1" column="0" colspan="11">
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="lineWidth">
+      <number>2</number>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelDiametro">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Tamanho do Grão (Diâmetro Equivalente)</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="11">
+    <widget class="QTableView" name="tableDistribuicao">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="cornerButtonEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="9">
+    <widget class="QPushButton" name="btnSalvar">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Salvar</string>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="10">
+    <widget class="QPushButton" name="btnSair">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Sair</string>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="2">
+    <widget class="QPushButton" name="btnGerarDistribuicao">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Gerar</string>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="8" colspan="3">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Tipo de distribuição</string>
@@ -66,97 +164,17 @@
           <string>Linear</string>
          </property>
         </widget>
+        <widget class="QRadioButton" name="radioButtonPoro">
+         <property name="text">
+          <string>Poro</string>
+         </property>
+        </widget>
        </widget>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="1" column="0" colspan="10">
-    <widget class="QFrame" name="frame">
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <property name="lineWidth">
-      <number>2</number>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Tamanho do Grão (Diâmetro Equivalente)</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="10">
-    <widget class="QTableView" name="tableDistribuicao">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Sunken</enum>
-     </property>
-     <property name="cornerButtonEnabled">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="8">
-    <widget class="QPushButton" name="btnSalvar">
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
-     </property>
-     <property name="text">
-      <string>Salvar</string>
-     </property>
-     <property name="autoDefault">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="9">
-    <widget class="QPushButton" name="btnSair">
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
-     </property>
-     <property name="text">
-      <string>Sair</string>
-     </property>
-     <property name="autoDefault">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="3">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="0" column="4">
+   <item row="0" column="7">
     <spacer name="horizontalSpacer_2">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -169,7 +187,7 @@
      </property>
     </spacer>
    </item>
-   <item row="0" column="5">
+   <item row="0" column="4">
     <spacer name="horizontalSpacer_3">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -182,7 +200,7 @@
      </property>
     </spacer>
    </item>
-   <item row="0" column="6">
+   <item row="0" column="5">
     <spacer name="horizontalSpacer_4">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -195,18 +213,18 @@
      </property>
     </spacer>
    </item>
-   <item row="0" column="2">
-    <widget class="QPushButton" name="btnGerarDistribuicao">
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
+   <item row="0" column="6">
+    <spacer name="horizontalSpacer_5">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="text">
-      <string>Gerar</string>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
      </property>
-     <property name="autoDefault">
-      <bool>false</bool>
-     </property>
-    </widget>
+    </spacer>
    </item>
   </layout>
  </widget>
@@ -303,6 +321,22 @@
     <hint type="sourcelabel">
      <x>857</x>
      <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>530</x>
+     <y>282</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButtonPoro</sender>
+   <signal>clicked()</signal>
+   <receiver>DistribuicaoDeInterceptosDialog</receiver>
+   <slot>gerarDistribuicao()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1019</x>
+     <y>41</y>
     </hint>
     <hint type="destinationlabel">
      <x>530</x>

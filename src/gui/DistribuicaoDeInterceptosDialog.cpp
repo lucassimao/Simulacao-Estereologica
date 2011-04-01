@@ -12,9 +12,13 @@ DistribuicaoDeInterceptosDialog::DistribuicaoDeInterceptosDialog(QWidget *parent
 	this->setWindowFlags(Qt::Window);
 	this->db = db;
 	this->processador = new ProcessadorDeClassesDeIntercepto(db);
-
+	if (this->processador->getTipoDeGraoNaSimulacao() == Esferico){
+		ui->labelDiametro->setText("Tamanho do Grão(Diâmetro)");
+	}
 	criarCabecalhosDaTabela();
 }
+
+
 
 void DistribuicaoDeInterceptosDialog::sair(){
 	this->close();
@@ -41,8 +45,8 @@ void DistribuicaoDeInterceptosDialog::gerarDistribuicao(){
 		tipoDeIntercepto = Area;
 	}else if (this->ui->radioButtonComprimentoLinear->isChecked()){
 		tipoDeIntercepto = Linear;
-//	}else if (this->ui->radioButtonPoro->isChecked()){
-//		tipoDeIntercepto = Poro;
+	}else if (this->ui->radioButtonPoro->isChecked()){
+		tipoDeIntercepto = Poro;
 	}else{
 		tipoDeIntercepto = Perimetro;
 	}

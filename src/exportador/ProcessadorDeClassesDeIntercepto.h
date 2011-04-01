@@ -57,7 +57,7 @@ namespace simulacao{
 				}
 			} ClasseDeGraoCmp;
 
-			TipoDeGrao getTipoDeGraoNaSimulacao();
+			TipoDeGrao __getTipoDeGraoNaSimulacao();
 
 			int getQuantidadeDeInterceptosEsfericosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGraoEsferico *classe,TipoDeIntercepto tipoDeIntercepto);
 			double getMenorInterceptoEsferico(TipoDeIntercepto tipoDeIntercepto);
@@ -75,6 +75,8 @@ namespace simulacao{
 			int getQuantidadeDeInterceptosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGrao *classe,TipoDeIntercepto tipoDeIntercepto);
 			double getMenorIntercepto(TipoDeIntercepto tipoDeIntercepto);
 			double getMaiorIntercepto(TipoDeIntercepto tipoDeIntercepto);
+			TipoDeGrao getTipoDeGraoNaSimulacao();
+
 		};
 	}
 }

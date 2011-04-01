@@ -9,7 +9,11 @@ using namespace simulacao::exportador;
 
 ProcessadorDeClassesDeIntercepto::ProcessadorDeClassesDeIntercepto(sqlite3 *db){
 	this->db = db;
-	this->tipoDeGrao = getTipoDeGraoNaSimulacao();
+	this->tipoDeGrao = __getTipoDeGraoNaSimulacao();
+}
+
+TipoDeGrao ProcessadorDeClassesDeIntercepto::getTipoDeGraoNaSimulacao(){
+	return this->tipoDeGrao;
 }
 
 int ProcessadorDeClassesDeIntercepto::getQuantidadeDeInterceptosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGrao *classeDeGrao,TipoDeIntercepto tipoDeIntercepto){
@@ -195,12 +199,12 @@ double ProcessadorDeClassesDeIntercepto::getMenorInterceptoEsferico(TipoDeInterc
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
 
 		double menorIntercepto = sqlite3_column_double(discos_stmt,0);
-		
+
 		res = sqlite3_step(discos_stmt);
 		assert(res == SQLITE_DONE);
-	
+
 		sqlite3_finalize(discos_stmt);
-	
+
 		return menorIntercepto;
 	}
 	else{
@@ -234,10 +238,10 @@ double ProcessadorDeClassesDeIntercepto::getMaiorInterceptoEsferico(TipoDeInterc
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
 
 		double maiorIntercepto = sqlite3_column_double(discos_stmt,0);
-		
+
 		res = sqlite3_step(discos_stmt);
 		assert(res == SQLITE_DONE);
-		
+
 		sqlite3_finalize(discos_stmt);
 		return maiorIntercepto;
 	}
@@ -380,7 +384,7 @@ vector<ClasseDeGrao*> ProcessadorDeClassesDeIntercepto::getClassesDeGraoEsferico
 	return vetor;
 }
 
-TipoDeGrao ProcessadorDeClassesDeIntercepto::getTipoDeGraoNaSimulacao(){
+TipoDeGrao ProcessadorDeClassesDeIntercepto::__getTipoDeGraoNaSimulacao(){
 
 	sqlite3_stmt *contador_stmt = 0;
 	const char *contador_select =  "select count(*) from poligonos;";
