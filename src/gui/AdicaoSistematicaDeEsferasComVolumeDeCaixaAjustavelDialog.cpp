@@ -37,8 +37,6 @@ AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog::AdicaoSistematicaDeEs
 	configurarCamadaDeViewDaTabela(valPercentual,valQuantidade);
 
 	connect(ui->textFracaoVazia,SIGNAL(textChanged (const QString &)),this,SLOT(atualizarLabelLadoDaCaixa()));
-
-	setWindowTitle("Adição Sistematizada de Prismas com Volume da Caixa Ajustável");
 	 
 }
 
