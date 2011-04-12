@@ -16,6 +16,71 @@ TipoDeGrao ProcessadorDeClassesDeIntercepto::getTipoDeGraoNaSimulacao(){
 	return this->tipoDeGrao;
 }
 
+vector<vector<int>> ProcessadorDeClassesDeIntercepto::gerarTabelaDeDistribuicaoDeInterceptos(TipoDeIntercepto tipoDeIntercepto, int qtdeDeClassesDeIntercepto){
+	vector<vector<int>> tabela(qtdeDeClassesDeIntercepto);
+
+	double menorIntercepto = getMenorIntercepto(tipoDeIntercepto);
+	double maiorIntercepto = getMaiorIntercepto(tipoDeIntercepto);
+	double intervaloDeClasse = (maiorIntercepto - menorIntercepto)/qtdeDeClassesDeIntercepto;
+
+	vector<ClasseDeGrao*> classesDeGrao = this->getClassesDeGrao();
+	int qtdeDeClassesDeGrao = (tipoDeIntercepto == Poro)?1: classesDeGrao.size();
+
+	for(int i=0; i < qtdeDeClassesDeIntercepto; ++i){
+		double limiteInferior = menorIntercepto + i*intervaloDeClasse;
+		double limiteSuperior = limiteInferior + intervaloDeClasse;
+
+		tabela[i] = vector<int>(qtdeDeClassesDeGrao);
+
+		int qtdeTotalDeInterceptosNoIntervalo = 0;
+		for(int coluna=0; coluna < qtdeDeClassesDeGrao;++coluna){
+			int qtde;
+
+			if (tipoDeIntercepto != Poro){
+				ClasseDeGrao *classe = classesDeGrao[coluna];
+				qtde = getQuantidadeDeInterceptosNoIntervalo(limiteInferior,limiteSuperior,classe,tipoDeIntercepto);
+			}else{
+				qtde = getQuantidadeDeInterceptosPorosos(limiteInferior,limiteSuperior);
+			}
+			tabela[i][coluna] = qtde;
+
+			qtdeTotalDeInterceptosNoIntervalo += qtde; // acumulando p/ totalização
+		}
+	}
+
+	return tabela;
+}
+
+int ProcessadorDeClassesDeIntercepto::getQuantidadeDeInterceptosPorosos(double limiteInferior, double limiteSuperior){
+	sqlite3_stmt *interceptos_stmt = 0;
+	const char *interceptos_select = "select count(*) from interceptosPorosos where tamanho between ?1 and ?2;";
+
+	int res = sqlite3_prepare_v2(this->db,interceptos_select,-1,&interceptos_stmt,NULL);
+
+	if( res==SQLITE_OK && interceptos_stmt ){
+		res = sqlite3_bind_double(interceptos_stmt,1,limiteInferior);
+		assert(res == SQLITE_OK);
+
+		res = sqlite3_bind_double(interceptos_stmt,2,limiteSuperior);
+		assert(res == SQLITE_OK);
+
+		res = sqlite3_step(interceptos_stmt);
+		assert(res == SQLITE_ROW);
+		
+		int qtde = sqlite3_column_int(interceptos_stmt,0);			
+		
+		res = sqlite3_step(interceptos_stmt);
+		assert(res == SQLITE_DONE);
+
+		sqlite3_finalize(interceptos_stmt);	
+		return qtde;
+	}
+	else{
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+		return -1;
+	}
+}
+
 int ProcessadorDeClassesDeIntercepto::getQuantidadeDeInterceptosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGrao *classeDeGrao,TipoDeIntercepto tipoDeIntercepto){
 	switch(this->tipoDeGrao){
 		case Prismatico:
@@ -150,6 +215,9 @@ double ProcessadorDeClassesDeIntercepto::getMenorInterceptoPrismatico(TipoDeInte
 		case Linear:
 			classes_select = "select min(tamanho) from interceptosLineares_poligonos;";
 			break;
+		case Poro:
+			classes_select = "select min(tamanho) from interceptosPorosos;";
+			break;
 	}
 
 	int res = sqlite3_prepare_v2(this->db,classes_select,-1,&poligonos_stmt,NULL);
@@ -186,6 +254,9 @@ double ProcessadorDeClassesDeIntercepto::getMenorInterceptoEsferico(TipoDeInterc
 			break;
 		case Linear:
 			classes_select = "select min(tamanho) from interceptosLineares_discos;";
+			break;
+		case Poro:
+			classes_select = "select min(tamanho) from interceptosPorosos;";
 			break;
 	}
 
@@ -226,6 +297,9 @@ double ProcessadorDeClassesDeIntercepto::getMaiorInterceptoEsferico(TipoDeInterc
 		case Linear:
 			classes_select = "select max(tamanho) from interceptosLineares_discos;";
 			break;
+		case Poro:
+			classes_select = "select max(tamanho) from interceptosPorosos;";
+			break;
 	}		
 
 	int res = sqlite3_prepare_v2(this->db,classes_select,-1,&discos_stmt,NULL);
@@ -263,6 +337,9 @@ double ProcessadorDeClassesDeIntercepto::getMaiorInterceptoPrismatico(TipoDeInte
 			break;
 		case Linear:
 			classes_select = "select max(tamanho) from interceptosLineares_poligonos;";
+			break;
+		case Poro:
+			classes_select = "select max(tamanho) from interceptosPorosos;";
 			break;
 	}		
 

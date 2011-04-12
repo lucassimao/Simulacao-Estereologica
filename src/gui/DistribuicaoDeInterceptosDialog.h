@@ -21,6 +21,7 @@ namespace simulacao	{
 			void sair();
 			void salvar();
 			void gerarDistribuicao();
+			
 		private:
 			QStandardItemModel *tableModel;
 			vector<ClasseDeGrao*> classesDeGrao;
@@ -28,6 +29,7 @@ namespace simulacao	{
 
 			void criarCabecalhosDaTabela();
 			void limparTabela();
+			void mudarCabecalhoDaTabela();
 
 		public:
 			DistribuicaoDeInterceptosDialog(QWidget *parent,sqlite3 *db);

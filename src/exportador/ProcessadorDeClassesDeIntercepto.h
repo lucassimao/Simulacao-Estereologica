@@ -68,6 +68,8 @@ namespace simulacao{
 			double getMenorInterceptoPrismatico(TipoDeIntercepto tipoDeIntercepto);
 			double getMaiorInterceptoPrismatico(TipoDeIntercepto tipoDeIntercepto);
 			vector<ClasseDeGrao*> getClassesDeGraoPrismaticos();
+
+			int getQuantidadeDeInterceptosPorosos(double limiteInferior, double limiteSuperior);
 		public:
 			ProcessadorDeClassesDeIntercepto(sqlite3 *db);
 			// Esse método retorna as classes de grão presentes na simulação em ordem crescente de diâmetro equivalente
@@ -76,6 +78,8 @@ namespace simulacao{
 			double getMenorIntercepto(TipoDeIntercepto tipoDeIntercepto);
 			double getMaiorIntercepto(TipoDeIntercepto tipoDeIntercepto);
 			TipoDeGrao getTipoDeGraoNaSimulacao();
+
+			vector<vector<int>> gerarTabelaDeDistribuicaoDeInterceptos(TipoDeIntercepto tipoDeIntercepto, int qtdeDeClassesDeIntercepto);
 
 		};
 	}
