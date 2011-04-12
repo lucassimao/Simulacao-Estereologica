@@ -44,6 +44,7 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 	mapa[Linear] = "Comprimento_Linear";
 	mapa[Area] = "Area";
 	mapa[Perimetro] = "Perimetro";
+	mapa[Poro] = "Poro";
 
 	locale ptBR(locale(),new WithComma);
 
@@ -62,13 +63,18 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 		double deltaIntercepto = (maiorIntercepto - menorIntercepto)/qtdeClassesDeIntercepto;
 
 		ostringstream cabecalho;
-		for(int i=0; i<classesDeGrao.size() ;++i){ cabecalho << ";" << classesDeGrao[i]->getDiametroEquivalente(); }
+		if (tipoDeIntercepto != Poro ){
+			for(int i=0; i<classesDeGrao.size() ;++i){ cabecalho << ";" << classesDeGrao[i]->getDiametroEquivalente(); }
+		}else{
+			cabecalho << ";" << "Quantidade";
+		}
 		arquivo << cabecalho.str() << ";Total" << std::endl;
+		vector<vector<int>> tabelaDeDistribuicao = processador.gerarTabelaDeDistribuicaoDeInterceptos(tipoDeIntercepto,qtdeClassesDeIntercepto);
 
-		vector<int> quantidadePorClasseDeGrao(classesDeGrao.size(),0);
+		map<int,int> quantidadePorClasseDeGrao;
 
 		ostringstream tabela;
-		for(int i=0; i < qtdeClassesDeIntercepto ; ++i){
+		for(int i=0; i < tabelaDeDistribuicao.size() ; ++i){
 
 			double limInferior = menorIntercepto + i*deltaIntercepto;
 			double limSuperior = limInferior + deltaIntercepto;
@@ -76,9 +82,8 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 			tabela << limInferior << " |- " << limSuperior;
 
 			int totalPorClasseDeIntercepto = 0; 
-			for(int j=0;j< classesDeGrao.size();++j){
-				ClasseDeGrao *classeDeGrao = classesDeGrao[j];
-				int quantidadeDeInterceptosNoIntervalo = processador.getQuantidadeDeInterceptosNoIntervalo(limInferior,limSuperior,classeDeGrao,tipoDeIntercepto);
+			for(int j=0;j< tabelaDeDistribuicao[i].size();++j){
+				int quantidadeDeInterceptosNoIntervalo = tabelaDeDistribuicao[i][j];
 				tabela << ";" << quantidadeDeInterceptosNoIntervalo;
 				totalPorClasseDeIntercepto += quantidadeDeInterceptosNoIntervalo;
 
@@ -91,7 +96,7 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 
 		arquivo << "Totais";
 		int total = 0;
-		for(int j=0;j< classesDeGrao.size();++j){
+		for(int j=0;j< quantidadePorClasseDeGrao.size();++j){
 			total += quantidadePorClasseDeGrao[j];
 			arquivo << ";" << quantidadePorClasseDeGrao[j];
 		}
