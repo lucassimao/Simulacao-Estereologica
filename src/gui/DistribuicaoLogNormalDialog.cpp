@@ -261,10 +261,12 @@ void DistribuicaoLogNormalDialog::calcularL0s(){
 		int quantidade = this->model->data(cellQuantidade, Qt::DisplayRole).toInt();
 		double l0 = 0;
 
-		if (this->ui->radioButtonUsarXComoVolume->isChecked()){
-			l0 = pow(  x/( (raizQuadraDe3/4.0)*alpha*(1 - 3*pow(beta,2)) ) , 1/3.0);
-		}else{
-			l0 = pow( pow(x,3)/( (3*raizQuadraDe3/(2.0*M_PI))*alpha*(1 -3*pow(beta,2)) ),1/3.0);
+		if (alpha != 0){
+			if (this->ui->radioButtonUsarXComoVolume->isChecked()){
+				l0 = pow(  x/( (raizQuadraDe3/4.0)*alpha*(1 - 3*pow(beta,2)) ) , 1/3.0);
+			}else{
+				l0 = pow( pow(x,3)/( (3*raizQuadraDe3/(2.0*M_PI))*alpha*(1 -3*pow(beta,2)) ),1/3.0);
+			}
 		}
 		volumeFaseSolida += quantidade * PrismaTriangularTruncado::calcularVolume(alpha,beta,l0);
 		this->model->setData(cellL0,QVariant(l0));
