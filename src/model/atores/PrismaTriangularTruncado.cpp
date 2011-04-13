@@ -94,8 +94,9 @@ double PrismaTriangularTruncado::calcularVolume(double razaoDeAspecto,double raz
 	if ( razaoDeAspecto < 0 || razaoDeAspecto > 1 )
 		throw new runtime_error("Razão de aspecto inválida. Apenas valores 0 <= razaoDeAspecto <= 1 são aceitos");
 		
-	if (razaoDeTruncamento<0 || razaoDeTruncamento>0.5)
+	if (razaoDeTruncamento<0 || razaoDeTruncamento>0.49)
 		throw new runtime_error("Razão de truncamento inválida. Apenas valores 0 <= razaoDeTruncamento <= 0.5 são aceitos");
+
 
 	double volume =  (sqrt(3.0)/4.0)*razaoDeAspecto*(1 - 3*pow(razaoDeTruncamento,2))*pow(L0,3);
 	assert (volume>=0);
