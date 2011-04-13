@@ -23,7 +23,7 @@ DistribuicaoLogNormalDialog::DistribuicaoLogNormalDialog(QWidget *parent, Simula
 	this->command = NULL;
 	this->simulacao = simulacao;
 	this->raise();
-	
+
 	configurarValidadoresDosCamposDeTexto();
 	configurarEditorDeCores();
 	configurarModeloDaTabela();
@@ -58,27 +58,27 @@ void DistribuicaoLogNormalDialog::adicionarPrismas(){
 	int linhas = this->model->rowCount();
 	this->command = new AdicionarObjetosCommand(this->simulacao,porcentagemFaseSolida);
 	double volumeTotal = 0;
-	double razaoDeAspecto = getRazaoDeAspecto();
-	double razaoDeTruncamento = getRazaoDeTruncamento();
 
 	for(int row = 0; row < linhas; ++row){
-		QModelIndex cell1 = model->index(row,COLUNA_X);
-		QModelIndex cell2 = model->index(row,COLUNA_L0);
-		QModelIndex cell3 = model->index(row,COLUNA_IMAGEM_NAO_NORMALIZADA);
-		QModelIndex cell4 = model->index(row,COLUNA_IMAGEM_NORMALIZADA);
-		QModelIndex cell5 = model->index(row,COLUNA_QUANTIDADE);
-		QModelIndex cell6 = model->index(row,COLUNA_COR);
+		QModelIndex cell2 = model->index(row,COLUNA_RAZAO_DE_ASPECTO);
+		QModelIndex cell3 = model->index(row,COLUNA_RAZAO_DE_TRUNCAMENTO);
+		QModelIndex cell4 = model->index(row,COLUNA_L0);
+		QModelIndex cell7 = model->index(row,COLUNA_QUANTIDADE);
+		QModelIndex cell8 = model->index(row,COLUNA_COR);
 
-		double L0 = this->model->data(cell2, Qt::DisplayRole).toDouble();
-		int quantidade = this->model->data(cell5, Qt::DisplayRole).toInt();
+		double razaoDeAspecto = this->model->data(cell2, Qt::DisplayRole).toDouble();
+		double razaoDeTruncamento = this->model->data(cell3, Qt::DisplayRole).toDouble();
+
+		double L0 = this->model->data(cell4, Qt::DisplayRole).toDouble();
+		int quantidade = this->model->data(cell7, Qt::DisplayRole).toInt();
 
 		double volumeDoPrisma = PrismaTriangularTruncado::calcularVolume(razaoDeAspecto,razaoDeTruncamento,L0);
 
 		volumeTotal += volumeDoPrisma*quantidade;
-		
-		QColor cor = qVariantValue<QColor>(this->model->data(cell6, Qt::DisplayRole));
+
+		QColor cor = qVariantValue<QColor>(this->model->data(cell8, Qt::DisplayRole));
 		Cor c = {cor.red()/255.0f,cor.green()/255.0f,cor.blue()/255.0f};
-		
+
 		command->adicionarPrismas(L0,quantidade,c,razaoDeAspecto,razaoDeTruncamento);
 	}
 	double ladoDaCaixa = pow(volumeTotal/porcentagemFaseSolida,1/3.0);
@@ -89,15 +89,18 @@ void DistribuicaoLogNormalDialog::adicionarPrismas(){
 
 void DistribuicaoLogNormalDialog::configurarEditorDeCores(){
 	QItemEditorFactory *factory = new QItemEditorFactory;
-    QItemEditorCreatorBase *colorListCreator = new QStandardItemEditorCreator<ColorListEditor>();
+	QItemEditorCreatorBase *colorListCreator = new QStandardItemEditorCreator<ColorListEditor>();
 	factory->registerEditor(QVariant::Color, colorListCreator);
-    QItemEditorFactory::setDefaultFactory(factory);
+	QItemEditorFactory::setDefaultFactory(factory);
 }
 
 void DistribuicaoLogNormalDialog::configurarModeloDaTabela(){
-	model = new QStandardItemModel(0,6,this);
+	model = new QStandardItemModel(0,8,this);
 
 	model->setHeaderData( COLUNA_X, Qt::Horizontal, QObject::tr("X") );
+	model->setHeaderData( COLUNA_L0, Qt::Horizontal, QObject::tr("L0") );
+	model->setHeaderData( COLUNA_RAZAO_DE_ASPECTO, Qt::Horizontal, QObject::tr("Razão de Aspecto") );
+	model->setHeaderData( COLUNA_RAZAO_DE_TRUNCAMENTO, Qt::Horizontal, QObject::tr("Razão de Truncamento") );
 	model->setHeaderData( COLUNA_L0, Qt::Horizontal, QObject::tr("L0") );
 	model->setHeaderData( COLUNA_IMAGEM_NAO_NORMALIZADA, Qt::Horizontal,  QObject::tr("f(x,o,u) não normalizada"));
 	model->setHeaderData( COLUNA_IMAGEM_NORMALIZADA, Qt::Horizontal, QObject::tr("f(x,o,u) normalizada") );
@@ -108,8 +111,22 @@ void DistribuicaoLogNormalDialog::configurarModeloDaTabela(){
 }
 
 void DistribuicaoLogNormalDialog::configurarCamadaDeViewDaTabela(){
+	QDoubleValidator *validador = new QDoubleValidator(this);
+	validador->setBottom(0);
+	validador->setDecimals(10);
+	TextBoxDelegate *texBox1 = new TextBoxDelegate(validador);
+
+	ui->tableDistribuicao->setSelectionBehavior(QAbstractItemView::SelectRows);
+	ui->tableDistribuicao->setSelectionMode(QAbstractItemView::SingleSelection);
+	ui->tableDistribuicao->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+	ui->tableDistribuicao->setItemDelegateForColumn(COLUNA_RAZAO_DE_ASPECTO,texBox1);
+	ui->tableDistribuicao->setItemDelegateForColumn(COLUNA_RAZAO_DE_TRUNCAMENTO,texBox1);
+
 	ui->tableDistribuicao->setColumnWidth(COLUNA_X,50);
 	ui->tableDistribuicao->setColumnWidth(COLUNA_L0,80);
+	ui->tableDistribuicao->setColumnWidth(COLUNA_RAZAO_DE_ASPECTO,110);
+	ui->tableDistribuicao->setColumnWidth(COLUNA_RAZAO_DE_TRUNCAMENTO,140);
 	ui->tableDistribuicao->setColumnWidth(COLUNA_COR,145);
 	ui->tableDistribuicao->setColumnWidth(COLUNA_QUANTIDADE,80);
 	ui->tableDistribuicao->setColumnWidth(COLUNA_IMAGEM_NORMALIZADA,150);
@@ -123,25 +140,25 @@ void DistribuicaoLogNormalDialog::configurarValidadoresDosCamposDeTexto(){
 	ui->textN0->setValidator(intValidator);
 
 	QDoubleValidator *fracaoDeVazioValidator = new QDoubleValidator(this) ;
-	fracaoDeVazioValidator->setRange(0,100,2);
+	fracaoDeVazioValidator->setRange(0,100,10);
 	ui->textFracaoDeVazio->setValidator(fracaoDeVazioValidator);
 
 	QDoubleValidator *razaoDeAspectoValidator = new QDoubleValidator(this);
-	razaoDeAspectoValidator->setRange(0.001,1,3);
+	razaoDeAspectoValidator->setRange(0.001,1,10);
 	ui->textRazaoDeAspecto->setValidator(razaoDeAspectoValidator);
 
 	QDoubleValidator *razaoDeTruncamentoValidator = new QDoubleValidator(this);
-	razaoDeTruncamentoValidator->setRange(0,0.49,3);
+	razaoDeTruncamentoValidator->setRange(0,0.49,10);
 	ui->textRazaoDeTruncamento->setValidator(razaoDeTruncamentoValidator);
 
 	QDoubleValidator *sigmaMiValidator = new QDoubleValidator(this);
-	razaoDeTruncamentoValidator->setRange(0,100,2);
+	razaoDeTruncamentoValidator->setRange(0,100,10);
 	ui->textSigma->setValidator(sigmaMiValidator);
 	ui->textMi->setValidator(sigmaMiValidator);
 
 	QDoubleValidator *doubleValidator = new QDoubleValidator(this);
 	doubleValidator->setBottom(0);
-	doubleValidator->setDecimals(3);
+	doubleValidator->setDecimals(10);
 
 	ui->textDeltaX->setValidator(doubleValidator);
 	ui->textXn->setValidator(doubleValidator);
@@ -152,8 +169,8 @@ float DistribuicaoLogNormalDialog::getX0(){ return ui->textX0->text().toFloat();
 float DistribuicaoLogNormalDialog::getXn(){ return ui->textXn->text().toFloat(); }
 double DistribuicaoLogNormalDialog::getMi(){ return ui->textMi->text().toDouble(); }
 double DistribuicaoLogNormalDialog::getSigma(){ return ui->textSigma->text().toDouble(); }
-double DistribuicaoLogNormalDialog::getRazaoDeAspecto(){ return ui->textRazaoDeAspecto->text().toDouble(); }
-double DistribuicaoLogNormalDialog::getRazaoDeTruncamento(){ return ui->textRazaoDeTruncamento->text().toDouble(); }
+double DistribuicaoLogNormalDialog::getRazaoDeAspectoInicial(){ return ui->textRazaoDeAspecto->text().toDouble(); }
+double DistribuicaoLogNormalDialog::getRazaoDeTruncamentoInicial(){ return ui->textRazaoDeTruncamento->text().toDouble(); }
 double DistribuicaoLogNormalDialog::getN0(){ return ui->textN0->text().toDouble(); }
 float DistribuicaoLogNormalDialog::getDeltaX(){ return ui->textDeltaX->text().toFloat(); }
 
@@ -164,7 +181,9 @@ void DistribuicaoLogNormalDialog::criarDistribuicaoDeGraos(){
 	double mi = getMi();
 	double sigma = getSigma();
 	double n0 = getN0();
-	
+
+
+	disconnect(this->model,SIGNAL(itemChanged(QStandardItem *)),this,SLOT(calcularL0s())); 
 
 	model->removeRows(0, model->rowCount());
 	double somaDaImagemDaFuncaoLogNormalNaoNormalizado = 0;
@@ -174,37 +193,44 @@ void DistribuicaoLogNormalDialog::criarDistribuicaoDeGraos(){
 		model->insertRow(row);
 
 		QModelIndex cell1 = model->index(row,COLUNA_X);
-		QModelIndex cell2 = model->index(row,COLUNA_L0);
-		QModelIndex cell3 = model->index(row,COLUNA_IMAGEM_NAO_NORMALIZADA);
-		QModelIndex cell4 = model->index(row,COLUNA_IMAGEM_NORMALIZADA);
-		QModelIndex cell5 = model->index(row,COLUNA_QUANTIDADE);
-		QModelIndex cell6 = model->index(row,COLUNA_COR);
+		QModelIndex cell2 = model->index(row,COLUNA_RAZAO_DE_ASPECTO);
+		QModelIndex cell3 = model->index(row,COLUNA_RAZAO_DE_TRUNCAMENTO);
+		QModelIndex cell4 = model->index(row,COLUNA_L0);
+		QModelIndex cell5 = model->index(row,COLUNA_IMAGEM_NAO_NORMALIZADA);
+		QModelIndex cell6 = model->index(row,COLUNA_IMAGEM_NORMALIZADA);
+		QModelIndex cell7 = model->index(row,COLUNA_QUANTIDADE);
+		QModelIndex cell8 = model->index(row,COLUNA_COR);
 
 		double xi = x0 + deltaX*i;
 		model->setData(cell1,QVariant(xi));
-		model->setData(cell2,QVariant(0.0));
+		model->setData(cell2,QVariant(getRazaoDeAspectoInicial()));
+		model->setData(cell3,QVariant(getRazaoDeTruncamentoInicial()));
+		model->setData(cell4,QVariant(0.0));
 		double logNormal = calcularDistribuicaoLogNormal(xi,mi,sigma);
 		somaDaImagemDaFuncaoLogNormalNaoNormalizado += logNormal;
-		model->setData(cell3,QVariant(logNormal));
-		model->setData(cell4,QVariant(0.0));
-		model->setData(cell5,QVariant(0.0));
-		model->setData(cell6,QColor("red"));
+		model->setData(cell5,QVariant(logNormal));
+		model->setData(cell6,QVariant(0.0));
+		model->setData(cell7,QVariant(0.0));
+		model->setData(cell8,QColor("red"));
 	}	
 
 	//normalizando a imagem da função
 	for(int row=0; row<model->rowCount(); ++row){
 		QModelIndex cell1 = model->index(row,COLUNA_IMAGEM_NAO_NORMALIZADA);
-		QModelIndex cell2 = model->index(row,COLUNA_IMAGEM_NORMALIZADA);
-		QModelIndex cell5 = model->index(row,COLUNA_QUANTIDADE);
-		
+		QModelIndex cell6 = model->index(row,COLUNA_IMAGEM_NORMALIZADA);
+		QModelIndex cell7 = model->index(row,COLUNA_QUANTIDADE);
+
 		double imagemNaoNormalizada = this->model->data(cell1, Qt::DisplayRole).toDouble();
 		double imagemNormalizada = imagemNaoNormalizada/somaDaImagemDaFuncaoLogNormalNaoNormalizado;
 		int quantidade = n0 * imagemNormalizada;
-		this->model->setData(cell2,QVariant(imagemNormalizada));
-		this->model->setData(cell5,QVariant(quantidade));
+		this->model->setData(cell6,QVariant(imagemNormalizada));
+		this->model->setData(cell7,QVariant(quantidade));
 	}
 
 	calcularL0s();
+
+	connect(this->model,SIGNAL(itemChanged(QStandardItem *)),this,SLOT(calcularL0s())); 
+
 
 }
 
@@ -217,36 +243,33 @@ double DistribuicaoLogNormalDialog::calcularDistribuicaoLogNormal(double x, doub
 
 
 void DistribuicaoLogNormalDialog::calcularL0s(){
-	double alpha = getRazaoDeAspecto();
-	double beta = getRazaoDeTruncamento();
 	double raizQuadraDe3 = sqrt(3.0);
 	double volumeFaseSolida = 0;
 
-	if (this->ui->radioButtonUsarXComoVolume->isChecked()){
-		for(int row=0; row < model->rowCount(); ++row){			
-			QModelIndex cellX = model->index(row,COLUNA_X);
-			QModelIndex cellL0 = model->index(row,COLUNA_L0);
-			QModelIndex cellQuantidade = model->index(row,COLUNA_QUANTIDADE);
 
-			double x = this->model->data(cellX, Qt::DisplayRole).toDouble();
-			int quantidade = this->model->data(cellQuantidade, Qt::DisplayRole).toInt();
-			double l0 = pow(  x/( (raizQuadraDe3/4.0)*alpha*(1 - 3*pow(beta,2)) ) , 1/3.0);
-			volumeFaseSolida += quantidade * PrismaTriangularTruncado::calcularVolume(alpha,beta,l0);
-			this->model->setData(cellL0,QVariant(l0));
-		}
-	}else{
-		for(int row=0; row < model->rowCount(); ++row){			
-			QModelIndex cellX = model->index(row,COLUNA_X);
-			QModelIndex cellL0 = model->index(row,COLUNA_L0);
-			QModelIndex cellQuantidade = model->index(row,COLUNA_QUANTIDADE);
+	for(int row=0; row < model->rowCount(); ++row){	
+		QModelIndex cellX = model->index(row,COLUNA_X);
+		QModelIndex cellL0 = model->index(row,COLUNA_L0);
+		QModelIndex cellQuantidade = model->index(row,COLUNA_QUANTIDADE);
+		QModelIndex cellAlpha = model->index(row,COLUNA_RAZAO_DE_ASPECTO);
+		QModelIndex cellBeta = model->index(row,COLUNA_RAZAO_DE_TRUNCAMENTO);
 
-			double x = this->model->data(cellX, Qt::DisplayRole).toDouble();
-			int quantidade = this->model->data(cellQuantidade, Qt::DisplayRole).toInt();
-			double l0 = pow( pow(x,3)/( (3*raizQuadraDe3/(2.0*M_PI))*alpha*(1 -3*pow(beta,2)) ),1/3.0);
-			volumeFaseSolida += quantidade * PrismaTriangularTruncado::calcularVolume(alpha,beta,l0);
-			this->model->setData(cellL0,QVariant(l0));
+		double alpha = this->model->data(cellAlpha, Qt::DisplayRole).toDouble();
+		double beta = this->model->data(cellBeta, Qt::DisplayRole).toDouble();
+
+		double x = this->model->data(cellX, Qt::DisplayRole).toDouble();
+		int quantidade = this->model->data(cellQuantidade, Qt::DisplayRole).toInt();
+		double l0 = 0;
+
+		if (this->ui->radioButtonUsarXComoVolume->isChecked()){
+			l0 = pow(  x/( (raizQuadraDe3/4.0)*alpha*(1 - 3*pow(beta,2)) ) , 1/3.0);
+		}else{
+			l0 = pow( pow(x,3)/( (3*raizQuadraDe3/(2.0*M_PI))*alpha*(1 -3*pow(beta,2)) ),1/3.0);
 		}
+		volumeFaseSolida += quantidade * PrismaTriangularTruncado::calcularVolume(alpha,beta,l0);
+		this->model->setData(cellL0,QVariant(l0));
 	}
+
 	ui->labelVolumedaFaseSolida->setText(tr("%1").arg(volumeFaseSolida));
 	bool valorValido;
 	double fracaoVazia = ui->textFracaoDeVazio->text().toDouble(&valorValido);
