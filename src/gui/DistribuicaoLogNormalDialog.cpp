@@ -222,7 +222,7 @@ void DistribuicaoLogNormalDialog::criarDistribuicaoDeGraos(){
 
 		double imagemNaoNormalizada = this->model->data(cell1, Qt::DisplayRole).toDouble();
 		double imagemNormalizada = imagemNaoNormalizada/somaDaImagemDaFuncaoLogNormalNaoNormalizado;
-		int quantidade = n0 * imagemNormalizada;
+		int quantidade = ceil( n0 * imagemNormalizada );
 		this->model->setData(cell6,QVariant(imagemNormalizada));
 		this->model->setData(cell7,QVariant(quantidade));
 	}
