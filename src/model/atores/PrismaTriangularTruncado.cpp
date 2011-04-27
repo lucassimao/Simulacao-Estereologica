@@ -26,16 +26,16 @@ using std::list;
 
 
 /** 
-	Sobre a estrutura, vertices e o significado das variáveis definidas neste construtor
-	ver arquivo docs/PrismaTriangularTruncado.doc
+Sobre a estrutura, vertices e o significado das variáveis definidas neste construtor
+ver arquivo docs/PrismaTriangularTruncado.doc
 */
 PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,MeshFactory *meshFactory,Cor cor):Ator(){
-	
+
 	this->razaoDeAspecto = Parametros::getInstance()->getRazaoAspectoDoPrismaTriangularTruncado();
 	this->razaoDeTruncamento  = Parametros::getInstance()->getRazaoDeTruncamentoDoPrismaTriangularTruncado();
 	this->L0  = Parametros::getInstance()->getL0DoPrismaTriangularTruncado();
 	this->cor = cor;
-	
+
 	double L1  = this->L0 * razaoDeTruncamento;
 	double L2 = this->L0 - 2*L1;
 	double alturaDoPrisma = this->razaoDeAspecto*this->L0;
@@ -88,12 +88,32 @@ PrismaTriangularTruncado::PrismaTriangularTruncado(NxScene *cena,MeshFactory *me
 	actorDesc.globalPose.t  = posicaoInicial;
 	this->ator = cena->createActor(actorDesc);
 	this->ator->userData =  (void *)this;
+
+	double Pi =  3.14159265;
+	NxVec3 vetores[3];
+
+	for(int i=0;i<3;++i){
+		double random=rand()/(RAND_MAX +1.0); // gera um número entre [0;1]	
+		double anguloA = Pi*random;
+		double anguloB = 2*Pi*random;
+
+		double radA = anguloA * Pi/180.0;
+		double radB = anguloB * Pi/180.0;
+
+		double x = sin(anguloA) * cos(anguloB);
+		double y = sin(anguloA)*sin(anguloB);
+		double z = cos(anguloA);
+
+		vetores[i] = NxVec3(x,y,z);
+	}
+
+	this->ator->setGlobalOrientation(NxMat33(vetores[0],vetores[1],vetores[2]));
 }
 
 double PrismaTriangularTruncado::calcularVolume(double razaoDeAspecto,double razaoDeTruncamento,double L0){
 	if ( razaoDeAspecto < 0 || razaoDeAspecto > 1 )
 		throw new runtime_error("Razão de aspecto inválida. Apenas valores 0 <= razaoDeAspecto <= 1 são aceitos");
-		
+
 	if (razaoDeTruncamento<0 || razaoDeTruncamento>0.49)
 		throw new runtime_error("Razão de truncamento inválida. Apenas valores 0 <= razaoDeTruncamento <= 0.5 são aceitos");
 
@@ -136,10 +156,10 @@ bool PrismaTriangularTruncado::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosit
 
 
 InterceptoDeArea* PrismaTriangularTruncado::getIntercepto(NxVec3 planoPos){
-	
+
 	vector<SegmentoDeReta> segmentosDeRetaInterceptados = getSegmentosDeRetaInterceptados(planoPos);
 	int a=segmentosDeRetaInterceptados.size();
-	
+
 	vector<SegmentoDeReta>::const_iterator iterator = segmentosDeRetaInterceptados.begin();
 	list<Ponto> poligonoPontos;
 
@@ -154,7 +174,7 @@ InterceptoDeArea* PrismaTriangularTruncado::getIntercepto(NxVec3 planoPos){
 	}
 
 	assert(poligonoPontos.size(),segmentosDeRetaInterceptados.size());
-	
+
 	return new Poligono(this->cor,poligonoPontos,this->razaoDeAspecto,this->razaoDeTruncamento,this->L0);
 }
 
@@ -177,12 +197,12 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 	qDebug() << verticesAcimaDoPlanoDeCorte.size() << " " << verticesAbaixoDoPlanoDeCorte.size() << endl;
 
 	vector<NxVec3>::const_iterator iteratorVerticesAcimaDoPlanoDeCorte = verticesAcimaDoPlanoDeCorte.begin();
-	
+
 	while(iteratorVerticesAcimaDoPlanoDeCorte!=verticesAcimaDoPlanoDeCorte.end()){
 
 		NxVec3 vec = *iteratorVerticesAcimaDoPlanoDeCorte;
 		Vetor v1(vec.x,vec.y,vec.z);
-		
+
 		vector<NxVec3>::const_iterator iteratorVerticesAbaixoDoPlanoDeCorte = verticesAbaixoDoPlanoDeCorte.begin();
 
 		while(iteratorVerticesAbaixoDoPlanoDeCorte != verticesAbaixoDoPlanoDeCorte.end()){
@@ -192,7 +212,7 @@ inline vector<SegmentoDeReta> PrismaTriangularTruncado::getSegmentosDeRetaInterc
 			segmentos.push_back(SegmentoDeReta(v1,v2));
 			++iteratorVerticesAbaixoDoPlanoDeCorte;
 		}	
-				
+
 		++iteratorVerticesAcimaDoPlanoDeCorte;
 	}
 
@@ -208,7 +228,7 @@ inline NxVec3* PrismaTriangularTruncado::getPosicaoGlobalDosVertices(){
 
 	NxU32 nbVerts = meshDesc.numVertices;	
 	assert(nbVerts ==12);
-	
+
 	// ver arquivo docs\PrismaTriangularTruncado.doc para
 	// conhecer a ordem em que esses pontos estão definidos
 	NxVec3* points = (NxVec3 *)meshDesc.points;
@@ -216,6 +236,6 @@ inline NxVec3* PrismaTriangularTruncado::getPosicaoGlobalDosVertices(){
 	// convertendo de posicionamento local p/ global
 	for(register int i=0;i<12;++i)
 		vertices[i] = (pose.M * points[i] + pose.t);
-	
+
 	return vertices;
 }

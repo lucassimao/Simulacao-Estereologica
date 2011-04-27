@@ -79,6 +79,26 @@ PrismaTriangular::PrismaTriangular(NxScene *cena,MeshFactory *meshFactory,Cor co
 		this->ator->userData =  (void *)this;
 
 
+		double Pi =  3.14159265;
+		NxVec3 vetores[3];
+
+		for(int i=0;i<3;++i){
+			double random=rand()/(RAND_MAX +1.0); // gera um número entre [0;1]	
+			double anguloA = Pi*random;
+			double anguloB = 2*Pi*random;
+
+			double radA = anguloA * Pi/180.0;
+			double radB = anguloB * Pi/180.0;
+
+			double x = sin(anguloA) * cos(anguloB);
+			double y = sin(anguloA)*sin(anguloB);
+			double z = cos(anguloA);
+
+			vetores[i] = NxVec3(x,y,z);
+		}
+
+		this->ator->setGlobalOrientation(NxMat33(vetores[0],vetores[1],vetores[2]));
+
 }
 PrismaTriangular::~PrismaTriangular(){
 
