@@ -33,6 +33,9 @@ void ExportadorParaArquivo::exportarPlanosDeCorte(){
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
+	exportarInterceptosMedioParaPrisma();
+	exportarInterceptosMedioParaEsfera();
+
 }
 
 
@@ -352,4 +355,253 @@ void ExportadorParaArquivo::salvarQtdeDePontosInternos(int plano_pk, ofstream &o
 	}
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+}
+
+void ExportadorParaArquivo::exportarInterceptosMedioParaPrisma(){
+	exportarInterceptoDeAreaMedioParaPrisma();
+	exportarInterceptoDePerimetroMedioParaPrisma();
+	exportarInterceptoLinearMedioParaPrisma();
+}
+
+void ExportadorParaArquivo::exportarInterceptosMedioParaEsfera(){
+	exportarInterceptoDeAreaMedioParaEsfera();
+	exportarInterceptoLinearMedioParaEsfera();
+	exportarInterceptoDePerimetroMedioParaEsfera();
+}
+
+void ExportadorParaArquivo::exportarInterceptoLinearMedioParaPrisma(){
+	locale ptBR(locale(),new WithComma);
+	ostringstream fileName;
+	fileName << this->destino << "/interceptoLinearMedioParaPrisma.csv"; 
+
+	ofstream file(fileName.str().c_str(),std::ios::out);
+	file.imbue(ptBR);
+	file << "Plano;Intercepto linear médio" << std::endl;
+
+	sqlite3_stmt *stmt = 0;
+	ostringstream select;
+	select << "select pla.rowid,pla.altura, avg(ip.tamanho) from poligonos po,planoDeCorte pla,interceptosLineares_poligonos ip";
+	select << " where pla.rowid=po.planoDeCorte_fk and ip.poligono_fk=po.rowid group by pla.rowid order by pla.rowid;";
+
+	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
+	if( res==SQLITE_OK && stmt ){	
+
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+
+		while(res != SQLITE_DONE){
+			int plano = sqlite3_column_int(stmt,0);
+			double alturaPlano =  sqlite3_column_double(stmt,1);
+			double interceptoLinearMedio = sqlite3_column_double(stmt,2);
+			file << "Plano " << plano << "("<<alturaPlano<< ");" << interceptoLinearMedio << std::endl;
+
+			res = sqlite3_step(stmt);
+		}	
+
+		sqlite3_finalize(stmt);
+
+		file.close();
+
+	}
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+}
+
+void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaPrisma(){
+	locale ptBR(locale(),new WithComma);
+	ostringstream fileName;
+	fileName << this->destino << "/interceptoDePerimetroMedioParaPrisma.csv"; 
+
+	ofstream file(fileName.str().c_str(),std::ios::out);
+	file.imbue(ptBR);
+	file << "Plano;Intercepto de perímetro médio" << std::endl;
+
+	sqlite3_stmt *stmt = 0;
+	ostringstream select;
+	select << "select pla.rowid,pla.altura, avg(po.perimetro) from poligonos po,planoDeCorte pla where pla.rowid=po.planoDeCorte_fk group by pla.rowid order by pla.rowid;";
+
+	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
+	if( res==SQLITE_OK && stmt ){	
+
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+
+		while(res != SQLITE_DONE){
+			int plano = sqlite3_column_int(stmt,0);
+			double alturaPlano =  sqlite3_column_double(stmt,1);
+			double interceptoDePerimetroMedio = sqlite3_column_double(stmt,2);
+			file << "Plano " << plano << "("<<alturaPlano<< ");" << interceptoDePerimetroMedio << std::endl;
+
+			res = sqlite3_step(stmt);
+		}	
+
+		sqlite3_finalize(stmt);
+
+		file.close();
+
+	}
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+
+}
+void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaEsfera(){
+	locale ptBR(locale(),new WithComma);
+	ostringstream fileName;
+	fileName << this->destino << "/interceptoDePerimetroMedioParaEsferas.csv"; 
+
+	ofstream file(fileName.str().c_str(),std::ios::out);
+	file.imbue(ptBR);
+	file << "Plano;Intercepto de perímetro médio" << std::endl;
+
+	sqlite3_stmt *stmt = 0;
+	ostringstream select;
+	select << "select pla.rowid,pla.altura, avg(2*3.14159265*d.raio) from discos d,planoDeCorte pla where pla.rowid=d.planoDeCorte_fk group by pla.rowid order by pla.rowid;";
+
+	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
+	if( res==SQLITE_OK && stmt ){	
+
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+
+		while(res != SQLITE_DONE){
+			int plano = sqlite3_column_int(stmt,0);
+			double alturaPlano =  sqlite3_column_double(stmt,1);
+			double interceptoDePerimetroMedio = sqlite3_column_double(stmt,2);
+			file << "Plano " << plano << "("<<alturaPlano<< ");" << interceptoDePerimetroMedio << std::endl;
+
+			res = sqlite3_step(stmt);
+		}	
+
+		sqlite3_finalize(stmt);
+
+		file.close();
+
+	}
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+}
+
+void ExportadorParaArquivo::exportarInterceptoLinearMedioParaEsfera(){
+	locale ptBR(locale(),new WithComma);
+	ostringstream fileName;
+	fileName << this->destino << "/interceptoLinearMedioParaEsferas.csv"; 
+
+	ofstream file(fileName.str().c_str(),std::ios::out);
+	file.imbue(ptBR);
+	file << "Plano;Intercepto linear médio" << std::endl;
+
+	sqlite3_stmt *stmt = 0;
+	ostringstream select;
+	select << "select pla.rowid,pla.altura, avg(id.tamanho) from discos d,planoDeCorte pla,interceptosLineares_discos id";
+	select << " where pla.rowid=d.planoDeCorte_fk and id.disco_fk=d.rowid group by pla.rowid order by pla.rowid;";
+
+	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
+	if( res==SQLITE_OK && stmt ){	
+
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+
+		while(res != SQLITE_DONE){
+			int plano = sqlite3_column_int(stmt,0);
+			double alturaPlano =  sqlite3_column_double(stmt,1);
+			double interceptoLinearMedio = sqlite3_column_double(stmt,2);
+			file << "Plano " << plano << "("<<alturaPlano<< ");" << interceptoLinearMedio << std::endl;
+
+			res = sqlite3_step(stmt);
+		}	
+
+		sqlite3_finalize(stmt);
+
+		file.close();
+
+	}
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+}
+
+void ExportadorParaArquivo::exportarInterceptoDeAreaMedioParaEsfera(){
+	locale ptBR(locale(),new WithComma);
+	ostringstream fileName;
+	fileName << this->destino << "/interceptoDeAreaMedioParaEsfera.csv"; 
+
+	ofstream file(fileName.str().c_str(),std::ios::out);
+	file.imbue(ptBR);
+	file << "Plano;Intercepto de área médio" << std::endl;
+
+	sqlite3_stmt *stmt = 0;
+	ostringstream select;
+	select << "select pla.rowid,pla.altura, avg(3.14159265*d.raio*d.raio) from discos d,planoDeCorte pla where pla.rowid=d.planoDeCorte_fk group by pla.rowid order by pla.rowid;";
+
+	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
+	if( res==SQLITE_OK && stmt ){	
+
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+
+		while(res != SQLITE_DONE){
+			int plano = sqlite3_column_int(stmt,0);
+			double alturaPlano =  sqlite3_column_double(stmt,1);
+			double interceptoDeAreaMedio = sqlite3_column_double(stmt,2);
+			file << "Plano " << plano << "("<<alturaPlano<< ");" << interceptoDeAreaMedio << std::endl;
+
+			res = sqlite3_step(stmt);
+		}	
+
+		sqlite3_finalize(stmt);
+
+		file.close();
+
+	}
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+}
+
+void ExportadorParaArquivo::exportarInterceptoDeAreaMedioParaPrisma(){
+	locale ptBR(locale(),new WithComma);
+	ostringstream fileName;
+	fileName << this->destino << "/interceptoDeAreaMedioParaPrisma.csv"; 
+
+	ofstream file(fileName.str().c_str(),std::ios::out);
+	file.imbue(ptBR);
+	file << "Plano;Intercepto de área médio" << std::endl;
+
+	sqlite3_stmt *stmt = 0;
+	ostringstream select;
+	select << "select pla.rowid,pla.altura, avg(po.area) from poligonos po,planoDeCorte pla where pla.rowid=po.planoDeCorte_fk group by pla.rowid order by pla.rowid;";
+
+	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
+	if( res==SQLITE_OK && stmt ){	
+
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+
+		while(res != SQLITE_DONE){
+			int plano = sqlite3_column_int(stmt,0);
+			double alturaPlano =  sqlite3_column_double(stmt,1);
+			double interceptoDeAreaMedio = sqlite3_column_double(stmt,2);
+			file << "Plano " << plano << "("<<alturaPlano<< ");" << interceptoDeAreaMedio << std::endl;
+
+			res = sqlite3_step(stmt);
+		}	
+
+		sqlite3_finalize(stmt);
+
+		file.close();
+
+	}
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+
 }

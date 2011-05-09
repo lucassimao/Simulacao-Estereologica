@@ -25,6 +25,8 @@ namespace simulacao{
 			ExportadorParaArquivo(string &destino, sqlite3* db);
 			void exportarPlanosDeCorte();
 			void exportarTabelasDeProbabilidade(int qtdeClassesDeIntercepto);
+			void exportarInterceptosMedioParaPrisma();
+			void exportarInterceptosMedioParaEsfera();
 
 		private:
 			string destino;
@@ -37,6 +39,14 @@ namespace simulacao{
 			void salvarInterceptosLineares(int plano_pk, ofstream &outFile);
 			void salvarQtdeDePontosInternos(int plano_pk, ofstream &outFile);
 			void salvarInterceptosDePoro(int plano_pk);
+
+			void exportarInterceptoDeAreaMedioParaPrisma();
+			void exportarInterceptoLinearMedioParaPrisma();
+			void exportarInterceptoDePerimetroMedioParaPrisma();
+
+			void exportarInterceptoDeAreaMedioParaEsfera();
+			void exportarInterceptoLinearMedioParaEsfera();
+			void exportarInterceptoDePerimetroMedioParaEsfera();
 		};
 	}
 }
