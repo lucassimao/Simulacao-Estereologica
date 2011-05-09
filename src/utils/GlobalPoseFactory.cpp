@@ -17,11 +17,11 @@ NxVec3 GlobalPoseFactory::newGlobalPosition(){
 	double arestaDaCaixa = Parametros::getInstance()->getArestaDaCaixa();
 
 	int sinal = sinais[rand() % 2];
-	newGlobalPosition.x = sinal * fmod( rand() , (arestaDaCaixa/2) ); 
+	newGlobalPosition.x = sinal * fmod( rand() , (arestaDaCaixa/2.2) ); 
 	sinal = sinais[rand() % 2];
-	newGlobalPosition.y = Parametros::getInstance()->getCentroDeMassaDaCaixa() + sinal  * fmod( rand() , arestaDaCaixa/2); 
+	newGlobalPosition.y = Parametros::getInstance()->getCentroDeMassaDaCaixa() + sinal  * fmod( rand() , arestaDaCaixa/2.2); 
 	sinal = sinais[rand() % 2];
-	newGlobalPosition.z = sinal  * fmod(rand() , (arestaDaCaixa/2));  
+	newGlobalPosition.z = sinal  * fmod(rand() , (arestaDaCaixa/2.2));  
 	
 	return newGlobalPosition;
 }
