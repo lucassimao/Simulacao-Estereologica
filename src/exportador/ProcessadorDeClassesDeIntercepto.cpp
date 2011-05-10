@@ -395,7 +395,7 @@ vector<ClasseDeGrao*> ProcessadorDeClassesDeIntercepto::getClassesDeGraoPrismati
 	vector<ClasseDeGrao*> vetor;
 
 	sqlite3_stmt *poligonos_stmt = 0;
-	const char *classes_select =  "select distinct razaoDeAspectoOriginaria, razaoDeTruncamentoOriginaria, L0 from poligonos;";
+	const char *classes_select =  "select distinct razaoDeAspectoOriginaria, razaoDeTruncamentoOriginaria, L0,count(distinct atorID) from poligonos;";
 
 	int res = sqlite3_prepare_v2(this->db,classes_select,-1,&poligonos_stmt,NULL);
 
@@ -412,6 +412,7 @@ vector<ClasseDeGrao*> ProcessadorDeClassesDeIntercepto::getClassesDeGraoPrismati
 			classe->razaoDeAspecto = sqlite3_column_double(poligonos_stmt,0);
 			classe->razaoDeTruncamento = sqlite3_column_double(poligonos_stmt,1);
 			classe->L0 = sqlite3_column_double(poligonos_stmt,2);
+			classe->qtdeDeGraosDaClasse = sqlite3_column_int(poligonos_stmt,3);
 
 			vetor.push_back(classe);
 

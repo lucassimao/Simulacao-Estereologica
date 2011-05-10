@@ -155,7 +155,7 @@ InterceptoDeArea* PrismaTriangular::getIntercepto(NxVec3 planoPos){
 		iterator++;
 	}
 
-	return new Poligono(this->cor,poligonoPontos,this->altura/this->base,0,this->base);
+	return new Poligono(this->cor,poligonoPontos,this->altura/this->base,0,this->base,getAtorID());
 }
 
 inline vector<SegmentoDeReta> PrismaTriangular::getSegmentosDeRetaInterceptados(NxVec3 planoPos){

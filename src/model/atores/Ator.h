@@ -17,6 +17,10 @@ namespace simulacao{
 
 			class Ator
 			{			
+			private:
+				int atorID;
+				static int nextActorID;
+
 			protected:
 				NxActor *ator;
 				
@@ -29,6 +33,7 @@ namespace simulacao{
 				virtual bool estaInterceptadoPeloPlano(NxVec3 planoGlobalPosition) = 0;
 				virtual InterceptoDeArea* getIntercepto(NxVec3 planoGlobalPosition) = 0;
 				virtual double getVolume() = 0;
+				int getAtorID(){ return this->atorID;};
 			};
 
 		}

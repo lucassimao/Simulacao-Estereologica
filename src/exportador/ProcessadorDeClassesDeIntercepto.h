@@ -19,6 +19,7 @@ namespace simulacao{
 
 		class ClasseDeGrao{			
 		public:
+			int qtdeDeGraosDaClasse;
 			virtual double getDiametroEquivalente()  = 0;
 		};
 
@@ -62,12 +63,12 @@ namespace simulacao{
 			int getQuantidadeDeInterceptosEsfericosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGraoEsferico *classe,TipoDeIntercepto tipoDeIntercepto);
 			double getMenorInterceptoEsferico(TipoDeIntercepto tipoDeIntercepto);
 			double getMaiorInterceptoEsferico(TipoDeIntercepto tipoDeIntercepto);
-			vector<ClasseDeGrao*> getClassesDeGraoEsfericos();
+			
 
 			int getQuantidadeDeInterceptosPrismaticosNoIntervalo(double subClasseMinima,double subClasseMaxima,ClasseDeGraoPrismatico *classe,TipoDeIntercepto tipoDeIntercepto);
 			double getMenorInterceptoPrismatico(TipoDeIntercepto tipoDeIntercepto);
 			double getMaiorInterceptoPrismatico(TipoDeIntercepto tipoDeIntercepto);
-			vector<ClasseDeGrao*> getClassesDeGraoPrismaticos();
+			
 
 			int getQuantidadeDeInterceptosPorosos(double limiteInferior, double limiteSuperior);
 		public:
@@ -78,7 +79,9 @@ namespace simulacao{
 			double getMenorIntercepto(TipoDeIntercepto tipoDeIntercepto);
 			double getMaiorIntercepto(TipoDeIntercepto tipoDeIntercepto);
 			TipoDeGrao getTipoDeGraoNaSimulacao();
-
+			
+			vector<ClasseDeGrao*> getClassesDeGraoEsfericos();
+			vector<ClasseDeGrao*> getClassesDeGraoPrismaticos();
 			vector<vector<int>> gerarTabelaDeDistribuicaoDeInterceptos(TipoDeIntercepto tipoDeIntercepto, int qtdeDeClassesDeIntercepto);
 
 		};

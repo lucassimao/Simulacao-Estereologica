@@ -8,11 +8,15 @@
 using namespace simulacao::model::atores;
 using std::runtime_error;
 
+int Ator::nextActorID = 1;
+
 Ator::Ator()
 {
 	this->cor.r =1;
 	this->cor.g =1;
 	this->cor.b = 1;
+	this->atorID = Ator::nextActorID;
+	Ator::nextActorID += 1;
 
 }
 

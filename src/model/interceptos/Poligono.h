@@ -27,8 +27,9 @@ namespace simulacao{
 			public:
 				Ponto verticeComMenorZ;
 				Ponto verticeComMaiorZ;
+				int atorID;
 
-				Poligono(Cor cor,list<Ponto> vertices,double razaoDeAspectoOriginal,double razaoDeTruncamentoOriginal,double L0Original);
+				Poligono(Cor cor,list<Ponto> vertices,double razaoDeAspectoOriginal,double razaoDeTruncamentoOriginal,double L0Original,int atorID);
 				
 
 				void accept(AbstractDrawVisitor *);

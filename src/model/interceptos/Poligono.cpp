@@ -25,7 +25,7 @@ using namespace simulacao::math::mathVisitor;
 
 
 
-Poligono::Poligono(Cor cor,list<Ponto> v,double razaoDeAspectoOriginal,double razaoDeTruncamentoOriginal,double L0Original):
+Poligono::Poligono(Cor cor,list<Ponto> v,double razaoDeAspectoOriginal,double razaoDeTruncamentoOriginal,double L0Original,int atorID):
 InterceptoDeArea(cor),razaoDeAspectoOriginal( razaoDeAspectoOriginal ),	razaoDeTruncamentoOriginal( razaoDeTruncamentoOriginal ),L0Original( L0Original ) 
 {
 	assert(v.size() >= 3 );
@@ -36,6 +36,7 @@ InterceptoDeArea(cor),razaoDeAspectoOriginal( razaoDeAspectoOriginal ),	razaoDeT
 
 	assert(this->vertices.size()>=3);
 	
+	this->atorID = atorID;
 	this->verticeComMaiorZ = procurarVerticeComMaiorZ();
 	this->verticeComMenorZ = procurarVerticeComMenorZ();	
 	this->arestas = coletarArestas();	

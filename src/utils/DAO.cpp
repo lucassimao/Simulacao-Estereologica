@@ -242,10 +242,10 @@ __int64 DAO::salvarPoligono(__int64 planoDeCorte_id, Poligono *p){
 	ostringstream  insert;
 
 	insert << "insert into poligonos('razaoDeAspectoOriginaria','razaoDeTruncamentoOriginaria',";
-	insert << "'planoDeCorte_fk','L0','area','perimetro','r','g','b') values("<< p->razaoDeAspectoOriginal;
+	insert << "'planoDeCorte_fk','L0','area','perimetro','r','g','b','atorID') values("<< p->razaoDeAspectoOriginal;
 	insert << ","<< p->razaoDeTruncamentoOriginal <<","<< planoDeCorte_id <<",";
 	insert << p->L0Original << "," << p->getArea() << "," << p->getPerimetro() << ",";	
-	insert << p->getCor().r << "," << p->getCor().g << "," << p->getCor().b << ");";	
+	insert << p->getCor().r << "," << p->getCor().g << "," << p->getCor().b << "," << p->atorID <<  ");";	
 	
     int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
@@ -275,7 +275,7 @@ __int64 DAO::salvarPoligono(__int64 planoDeCorte_id, Poligono *p){
 		int rc = sqlite3_exec(this->db,insert2.str().c_str(), 0, 0, &errStr);
 		if ( rc!=SQLITE_OK )
 		{
-			//qDebug() << errStr;
+			qDebug() << errStr;
 			throw runtime_error(errStr);
 			sqlite3_free(errStr);
 			return -1;

@@ -31,7 +31,6 @@ namespace simulacao{
 		private:
 			string destino;
 			sqlite3 *db;
-			int qtdeClassesDeIntercepto;
 
 			void exportarPlanoDeCorte(int plano_pk);
 			void salvarAreaDosPoligonos(int plano_pk, ofstream &outFile);
