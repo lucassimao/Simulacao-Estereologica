@@ -376,11 +376,11 @@ void ExportadorParaArquivo::exportarInterceptoLinearMedioParaPrisma(){
 
 	ofstream file(fileName.str().c_str(),std::ios::out);
 	file.imbue(ptBR);
-	file << "Altura do Plano;Intercepto linear médio" << std::endl;
+	file << "Plano;Altura do Plano;Intercepto linear médio" << std::endl;
 
 	sqlite3_stmt *stmt = 0;
 	ostringstream select;
-	select << "select pla.altura, avg(ip.tamanho) from poligonos po,planoDeCorte pla,interceptosLineares_poligonos ip";
+	select << "select pla.rowid, pla.altura, avg(ip.tamanho) from poligonos po,planoDeCorte pla,interceptosLineares_poligonos ip";
 	select << " where pla.rowid=po.planoDeCorte_fk and ip.poligono_fk=po.rowid group by pla.rowid order by pla.rowid;";
 
 	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
@@ -392,9 +392,10 @@ void ExportadorParaArquivo::exportarInterceptoLinearMedioParaPrisma(){
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
 
 		while(res != SQLITE_DONE){
-			double alturaPlano =  sqlite3_column_double(stmt,0);
-			double interceptoLinearMedio = sqlite3_column_double(stmt,1);
-			file << alturaPlano << ";" << interceptoLinearMedio << std::endl;
+			int idPlano = sqlite3_column_int(stmt,0);
+			double alturaPlano =  sqlite3_column_double(stmt,1);
+			double interceptoLinearMedio = sqlite3_column_double(stmt,2);
+			file <<"Plano " << idPlano << ";" << alturaPlano << ";" << interceptoLinearMedio << std::endl;
 			res = sqlite3_step(stmt);
 		}
 		sqlite3_finalize(stmt);
@@ -450,11 +451,11 @@ void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaPrisma(){
 
 	ofstream file(fileName.str().c_str(),std::ios::out);
 	file.imbue(ptBR);
-	file << "Altura do Plano;Intercepto de perímetro médio" << std::endl;
+	file << "Plano;Altura do Plano;Intercepto de perímetro médio" << std::endl;
 
 	sqlite3_stmt *stmt = 0;
 	ostringstream select;
-	select << "select pla.altura, avg(po.perimetro) from poligonos po,planoDeCorte pla where pla.rowid=po.planoDeCorte_fk group by pla.rowid order by pla.rowid;";
+	select << "select pla.rowid,pla.altura, avg(po.perimetro) from poligonos po,planoDeCorte pla where pla.rowid=po.planoDeCorte_fk group by pla.rowid order by pla.rowid;";
 
 	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
 	if( res==SQLITE_OK && stmt ){	
@@ -465,9 +466,10 @@ void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaPrisma(){
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
 
 		while(res != SQLITE_DONE){
-			double alturaPlano =  sqlite3_column_double(stmt,0);
-			double interceptoDePerimetroMedio = sqlite3_column_double(stmt,1);
-			file << alturaPlano << ";" << interceptoDePerimetroMedio << std::endl;
+			int idPlano = sqlite3_column_int(stmt,0);
+			double alturaPlano =  sqlite3_column_double(stmt,1);
+			double interceptoDePerimetroMedio = sqlite3_column_double(stmt,2);
+			file <<"Plano "<<idPlano << ";"<< alturaPlano << ";" << interceptoDePerimetroMedio << std::endl;
 
 			res = sqlite3_step(stmt);
 		}	
@@ -526,7 +528,7 @@ void ExportadorParaArquivo::exportarInterceptoDeAreaMedioParaPrisma(){
 
 	ofstream file(fileName.str().c_str(),std::ios::out);
 	file.imbue(ptBR);
-	file << "Altura do Plano;Intercepto de área médio" << std::endl;
+	file << "Plano;Altura do Plano;Intercepto de área médio" << std::endl;
 
 	sqlite3_stmt *stmt = 0;
 	ostringstream select;
@@ -541,10 +543,10 @@ void ExportadorParaArquivo::exportarInterceptoDeAreaMedioParaPrisma(){
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
 
 		while(res != SQLITE_DONE){
-			int plano = sqlite3_column_int(stmt,0);
+			int idPlano = sqlite3_column_int(stmt,0);
 			double alturaPlano =  sqlite3_column_double(stmt,1);
 			double interceptoDeAreaMedio = sqlite3_column_double(stmt,2);
-			file << alturaPlano<< ";" << interceptoDeAreaMedio << std::endl;
+			file <<"Plano "<<idPlano<< ";"<< alturaPlano<< ";" << interceptoDeAreaMedio << std::endl;
 
 			res = sqlite3_step(stmt);
 		}	
