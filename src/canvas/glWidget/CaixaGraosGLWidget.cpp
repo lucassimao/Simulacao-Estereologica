@@ -72,7 +72,7 @@ void CaixaGraosGLWidget::initializeGL()
 	glEnable(GL_LIGHTING);
 	
 	float Position[] = {80.0f,80.0f, 70.0f,1.0f };	
-	glLightfv(GL_LIGHT0, GL_SPECULAR, Position);
+	glLightfv(GL_LIGHT0, GL_POSITION, Position);
 
 	glEnable(GL_LIGHT0);
 
