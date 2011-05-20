@@ -33,8 +33,27 @@ void ExportadorParaArquivo::exportarPlanosDeCorte(){
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
-	exportarInterceptosMedioParaPrisma();
-	//exportarInterceptosMedioParaEsfera();
+
+	// Verificando se deve exportar interceptos médios
+	// para esfera ou prismas
+	sqlite3_stmt *contador_stmt = 0;
+	const char *contador_select =  "select count(*) from poligonos;";
+
+	res = sqlite3_prepare_v2(this->db,contador_select,-1,&contador_stmt,NULL);
+	assert( res==SQLITE_OK && contador_stmt );
+	res = sqlite3_step(contador_stmt);
+	assert(res == SQLITE_ROW);
+
+	int qtde = sqlite3_column_double(contador_stmt,0);
+	if (qtde == 0){
+		exportarInterceptosMedioParaEsfera();
+	}else{
+		exportarInterceptosMedioParaPrisma();
+	}
+
+	res = sqlite3_step(contador_stmt);
+	assert(res == SQLITE_DONE);
+	sqlite3_finalize(contador_stmt);
 
 }
 
