@@ -11,9 +11,13 @@ DistribuicaoDeInterceptosDialog::DistribuicaoDeInterceptosDialog(QWidget *parent
 	ui->setupUi(this);
 	this->setWindowFlags(Qt::Window);
 	this->db = db;
+	
 	this->processador = new ProcessadorDeClassesDeIntercepto(db);
 	if (this->processador->getTipoDeGraoNaSimulacao() == Esferico){
 		ui->labelDiametro->setText("Tamanho do Grão(Diâmetro)");
+	}
+	if (this->processador->getTipoDeGraoNaSimulacao() == TipoDeGrao::Prismatico){
+		ui->radioButtonPoro->setText("Linear (Fase Ligante)");
 	}
 	criarCabecalhosDaTabela();
 }
