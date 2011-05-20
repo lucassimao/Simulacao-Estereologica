@@ -95,15 +95,14 @@ void DistribuicaoLogNormalDialog::configurarEditorDeCores(){
 }
 
 void DistribuicaoLogNormalDialog::configurarModeloDaTabela(){
-	model = new QStandardItemModel(0,8,this);
+	model = new QStandardItemModel(0,7,this);
 
 	model->setHeaderData( COLUNA_X, Qt::Horizontal, QObject::tr("X") );
 	model->setHeaderData( COLUNA_L0, Qt::Horizontal, QObject::tr("L0") );
 	model->setHeaderData( COLUNA_RAZAO_DE_ASPECTO, Qt::Horizontal, QObject::tr("Razão de Aspecto") );
 	model->setHeaderData( COLUNA_RAZAO_DE_TRUNCAMENTO, Qt::Horizontal, QObject::tr("Razão de Truncamento") );
 	model->setHeaderData( COLUNA_L0, Qt::Horizontal, QObject::tr("L0") );
-	model->setHeaderData( COLUNA_IMAGEM_NAO_NORMALIZADA, Qt::Horizontal,  QObject::tr("f(x,o,u) não normalizada"));
-	model->setHeaderData( COLUNA_IMAGEM_NORMALIZADA, Qt::Horizontal, QObject::tr("f(x,o,u) normalizada") );
+	model->setHeaderData( COLUNA_IMAGEM_NORMALIZADA, Qt::Horizontal, QObject::tr("função de distribuição normalizada") );
 	model->setHeaderData( COLUNA_QUANTIDADE, Qt::Horizontal, QObject::tr("Quantidade") );
 	model->setHeaderData( COLUNA_COR, Qt::Horizontal, QObject::tr("Cor") );
 
@@ -129,8 +128,7 @@ void DistribuicaoLogNormalDialog::configurarCamadaDeViewDaTabela(){
 	ui->tableDistribuicao->setColumnWidth(COLUNA_RAZAO_DE_TRUNCAMENTO,140);
 	ui->tableDistribuicao->setColumnWidth(COLUNA_COR,145);
 	ui->tableDistribuicao->setColumnWidth(COLUNA_QUANTIDADE,80);
-	ui->tableDistribuicao->setColumnWidth(COLUNA_IMAGEM_NORMALIZADA,150);
-	ui->tableDistribuicao->setColumnWidth(COLUNA_IMAGEM_NAO_NORMALIZADA,150);
+	ui->tableDistribuicao->setColumnWidth(COLUNA_IMAGEM_NORMALIZADA,210);
 }
 
 void DistribuicaoLogNormalDialog::configurarValidadoresDosCamposDeTexto(){
@@ -196,10 +194,9 @@ void DistribuicaoLogNormalDialog::criarDistribuicaoDeGraos(){
 		QModelIndex cell2 = model->index(row,COLUNA_RAZAO_DE_ASPECTO);
 		QModelIndex cell3 = model->index(row,COLUNA_RAZAO_DE_TRUNCAMENTO);
 		QModelIndex cell4 = model->index(row,COLUNA_L0);
-		QModelIndex cell5 = model->index(row,COLUNA_IMAGEM_NAO_NORMALIZADA);
-		QModelIndex cell6 = model->index(row,COLUNA_IMAGEM_NORMALIZADA);
-		QModelIndex cell7 = model->index(row,COLUNA_QUANTIDADE);
-		QModelIndex cell8 = model->index(row,COLUNA_COR);
+		QModelIndex cell5 = model->index(row,COLUNA_IMAGEM_NORMALIZADA);
+		QModelIndex cell6 = model->index(row,COLUNA_QUANTIDADE);
+		QModelIndex cell7 = model->index(row,COLUNA_COR);
 
 		double xi = x0 + deltaX*i;
 		model->setData(cell1,QVariant(xi));
@@ -208,23 +205,26 @@ void DistribuicaoLogNormalDialog::criarDistribuicaoDeGraos(){
 		model->setData(cell4,QVariant(0.0));
 		double logNormal = calcularDistribuicaoLogNormal(xi,mi,sigma);
 		somaDaImagemDaFuncaoLogNormalNaoNormalizado += logNormal;
-		model->setData(cell5,QVariant(logNormal));
+		
+		model->setData(cell5,QVariant(0.0));
 		model->setData(cell6,QVariant(0.0));
-		model->setData(cell7,QVariant(0.0));
-		model->setData(cell8,QColor("red"));
+		model->setData(cell7,QColor("red"));
 	}	
 
 	//normalizando a imagem da função
 	for(int row=0; row<model->rowCount(); ++row){
-		QModelIndex cell1 = model->index(row,COLUNA_IMAGEM_NAO_NORMALIZADA);
-		QModelIndex cell6 = model->index(row,COLUNA_IMAGEM_NORMALIZADA);
-		QModelIndex cell7 = model->index(row,COLUNA_QUANTIDADE);
+		QModelIndex cell1 = model->index(row,COLUNA_X);
+		double xi = this->model->data(cell1, Qt::DisplayRole).toDouble();
 
-		double imagemNaoNormalizada = this->model->data(cell1, Qt::DisplayRole).toDouble();
+		QModelIndex cell5 = model->index(row,COLUNA_IMAGEM_NORMALIZADA);
+		QModelIndex cell6 = model->index(row,COLUNA_QUANTIDADE);
+		
+		double imagemNaoNormalizada = calcularDistribuicaoLogNormal(xi,mi,sigma);
 		double imagemNormalizada = imagemNaoNormalizada/somaDaImagemDaFuncaoLogNormalNaoNormalizado;
-		int quantidade = ceil( n0 * imagemNormalizada );
-		this->model->setData(cell6,QVariant(imagemNormalizada));
-		this->model->setData(cell7,QVariant(quantidade));
+		int quantidade = floor ( n0 * imagemNormalizada + 0.5 );
+
+		this->model->setData(cell5,QVariant(imagemNormalizada));
+		this->model->setData(cell6,QVariant(quantidade));
 	}
 
 	calcularL0s();

@@ -46,10 +46,9 @@ namespace simulacao	{
 			#define COLUNA_RAZAO_DE_ASPECTO 1
 			#define COLUNA_RAZAO_DE_TRUNCAMENTO 2
 			#define COLUNA_L0 3
-			#define COLUNA_IMAGEM_NAO_NORMALIZADA 4
-			#define COLUNA_IMAGEM_NORMALIZADA 5
-			#define COLUNA_QUANTIDADE 6
-			#define COLUNA_COR 7
+			#define COLUNA_IMAGEM_NORMALIZADA 4
+			#define COLUNA_QUANTIDADE 5
+			#define COLUNA_COR 6
 		public:
 			DistribuicaoLogNormalDialog(QWidget *parent,SimulacaoCaixa *simulacao);
 			AdicionarObjetosCommand * getCommand(){ return this->command;}
