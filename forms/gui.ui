@@ -561,7 +561,7 @@
     </property>
     <widget class="QMenu" name="menuAdi_o_Sistem_tica">
      <property name="title">
-      <string>Adição Sistemática</string>
+      <string>Distribuição de Grãos</string>
      </property>
      <widget class="QMenu" name="menuCom_volume_da_Caixa_Fixo">
       <property name="title">
@@ -584,7 +584,6 @@
     <addaction name="actionPercola_o"/>
     <addaction name="actionExecutarCortesSistematicos"/>
     <addaction name="actionGrade_de_pontos_e_linha_teste"/>
-    <addaction name="actionDistribui_o_de_gr_os"/>
     <addaction name="menuAdi_o_Sistem_tica"/>
    </widget>
    <widget class="QMenu" name="menuAjuda">
