@@ -137,8 +137,8 @@ void ExportadorParaArquivo::exportarPlanoDeCorte(int planoDeCorteID){
 
 	// exportando a quantidade de pontos
 	ostringstream arquivoQtdePontos;
-	arquivoQtdePontos << this->destino << "/pontosInternos_plano_" << planoDeCorteID << ".csv"; 
-	ofstream pontosInternosFile(arquivoQtdePontos.str().c_str(),std::ios::out);
+	arquivoQtdePontos << this->destino << "/pontosInternos.csv"; 
+	ofstream pontosInternosFile(arquivoQtdePontos.str().c_str(),std::ios::app);
 	pontosInternosFile.imbue(ptBR);
 
 	salvarQtdeDePontosInternos(planoDeCorteID,pontosInternosFile);
@@ -347,7 +347,7 @@ void ExportadorParaArquivo::salvarQtdeDePontosInternos(int plano_pk, ofstream &o
 
 		while (res != SQLITE_DONE){
 			int qtdeDePontosInternosAosInterceptos = sqlite3_column_int(stmt,0);
-			outFile << qtdeDePontosInternosAosInterceptos << endl;
+			outFile <<"Plano " << plano_pk << ";" <<  qtdeDePontosInternosAosInterceptos << endl;
 
 			res = sqlite3_step(stmt);
 		}
