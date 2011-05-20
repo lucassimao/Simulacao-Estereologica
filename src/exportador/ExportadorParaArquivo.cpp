@@ -38,6 +38,7 @@ void ExportadorParaArquivo::exportarPlanosDeCorte(){
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
 	exportarFracaoDePontos();
+	exportarFracaoDeAreas();
 
 	// Verificando se deve exportar interceptos médios
 	// para esfera ou prismas
@@ -351,6 +352,54 @@ void ExportadorParaArquivo::salvarInterceptosLineares(int plano_pk, ofstream &ou
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
 }
+
+void ExportadorParaArquivo::exportarFracaoDeAreas(){
+	locale ptBR(locale(),new WithComma);
+	ostringstream arquivoFracaoDeAreas;
+	arquivoFracaoDeAreas << this->destino << "/fracaoDeAreas.csv"; 
+
+	ofstream fracaoDeAreasFile(arquivoFracaoDeAreas.str().c_str(),std::ios::out);
+	fracaoDeAreasFile.imbue(ptBR);
+
+	fracaoDeAreasFile << "Plano; Área total da grade; Área dos interceptos na grade do plano; Fração de área" << endl;
+
+	sqlite3_stmt *stmt = 0;
+	const char *select = "select planoDeCorte_fk,areaDoPlano, areaDosInterceptosColetados from estatisticas order by planoDeCorte_fk = ?1;";
+
+	int res = sqlite3_prepare_v2(this->db,select,-1,&stmt,NULL);
+	if( res==SQLITE_OK && stmt ){
+
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+
+		double areaTotalDaGrade=0;
+		double areaTotalDosInterceptos = 0;
+
+		while (res != SQLITE_DONE){
+			int plano = sqlite3_column_int(stmt,0);
+			double areaPlano = sqlite3_column_double(stmt,1);
+			double areaDosInterceptosColetados = sqlite3_column_double(stmt,2);
+			double fracaoDeArea = areaDosInterceptosColetados/(double)areaPlano;
+
+			fracaoDeAreasFile <<"Plano " << plano << ";" << areaPlano <<";"<< areaDosInterceptosColetados <<";"<<fracaoDeArea<< endl;
+			areaTotalDaGrade+= areaPlano;
+			areaTotalDosInterceptos += areaDosInterceptosColetados;
+
+			res = sqlite3_step(stmt);
+		}
+		sqlite3_finalize(stmt);	
+		fracaoDeAreasFile << endl << endl;
+		double fracaoDeAreaDaSimulacao = areaTotalDosInterceptos/(double)areaTotalDaGrade;
+		fracaoDeAreasFile << "Fração de área da simulação;"<<fracaoDeAreaDaSimulacao << endl ;
+	}
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+
+	fracaoDeAreasFile.close();
+}
+
 
 void ExportadorParaArquivo::exportarFracaoDePontos(){
 	locale ptBR(locale(),new WithComma);
