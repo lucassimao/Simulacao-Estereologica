@@ -46,6 +46,8 @@ namespace simulacao{
 			void exportarInterceptoDeAreaMedioParaEsfera();
 			void exportarInterceptoLinearMedioParaEsfera();
 			void exportarInterceptoDePerimetroMedioParaEsfera();
+
+			void exportarFracaoDePontos();
 		};
 	}
 }

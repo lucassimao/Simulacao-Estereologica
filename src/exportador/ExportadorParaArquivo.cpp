@@ -14,6 +14,10 @@ void ExportadorParaArquivo::exportarPlanosDeCorte(){
 	ostringstream  planoDeCorte_select;
 	planoDeCorte_select << "select rowid from planoDeCorte;";
 
+	ostringstream arquivoQtdePontos;
+	arquivoQtdePontos << this->destino << "/pontosInternos.csv"; 
+	remove(arquivoQtdePontos.str().c_str());
+
 	int res = sqlite3_prepare_v2(this->db,planoDeCorte_select.str().c_str(),-1,&planoDeCorte_stmt,NULL);
 
 	if( res==SQLITE_OK && planoDeCorte_stmt ){
@@ -33,6 +37,7 @@ void ExportadorParaArquivo::exportarPlanosDeCorte(){
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
+	exportarFracaoDePontos();
 
 	// Verificando se deve exportar interceptos médios
 	// para esfera ou prismas
@@ -154,10 +159,10 @@ void ExportadorParaArquivo::exportarPlanoDeCorte(int planoDeCorteID){
 	salvarInterceptosLineares(planoDeCorteID,interceptosLinearesFile);
 	interceptosLinearesFile.close();
 
-	// exportando a quantidade de pontos
+	// exportando a quantidade de pontos (exportado para um único arquivo )
 	ostringstream arquivoQtdePontos;
 	arquivoQtdePontos << this->destino << "/pontosInternos.csv"; 
-	ofstream pontosInternosFile(arquivoQtdePontos.str().c_str(),std::ios::app);
+	ofstream pontosInternosFile(arquivoQtdePontos.str().c_str(),std::ios_base::app);
 	pontosInternosFile.imbue(ptBR);
 
 	salvarQtdeDePontosInternos(planoDeCorteID,pontosInternosFile);
@@ -347,6 +352,53 @@ void ExportadorParaArquivo::salvarInterceptosLineares(int plano_pk, ofstream &ou
 
 }
 
+void ExportadorParaArquivo::exportarFracaoDePontos(){
+	locale ptBR(locale(),new WithComma);
+	ostringstream arquivoFracaoDePontos;
+	arquivoFracaoDePontos << this->destino << "/fracaoDePontos.csv"; 
+
+	ofstream fracaoDePontosFile(arquivoFracaoDePontos.str().c_str(),std::ios::out);
+	fracaoDePontosFile.imbue(ptBR);
+
+	fracaoDePontosFile << "Plano; Qtde de Pontos na Grade; Qtde de pontos internos; Fração de pontos" << endl;
+
+	sqlite3_stmt *stmt = 0;
+	const char *select = "select planoDeCorte_fk,qtdePontosNaGrade, qtdeDePontosInternosAosInterceptos from estatisticas order by planoDeCorte_fk = ?1;";
+
+	int res = sqlite3_prepare_v2(this->db,select,-1,&stmt,NULL);
+	if( res==SQLITE_OK && stmt ){
+
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+
+		int qtdeTotalDePontosNaGrade=0;
+		int qtdeTotalDePontosInternosAosInterceptos = 0;
+
+		while (res != SQLITE_DONE){
+			int plano = sqlite3_column_int(stmt,0);
+			int qtdePontosNaGrade = sqlite3_column_int(stmt,1);
+			int qtdeDePontosInternosAosInterceptos = sqlite3_column_int(stmt,2);
+			double fracaoDePontos = qtdeDePontosInternosAosInterceptos/(double)qtdePontosNaGrade;
+
+			fracaoDePontosFile <<"Plano " << plano << ";" << qtdePontosNaGrade <<";"<< qtdeDePontosInternosAosInterceptos <<";"<<fracaoDePontos<< endl;
+			qtdeTotalDePontosNaGrade+= qtdePontosNaGrade;
+			qtdeTotalDePontosInternosAosInterceptos += qtdeDePontosInternosAosInterceptos;
+
+			res = sqlite3_step(stmt);
+		}
+		sqlite3_finalize(stmt);	
+		fracaoDePontosFile << endl << endl;
+		double fracaoDePontosDaSimulacao = qtdeTotalDePontosInternosAosInterceptos/(double)qtdeTotalDePontosNaGrade;
+		fracaoDePontosFile << "Fração de Pontos da simulação" <<";"<<fracaoDePontosDaSimulacao << endl ;
+	}
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+
+	fracaoDePontosFile.close();
+}
+
 void ExportadorParaArquivo::salvarQtdeDePontosInternos(int plano_pk, ofstream &outFile){
 	sqlite3_stmt *stmt = 0;
 	ostringstream  interceptos_select;
@@ -441,7 +493,7 @@ void ExportadorParaArquivo::exportarInterceptoLinearMedioParaPrisma(){
 		int qtdeDeClasses =  classes.size();
 		int qtdeTotalDeGraos=0;
 		double nominadorDaFormula=0;
-		
+
 		//utilizando a fórmula do ILMT
 		for(int idx=0;idx<qtdeDeClasses;++idx){
 			ClasseDeGraoPrismatico *classe = static_cast<ClasseDeGraoPrismatico*>(classes[idx]);
@@ -450,7 +502,7 @@ void ExportadorParaArquivo::exportarInterceptoLinearMedioParaPrisma(){
 			double beta = classe->razaoDeTruncamento;
 			int n = classe->qtdeDeGraosDaClasse;
 			nominadorDaFormula += n * (2 * sqrt(3.0) * alpha * (1 - 3*beta) * L)/( 6*alpha*(1 - beta) + sqrt(3.0)*(1 - 3*pow(beta,2) ) );
-			
+
 			qtdeTotalDeGraos += n;
 		}
 		double L3 = nominadorDaFormula/qtdeTotalDeGraos;
@@ -517,7 +569,7 @@ void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaPrisma(){
 		int qtdeTotalDeGraos=0;
 		double nominadorDaFormula=0;
 		double pi = 3.14159265;
-		
+
 		//utilizando a fórmula do PMT
 		for(int idx=0;idx<qtdeDeClasses;++idx){
 			ClasseDeGraoPrismatico *classe = static_cast<ClasseDeGraoPrismatico*>(classes[idx]);
@@ -525,9 +577,9 @@ void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaPrisma(){
 			double L = classe->L0;
 			double beta = classe->razaoDeTruncamento;
 			int n = classe->qtdeDeGraosDaClasse;
-			 
+
 			nominadorDaFormula += n * pi*L*( 6*alpha*(1 - beta) + sqrt(3.0)*(1 - 3*pow(beta,2) ) )/(2 * (2*alpha + 3*(1-beta) ) );
-			
+
 			qtdeTotalDeGraos += n;
 		}
 		double Lp = nominadorDaFormula/qtdeTotalDeGraos;
@@ -593,7 +645,7 @@ void ExportadorParaArquivo::exportarInterceptoDeAreaMedioParaPrisma(){
 		int qtdeDeClasses =  classes.size();
 		int qtdeTotalDeGraos=0;
 		double nominadorDaFormula=0;
-		
+
 		//utilizando a fórmula do IAMT
 		for(int idx=0;idx<qtdeDeClasses;++idx){
 			ClasseDeGraoPrismatico *classe = static_cast<ClasseDeGraoPrismatico*>(classes[idx]);
