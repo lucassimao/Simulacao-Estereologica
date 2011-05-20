@@ -1,12 +1,32 @@
 #include <algorithm>
+#include "..\model\Parametros.h"
 #include "ExportadorParaArquivo.h"
 #include "ProcessadorDeClassesDeIntercepto.h"
 
 using namespace simulacao::exportador;
+using simulacao::model::Parametros;
 
 ExportadorParaArquivo::ExportadorParaArquivo(string &destino, sqlite3* db){
 	this->destino = destino;
 	this->db = db;
+}
+
+bool ExportadorParaArquivo::trabalharComPrismas(){
+	sqlite3_stmt *contador_stmt = 0;
+	const char *contador_select =  "select count(*) from poligonos;";
+
+	int res = sqlite3_prepare_v2(this->db,contador_select,-1,&contador_stmt,NULL);
+	assert( res==SQLITE_OK && contador_stmt );
+	res = sqlite3_step(contador_stmt);
+	assert(res == SQLITE_ROW);
+
+	int qtde = sqlite3_column_int(contador_stmt,0);
+	bool out = (qtde > 0);
+
+	res = sqlite3_step(contador_stmt);
+	assert(res == SQLITE_DONE);
+	sqlite3_finalize(contador_stmt);
+	return out;
 }
 
 void ExportadorParaArquivo::exportarPlanosDeCorte(){
@@ -39,27 +59,14 @@ void ExportadorParaArquivo::exportarPlanosDeCorte(){
 
 	exportarFracaoDePontos();
 	exportarFracaoDeAreas();
+	exportarFracaoLinear();
 
-	// Verificando se deve exportar interceptos médios
-	// para esfera ou prismas
-	sqlite3_stmt *contador_stmt = 0;
-	const char *contador_select =  "select count(*) from poligonos;";
-
-	res = sqlite3_prepare_v2(this->db,contador_select,-1,&contador_stmt,NULL);
-	assert( res==SQLITE_OK && contador_stmt );
-	res = sqlite3_step(contador_stmt);
-	assert(res == SQLITE_ROW);
-
-	int qtde = sqlite3_column_double(contador_stmt,0);
-	if (qtde == 0){
-		exportarInterceptosMedioParaEsfera();
-	}else{
+	if (trabalharComPrismas()){
 		exportarInterceptosMedioParaPrisma();
+	}else{
+		exportarInterceptosMedioParaEsfera();
 	}
 
-	res = sqlite3_step(contador_stmt);
-	assert(res == SQLITE_DONE);
-	sqlite3_finalize(contador_stmt);
 
 }
 
@@ -351,6 +358,57 @@ void ExportadorParaArquivo::salvarInterceptosLineares(int plano_pk, ofstream &ou
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 
+}
+
+void ExportadorParaArquivo::exportarFracaoLinear(){
+	locale ptBR(locale(),new WithComma);
+	ostringstream arquivoFracaoLinear;
+	arquivoFracaoLinear << this->destino << "/fracaoLinear.csv"; 
+	
+	ofstream fracaoLinearFile(arquivoFracaoLinear.str().c_str(),std::ios::out);
+	fracaoLinearFile.imbue(ptBR);
+
+	fracaoLinearFile << "Plano; Comp. das linhas do plano; Comp. dos interceptos lineares; Fração linear" << endl;
+	sqlite3_stmt *stmt = 0;
+	const char *select = 0;
+	if (trabalharComPrismas()){
+		select = "select p.planoDeCorte_fk, sum(ip.tamanho) from interceptosLineares_poligonos ip,poligonos p where ip.poligono_fk=p.rowid group by p.planoDeCorte_fk order by p.planoDeCorte_fk;";
+	}else{
+		select = "select d.planoDeCorte_fk, sum(id.tamanho) from interceptosLineares_discos id,discos d where id.disco_fk=d.rowid group by d.planoDeCorte_fk order by d.planoDeCorte_fk;";
+	}
+	int res = sqlite3_prepare_v2(this->db,select,-1,&stmt,NULL);
+	if( res==SQLITE_OK && stmt ){
+
+		do{
+			res = sqlite3_step(stmt);
+		}
+		while(res != SQLITE_ROW && res != SQLITE_DONE);
+
+		double comprimentoTotalDasLinhasDaGrade=0;
+		double comprimentoTotalDosInterceptos = 0;
+		const double comprimentoDasLinhasDaGrade = Parametros::getInstance()->getArestaDaCaixa()  *Parametros::getInstance()->getQtdeLinhasNaGrade() ;
+
+		while (res != SQLITE_DONE){
+			int plano = sqlite3_column_int(stmt,0);
+			double comprimentoInterceptos = sqlite3_column_double(stmt,1);
+			
+			double fracaoLinear = comprimentoInterceptos/comprimentoDasLinhasDaGrade;
+			fracaoLinearFile <<"Plano " << plano << ";" << comprimentoDasLinhasDaGrade <<";"<< comprimentoInterceptos <<";"<<fracaoLinear<< endl;
+			
+			comprimentoTotalDasLinhasDaGrade+= comprimentoDasLinhasDaGrade;
+			comprimentoTotalDosInterceptos += comprimentoInterceptos;
+
+			res = sqlite3_step(stmt);
+		}
+		sqlite3_finalize(stmt);	
+		fracaoLinearFile << endl << endl;
+		double fracaoLinearDaSimulacao = comprimentoTotalDosInterceptos/comprimentoTotalDasLinhasDaGrade;
+		fracaoLinearFile << "Fração linear da simulação;"<<fracaoLinearDaSimulacao << endl ;
+	}
+	else
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+
+	fracaoLinearFile.close();
 }
 
 void ExportadorParaArquivo::exportarFracaoDeAreas(){
