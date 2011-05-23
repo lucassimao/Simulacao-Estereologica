@@ -808,6 +808,21 @@ void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaEsfera(){
 
 		sqlite3_finalize(stmt);
 
+		file << std::endl << std::endl;
+
+		//coletando informações para o cálculo do PM na simulação
+		sqlite3_stmt *stmt2 = 0;
+		res = sqlite3_prepare_v2(this->db,"select avg(2*3.14159265*d.raio) from discos d;",-1,&stmt2,NULL);
+		assert(res==SQLITE_OK && stmt2);
+		sqlite3_step(stmt2);
+		double pm = sqlite3_column_double(stmt2,0);
+		res = sqlite3_step(stmt2);
+		assert(res == SQLITE_DONE);
+		sqlite3_finalize(stmt2);
+
+		file << "PM;" << pm << std::endl;
+
+
 		file.close();
 
 	}
@@ -848,6 +863,21 @@ void ExportadorParaArquivo::exportarInterceptoLinearMedioParaEsfera(){
 
 		sqlite3_finalize(stmt);
 
+		file << std::endl << std::endl;
+
+		//coletando informações para o cálculo do ILM na simulação
+		sqlite3_stmt *stmt2 = 0;
+		res = sqlite3_prepare_v2(this->db,"select avg(tamanho) from interceptosLineares_discos;",-1,&stmt2,NULL);
+		assert(res==SQLITE_OK && stmt2);
+		sqlite3_step(stmt2);
+		double ilm = sqlite3_column_double(stmt2,0);
+		res = sqlite3_step(stmt2);
+		assert(res == SQLITE_DONE);
+		sqlite3_finalize(stmt2);
+
+		file << "ILM;" << ilm << std::endl;
+
+
 		file.close();
 
 	}
@@ -886,6 +916,21 @@ void ExportadorParaArquivo::exportarInterceptoDeAreaMedioParaEsfera(){
 		}	
 
 		sqlite3_finalize(stmt);
+
+		file << std::endl << std::endl;
+
+		//coletando informações para o cálculo do IAM na simulação
+		sqlite3_stmt *stmt2 = 0;
+		res = sqlite3_prepare_v2(this->db,"select avg(3.14159265*d.raio*d.raio) from discos d;",-1,&stmt2,NULL);
+		assert(res==SQLITE_OK && stmt2);
+		sqlite3_step(stmt2);
+		double iam = sqlite3_column_double(stmt2,0);
+		res = sqlite3_step(stmt2);
+		assert(res == SQLITE_DONE);
+		sqlite3_finalize(stmt2);
+
+		file << "IAM;" << iam << std::endl;
+
 
 		file.close();
 
