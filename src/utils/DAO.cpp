@@ -221,9 +221,9 @@ __int64 DAO::salvarDisco(__int64 planoDeCorte_id, Disco *d){
 	double corR = d->getCor().r, corG = d->getCor().g, corB = d->getCor().b;
 
 	insert << "insert into discos('planoDeCorte_fk','raioOriginal','raio','xcentro',";
-	insert << "'ycentro','zcentro','r','g','b') values(" << planoDeCorte_id << "," << d->raioDaEsferaDeOrigem;
+	insert << "'ycentro','zcentro','r','g','b','atorID') values(" << planoDeCorte_id << "," << d->raioDaEsferaDeOrigem;
 	insert << ","<< d->raio <<","<< d->centro.x  << ","<< d->centro.y  << ","<< d->centro.z << ",";	
-	insert << corR << "," << corG << "," << corB << ");";	
+	insert << corR << "," << corG << "," << corB <<"," << d->atorID<< ");";	
 	
     int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )

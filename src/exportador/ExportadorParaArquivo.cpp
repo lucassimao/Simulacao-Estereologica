@@ -823,6 +823,29 @@ void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaEsfera(){
 		file << "PM;" << pm << std::endl;
 
 
+		// coletando informações para o cálculo de PMT
+		ProcessadorDeClassesDeIntercepto processador(this->db);
+		vector<ClasseDeGrao*> classes = processador.getClassesDeGraoEsfericos();
+
+		int qtdeDeClasses =  classes.size();
+		int qtdeTotalDeGraos=0;
+		double nominadorDaFormula=0;
+		double pi = 3.14159265;
+
+		//fórmula do IPMT para esfera
+		for(int idx=0;idx<qtdeDeClasses;++idx){
+			ClasseDeGraoEsferico *classe = static_cast<ClasseDeGraoEsferico*>(classes[idx]);
+			double raio = classe->raio;
+			int qtdeDeGraosNaClasse = classe->qtdeDeGraosDaClasse;
+
+			nominadorDaFormula += qtdeDeGraosNaClasse * (pi* raio)/2.0;
+
+			qtdeTotalDeGraos += qtdeDeGraosNaClasse;
+		}
+		double Lp = nominadorDaFormula/qtdeTotalDeGraos;
+		file << "PMT;" << Lp << std::endl;
+
+
 		file.close();
 
 	}
@@ -878,6 +901,28 @@ void ExportadorParaArquivo::exportarInterceptoLinearMedioParaEsfera(){
 		file << "ILM;" << ilm << std::endl;
 
 
+		// coletando informações para o cálculo de ILMT
+		ProcessadorDeClassesDeIntercepto processador(this->db);
+		vector<ClasseDeGrao*> classes = processador.getClassesDeGraoEsfericos();
+
+		int qtdeDeClasses =  classes.size();
+		int qtdeTotalDeGraos=0;
+		double nominadorDaFormula=0;
+
+		//fórmula do IAMT para esfera
+		for(int idx=0;idx<qtdeDeClasses;++idx){
+			ClasseDeGraoEsferico *classe = static_cast<ClasseDeGraoEsferico*>(classes[idx]);
+			double raio = classe->raio;
+			int qtdeDeGraosNaClasse = classe->qtdeDeGraosDaClasse;
+
+			nominadorDaFormula += qtdeDeGraosNaClasse * 4/3.0 *raio;
+
+			qtdeTotalDeGraos += qtdeDeGraosNaClasse;
+		}
+		double L3 = nominadorDaFormula/qtdeTotalDeGraos;
+		file << "ILMT;" << L3 << std::endl;
+
+
 		file.close();
 
 	}
@@ -931,6 +976,27 @@ void ExportadorParaArquivo::exportarInterceptoDeAreaMedioParaEsfera(){
 
 		file << "IAM;" << iam << std::endl;
 
+		// coletando informações para o cálculo de IAMT
+		ProcessadorDeClassesDeIntercepto processador(this->db);
+		vector<ClasseDeGrao*> classes = processador.getClassesDeGraoEsfericos();
+
+		int qtdeDeClasses =  classes.size();
+		int qtdeTotalDeGraos=0;
+		double nominadorDaFormula=0;
+		double pi = 3.14159265;
+
+		//fórmula do IAMT para esfera
+		for(int idx=0;idx<qtdeDeClasses;++idx){
+			ClasseDeGraoEsferico *classe = static_cast<ClasseDeGraoEsferico*>(classes[idx]);
+			double raio = classe->raio;
+			int qtdeDeGraosNaClasse = classe->qtdeDeGraosDaClasse;
+
+			nominadorDaFormula += qtdeDeGraosNaClasse * 2/3.0 * pi* pow(raio,2);
+
+			qtdeTotalDeGraos += qtdeDeGraosNaClasse;
+		}
+		double A = nominadorDaFormula/qtdeTotalDeGraos;
+		file << "IAMT;" << A << std::endl;
 
 		file.close();
 

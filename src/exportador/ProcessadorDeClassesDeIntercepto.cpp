@@ -433,7 +433,7 @@ vector<ClasseDeGrao*> ProcessadorDeClassesDeIntercepto::getClassesDeGraoEsferico
 	vector<ClasseDeGrao*> vetor;
 
 	sqlite3_stmt *discos_stmt = 0;
-	const char *classes_select =  "select distinct raioOriginal from discos;";
+	const char *classes_select =  "select raioOriginal,count(distinct atorID) from discos group by raioOriginal;";
 
 	int res = sqlite3_prepare_v2(this->db,classes_select,-1,&discos_stmt,NULL);
 
@@ -448,6 +448,7 @@ vector<ClasseDeGrao*> ProcessadorDeClassesDeIntercepto::getClassesDeGraoEsferico
 			ClasseDeGraoEsferico *classe = new ClasseDeGraoEsferico;
 
 			classe->raio = sqlite3_column_double(discos_stmt,0);
+			classe->qtdeDeGraosDaClasse = sqlite3_column_int(discos_stmt,1);
 
 			vetor.push_back(classe);
 

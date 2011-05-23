@@ -12,12 +12,13 @@ namespace simulacao{
 
 			class Disco: public InterceptoDeArea{		
 			public:
+				const int atorID;
 				const Ponto centro;
 				const double raio;
 				const double raioDaEsferaDeOrigem;
 				
-				Disco(Cor cor,Ponto centro,double raio, double raioDaEsferaDeOrigem);
-				Disco(Ponto centro,double raio, double raioDaEsferaDeOrigem);
+				Disco(Cor cor,Ponto centro,double raio, double raioDaEsferaDeOrigem,int atorID);
+				Disco(Ponto centro,double raio, double raioDaEsferaDeOrigem,int atorID);
 
 				double getArea();
 				double getPerimetro();

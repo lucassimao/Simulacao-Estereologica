@@ -50,7 +50,7 @@ sqlite3 * DataBaseFactory::criarBanco(const char* arquivo){
 		return NULL;
     }
 	
-	rc = sqlite3_exec(db,"create table discos(id int PRIMARY KEY,planoDeCorte_fk int,raioOriginal double,raio double,xcentro double, ycentro double, zcentro double,r double, g double, b double, FOREIGN KEY(planoDeCorte_fk) references planoDeCorte(id));", 0, 0, &errStr);
+	rc = sqlite3_exec(db,"create table discos(id int PRIMARY KEY,atorID int,planoDeCorte_fk int,raioOriginal double,raio double,xcentro double, ycentro double, zcentro double,r double, g double, b double, FOREIGN KEY(planoDeCorte_fk) references planoDeCorte(id));", 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
     {
         throw runtime_error(errStr);
