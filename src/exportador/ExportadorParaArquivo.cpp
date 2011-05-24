@@ -838,7 +838,7 @@ void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaEsfera(){
 			double raio = classe->raio;
 			int qtdeDeGraosNaClasse = classe->qtdeDeGraosDaClasse;
 
-			nominadorDaFormula += qtdeDeGraosNaClasse * (pi* raio)/2.0;
+			nominadorDaFormula += qtdeDeGraosNaClasse * (pow(pi,2)* raio)/2.0;
 
 			qtdeTotalDeGraos += qtdeDeGraosNaClasse;
 		}
