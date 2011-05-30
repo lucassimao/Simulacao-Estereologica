@@ -608,7 +608,7 @@ void ExportadorParaArquivo::exportarInterceptoLinearMedioParaPrisma(){
 			double L = classe->L0;
 			double beta = classe->razaoDeTruncamento;
 			int n = classe->qtdeDeGraosDaClasse;
-			nominadorDaFormula += n * (2 * sqrt(3.0) * alpha * (1 - 3*beta) * L)/( 6*alpha*(1 - beta) + sqrt(3.0)*(1 - 3*pow(beta,2) ) );
+			nominadorDaFormula += n * (2 * sqrt(3.0) * alpha * (1 - 3*pow(beta,2)) * L)/( 6*alpha*(1 - beta) + sqrt(3.0)*(1 - 3*pow(beta,2) ) );
 
 			qtdeTotalDeGraos += n;
 		}
