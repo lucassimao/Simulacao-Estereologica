@@ -22,8 +22,10 @@ namespace simulacao{
 				inline list<SegmentoDeReta> coletarArestas();
 				list<Ponto> vertices;
 				list<SegmentoDeReta> arestas;
+				
 				inline Ponto procurarVerticeComMenorZ();
 				inline Ponto procurarVerticeComMaiorZ();
+
 			public:
 				Ponto verticeComMenorZ;
 				Ponto verticeComMaiorZ;

@@ -158,8 +158,6 @@ bool PrismaTriangularTruncado::estaInterceptadoPeloPlano(NxVec3 planoGlobalPosit
 InterceptoDeArea* PrismaTriangularTruncado::getIntercepto(NxVec3 planoPos){
 
 	vector<SegmentoDeReta> segmentosDeRetaInterceptados = getSegmentosDeRetaInterceptados(planoPos);
-	int a=segmentosDeRetaInterceptados.size();
-
 	vector<SegmentoDeReta>::const_iterator iterator = segmentosDeRetaInterceptados.begin();
 	list<Ponto> poligonoPontos;
 

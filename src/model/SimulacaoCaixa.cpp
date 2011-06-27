@@ -12,15 +12,23 @@
 #include "..\utils\GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy.h"
 #include "..\draw\Stream.h"
 #include "..\draw\cooking.h"
-
+#include "..\draw\UpdateTime.h"
 
 using std::vector;
 using namespace simulacao::model;
 using namespace simulacao::model::atores;
 using namespace simulacao::model::interceptos;
 
-SimulacaoCaixa::SimulacaoCaixa(void)
+SimulacaoCaixa::SimulacaoCaixa(double coeficienteDeInterpenetracao,double aceleracaoGravidade):gravidade(NxVec3(0,aceleracaoGravidade,0)),fatorDeInterpenetracao(coeficienteDeInterpenetracao)
 {
+	this->physicsSDK = 0;
+	this->deltaTime = 1.0/60.0;
+	this->cena = 0;
+	this->simulacaoEmHardware = true;
+	this->status = PAUSADO;
+
+	initPhysicsSDK();
+
 	this->meshFactory = new MeshFactory(this->physicsSDK);
 	this->atorPlanoDeCorte = 0;
 	this->exibirCaixa = true;
@@ -29,12 +37,18 @@ SimulacaoCaixa::SimulacaoCaixa(void)
 	this->exibirPontosTeste=true;
 	this->exibirRetasTeste=true;
 
+	sqlite3 *db = DataBaseFactory::getInstance()->criarBanco(":memory:");
+	
+	if (!db){
+		qDebug() << sqlite3_errmsg(db);
+		sqlite3_close(db);
+		throw runtime_error( sqlite3_errmsg(db) );	
+	}
+
+	this->dao = new DAO(db);
 }
 
-SimulacaoCaixa::~SimulacaoCaixa(void)
-{
-	removerGraos();
-}
+
 
 void SimulacaoCaixa::criarCaixa(){
 
@@ -95,28 +109,24 @@ void SimulacaoCaixa::adicionarEsferas(int qtde,Cor cor){
 	for(int l=0;l<qtde;++l)
 		new Esfera(cena,cor);
 }
-void SimulacaoCaixa::adicionarPrismas(int qtde,Cor cor){
-	for(int l=0;l<qtde;++l){
-		new PrismaTriangular(cena,meshFactory,cor);
-	}
-}
-void SimulacaoCaixa::adicionarPrismasTruncados(int qtde,Cor cor){
-	for(int l=0;l<qtde;++l){
-		new PrismaTriangularTruncado(cena,meshFactory,cor);
+
+void SimulacaoCaixa::adicionarPrismas(double L0, int quantidade, Cor cor, double razaoDeAspecto, double razaoDeTruncamento){
+	if (razaoDeTruncamento == 0){
+		for(int l=0;l<quantidade;++l){
+			new PrismaTriangular(cena,meshFactory,cor);
+			this->dao->salvarPrisma(razaoDeAspecto,razaoDeTruncamento,L0);
+		}
+	}else{
+		for(int l=0;l<quantidade;++l){
+			new PrismaTriangularTruncado(cena,meshFactory,cor);
+			this->dao->salvarPrisma(razaoDeAspecto,razaoDeTruncamento,L0);
+		}	
 	}
 }
 
 sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematicos){
-	sqlite3 *db = DataBaseFactory::getInstance()->criarBanco(":memory:");
 
-	if (!db){
-		qDebug() << sqlite3_errmsg(db);
-		sqlite3_close(db);
-		throw runtime_error( sqlite3_errmsg(db) );	
-	}
-
-	DAO dao(db);
-
+	this->dao->zerar();
 	Parametros *p = Parametros::getInstance();
 	double h0 = p->getAlturaDaBaseDaCaixa();
 	double h1 = p->getArestaDaCaixa() + p->getAlturaDaBaseDaCaixa();
@@ -137,7 +147,7 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 		ColetorDePontosVisitor *visitor2 = new ColetorDePontosVisitor(this->getGrade());
 		ColetorDeAreasVisitor *visitor3 = new ColetorDeAreasVisitor(this->getGrade());
 
-		__int64 planoID = dao.salvarPlano(planoGlobalPosition.y,p->getLarguraDoPlanoDeCorte(),this->getPlanoDeCorte()->cor);
+		__int64 planoID =  this->dao->salvarPlano(planoGlobalPosition.y,p->getLarguraDoPlanoDeCorte(),this->getPlanoDeCorte()->cor);
 
 		while (qtdeAtores--)
 		{
@@ -151,25 +161,25 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 					intercepto->accept(visitor2);
 					intercepto->accept(visitor3);
 
-					__int64 interceptoID = dao.salvarInterceptoDeArea(planoID,intercepto);
+					__int64 interceptoID =  this->dao->salvarInterceptoDeArea(planoID,intercepto);
 
 					vector<InterceptoLinear*> interceptosLineares = intercepto->getInterceptosLineares(this->getGrade());			
-					dao.salvarInterceptosLineares(interceptoID,interceptosLineares,intercepto->getType());
+					this->dao->salvarInterceptosLineares(interceptoID,interceptosLineares,intercepto->getType());
 
 				}
 			}
 		}
-		dao.salvarInterceptosPorosos(planoID);
+		this->dao->salvarInterceptosPorosos(planoID);
 
 		double areaTotalColetada = visitor3->getAreaTotalColetada();
 		int qtdePontosInternosAInterceptosDeArea = visitor2->getQtdeDePontosInternosAInterceptosDeArea();
 
-		dao.salvarEstatisticas(planoID,areaTotalColetada,areaDoPlanoDeCorte,qtdePontosInternosAInterceptosDeArea,
+		this->dao->salvarEstatisticas(planoID,areaTotalColetada,areaDoPlanoDeCorte,qtdePontosInternosAInterceptosDeArea,
 			qtdeDePontosNaGrade,volumeFaseSolida,volumeFaseLigante);
 	}
 	this->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
 
-	return db;
+	return this->dao->getDB();
 }
 
 void SimulacaoCaixa::novoPlanoDeCorte(){
@@ -206,18 +216,13 @@ void SimulacaoCaixa::selecionarGraosInterceptados(){
 	while (qtdeAtores--)
 	{
 		NxActor* ator = *atores++;
-
-		{
-			if (ator != caixa && ator!=atorPlanoDeCorte->getNxActor()){
-				Ator *a = (Ator *)ator->userData;
-				if (!a->estaInterceptadoPeloPlano(atorPlanoDeCorte->getNxActor()->getGlobalPosition())){
-					cena->releaseActor(*ator);
-					delete a;
-				}
+		if (ator != caixa && ator!=atorPlanoDeCorte->getNxActor()){
+			Ator *a = (Ator *)ator->userData;
+			if (!a->estaInterceptadoPeloPlano(atorPlanoDeCorte->getNxActor()->getGlobalPosition())){
+				cena->releaseActor(*ator);
+				delete a;
 			}
-
 		}
-
 	}
 }
 
@@ -234,6 +239,16 @@ void SimulacaoCaixa::removerGraos(){
 		}
 
 	}
+
+	sqlite3 *db = DataBaseFactory::getInstance()->criarBanco(":memory:");
+	
+	if (!db){
+		qDebug() << sqlite3_errmsg(db);
+		sqlite3_close(db);
+		throw runtime_error( sqlite3_errmsg(db) );	
+	}
+
+	this->dao = new DAO(db);
 }
 
 double SimulacaoCaixa::getVolumeFaseSolida(){
@@ -250,4 +265,77 @@ double SimulacaoCaixa::getVolumeFaseSolida(){
 		}
 	}
 	return v;
+}
+
+SimulacaoCaixa::~SimulacaoCaixa(void)
+{
+    pararSimulacao();
+	removerGraos();
+}
+
+void SimulacaoCaixa::pararSimulacao(){
+    if (cena)
+	{
+		GetPhysicsResults(); 
+		physicsSDK->releaseScene(*cena);
+	}
+	if (physicsSDK)  physicsSDK->release();
+	this->status = PARADO;
+}
+
+void SimulacaoCaixa::initPhysicsSDK() throw (exception){
+
+	physicsSDK = NxCreatePhysicsSDK(NX_PHYSICS_SDK_VERSION);
+
+	if (!physicsSDK){
+		throw new exception("O SDK PhysX não foi inicializado com sucesso!");
+	}
+
+	physicsSDK->setParameter(NX_SKIN_WIDTH, this->fatorDeInterpenetracao);
+	physicsSDK->setParameter(NX_CONTINUOUS_CD, 1);
+	physicsSDK->setParameter(NX_VISUALIZATION_SCALE, 1);
+	physicsSDK->setParameter(NX_VISUALIZE_COLLISION_SHAPES, 1);
+	physicsSDK->setParameter(NX_VISUALIZE_ACTOR_AXES, 1);
+	physicsSDK->setParameter(NX_CCD_EPSILON, 0.01);
+
+	NxSceneDesc sceneDesc;
+	sceneDesc.gravity = gravidade;
+	sceneDesc.simType = NX_SIMULATION_HW;
+	cena = physicsSDK->createScene(sceneDesc);
+
+	if (!cena){
+		sceneDesc.simType = NX_SIMULATION_SW;
+		cena = physicsSDK->createScene(sceneDesc);
+		if (!cena) exit(-1);
+		this->simulacaoEmHardware = false;
+
+	}
+
+	NxMaterial* defaultMaterial = cena->getMaterialFromIndex(0); 
+    defaultMaterial->setRestitution(0.5);
+    defaultMaterial->setStaticFriction(0.5);
+    defaultMaterial->setDynamicFriction(0.5);
+		
+	UpdateTime();
+
+}
+
+
+void SimulacaoCaixa::iniciarSimulacao(){
+	this->status = EXECUCAO;
+	deltaTime = UpdateTime();
+
+    cena->simulate(deltaTime);
+    cena->flushStream();
+
+}
+
+void SimulacaoCaixa::GetPhysicsResults()
+{
+    while (!cena->fetchResults(NX_RIGID_BODY_FINISHED, false));
+}
+
+
+NxI64 SimulacaoCaixa::getQtdeObjetos() const{
+	return cena->getNbActors();
 }

@@ -11,15 +11,12 @@
 #include "..\math\ColetorDePontosVisitor.h"
 #include "..\utils\DAO.h"
 #include "..\utils\DataBaseFactory.h"
-#include "Simulacao.h"
 #include "..\sqlite3\sqlite3.h"
 #include "..\model\atores\PlanoDeCorte.h"
 #include "grade\Grade.h"
 #include "Parametros.h"
 #include <QObject>
-/**
-* Definição de uma simulação simples, objetos idênticos
-*/
+
 using namespace simulacao::math::mathVisitor;
 using namespace simulacao::utils;
 using namespace simulacao::model::atores;
@@ -28,15 +25,30 @@ using namespace simulacao::model::grade;
 namespace simulacao{
 	namespace model{
 
-		class SimulacaoCaixa : public QObject, public Simulacao
+		class SimulacaoCaixa
 		{
-		Q_OBJECT
-
-
-		//private slots:
-		//	void adicionarEsfera();
 
 		private:
+			
+			bool simulacaoEmHardware;
+			NxReal deltaTime; 
+			Status status;
+			const NxVec3 gravidade;
+			NxScene *cena;
+			NxPhysicsSDK *physicsSDK;
+			const double fatorDeInterpenetracao;
+
+			void initPhysicsSDK();
+
+			inline NxPhysicsSDK* getSDK() const{
+				return physicsSDK;
+			}
+			inline NxScene *getCena() const{
+				return this->cena;
+			}
+			
+			//
+
 			NxActor *caixa;
 			MeshFactory *meshFactory;
 			PlanoDeCorte *atorPlanoDeCorte;
@@ -45,21 +57,23 @@ namespace simulacao{
 			bool _exibirPlanoDeCorte;
 			bool exibirRetasTeste;
 			bool exibirPontosTeste;
+			DAO *dao;
 
 		public:
-			SimulacaoCaixa(void);
+			SimulacaoCaixa(double coeficienteDeInterpenetracao,double aceleracaoGravidade);
 
 			void criarCaixa();
 			void exibirPlanoDeCorte();
 			void esconderPlanoDeCorte();
 			double getVolumeFaseSolida();
 			void adicionarEsferas(int qtde,Cor cor);
-			void adicionarPrismas(int qtde,Cor cor);
-			void adicionarPrismasTruncados(int qtde,Cor cor);
+			void adicionarPrismas(double L0, int quantidade, Cor cor, double razaoDeAspecto, double razaoDeTruncamento);
 			void novoPlanoDeCorte();
 			void selecionarGraosInterceptados();
 			void removerGraos();
 			sqlite3 *executarCortesSistematicos(int);
+
+			
 
 			NxActor* getCaixa(){
 				return this->caixa;
@@ -95,6 +109,58 @@ namespace simulacao{
 			bool getExibirPontosTeste(){ return this->exibirPontosTeste;}
 			void setExibirPontosTeste(bool b){ this->exibirPontosTeste = b;}
 
+			//simulacao
+
+			operator bool(){
+				return ( cena!=NULL && status != PAUSADO);
+			}
+			void pararSimulacao() ;
+
+			void GetPhysicsResults();
+			void iniciarSimulacao();
+
+			NxI64 getQtdeObjetos() const;
+
+			void setGravidade(NxVec3 *);
+			NxVec3 *getGravidade() const;
+
+			void setPlanoDeCorte(NxVec3 *);
+			NxVec3 *getPlanoDeCorte() const;
+
+
+			NxActor **getAtores(){ return this->cena->getActors();};
+
+			bool isSimulacaoEmHardware() const{
+				return this->simulacaoEmHardware;
+			}
+
+			Status getStatus() const{
+				return this->status;
+			}
+
+			void setStatus(Status status){
+				this->status = status;
+			}
+
+			void releaseActor(NxActor &ator){
+				this->cena->releaseActor(ator);
+			}
+			void desabilitarGravidade(){ 
+				NxVec3 gravity;
+				this->cena->getGravity(gravity);
+				gravity.y = 0;
+				this->cena->setGravity(gravity);
+			}
+			void habilitarGravidade(){ 
+				NxVec3 gravity;
+				this->cena->getGravity(gravity);
+				gravity.y = -9.8;	
+				this->cena->setGravity(gravity);
+			}
+
+
+
+			//end
 			~SimulacaoCaixa(void);
 		};
 

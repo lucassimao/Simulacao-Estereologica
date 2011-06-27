@@ -247,7 +247,9 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(int plano_pk){
 					InterceptoLinear *iLinearSeguinte = vetor[iLinearAtual+1];
 
 					if ((iLinearSeguinte->p0.x - iLinear->p1.x)>0){
-						interceptosDaFaseSolidaFile << iLinearSeguinte->p0.x - iLinear->p1.x << std::endl;
+						double interceptoDePoro = iLinearSeguinte->p0.x - iLinear->p1.x;
+
+						interceptosDaFaseSolidaFile << interceptoDePoro << std::endl;
 					}
 					++iLinearAtual;
 				}
@@ -255,6 +257,11 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(int plano_pk){
 
 			++iterator;
 		}
+
+		/*double ilmt = getInterceptoLinearMedioTeorico();
+		double fracaoFaseSolida = 
+		interceptosDaFaseSolidaFile <<std::endl<< "Livre caminho médio;" << 
+		*/
 		interceptosDaFaseSolidaFile.close();
 
 
@@ -592,34 +599,35 @@ void ExportadorParaArquivo::exportarInterceptoLinearMedioParaPrisma(){
 
 		file << "ILM;" << ilm << std::endl;
 
-
-		// coletando informações para o cálculo de ILMT
-		ProcessadorDeClassesDeIntercepto processador(this->db);
-		vector<ClasseDeGrao*> classes = processador.getClassesDeGraoPrismaticos();
-
-		int qtdeDeClasses =  classes.size();
-		int qtdeTotalDeGraos=0;
-		double nominadorDaFormula=0;
-
-		//utilizando a fórmula do ILMT
-		for(int idx=0;idx<qtdeDeClasses;++idx){
-			ClasseDeGraoPrismatico *classe = static_cast<ClasseDeGraoPrismatico*>(classes[idx]);
-			double alpha = classe->razaoDeAspecto;
-			double L = classe->L0;
-			double beta = classe->razaoDeTruncamento;
-			int n = classe->qtdeDeGraosDaClasse;
-			nominadorDaFormula += n * (2 * sqrt(3.0) * alpha * (1 - 3*pow(beta,2)) * L)/( 6*alpha*(1 - beta) + sqrt(3.0)*(1 - 3*pow(beta,2) ) );
-
-			qtdeTotalDeGraos += n;
-		}
-		double L3 = nominadorDaFormula/qtdeTotalDeGraos;
-		file << "ILMT;" << L3 << std::endl;
+		file << "ILMT;" << getInterceptoLinearMedioTeorico() << std::endl;
 
 		file.close();
 
 	}
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+}
+
+double ExportadorParaArquivo::getInterceptoLinearMedioTeorico(){
+		ProcessadorDeClassesDeIntercepto processador(this->db);
+		vector<ClasseDeGrao*> classes = processador.getClassesDeGraoPrismaticos();
+
+		int qtdeDeClasses =  classes.size();
+		double nominadorDaFormula=0;
+		double denominadorDaFormula=0;
+
+		for(int idx=0;idx<qtdeDeClasses;++idx){
+			ClasseDeGraoPrismatico *classe = static_cast<ClasseDeGraoPrismatico*>(classes[idx]);
+			double alpha = classe->razaoDeAspecto;
+			double L = classe->L0;
+			double beta = classe->razaoDeTruncamento;
+			int n = classe->qtdeDeGraosDaClasse;
+
+			nominadorDaFormula += n * ((sqrt(3.0)/4 )* alpha * (1 - 3*pow(beta,2)) * pow(L,3));
+			denominadorDaFormula += n*(0.5)*(6*alpha*(1 - beta) + sqrt(3.0)*(1 - 3*pow(beta,2)))*pow(L,2);  
+
+		}
+		return 4*(nominadorDaFormula/denominadorDaFormula);
 }
 
 void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaPrisma(){
@@ -673,8 +681,8 @@ void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaPrisma(){
 		vector<ClasseDeGrao*> classes = processador.getClassesDeGraoPrismaticos();
 
 		int qtdeDeClasses =  classes.size();
-		int qtdeTotalDeGraos=0;
 		double nominadorDaFormula=0;
+		double denominadorDaFormula=0;
 		double pi = 3.14159265;
 
 		//utilizando a fórmula do PMT
@@ -685,11 +693,11 @@ void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaPrisma(){
 			double beta = classe->razaoDeTruncamento;
 			int n = classe->qtdeDeGraosDaClasse;
 
-			nominadorDaFormula += n * pi*L*( 6*alpha*(1 - beta) + sqrt(3.0)*(1 - 3*pow(beta,2) ) )/(2 * (2*alpha + 3*(1-beta) ) );
+			nominadorDaFormula += n * pow(L,2)*(6*alpha*(1 - beta) + sqrt(3.0)*(1 - 3*pow(beta,2)));
+			denominadorDaFormula += n*L*(2*alpha + 3*(1 - beta));  
 
-			qtdeTotalDeGraos += n;
 		}
-		double Lp = nominadorDaFormula/qtdeTotalDeGraos;
+		double Lp = (pi/2)*(nominadorDaFormula/denominadorDaFormula);
 		file << "PMT;" << Lp << std::endl;
 
 		file.close();
@@ -751,6 +759,7 @@ void ExportadorParaArquivo::exportarInterceptoDeAreaMedioParaPrisma(){
 
 		int qtdeDeClasses =  classes.size();
 		int qtdeTotalDeGraos=0;
+		double denominadorDaFormula =0;
 		double nominadorDaFormula=0;
 
 		//utilizando a fórmula do IAMT
@@ -760,11 +769,11 @@ void ExportadorParaArquivo::exportarInterceptoDeAreaMedioParaPrisma(){
 			double L = classe->L0;
 			double beta = classe->razaoDeTruncamento;
 			int n = classe->qtdeDeGraosDaClasse;
-			nominadorDaFormula += n * ( sqrt(3.0) * alpha* (1 - 3*pow(beta,2)) * pow(L,2) )/(2*alpha + 3*(1-beta) );
 
-			qtdeTotalDeGraos += n;
+			nominadorDaFormula += n * pow(L,3)*(sqrt(3.0)* alpha * (1 - 3*pow(beta,2))); 
+			denominadorDaFormula += n*L*(2*alpha+3*(1 - beta));  
 		}
-		double iamt = nominadorDaFormula/qtdeTotalDeGraos;
+		double iamt = nominadorDaFormula/denominadorDaFormula;
 		file << "IAMT;" << iamt << std::endl;
 
 
@@ -909,7 +918,7 @@ void ExportadorParaArquivo::exportarInterceptoLinearMedioParaEsfera(){
 		int qtdeTotalDeGraos=0;
 		double nominadorDaFormula=0;
 
-		//fórmula do IAMT para esfera
+		//fórmula do ILMT para esfera
 		for(int idx=0;idx<qtdeDeClasses;++idx){
 			ClasseDeGraoEsferico *classe = static_cast<ClasseDeGraoEsferico*>(classes[idx]);
 			double raio = classe->raio;

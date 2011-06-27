@@ -27,7 +27,7 @@ namespace simulacao{
 					return this->altura*((pow(this->base,2.0)*sqrt(3.0))/4.0);
 				}
 			private:
-				double altura;
+				double altura; 
 				double base;
 				inline vector<SegmentoDeReta> getSegmentosDeRetaInterceptados(NxVec3);
 				

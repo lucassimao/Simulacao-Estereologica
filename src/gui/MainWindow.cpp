@@ -64,6 +64,8 @@ MainWindow::MainWindow(){
 	statusBar()->addWidget(statusTipoSimulacao);
 	statusBar()->addWidget(statusQtdeObjetos, 1);
 
+	simulacao = new SimulacaoCaixa(0.01,0);
+	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
 
 	criarCanvas();
 
@@ -180,7 +182,6 @@ void MainWindow::actionExecutarCortesSistematicos(){
 				ExportadorParaImagem exportador2(dir.toStdString(),db);
 				exportador2.exportar();
 			}
-			sqlite3_close(db);
 
 			QMessageBox::information(this, tr("Exportação concluída"),tr("Os dados foram exportados com sucesso!"));
 		}
@@ -240,11 +241,6 @@ void MainWindow::exibirVisaoSuperior(bool b){
 }
 
 inline void MainWindow::criarCanvas(){
-
-	simulacao = new SimulacaoCaixa;
-	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
-
-
 	view = new CaixaGraosGLWidget(this,simulacao);
 	view->setStrategy(new RenderizarAtoresStrategy());
 	view->setFocusPolicy(Qt::StrongFocus);
@@ -257,7 +253,6 @@ inline void MainWindow::criarCanvas(){
 	view->setSizePolicy(sizePolicy2);
 	view->setAcceptDrops(true);
 	ui->horizontalLayout_2->addWidget(view);
-
 
 	if (simulacao->isSimulacaoEmHardware())
 		statusTipoSimulacao->setText(tr("Simulação em Hardware"));
@@ -356,10 +351,16 @@ void MainWindow::adicionarObjetos(){
 		simulacao->adicionarEsferas(qtde,corDoGrao);
 		break;
 	case 1:
-		simulacao->adicionarPrismas(qtde,corDoGrao);
+		simulacao->adicionarPrismas(Parametros::getInstance()->getBasePrisma() ,
+									qtde,corDoGrao, 
+									Parametros::getInstance()->getAlturaPrisma() * Parametros::getInstance()->getBasePrisma() ,0);
 		break;
 	case 2:
-		simulacao->adicionarPrismasTruncados(qtde,corDoGrao);
+		simulacao->adicionarPrismas(Parametros::getInstance()->getL0DoPrismaTriangularTruncado() ,
+									qtde,corDoGrao, 
+									Parametros::getInstance()->getRazaoAspectoDoPrismaTriangularTruncado(),
+									Parametros::getInstance()->getRazaoDeTruncamentoDoPrismaTriangularTruncado());
+
 		break;
 	}	
 
@@ -442,10 +443,9 @@ void MainWindow::usarGravidade(bool b){
 		simulacao->desabilitarGravidade();
 }
 
-void MainWindow::novaSimulacao(){
+inline void MainWindow::resetarComponentes(){
 	this->ui->horizontalLayout_2->removeWidget(view);
 	delete view;
-	this->simulacao->pararSimulacao();
 
 	ui->btnParar->setEnabled(true);
 	ui->btnLimpar->setEnabled(true);
@@ -461,10 +461,61 @@ void MainWindow::novaSimulacao(){
 	ui->checkBoxExibirPontosTeste->setChecked(true);
 	ui->checkBoxExibirRetasTeste->setChecked(true);
 
+}
+void MainWindow::novaSimulacao(){
+
+	this->simulacao->pararSimulacao();
+	resetarComponentes();	
+
 	Parametros::getInstance()->loadDefaultValues();
+	simulacao = new SimulacaoCaixa(0.01,0);
+	simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
+
 	criarCanvas();
 	atualizarQuantidadeDeGraosEmCena();
+}
 
+void MainWindow::modificarInterpenetracao(){
+	QInputDialog *dlg = new QInputDialog(this);
+	dlg->setDoubleMinimum(0.01);
+	dlg->setDoubleMaximum(1.0);
+	dlg->setInputMode(QInputDialog::DoubleInput);
+
+	dlg->setLabelText(tr("Fator de Interpenetração:"));
+	dlg->setDoubleValue(0.01);
+	int res = dlg->exec();
+
+	if (res == QInputDialog::Accepted){
+		this->simulacao->pararSimulacao();
+		resetarComponentes();	
+
+		simulacao = new SimulacaoCaixa(dlg->doubleValue(),0);
+		simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
+
+		criarCanvas();
+		atualizarQuantidadeDeGraosEmCena();		
+	}
+}
+
+void MainWindow::modificarAceleracaoDaGravidade(){
+	QInputDialog *dlg = new QInputDialog(this);
+	dlg->setDoubleMinimum(-1000.0);
+	dlg->setInputMode(QInputDialog::DoubleInput);
+
+	dlg->setLabelText(tr("Aceleração da gravidade:"));
+	dlg->setDoubleValue(0);
+	int res = dlg->exec();
+
+	if (res == QInputDialog::Accepted){
+		this->simulacao->pararSimulacao();
+		resetarComponentes();	
+
+		simulacao = new SimulacaoCaixa(0,dlg->doubleValue());
+		simulacao->setGeradorDeAlturaDoPlanoStrategy(new GeradorDeAlturaAleatoriaDoPlanoDeCorteStrategy());
+
+		criarCanvas();
+		atualizarQuantidadeDeGraosEmCena();		
+	}
 }
 
 void MainWindow::usarGraosAleatorios(bool b){

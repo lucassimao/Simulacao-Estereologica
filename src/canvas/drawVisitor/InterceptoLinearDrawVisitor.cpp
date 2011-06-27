@@ -63,11 +63,6 @@ inline void InterceptoLinearDrawVisitor::visit(Disco *disco){
 }
 
 inline void InterceptoLinearDrawVisitor::visit(Poligono *poligono){
-	double z0 = poligono->verticeComMaiorZ.z;
-	double z1 = poligono->verticeComMenorZ.z;
-	
-	vector<RetaDeTeste> linhas = this->grade->getLinhasNoIntervalo(z0,z1);
-	vector<RetaDeTeste>::const_iterator iterator = linhas.begin();
 
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
@@ -76,27 +71,19 @@ inline void InterceptoLinearDrawVisitor::visit(Poligono *poligono){
 	glEnable(GL_CULL_FACE); 
 	glCullFace(GL_FRONT); 
 	glDisable(GL_LIGHTING);
-	//glColor3f(0,0,0);
 	glColor3f(1.0f,1.0f,1.0f);
 	glLineWidth(2.5f);
 
 	glBegin(GL_LINES);
-		while(iterator!=linhas.end()){
-			RetaDeTeste retaDeTeste = *iterator;
-			
-			// já me retorna as arestas que estão interceptadas pela reta de teste
-			list<SegmentoDeReta> arestasInterceptadas = poligono->getArestasInterceptadas(retaDeTeste);
-			
-			list<SegmentoDeReta>::const_iterator iter = arestasInterceptadas.begin();
-			while(iter!=arestasInterceptadas.end()){
-					SegmentoDeReta seg = *iter;
-					Ponto p;
-					seg.interceptar(retaDeTeste,&p);
-					glVertex3f(p.x,p.y,p.z);
-				++iter;
+		vector<InterceptoLinear*> interceptosLineares = poligono->getInterceptosLineares(this->grade);
+		if (interceptosLineares.size() > 0){
+			vector<InterceptoLinear*>::const_iterator iterator = interceptosLineares.begin();
+			while(iterator != interceptosLineares.end()){
+				InterceptoLinear* intercepto = *iterator;
+				glVertex3f(intercepto->p0.x,intercepto->p0.y,intercepto->p0.z);
+				glVertex3f(intercepto->p1.x,intercepto->p1.y,intercepto->p1.z);
+				iterator++;
 			}
-
-			++iterator;
 		}
 	glEnd();
 

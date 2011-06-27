@@ -74,7 +74,6 @@ void ColetorDePontosVisitor::visit(Poligono *poligono){
 				this->qtdePontos +=  retaDeTeste.getQtdeDePontosNoIntervalo(p0,p1);
 			else
 				this->qtdePontos +=  retaDeTeste.getQtdeDePontosNoIntervalo(p1,p0);
-			
 		
 		}
         ++iterator;

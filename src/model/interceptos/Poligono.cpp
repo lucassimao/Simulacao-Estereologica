@@ -105,22 +105,23 @@ vector<InterceptoLinear*> Poligono::getInterceptosLineares(Grade *grade){
 			RetaDeTeste retaDeTeste = *iterator;
 
 			list<SegmentoDeReta> arestasInterceptadas = this->getArestasInterceptadas(retaDeTeste);
-			if  (arestasInterceptadas.size()==2){
-				SegmentoDeReta seg1 = arestasInterceptadas.front();
-				Ponto p1;
-				seg1.interceptar(retaDeTeste,&p1);
-				
-				SegmentoDeReta seg2 = arestasInterceptadas.back();
-				Ponto p2;
-				seg2.interceptar(retaDeTeste,&p2);
+			assert( arestasInterceptadas.size()==2 );
 
-				InterceptoLinear *interceptosLinear= new InterceptoLinear(p1,p2);
-				interceptosLineares.push_back(interceptosLinear);
-			}			
+			SegmentoDeReta seg1 = arestasInterceptadas.front();
+			Ponto p1;
+			seg1.interceptar(retaDeTeste,&p1);
+			
+			SegmentoDeReta seg2 = arestasInterceptadas.back();
+			Ponto p2;
+			seg2.interceptar(retaDeTeste,&p2);
+
+			if (p1.x < p2.x)			
+				interceptosLineares.push_back(new InterceptoLinear(p1,p2));	
+			else
+				interceptosLineares.push_back(new InterceptoLinear(p2,p1));	
 
 			++iterator;
-		}
-
+	}
 	return interceptosLineares;
 }
 
@@ -163,7 +164,7 @@ list<SegmentoDeReta> Poligono::getArestasInterceptadas(RetaDeTeste& rt){
 		Vetor v0 = s.r0;
 		Vetor v1 = s.r1;
 
-		if (  (zLinha <= MAX(v0.z,v1.z)) && ( zLinha >= MIN(v0.z,v1.z)) &&  (xLinha1 >= MAX(v0.x,v1.x)) && ( xLinha0 <= MIN(v0.x,v1.x))   )
+		if (  (zLinha <= MAX(v0.z,v1.z)) && ( zLinha >= MIN(v0.z,v1.z)))
 			arestasInterceptadas.push_back(s);
 
 		++iter;

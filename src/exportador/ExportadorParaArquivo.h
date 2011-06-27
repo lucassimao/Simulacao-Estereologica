@@ -51,6 +51,8 @@ namespace simulacao{
 			void exportarFracaoDePontos();
 			void exportarFracaoDeAreas();
 			void exportarFracaoLinear();
+
+			double getInterceptoLinearMedioTeorico();
 		};
 	}
 }

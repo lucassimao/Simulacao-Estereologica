@@ -42,6 +42,15 @@ sqlite3 * DataBaseFactory::criarBanco(const char* arquivo){
 		return NULL;
     }
 
+	rc = sqlite3_exec(db, "create table prismas(id int PRIMARY KEY, razaoDeAspecto double, razaoDeTruncamento double, L0 double);", 0, 0, &errStr);
+	if ( rc!=SQLITE_OK )
+    {
+        throw runtime_error(errStr);
+        sqlite3_free(errStr);
+		return NULL;
+    }
+
+
 	rc = sqlite3_exec(db, "create table poligonos(id int PRIMARY KEY,atorID int,area double, razaoDeAspectoOriginaria double, razaoDeTruncamentoOriginaria double, planoDeCorte_fk int,L0 double,perimetro double,r double,g double,b double, FOREIGN KEY(planoDeCorte_fk) references planoDeCorte(id));", 0, 0, &errStr);
 	if ( rc!=SQLITE_OK )
     {

@@ -35,29 +35,11 @@ void ColetorDeInterceptosLinearesVisitor::visit(Disco *disco){
 }
 
 void ColetorDeInterceptosLinearesVisitor::visit(Poligono *poligono){
-	double z0 = poligono->verticeComMaiorZ.z;
-	double z1 = poligono->verticeComMenorZ.z;
-	
-	vector<RetaDeTeste> linhas = this->grade->getLinhasNoIntervalo(z0,z1);
-	vector<RetaDeTeste>::const_iterator iterator = linhas.begin();
-	
-	while(iterator!=linhas.end()){
-			RetaDeTeste retaDeTeste = *iterator;
-
-			list<SegmentoDeReta> arestasInterceptadas = poligono->getArestasInterceptadas(retaDeTeste);
-			if  (arestasInterceptadas.size()==2){
-				SegmentoDeReta seg1 = arestasInterceptadas.front();
-				Ponto p1;
-				seg1.interceptar(retaDeTeste,&p1);
-				
-				SegmentoDeReta seg2 = arestasInterceptadas.back();
-				Ponto p2;
-				seg2.interceptar(retaDeTeste,&p2);
-
-				double distancia = pow(pow(p1.x - p2.x,2) + pow(p1.y - p2.y,2) + pow(p1.z - p2.z,2),0.5); 
-				this->interceptosLineares.push_back(distancia);
-			}			
-
-			++iterator;
-		}
+	vector<InterceptoLinear*> interceptosLineares = poligono->getInterceptosLineares(this->grade);
+	vector<InterceptoLinear*>::const_iterator iterator = interceptosLineares.begin();
+	while(iterator != interceptosLineares.end()){
+		InterceptoLinear* intercepto = *iterator;
+		this->interceptosLineares.push_back(abs(intercepto->p0.x - intercepto->p1.x));
+		iterator++;
+	}
 }

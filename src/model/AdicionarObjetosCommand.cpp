@@ -86,13 +86,13 @@ void AdicionarObjetosCommand::execute(){
 			Parametros::getInstance()->setBasePrisma(l0);
 			Parametros::getInstance()->setAlturaPrisma(razaoDeAspecto*l0);		
 				
-			simulacao->adicionarPrismas(qtde,cor);
+			simulacao->adicionarPrismas(l0,qtde,cor,razaoDeAspecto,0);
 		}else{
 			Parametros::getInstance()->setL0DoPrismaTriangularTruncado(l0);
 			Parametros::getInstance()->setRazaoAspectoDoPrismaTriangularTruncado(razaoDeAspecto);
 			Parametros::getInstance()->setRazaoDeTruncamentoDoPrismaTriangularTruncado(razaoDeTruncamento);
 
-			simulacao->adicionarPrismasTruncados(qtde,cor);
+			simulacao->adicionarPrismas(l0,qtde,cor,razaoDeAspecto,razaoDeTruncamento);
 		}
 		++iter2;
 	}

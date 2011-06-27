@@ -27,6 +27,7 @@ namespace simulacao	{
 
 			inline void criarCanvas();
 			inline void atualizarQuantidadeDeGraosEmCena();
+			inline void resetarComponentes();
 			
 		private slots:
 			void adicionarObjetos();
@@ -57,6 +58,8 @@ namespace simulacao	{
 			void distribuicaoLogNormal();
 			void exibirDistribuicaoDeInterceptos();
 
+			void modificarInterpenetracao();
+			void modificarAceleracaoDaGravidade();
 		public:
 			MainWindow();
 			~MainWindow();

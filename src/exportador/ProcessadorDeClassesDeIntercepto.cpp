@@ -395,7 +395,7 @@ vector<ClasseDeGrao*> ProcessadorDeClassesDeIntercepto::getClassesDeGraoPrismati
 	vector<ClasseDeGrao*> vetor;
 
 	sqlite3_stmt *poligonos_stmt = 0;
-	const char *classes_select =  "select razaoDeAspectoOriginaria, razaoDeTruncamentoOriginaria, L0,count(distinct atorID) from poligonos group by razaoDeAspectoOriginaria, razaoDeTruncamentoOriginaria, L0;";
+	const char *classes_select =  "select razaoDeAspecto, razaoDeTruncamento, L0,count(*) from prismas group by razaoDeAspecto, razaoDeTruncamento, L0;";
 
 
 	int res = sqlite3_prepare_v2(this->db,classes_select,-1,&poligonos_stmt,NULL);

@@ -123,14 +123,18 @@ void DAO::salvarInterceptosPorosos(__int64 planoDeCorte_id){
 		while(res != SQLITE_ROW && res != SQLITE_DONE);
 		
 		while(res != SQLITE_DONE){
-			Ponto p0,p1;
+			Ponto p0;
 			p0.x = sqlite3_column_double(stmt,0);
 			p0.y = sqlite3_column_double(stmt,1);
 			p0.z = sqlite3_column_double(stmt,2);
 
+			Ponto p1;
 			p1.x = sqlite3_column_double(stmt,3);
 			p1.y = sqlite3_column_double(stmt,4);
 			p1.z = sqlite3_column_double(stmt,5);			
+
+			assert(p0.z == p1.z);
+			assert(p0.x <= p1.x);
 
 			if (interceptosLineares.count(p0.z)==0){
 				interceptosLineares[p0.z] = vector<InterceptoLinear*>();
@@ -141,6 +145,7 @@ void DAO::salvarInterceptosPorosos(__int64 planoDeCorte_id){
 		}	
 
 		sqlite3_finalize(stmt);
+
 		struct {
 			bool operator()(InterceptoLinear *i1, InterceptoLinear *i2) const{
 				return i1->p0.x < i2->p0.x;
@@ -160,7 +165,7 @@ void DAO::salvarInterceptosPorosos(__int64 planoDeCorte_id){
 					InterceptoLinear *iLinear = vetor[iLinearAtual];
 					InterceptoLinear *iLinearSeguinte = vetor[iLinearAtual+1];
 
-					if ((iLinearSeguinte->p0.x - iLinear->p1.x)>0){
+					if (iLinearSeguinte->p0.x > iLinear->p1.x){
 						double interceptoPoro = iLinearSeguinte->p0.x - iLinear->p1.x;
 						
 						int res = sqlite3_prepare_v2(this->db,interceptoPorosoInsert,-1,&interceptoPorosoStmt,NULL);
@@ -187,19 +192,15 @@ void DAO::salvarInterceptosPorosos(__int64 planoDeCorte_id){
 						assert(res == SQLITE_DONE);
 
 						sqlite3_finalize(interceptoPorosoStmt);
-
 					}
 					++iLinearAtual;
 				}
 			}
-
 			++iterator;
-		}
-		
+		}		
     }
 	else
-		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
-	
+		qDebug() <<  sqlite3_errmsg(this->db)<<endl;	
 
 }
 
@@ -213,6 +214,47 @@ __int64 DAO::salvarInterceptoDeArea(__int64 planoDeCorte_id,InterceptoDeArea *in
 			break;
 	}
 }
+
+void DAO::zerar(){
+	char *errStr;
+	ostringstream insert;
+
+	insert << "delete from planoDeCorte;";	
+	insert << "delete from estatisticas;";	
+	insert << "delete from poligonos;";	
+	insert << "delete from discos;";	
+	insert << "delete from vertices_poligono;";	
+	insert << "delete from interceptosLineares_poligonos;";	
+	insert << "delete from interceptosLineares_discos;";	
+	insert << "delete from interceptosPorosos;";		
+
+    int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
+	if ( rc!=SQLITE_OK )
+    {
+		qDebug() << errStr;
+        throw runtime_error(errStr);
+        sqlite3_free(errStr);
+    }
+}
+__int64 DAO::salvarPrisma(double razaoDeAspecto, double razaoDeTruncamento,double L0){
+	char *errStr;
+	ostringstream insert;
+
+	insert << "insert into prismas('razaoDeAspecto','razaoDeTruncamento','L0')";
+	insert << " values(" << razaoDeAspecto << "," << razaoDeTruncamento << "," << L0 << ");";	
+	
+    int rc = sqlite3_exec(this->db,insert.str().c_str(), 0, 0, &errStr);
+	if ( rc!=SQLITE_OK )
+    {
+		qDebug() << errStr;
+        throw runtime_error(errStr);
+        sqlite3_free(errStr);
+		return -1;
+    }
+	__int64 prismaID = sqlite3_last_insert_rowid(this->db);
+	return prismaID;
+}
+
 
 __int64 DAO::salvarDisco(__int64 planoDeCorte_id, Disco *d){
 	char *errStr;

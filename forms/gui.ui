@@ -549,9 +549,6 @@
     </property>
     <addaction name="actionNova_Simulacao"/>
     <addaction name="actionSalvar_Figura"/>
-    <addaction name="actionSalvar_resultados"/>
-    <addaction name="actionSalvar_cena"/>
-    <addaction name="actionAbrir_cena"/>
     <addaction name="separator"/>
     <addaction name="actionSair"/>
    </widget>
@@ -584,6 +581,8 @@
     <addaction name="actionExecutarCortesSistematicos"/>
     <addaction name="actionGrade_de_pontos_e_linha_teste"/>
     <addaction name="menuAdi_o_Sistem_tica"/>
+    <addaction name="actionInterpenetra_o_das_Esferas"/>
+    <addaction name="actionAcelera_o_da_Gravidade"/>
    </widget>
    <widget class="QMenu" name="menuAjuda">
     <property name="title">
@@ -773,6 +772,16 @@
   <action name="actionDistribui_o_Log_Normal">
    <property name="text">
     <string>Distribuição Log Normal</string>
+   </property>
+  </action>
+  <action name="actionInterpenetra_o_das_Esferas">
+   <property name="text">
+    <string>Fator de Interpenetração</string>
+   </property>
+  </action>
+  <action name="actionAcelera_o_da_Gravidade">
+   <property name="text">
+    <string>Aceleração da Gravidade </string>
    </property>
   </action>
  </widget>
@@ -1178,6 +1187,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionInterpenetra_o_das_Esferas</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>modificarInterpenetracao()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAcelera_o_da_Gravidade</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>modificarAceleracaoDaGravidade()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>adicionarObjetos()</slot>
@@ -1205,5 +1246,7 @@
   <slot>distribuicaoLogNormal()</slot>
   <slot>configurarCorDoPlanoDeCorte()</slot>
   <slot>exibirDistribuicaoDeInterceptos()</slot>
+  <slot>modificarInterpenetracao()</slot>
+  <slot>modificarAceleracaoDaGravidade()</slot>
  </slots>
 </ui>
