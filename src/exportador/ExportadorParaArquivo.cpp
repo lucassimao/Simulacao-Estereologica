@@ -60,6 +60,7 @@ void ExportadorParaArquivo::exportarPlanosDeCorte(){
 	exportarFracaoDePontos();
 	exportarFracaoDeAreas();
 	exportarFracaoLinear();
+	salvarInterceptosDePoro();
 
 	if (trabalharComPrismas()){
 		exportarInterceptosMedioParaPrisma();
@@ -175,99 +176,91 @@ void ExportadorParaArquivo::exportarPlanoDeCorte(int planoDeCorteID){
 
 	salvarQtdeDePontosInternos(planoDeCorteID,pontosInternosFile);
 	pontosInternosFile.close();
-
-	salvarInterceptosDePoro(planoDeCorteID);
 }
 
-void ExportadorParaArquivo::salvarInterceptosDePoro(int plano_pk){
+void ExportadorParaArquivo::salvarInterceptosDePoro(){
 	locale ptBR(locale(),new WithComma);
 	ostringstream fileName;
-	fileName << this->destino << "/interceptosDePoro_plano_" << plano_pk << ".csv"; 
+	fileName << this->destino << "/distribuicaoDeInterceptosPoro.csv"; 
 
-	ofstream interceptosDaFaseSolidaFile(fileName.str().c_str(),std::ios::out);
-	interceptosDaFaseSolidaFile.imbue(ptBR);
+	ofstream distribuicaoDeInterceptosPoro(fileName.str().c_str(),std::ios::out);
+	distribuicaoDeInterceptosPoro.imbue(ptBR);
 
-	sqlite3_stmt *stmt = 0;
-	ostringstream select;
-	select << "select x0,y0,z0,x1,y1,z1 from interceptosLineares_discos where disco_fk in ";
-	select << "(select rowid from discos where planoDeCorte_fk = ?1)";
-	select << " union ";
-	select << "select x0,y0,z0,x1,y1,z1 from interceptosLineares_poligonos where poligono_fk in ";
-	select << "(select rowid from poligonos where planoDeCorte_fk = ?1);";
+	int quantidadeGlobalDeInterceptosDeLivreCaminhoMedio = 0;
+	double razaoTotal = 0;
+	int quantidadeDePlanos=0;
+	
+	const char *planoDeCorte_select = "select rowid from planoDeCorte;";
+	sqlite3_stmt *planoDeCorte_stmt = 0;
+	int res = sqlite3_prepare_v2(this->db,planoDeCorte_select,-1,&planoDeCorte_stmt,NULL);
+	
+	if( res==SQLITE_OK && planoDeCorte_stmt ){
+		do{	res = sqlite3_step(planoDeCorte_stmt);}	while(res != SQLITE_ROW && res != SQLITE_DONE);
+		
+		distribuicaoDeInterceptosPoro << "Plano;Intercepto de livre caminho médio"<<endl;
+		
+		//iterando sobre todos os planos 
+		while (res != SQLITE_DONE){
+			int planoDeCorte_id = sqlite3_column_int(planoDeCorte_stmt,0);	
+			quantidadeDePlanos++;
 
+			{
+				// esse bloco encontra a quantidade e o tamanho total
+				// dos interceptos de livre caminho médio
+				const char *interceptosPorosos_select = "select count(*),sum(tamanho) from interceptosPorosos where plano_fk=?;";
+				sqlite3_stmt *interceptosPorosos_stmt = 0;
+				int res = sqlite3_prepare_v2(this->db,interceptosPorosos_select,-1,&interceptosPorosos_stmt,NULL);
 
-	int res = sqlite3_prepare_v2(this->db,select.str().c_str(),-1,&stmt,NULL);
-	map<double,vector<InterceptoLinear*>> interceptosLineares;
+				if( res==SQLITE_OK && interceptosPorosos_stmt ){
+					res = sqlite3_bind_int(interceptosPorosos_stmt,1,planoDeCorte_id);
+					assert(res == SQLITE_OK);
+					
+					do{ res = sqlite3_step(interceptosPorosos_stmt);}while(res != SQLITE_ROW && res != SQLITE_DONE);
+					
+					while(res != SQLITE_DONE){
+						int quantidadeDeInterceptosPorososNoPlano = sqlite3_column_int(interceptosPorosos_stmt,0);
+						double tamanhoTotalDosPorosNoPlano = sqlite3_column_double(interceptosPorosos_stmt,1);
 
-	if( res==SQLITE_OK && stmt ){
-		res = sqlite3_bind_int(stmt,1,plano_pk);
-		assert(res == SQLITE_OK);
+						double razao = tamanhoTotalDosPorosNoPlano/quantidadeDeInterceptosPorososNoPlano;
 
-		do{
-			res = sqlite3_step(stmt);
-		}
-		while(res != SQLITE_ROW && res != SQLITE_DONE);
+						quantidadeGlobalDeInterceptosDeLivreCaminhoMedio += quantidadeDeInterceptosPorososNoPlano;
+						razaoTotal += razao;
 
-		while(res != SQLITE_DONE){
-			Ponto p0,p1;
-			p0.x = sqlite3_column_double(stmt,0);
-			p0.y = sqlite3_column_double(stmt,1);
-			p0.z = sqlite3_column_double(stmt,2);
+						distribuicaoDeInterceptosPoro << "Plano " <<planoDeCorte_id <<";" << razao << std::endl;
+						res = sqlite3_step(interceptosPorosos_stmt);
+					}	
 
-			p1.x = sqlite3_column_double(stmt,3);
-			p1.y = sqlite3_column_double(stmt,4);
-			p1.z = sqlite3_column_double(stmt,5);			
-
-			if (interceptosLineares.count(p0.z)==0){
-				interceptosLineares[p0.z] = vector<InterceptoLinear*>();
-			}
-			interceptosLineares[p0.z].push_back(new InterceptoLinear(p0,p1));
-
-			res = sqlite3_step(stmt);
-		}	
-
-		sqlite3_finalize(stmt);
-		struct {
-			bool operator()(InterceptoLinear *i1, InterceptoLinear *i2) const{
-				return i1->p0.x < i2->p0.x;
-			}
-		}InterceptoLinearCmp;
-		map<double,vector<InterceptoLinear*>>::const_iterator iterator = interceptosLineares.begin();
-
-
-		while(iterator != interceptosLineares.end()){
-			vector<InterceptoLinear*> vetor = (*iterator).second;
-
-			if (vetor.size() > 1){
-				sort(vetor.begin(),vetor.end(),InterceptoLinearCmp);				
-				int iLinearAtual = 0;
-
-				while(iLinearAtual+1 < vetor.size()){
-					InterceptoLinear *iLinear = vetor[iLinearAtual];
-					InterceptoLinear *iLinearSeguinte = vetor[iLinearAtual+1];
-
-					if ((iLinearSeguinte->p0.x - iLinear->p1.x)>0){
-						double interceptoDePoro = iLinearSeguinte->p0.x - iLinear->p1.x;
-
-						interceptosDaFaseSolidaFile << interceptoDePoro << std::endl;
-					}
-					++iLinearAtual;
+					sqlite3_finalize(interceptosPorosos_stmt);
 				}
 			}
 
-			++iterator;
+			res = sqlite3_step(planoDeCorte_stmt);
 		}
-
-		/*double ilmt = getInterceptoLinearMedioTeorico();
-		double fracaoFaseSolida = 
-		interceptosDaFaseSolidaFile <<std::endl<< "Livre caminho médio;" << 
-		*/
-		interceptosDaFaseSolidaFile.close();
-
-
+		sqlite3_finalize(planoDeCorte_stmt);
 	}
 	else
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
+
+
+	distribuicaoDeInterceptosPoro << endl<< endl;
+	distribuicaoDeInterceptosPoro << "ILCM;"<< razaoTotal/quantidadeDePlanos<<endl; 
+
+	Parametros *params = Parametros::getInstance();
+
+	double ilmt = getInterceptoLinearMedioTeorico();
+	double volumeFaseSolida = getVolumeFaseSolida();
+	double volumeTotalCaixa = pow(params->getArestaDaCaixa(),3);
+	double fracaoFaseSolida = volumeFaseSolida/volumeTotalCaixa;
+
+	double ilcmt1 = ilmt*(1.0 - fracaoFaseSolida)/fracaoFaseSolida;
+	distribuicaoDeInterceptosPoro << "ILCMT 1;"<< ilcmt1 << endl;
+
+	double comprimentoTotalDasRetasTeste = params->getArestaDaCaixa()*quantidadeDePlanos*params->getParametrosDaGrade().qtdeLinhas;
+
+	double ilcmt2 = (1.0 - fracaoFaseSolida)/ (quantidadeGlobalDeInterceptosDeLivreCaminhoMedio/comprimentoTotalDasRetasTeste) ;
+	distribuicaoDeInterceptosPoro << "ILCMT 2;"<< ilcmt2 << endl;
+	
+	distribuicaoDeInterceptosPoro.close();
 
 }
 
@@ -379,9 +372,10 @@ void ExportadorParaArquivo::exportarFracaoLinear(){
 	sqlite3_stmt *stmt = 0;
 	const char *select = 0;
 	if (trabalharComPrismas()){
-		select = "select p.planoDeCorte_fk, sum(ip.tamanho) from interceptosLineares_poligonos ip,poligonos p where ip.poligono_fk=p.rowid group by p.planoDeCorte_fk order by p.planoDeCorte_fk;";
+		select = "select plano.rowid,sum(ip.tamanho) from planoDeCorte plano LEFT OUTER JOIN poligonos p ON plano.rowid=p.planoDeCorte_fk LEFT OUTER JOIN interceptosLineares_poligonos ip ON ip.poligono_fk=p.rowid  group by plano.rowid order by plano.rowid;";
 	}else{
-		select = "select d.planoDeCorte_fk, sum(id.tamanho) from interceptosLineares_discos id,discos d where id.disco_fk=d.rowid group by d.planoDeCorte_fk order by d.planoDeCorte_fk;";
+		select = "select plano.rowid, sum(id.tamanho) from planoDeCorte plano LEFT OUTER JOIN discos d ON plano.rowid=d.rowid LEFT OUTER JOIN interceptosLineares_discos id ON id.disco_fk=d.rowid group by plano.rowid order by plano.rowid;";
+		
 	}
 	int res = sqlite3_prepare_v2(this->db,select,-1,&stmt,NULL);
 	if( res==SQLITE_OK && stmt ){
@@ -608,6 +602,29 @@ void ExportadorParaArquivo::exportarInterceptoLinearMedioParaPrisma(){
 		qDebug() <<  sqlite3_errmsg(this->db)<<endl;
 }
 
+double ExportadorParaArquivo::getVolumeFaseSolida(){
+	sqlite3_stmt *stmt = 0;
+	const char *select = "select volumeFaseSolida from estatisticas";
+	
+	double volumeFaseSolida = 0;
+
+	int res = sqlite3_prepare_v2(this->db,select,-1,&stmt,NULL);
+	
+    assert(res==SQLITE_OK && stmt );
+			
+	do{
+		res = sqlite3_step(stmt);
+	}
+	while(res != SQLITE_ROW && res != SQLITE_DONE);
+	
+	volumeFaseSolida = sqlite3_column_double(stmt,0);
+	res = sqlite3_step(stmt);
+
+	//assert(res == SQLITE_DONE);
+
+	sqlite3_finalize(stmt);
+	return volumeFaseSolida;
+}
 double ExportadorParaArquivo::getInterceptoLinearMedioTeorico(){
 		ProcessadorDeClassesDeIntercepto processador(this->db);
 		vector<ClasseDeGrao*> classes = processador.getClassesDeGraoPrismaticos();

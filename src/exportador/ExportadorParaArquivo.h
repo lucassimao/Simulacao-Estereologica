@@ -37,7 +37,7 @@ namespace simulacao{
 			void salvarAreaDosDiscos(int plano_pk, ofstream &outFile);
 			void salvarInterceptosLineares(int plano_pk, ofstream &outFile);
 			void salvarQtdeDePontosInternos(int plano_pk, ofstream &outFile);
-			void salvarInterceptosDePoro(int plano_pk);
+			void salvarInterceptosDePoro();
 
 			void exportarInterceptoDeAreaMedioParaPrisma();
 			void exportarInterceptoLinearMedioParaPrisma();
@@ -53,6 +53,7 @@ namespace simulacao{
 			void exportarFracaoLinear();
 
 			double getInterceptoLinearMedioTeorico();
+			double getVolumeFaseSolida();
 		};
 	}
 }

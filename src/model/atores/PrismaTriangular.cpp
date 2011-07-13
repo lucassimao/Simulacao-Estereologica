@@ -174,7 +174,7 @@ inline vector<SegmentoDeReta> PrismaTriangular::getSegmentosDeRetaInterceptados(
 	}
 
 
-	qDebug() << verticesAcimaDoPlanoDeCorte.size() << " " << verticesAbaixoDoPlanoDeCorte.size() << endl;
+	//qDebug() << verticesAcimaDoPlanoDeCorte.size() << " " << verticesAbaixoDoPlanoDeCorte.size() << endl;
 
 	vector<NxVec3>::const_iterator iteratorVerticesAcimaDoPlanoDeCorte = verticesAcimaDoPlanoDeCorte.begin();
 

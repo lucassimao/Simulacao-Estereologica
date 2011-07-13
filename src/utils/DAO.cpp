@@ -165,6 +165,10 @@ void DAO::salvarInterceptosPorosos(__int64 planoDeCorte_id){
 					InterceptoLinear *iLinear = vetor[iLinearAtual];
 					InterceptoLinear *iLinearSeguinte = vetor[iLinearAtual+1];
 
+					/*if (iLinearSeguinte->p0.x > iLinear->p0.x && iLinearSeguinte->p0.x < iLinear->p1.x){
+						int a=1;
+					}*/
+
 					if (iLinearSeguinte->p0.x > iLinear->p1.x){
 						double interceptoPoro = iLinearSeguinte->p0.x - iLinear->p1.x;
 						

@@ -63,6 +63,8 @@ void ExportadorParaImagem::renderizarPoligono(int poligonoPk, CImg<double> &img,
 			res = sqlite3_step(discos_stmt);
 		}
 		img.draw_polygon(vertices>'x',color);
+		//unsigned char color2[] = { 0*255,0*255,1*255 };
+		//img.draw_line(vertices>'x',color2);
 
 
 		sqlite3_finalize(discos_stmt);		

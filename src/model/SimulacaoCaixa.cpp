@@ -149,6 +149,8 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 
 		__int64 planoID =  this->dao->salvarPlano(planoGlobalPosition.y,p->getLarguraDoPlanoDeCorte(),this->getPlanoDeCorte()->cor);
 
+		qDebug() << " Plano " << planoID<< endl;
+
 		while (qtdeAtores--)
 		{
 			NxActor* ator = *atores++;
@@ -163,7 +165,13 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 
 					__int64 interceptoID =  this->dao->salvarInterceptoDeArea(planoID,intercepto);
 
-					vector<InterceptoLinear*> interceptosLineares = intercepto->getInterceptosLineares(this->getGrade());			
+					vector<InterceptoLinear*> interceptosLineares = intercepto->getInterceptosLineares(this->getGrade());	
+					/*for(int i=0;i< interceptosLineares.size();++i){
+						Ponto p0 =interceptosLineares[i]->p0;
+						Ponto p1 =interceptosLineares[i]->p1;
+
+						qDebug() << p0.x << "," << p0.y<< ","<<p0.z << " ;;; " << p1.x << "," << p1.y<< ","<<p1.z<<endl;
+					}*/
 					this->dao->salvarInterceptosLineares(interceptoID,interceptosLineares,intercepto->getType());
 
 				}
