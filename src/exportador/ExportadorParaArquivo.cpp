@@ -176,6 +176,38 @@ void ExportadorParaArquivo::exportarPlanoDeCorte(int planoDeCorteID){
 
 	salvarQtdeDePontosInternos(planoDeCorteID,pontosInternosFile);
 	pontosInternosFile.close();
+
+	// agora salvando os interceptos porosos
+	ostringstream arquivoInterceptosLivreCaminhoMedio;
+	arquivoInterceptosLivreCaminhoMedio << this->destino << "/interceptosLivreCaminhoMedio_plano_" << planoDeCorteID << ".csv"; 
+	ofstream interceptosLivreCaminhoMedioFile(arquivoInterceptosLivreCaminhoMedio.str().c_str(),std::ios::out);
+	interceptosLivreCaminhoMedioFile.imbue(ptBR);
+
+	salvarInterceptosDeLivreCaminhoMedio(planoDeCorteID,interceptosLivreCaminhoMedioFile);
+	interceptosLivreCaminhoMedioFile.close();
+}
+
+void ExportadorParaArquivo::salvarInterceptosDeLivreCaminhoMedio(int plano_pk, ofstream &outFile){
+
+	const char *interceptosPorosos_select = "select tamanho from interceptosPorosos where plano_fk=?;";
+	sqlite3_stmt *interceptosPorosos_stmt = 0;
+	int res = sqlite3_prepare_v2(this->db,interceptosPorosos_select,-1,&interceptosPorosos_stmt,NULL);
+
+	if( res==SQLITE_OK && interceptosPorosos_stmt ){
+		res = sqlite3_bind_int(interceptosPorosos_stmt,1,plano_pk);
+		assert(res == SQLITE_OK);
+		
+		do{ res = sqlite3_step(interceptosPorosos_stmt);}while(res != SQLITE_ROW && res != SQLITE_DONE);
+		
+		while(res != SQLITE_DONE){
+			double tamanho = sqlite3_column_double(interceptosPorosos_stmt,0);
+
+			outFile<< tamanho << std::endl;
+			res = sqlite3_step(interceptosPorosos_stmt);
+		}	
+
+		sqlite3_finalize(interceptosPorosos_stmt);
+	}
 }
 
 void ExportadorParaArquivo::salvarInterceptosDePoro(){
