@@ -413,8 +413,8 @@
 				AdditionalOptions="-Zm200 -w34100 -w34189 -Zm200 -w34100 -w34189 -w34100 -w34189"
 				Optimization="2"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="C:\Qt\2009.02\qt\include\QtOpenGL;&quot;$(PHYSX_SDK)\v2.8.3\Graphics\include\win32&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\Foundation\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\Cooking\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\PhysXLoader\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\Physics\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\NxCharacter\include&quot;;c:\Qt\2009.02\qt\include\QtCore;c:\Qt\2009.02\qt\include\QtGui;c:\Qt\2009.02\qt\include;c:\Qt\2009.02\qt\include\ActiveQt;c:\Qt\2009.02\qt\mkspecs\default;$(NOINHERIT)"
-				PreprocessorDefinitions="QT_NO_DEBUG,NDEBUG,_WINDOWS,UNICODE,WIN32,QT_LARGEFILE_SUPPORT,QT_DLL,QT_NO_DEBUG,QT_GUI_LIB,QT_CORE_LIB,QT_THREAD_SUPPORT,NDEBUG"
+				AdditionalIncludeDirectories="&quot;$(PHYSX_SDK)\v2.8.3\Graphics\include\win32&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\Foundation\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\Cooking\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\PhysXLoader\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\Physics\include&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\NxCharacter\include&quot;;C:\Qt\2009.02\qt\include\QtCore;C:\Qt\2009.02\qt\include\QtGui;C:\Qt\2009.02\qt\include\QtOpenGL;C:\Qt\2009.02\qt\include;C:\Qt\2009.02\qt\include\ActiveQt;C:\Qt\2009.02\qt\mkspecs;$(NOINHERIT)"
+				PreprocessorDefinitions="QT_NO_DEBUG;NDEBUG;_WINDOWS;UNICODE;QT_DLL;WIN32;QT_LARGEFILE_SUPPORT;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT"
 				GeneratePreprocessedFile="0"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -442,12 +442,14 @@
 				IgnoreImportLibrary="true"
 				UseLibraryDependencyInputs="false"
 				AdditionalOptions="&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; &quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot;"
-				AdditionalDependencies="c:\Qt\2009.02\qt\lib\QtGui4.lib c:\Qt\2009.02\qt\lib\QtOpenGL4.lib c:\Qt\2009.02\qt\lib\QtCore4.lib c:\Qt\2009.02\qt\lib\qtmain.lib PhysXLoader.lib PhysXCore.lib PhysXCooking.lib NxCharacter.lib glut32.lib"
+				AdditionalDependencies="qtmain.lib &#x0A;libs\libjpeg-static-mt.lib QtGui4.lib QtCore4.lib QtOpenGL4.lib PhysXLoader.lib PhysXCore.lib PhysXCooking.lib NxCharacter.lib glut32.lib"
 				ShowProgress="1"
 				OutputFile="Release_PhysX_v2.8.3\Simulacao.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;$(PHYSX_SDK)\v2.8.3\Graphics\lib\win32\glut&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\lib\Win32&quot;;c:\Qt\2009.02\qt\lib"
+				AdditionalLibraryDirectories="&quot;$(PHYSX_SDK)\v2.8.3\Graphics\lib\win32\glut&quot;;&quot;$(PHYSX_SDK)\v2.8.3\SDKs\lib\Win32&quot;;C:\Qt\2009.02\qt\lib"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="false"
 				ProgramDatabaseFile=""
 				SubSystem="2"
@@ -1010,6 +1012,21 @@
 					RelativePath=".\src\gui\AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.h"
 					>
 					<FileConfiguration
+						Name="Release_PhysX_v2.8.3|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="src\gui\AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.h"
+							CommandLine="C:\Qt\2009.02\qt\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtCore&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\QtGui&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include&quot; -I&quot;.&quot; -I&quot;.&quot; -I&quot;..\..\..\..\Qt\2009.02\qt\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -I..\..\..\..\Qt\2009.02\qt\mkspecs\default -D_MSC_VER=1500 -DWIN32 src\gui\AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.h -o moc\moc_AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.cpp&#x0D;&#x0A;"
+							AdditionalDependencies="C:\Qt\2009.02\qt\bin\moc.exe;src\gui\AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.h"
+							Outputs="moc\moc_AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.cpp"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\src\gui\AdicaoSistematicaDeEsferasComVolumeDeCaixaAjustavelDialog.h"
+					>
+					<FileConfiguration
 						Name="Debug_PhysX_v2.8.3|Win32"
 						>
 						<Tool
@@ -1229,7 +1246,6 @@
 						/>
 					</FileConfiguration>
 				</File>
-
 				<File
 					RelativePath=".\src\gui\TextBoxDelegate.h"
 					>

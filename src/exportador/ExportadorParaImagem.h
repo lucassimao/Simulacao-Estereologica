@@ -33,6 +33,7 @@ namespace simulacao{
 			sqlite3 *db;
 
 			void exportarImagemDePlanoDeCorte(int plano_pk,double largura,Cor corDoPlano);
+			void renderizarGrade(int plano_pk, CImg<double> &img,double zoom,double translacaoOrigem);
 			void exportarImagemDosDiscos(int plano_pk, CImg<double> &img,double zoom,double translacaoOrigem);
 			void exportarImagemDosPoligonos(int plano_pk, CImg<double> &img,double zoom,double translacaoOrigem);
 			void renderizarPoligono(int poligonoPk, CImg<double> &img,double zoom,double translacaoOrigem,Cor cor);

@@ -237,8 +237,7 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(){
 			quantidadeDePlanos++;
 
 			{
-				// esse bloco encontra a quantidade e o tamanho total
-				// dos interceptos de livre caminho médio
+				// esse bloco encontra a quantidade e o tamanho total dos interceptos de livre caminho médio
 				const char *interceptosPorosos_select = "select count(*),sum(tamanho) from interceptosPorosos where plano_fk=?;";
 				sqlite3_stmt *interceptosPorosos_stmt = 0;
 				int res = sqlite3_prepare_v2(this->db,interceptosPorosos_select,-1,&interceptosPorosos_stmt,NULL);
