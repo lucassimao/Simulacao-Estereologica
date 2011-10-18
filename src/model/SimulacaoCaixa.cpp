@@ -177,7 +177,7 @@ sqlite3 * SimulacaoCaixa::executarCortesSistematicos(int qtdeDeCortesSistematico
 				}
 			}
 		}
-		this->dao->salvarInterceptosPorosos(planoID);
+		this->dao->salvarInterceptosPorosos(planoID,this->getGrade());
 
 		double areaTotalColetada = visitor3->getAreaTotalColetada();
 		int qtdePontosInternosAInterceptosDeArea = visitor2->getQtdeDePontosInternosAInterceptosDeArea();

@@ -4,20 +4,32 @@
 #include "..\sqlite3\sqlite3.h"
 #include "..\defs.h"
 #include "..\model\interceptos\Disco.h"
+#include "..\model\grade\Grade.h"
+#include "..\model\grade\RetaDeTeste.h"
 #include "..\model\interceptos\Poligono.h"
 #include "..\math\ColetorDeInterceptosLinearesVisitor.h"
+#include <map>
+#include <vector>
 
 
+using namespace std;
+using namespace simulacao::model::grade;
 using namespace simulacao::model::interceptos;
 using namespace simulacao::math::mathVisitor;
 
 class DAO{
 	private:
 		sqlite3 *db;
+		struct {
+			bool operator()(InterceptoLinear *i1, InterceptoLinear *i2) const{
+				return i1->p0.x < i2->p0.x;
+			}
+		}InterceptoLinearCmp;	
+
 		__int64 salvarDisco(__int64 planoDeCorte_id,Disco *d);
 		__int64 salvarPoligono(__int64 planoDeCorte_id, Poligono *p);
-		void salvarInterceptoPoroso(int planoDeCorte_id,double x0,double y0,double z0, double x1, double y1, double z1);
-	
+		void salvarInterceptoPoroso(int planoDeCorte_id,double x0,double y0,double z0, double x1, double y1, double z1,double peso);
+		map<double,vector<InterceptoLinear*>> getInterceptosLineares(__int64 planoDeCorte_id);
 
 	public:
 		DAO( sqlite3 *db);
@@ -31,7 +43,7 @@ class DAO{
 
 		sqlite3* getDB(){ return this->db;}
 		void zerar();
-		void salvarInterceptosPorosos(__int64 planoDeCorte_id);
+		void salvarInterceptosPorosos(__int64 planoDeCorte_id,Grade *grade);
 
 };
 
