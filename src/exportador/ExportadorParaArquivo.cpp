@@ -218,7 +218,7 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(){
 	ofstream distribuicaoDeInterceptosPoro(fileName.str().c_str(),std::ios::out);
 	distribuicaoDeInterceptosPoro.imbue(ptBR);
 
-	int quantidadeGlobalDeInterceptosDeLivreCaminhoMedio = 0;
+	double pesoGlobalDeInterceptosDeLivreCaminhoMedio = 0;
 	double razaoTotal = 0;
 	int quantidadeDePlanos=0;
 	
@@ -238,7 +238,7 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(){
 
 			{
 				// esse bloco encontra a quantidade e o tamanho total dos interceptos de livre caminho médio
-				const char *interceptosPorosos_select = "select count(*),sum(tamanho) from interceptosPorosos where plano_fk=?;";
+				const char *interceptosPorosos_select = "select sum(peso),sum(tamanho),count(*) from interceptosPorosos where plano_fk=?;";
 				sqlite3_stmt *interceptosPorosos_stmt = 0;
 				int res = sqlite3_prepare_v2(this->db,interceptosPorosos_select,-1,&interceptosPorosos_stmt,NULL);
 
@@ -249,12 +249,12 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(){
 					do{ res = sqlite3_step(interceptosPorosos_stmt);}while(res != SQLITE_ROW && res != SQLITE_DONE);
 					
 					while(res != SQLITE_DONE){
-						int quantidadeDeInterceptosPorososNoPlano = sqlite3_column_int(interceptosPorosos_stmt,0);
+						double pesoDosInterceptosPorososNoPlano = sqlite3_column_double(interceptosPorosos_stmt,0);
 						double tamanhoTotalDosPorosNoPlano = sqlite3_column_double(interceptosPorosos_stmt,1);
 
-						double razao = tamanhoTotalDosPorosNoPlano/quantidadeDeInterceptosPorososNoPlano;
+						double razao = tamanhoTotalDosPorosNoPlano/pesoDosInterceptosPorososNoPlano;
 
-						quantidadeGlobalDeInterceptosDeLivreCaminhoMedio += quantidadeDeInterceptosPorososNoPlano;
+						pesoGlobalDeInterceptosDeLivreCaminhoMedio += pesoDosInterceptosPorososNoPlano;
 						razaoTotal += razao;
 
 						distribuicaoDeInterceptosPoro << "Plano " <<planoDeCorte_id <<";" << razao << std::endl;
@@ -288,9 +288,9 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(){
 
 	double comprimentoTotalDasRetasTeste = params->getArestaDaCaixa()*quantidadeDePlanos*params->getParametrosDaGrade().qtdeLinhas;
 
-	double ilcmt2 = (1.0 - fracaoFaseSolida)/ (quantidadeGlobalDeInterceptosDeLivreCaminhoMedio/comprimentoTotalDasRetasTeste) ;
+	double ilcmt2 = (1.0 - fracaoFaseSolida)/ (pesoGlobalDeInterceptosDeLivreCaminhoMedio/comprimentoTotalDasRetasTeste) ;
 	distribuicaoDeInterceptosPoro << "ILCMT 2;"<< ilcmt2 << endl;
-	
+
 	distribuicaoDeInterceptosPoro.close();
 
 }

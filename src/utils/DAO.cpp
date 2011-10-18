@@ -158,7 +158,7 @@ void DAO::salvarInterceptosPorosos(__int64 planoDeCorte_id,Grade *grade){
 	double x0Plano = -params->getArestaDaCaixa()/2.0;
 	double x1Plano = params->getArestaDaCaixa()/2;
 
-	#define PESO_1 1
+	#define PESO_1 1.0
 	#define PESO_METADE 0.5
 
 	while(retasTesteIterator != grade->getLinhasIteratorEnd()){
@@ -174,7 +174,7 @@ void DAO::salvarInterceptosPorosos(__int64 planoDeCorte_id,Grade *grade){
 
 			Ponto pInicio = {x0Plano,vetor[0]->p0.y,zReta};
 			Ponto pFinal = {x1Plano,vetor[0]->p0.y,zReta};
-			int peso = PESO_METADE;
+			double peso = PESO_METADE;
 
 			for(int i=0;i<vetor.size();++i){
 				InterceptoLinear* interceptoLinear = vetor[i];
@@ -201,7 +201,7 @@ void DAO::salvarInterceptosPorosos(__int64 planoDeCorte_id,Grade *grade){
 }
 
 void  DAO::salvarInterceptoPoroso(int planoDeCorte_id,double x0,double y0,double z0, double x1, double y1, double z1,double peso){
-	assert (peso==1 || peso==0.5);
+	assert (peso==1.0 || peso==0.5);
 	assert(x1 >= x0);
 
 	sqlite3_stmt *interceptoPorosoStmt = 0;
