@@ -179,7 +179,7 @@ void MainWindow::actionExecutarCortesSistematicos(){
 
 			bool exportarImagens = (res == QMessageBox::Ok);
 			if (exportarImagens){
-				ExportadorParaImagem exportador2(dir.toStdString(),db);
+				ExportadorParaImagem exportador2(dir.toStdString(),db,this->simulacao->getExibirPontosTeste(),this->simulacao->getExibirRetasTeste());
 				exportador2.exportar();
 			}
 

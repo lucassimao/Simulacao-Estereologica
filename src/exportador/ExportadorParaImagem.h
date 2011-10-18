@@ -26,11 +26,13 @@ namespace simulacao{
 		class ExportadorParaImagem{
 		
 		public:
-			ExportadorParaImagem(string &pastaDestino, sqlite3* db);
+			ExportadorParaImagem(string &pastaDestino, sqlite3* db,bool renderizarPontos,bool renderizarLinhas);
 			void exportar();
 		private:
 			string destino;
 			sqlite3 *db;
+			bool renderizarPontos;
+			bool renderizarLinhas;
 
 			void exportarImagemDePlanoDeCorte(int plano_pk,double largura,Cor corDoPlano);
 			void renderizarGrade(int plano_pk, CImg<double> &img,double zoom,double translacaoOrigem);

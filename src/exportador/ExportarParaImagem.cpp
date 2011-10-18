@@ -6,9 +6,11 @@ using namespace simulacao::exportador;
 using namespace simulacao::model;
 using namespace simulacao::model::grade;
 
-ExportadorParaImagem::ExportadorParaImagem(string &pastaDestino, sqlite3* db){
+ExportadorParaImagem::ExportadorParaImagem(string &pastaDestino, sqlite3* db,bool renderizarPontos,bool renderizarLinhas){
 	this->destino = pastaDestino;
 	this->db = db;
+	this->renderizarPontos = renderizarPontos;
+	this->renderizarLinhas = renderizarLinhas;
 }
 
 void ExportadorParaImagem::exportar(){
@@ -51,8 +53,10 @@ void ExportadorParaImagem::exportarImagemDePlanoDeCorte(int plano_pk,double larg
 	
 	exportarImagemDosDiscos(plano_pk,img,zoom,translacaoOrigem);	
 	exportarImagemDosPoligonos(plano_pk,img,zoom,translacaoOrigem);
-	renderizarGrade(plano_pk,img,zoom,translacaoOrigem);
 	
+	if (this->renderizarLinhas || this->renderizarPontos){
+		renderizarGrade(plano_pk,img,zoom,translacaoOrigem);
+	}
 	unsigned int buffer_size = 100*1024*1024;
 	JOCTET *buffer_output = new JOCTET[buffer_size];
 	img.save_jpeg_buffer(buffer_output,buffer_size);
@@ -79,37 +83,33 @@ void ExportadorParaImagem::renderizarGrade(int plano_pk, CImg<double> &img,doubl
 	unsigned char blue[] = { 0,0,255 };
 	unsigned char branco[] = { 255,255,255 };
 	
-
 	while (iterator != grade.getLinhasIteratorEnd()){
 		RetaDeTeste reta = *iterator;
 		
-		double x0 = reta.linhaInicio.x + translacaoOrigem;
-		double z0 = reta.linhaInicio.z + translacaoOrigem;
-		
-
-		double x1 = reta.linhaFim.x + translacaoOrigem;
-		double z1 = reta.linhaFim.z + translacaoOrigem;
-		
-		img.draw_line(x0*zoom,z0*zoom,x1*zoom,z1*zoom,blue);
-
-		vector<Ponto>::const_iterator pontosIterator = reta.getPontosIterator();
-		while(pontosIterator != reta.getPontosIteratorEnd()){
-			Ponto p = *pontosIterator;
-			double x = p.x + translacaoOrigem;
-			double z = p.z + translacaoOrigem;
-
-			img.draw_circle(x*zoom,z*zoom,2,branco);
-
-			pontosIterator++;
+		if (this->renderizarLinhas){
+			double x0 = reta.linhaInicio.x + translacaoOrigem;
+			double z0 = reta.linhaInicio.z + translacaoOrigem;
+			
+			double x1 = reta.linhaFim.x + translacaoOrigem;
+			double z1 = reta.linhaFim.z + translacaoOrigem;
+			
+			img.draw_line(x0*zoom,z0*zoom,x1*zoom,z1*zoom,blue);
 		}
-		
-		
-		
+
+		if (this->renderizarPontos){
+			vector<Ponto>::const_iterator pontosIterator = reta.getPontosIterator();
+			while(pontosIterator != reta.getPontosIteratorEnd()){
+				Ponto p = *pontosIterator;
+				double x = p.x + translacaoOrigem;
+				double z = p.z + translacaoOrigem;
+
+				img.draw_circle(x*zoom,z*zoom,2,branco);
+				pontosIterator++;
+			}
+		}
+
 		++iterator;
-
 	}
-	
-
 }
 void ExportadorParaImagem::exportarImagemDosPoligonos(int plano_pk, CImg<double> &img,double zoom,double translacaoOrigem){
 	sqlite3_stmt *discos_stmt = 0;
