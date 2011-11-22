@@ -658,24 +658,42 @@ double ExportadorParaArquivo::getVolumeFaseSolida(){
 }
 double ExportadorParaArquivo::getInterceptoLinearMedioTeorico(){
 		ProcessadorDeClassesDeIntercepto processador(this->db);
-		vector<ClasseDeGrao*> classes = processador.getClassesDeGraoPrismaticos();
 
-		int qtdeDeClasses =  classes.size();
+		
 		double nominadorDaFormula=0;
 		double denominadorDaFormula=0;
 
-		for(int idx=0;idx<qtdeDeClasses;++idx){
-			ClasseDeGraoPrismatico *classe = static_cast<ClasseDeGraoPrismatico*>(classes[idx]);
-			double alpha = classe->razaoDeAspecto;
-			double L = classe->L0;
-			double beta = classe->razaoDeTruncamento;
-			int n = classe->qtdeDeGraosDaClasse;
+		if (processador.getTipoDeGraoNaSimulacao() == Prismatico){
+			vector<ClasseDeGrao*> classes = processador.getClassesDeGraoPrismaticos();
+			
+			int qtdeDeClasses =  classes.size();
+			for(int idx=0;idx<qtdeDeClasses;++idx){
+				ClasseDeGraoPrismatico *classe = static_cast<ClasseDeGraoPrismatico*>(classes[idx]);
+				double alpha = classe->razaoDeAspecto;
+				double L = classe->L0;
+				double beta = classe->razaoDeTruncamento;
+				int n = classe->qtdeDeGraosDaClasse;
 
-			nominadorDaFormula += n * ((sqrt(3.0)/4 )* alpha * (1 - 3*pow(beta,2)) * pow(L,3));
-			denominadorDaFormula += n*(0.5)*(6*alpha*(1 - beta) + sqrt(3.0)*(1 - 3*pow(beta,2)))*pow(L,2);  
+				nominadorDaFormula += n * ((sqrt(3.0)/4 )* alpha * (1 - 3*pow(beta,2)) * pow(L,3));
+				denominadorDaFormula += n*(0.5)*(6*alpha*(1 - beta) + sqrt(3.0)*(1 - 3*pow(beta,2)))*pow(L,2);  
+			}
 
+			return 4*(nominadorDaFormula/denominadorDaFormula);
+		}else{
+			vector<ClasseDeGrao*> classes = processador.getClassesDeGraoEsfericos();
+
+			int qtdeDeClasses =  classes.size();
+			for(int idx=0;idx<qtdeDeClasses;++idx){
+				ClasseDeGraoEsferico *classe = static_cast<ClasseDeGraoEsferico*>(classes[idx]);
+				int n = classe->qtdeDeGraosDaClasse;
+				double raio = classe->raio;
+
+
+				nominadorDaFormula += n * (4.0/3.0) * raio;
+				denominadorDaFormula += n;  
+			}
+			return nominadorDaFormula/denominadorDaFormula;
 		}
-		return 4*(nominadorDaFormula/denominadorDaFormula);
 }
 
 void ExportadorParaArquivo::exportarInterceptoDePerimetroMedioParaPrisma(){
