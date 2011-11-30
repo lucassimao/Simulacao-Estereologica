@@ -55,6 +55,9 @@ namespace simulacao{
 
 			double getInterceptoLinearMedioTeorico();
 			double getVolumeFaseSolida();
+			double getComprimentoILC(int plano_pk);
+			double getComprimentoInterceptosLineares(int planoPK);
+			int getQtdeInterceptosLineares(int planoPK);
 		};
 	}
 }

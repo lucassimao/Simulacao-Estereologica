@@ -180,13 +180,15 @@ void DAO::salvarInterceptosPorosos(__int64 planoDeCorte_id,Grade *grade){
 				InterceptoLinear* interceptoLinear = vetor[i];
 				Ponto p0Intercepto = interceptoLinear->p0;
 
-				if (p0Intercepto.x > pInicio.x){
+				//if (p0Intercepto.x > pInicio.x){
+				if ( (p0Intercepto.x - pInicio.x) > 0.0001){
 					salvarInterceptoPoroso(planoDeCorte_id,pInicio.x,pInicio.y,pInicio.z,p0Intercepto.x,p0Intercepto.y,p0Intercepto.z,peso);
 				}
 				peso = PESO_1;
 				pInicio = interceptoLinear->p1;
 			}
-			if (vetor.back()->p1.x < pFinal.x){
+			//if (vetor.back()->p1.x < pFinal.x){
+			if ((pFinal.x - vetor.back()->p1.x) > 0.0001){
 				pInicio = vetor.back()->p1;
 				salvarInterceptoPoroso(planoDeCorte_id,pInicio.x,pInicio.y,pInicio.z,pFinal.x,pFinal.y,pFinal.z,PESO_METADE);
 			}
@@ -236,49 +238,6 @@ void  DAO::salvarInterceptoPoroso(int planoDeCorte_id,double x0,double y0,double
 
 	sqlite3_finalize(interceptoPorosoStmt);
 }
-
-
-/*
-			if (vetor.size() > 1){
-				sort(vetor.begin(),vetor.end(),InterceptoLinearCmp);				
-				int iLinearAtual = 0;
-
-				while(iLinearAtual+1 < vetor.size()){
-					InterceptoLinear *iLinear = vetor[iLinearAtual];
-					InterceptoLinear *iLinearSeguinte = vetor[iLinearAtual+1];
-
-					if (iLinearSeguinte->p0.x > iLinear->p1.x){
-						double interceptoPoro = iLinearSeguinte->p0.x - iLinear->p1.x;
-						
-						int res = sqlite3_prepare_v2(this->db,interceptoPorosoInsert,-1,&interceptoPorosoStmt,NULL);
-						assert(res==SQLITE_OK && interceptoPorosoStmt);
-
-						res = sqlite3_bind_int(interceptoPorosoStmt,1,planoDeCorte_id);
-						assert(res == SQLITE_OK);
-						res = sqlite3_bind_double(interceptoPorosoStmt,2,iLinear->p1.x);
-						assert(res == SQLITE_OK);
-						res = sqlite3_bind_double(interceptoPorosoStmt,3,iLinear->p1.y);
-						assert(res == SQLITE_OK);
-						res = sqlite3_bind_double(interceptoPorosoStmt,4,iLinear->p1.z);
-						assert(res == SQLITE_OK);
-						res = sqlite3_bind_double(interceptoPorosoStmt,5,iLinearSeguinte->p0.x);
-						assert(res == SQLITE_OK);
-						res = sqlite3_bind_double(interceptoPorosoStmt,6,iLinearSeguinte->p0.y);
-						assert(res == SQLITE_OK);
-						res = sqlite3_bind_double(interceptoPorosoStmt,7,iLinearSeguinte->p0.z);
-						assert(res == SQLITE_OK);
-						res = sqlite3_bind_double(interceptoPorosoStmt,8,interceptoPoro);
-						assert(res == SQLITE_OK);
-
-						res = sqlite3_step(interceptoPorosoStmt);
-						assert(res == SQLITE_DONE);
-
-						sqlite3_finalize(interceptoPorosoStmt);
-					}
-					++iLinearAtual;
-				}
-			}
-*/
 
 __int64 DAO::salvarInterceptoDeArea(__int64 planoDeCorte_id,InterceptoDeArea *interceptoDeArea){
 	switch(interceptoDeArea->getType()){

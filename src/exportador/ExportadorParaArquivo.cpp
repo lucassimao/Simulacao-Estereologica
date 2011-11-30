@@ -222,6 +222,17 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(){
 	double razaoTotal = 0;
 	int quantidadeDePlanos=0;
 	
+	int quantidadeGlobalDeInterceptosDeLivreCaminhoMedio=0;
+	double razaoTotalPeso=0;
+	Parametros *params = Parametros::getInstance();
+	double comprimentoDasRetasTeste = params->getArestaDaCaixa()*params->getParametrosDaGrade().qtdeLinhas;
+
+	//
+	double tamanhoTotalDosPorosNaSimulacao = 0.0;
+	int qtdeTotalDosPorosNaSimulacao = 0;
+	int qtdeTotalDeInterceptosLineares = 0;
+	//
+
 	const char *planoDeCorte_select = "select rowid from planoDeCorte;";
 	sqlite3_stmt *planoDeCorte_stmt = 0;
 	int res = sqlite3_prepare_v2(this->db,planoDeCorte_select,-1,&planoDeCorte_stmt,NULL);
@@ -251,13 +262,26 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(){
 					while(res != SQLITE_DONE){
 						double pesoDosInterceptosPorososNoPlano = sqlite3_column_double(interceptosPorosos_stmt,0);
 						double tamanhoTotalDosPorosNoPlano = sqlite3_column_double(interceptosPorosos_stmt,1);
+						int qtdeDeInterceptosPorososNoPlano = sqlite3_column_int(interceptosPorosos_stmt,2); 
 
-						double razao = tamanhoTotalDosPorosNoPlano/pesoDosInterceptosPorososNoPlano;
+						//
+							tamanhoTotalDosPorosNaSimulacao += tamanhoTotalDosPorosNoPlano;
+							qtdeTotalDosPorosNaSimulacao += tamanhoTotalDosPorosNoPlano;
+
+						//
 
 						pesoGlobalDeInterceptosDeLivreCaminhoMedio += pesoDosInterceptosPorososNoPlano;
-						razaoTotal += razao;
+						quantidadeGlobalDeInterceptosDeLivreCaminhoMedio += qtdeDeInterceptosPorososNoPlano;
 
-						distribuicaoDeInterceptosPoro << "Plano " <<planoDeCorte_id <<";" << razao << std::endl;
+						double comprimentoILC = getComprimentoILC(planoDeCorte_id);
+						double comprimentoInterceptosLineares = getComprimentoInterceptosLineares(planoDeCorte_id);
+						int qtdeInterceptosLinearesNoPlano = getQtdeInterceptosLineares(planoDeCorte_id);
+						
+						qtdeTotalDeInterceptosLineares += qtdeInterceptosLinearesNoPlano;
+
+						distribuicaoDeInterceptosPoro << "Plano " <<planoDeCorte_id << ";";
+						distribuicaoDeInterceptosPoro << comprimentoILC+comprimentoInterceptosLineares<< ";";
+						distribuicaoDeInterceptosPoro << comprimentoDasRetasTeste<<std::endl;
 						res = sqlite3_step(interceptosPorosos_stmt);
 					}	
 
@@ -274,25 +298,108 @@ void ExportadorParaArquivo::salvarInterceptosDePoro(){
 
 
 	distribuicaoDeInterceptosPoro << endl<< endl;
-	distribuicaoDeInterceptosPoro << "ILCM;"<< razaoTotal/quantidadeDePlanos<<endl; 
-
-	Parametros *params = Parametros::getInstance();
+	distribuicaoDeInterceptosPoro << "ILCM 1;"<< tamanhoTotalDosPorosNaSimulacao/qtdeTotalDosPorosNaSimulacao <<endl; 
+	distribuicaoDeInterceptosPoro << "ILCM 2;"<< tamanhoTotalDosPorosNaSimulacao/pesoGlobalDeInterceptosDeLivreCaminhoMedio <<endl; 
 
 	double ilmt = getInterceptoLinearMedioTeorico();
 	double volumeFaseSolida = getVolumeFaseSolida();
 	double volumeTotalCaixa = pow(params->getArestaDaCaixa(),3);
 	double fracaoFaseSolida = volumeFaseSolida/volumeTotalCaixa;
 
-	double ilcmt1 = ilmt*(1.0 - fracaoFaseSolida)/fracaoFaseSolida;
-	distribuicaoDeInterceptosPoro << "ILCMT 1;"<< ilcmt1 << endl;
+	double ilcmt3 = ilmt*( (1.0 - fracaoFaseSolida)/fracaoFaseSolida)*((double)qtdeTotalDeInterceptosLineares/qtdeTotalDosPorosNaSimulacao) ;
+	distribuicaoDeInterceptosPoro << "ILCM 3;"<< ilcmt3 << endl;
 
-	double comprimentoTotalDasRetasTeste = params->getArestaDaCaixa()*quantidadeDePlanos*params->getParametrosDaGrade().qtdeLinhas;
-
-	double ilcmt2 = (1.0 - fracaoFaseSolida)/ (pesoGlobalDeInterceptosDeLivreCaminhoMedio/comprimentoTotalDasRetasTeste) ;
-	distribuicaoDeInterceptosPoro << "ILCMT 2;"<< ilcmt2 << endl;
+	double ilcmt4 = ilmt*( (1.0 - fracaoFaseSolida)/fracaoFaseSolida )*((double)qtdeTotalDeInterceptosLineares/pesoGlobalDeInterceptosDeLivreCaminhoMedio) ;
+	distribuicaoDeInterceptosPoro << "ILCM 4;"<< ilcmt4 << endl;
 
 	distribuicaoDeInterceptosPoro.close();
 
+}
+
+
+
+double ExportadorParaArquivo::getComprimentoILC(int planoPK){
+
+	const char *interceptosPorosos_select = "select sum(tamanho) from interceptosPorosos where plano_fk=?;";
+	sqlite3_stmt *interceptosPorosos_stmt = 0;
+	int res = sqlite3_prepare_v2(this->db,interceptosPorosos_select,-1,&interceptosPorosos_stmt,NULL);
+
+	if( res==SQLITE_OK && interceptosPorosos_stmt ){
+		res = sqlite3_bind_int(interceptosPorosos_stmt,1,planoPK);
+		assert(res == SQLITE_OK);
+
+		do{ res = sqlite3_step(interceptosPorosos_stmt);}while(res != SQLITE_ROW && res != SQLITE_DONE);
+		
+		double comprimentoTotal = sqlite3_column_double(interceptosPorosos_stmt,0);
+
+		res = sqlite3_step(interceptosPorosos_stmt);
+		assert(res == SQLITE_DONE);
+		sqlite3_finalize(interceptosPorosos_stmt);
+		return comprimentoTotal;
+	}
+	exit(EXIT_FAILURE);
+	return -1;
+}
+
+int ExportadorParaArquivo::getQtdeInterceptosLineares(int planoPK){
+	
+	ProcessadorDeClassesDeIntercepto p(this->db);
+	const char *select;
+
+	if (p.getTipoDeGraoNaSimulacao() == Esferico){
+		select = "select count(*) from discos d, interceptosLineares_discos id where d.planoDeCorte_fk=? and d.rowid=id.disco_fk;";
+	}else{
+		select = "select count(*) from poligonos p, interceptosLineares_poligonos ip where p.planoDeCorte_fk=? and p.rowid=ip.poligono_fk;";
+	}
+	sqlite3_stmt *interceptosPorosos_stmt = 0;
+	int res = sqlite3_prepare_v2(this->db,select,-1,&interceptosPorosos_stmt,NULL);
+
+	if( res==SQLITE_OK && interceptosPorosos_stmt ){
+		res = sqlite3_bind_int(interceptosPorosos_stmt,1,planoPK);
+		assert(res == SQLITE_OK);
+
+		do{ res = sqlite3_step(interceptosPorosos_stmt);}while(res != SQLITE_ROW && res != SQLITE_DONE);
+		
+		int qtde = sqlite3_column_int(interceptosPorosos_stmt,0);
+
+		res = sqlite3_step(interceptosPorosos_stmt);
+		assert(res == SQLITE_DONE);
+		sqlite3_finalize(interceptosPorosos_stmt);
+
+		return qtde;
+	}
+	exit(EXIT_FAILURE);
+	return -1;
+}
+
+double ExportadorParaArquivo::getComprimentoInterceptosLineares(int planoPK){
+	
+	ProcessadorDeClassesDeIntercepto p(this->db);
+	const char *select;
+	if (p.getTipoDeGraoNaSimulacao() == Esferico){
+		select = "select sum(id.tamanho) from discos d, interceptosLineares_discos id where d.planoDeCorte_fk=? and d.rowid=id.disco_fk;";
+	}else{
+		select = "select sum(ip.tamanho) from poligonos p, interceptosLineares_poligonos ip where p.planoDeCorte_fk=? and p.rowid=ip.poligono_fk;";
+	}
+	sqlite3_stmt *interceptosPorosos_stmt = 0;
+	int res = sqlite3_prepare_v2(this->db,select,-1,&interceptosPorosos_stmt,NULL);
+
+	if( res==SQLITE_OK && interceptosPorosos_stmt ){
+		res = sqlite3_bind_int(interceptosPorosos_stmt,1,planoPK);
+		assert(res == SQLITE_OK);
+
+		do{ res = sqlite3_step(interceptosPorosos_stmt);}while(res != SQLITE_ROW && res != SQLITE_DONE);
+		
+		double comprimentoTotal = sqlite3_column_double(interceptosPorosos_stmt,0);
+
+		res = sqlite3_step(interceptosPorosos_stmt);
+		assert(res == SQLITE_DONE);
+		sqlite3_finalize(interceptosPorosos_stmt);
+
+		return comprimentoTotal;
+	}
+	exit(EXIT_FAILURE);
+	return -1;
 }
 
 void ExportadorParaArquivo::salvarAreaDosPoligonos( int plano_pk, ofstream &outFile){
