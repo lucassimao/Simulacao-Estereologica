@@ -38,7 +38,7 @@ class DAO{
 		__int64 salvarInterceptoDeArea(__int64 planoDeCorte_id,InterceptoDeArea *interceptoDeArea);
 		__int64 salvarEstatisticas(int planoDeCorte_fk, double areaDosInterceptosColetados,
 									double areaDoPlano, int qtdePontosInternos, int qtdePontosNaGrade, double volumeFaseSolida,double volumeFaseLigante);
-		void salvarInterceptosLineares(__int64 interceptoDeArea_id,vector<InterceptoLinear*> interceptosLineares,InterceptoType tipoIntercepto);
+		void salvarInterceptosLineares(__int64 interceptoDeArea_id,vector<InterceptoLinear*> &interceptosLineares,InterceptoType tipoIntercepto);
 		__int64 salvarPrisma(double razaoDeAspecto, double razaoDeTruncamento,double L0);
 
 		sqlite3* getDB(){ return this->db;}

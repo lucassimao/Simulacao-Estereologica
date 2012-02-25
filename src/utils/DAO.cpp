@@ -23,7 +23,7 @@ DAO::DAO(sqlite3 *db):db(db){
 
 }
 
-void DAO::salvarInterceptosLineares(__int64 interceptoDeArea_id,vector<InterceptoLinear*> interceptosLineares,InterceptoType tipoIntercepto){	
+void DAO::salvarInterceptosLineares(__int64 interceptoDeArea_id,vector<InterceptoLinear*> &interceptosLineares,InterceptoType tipoIntercepto){	
 	vector<InterceptoLinear*>::const_iterator iterator = interceptosLineares.begin();
 	ostringstream  insert;
 	switch(tipoIntercepto){
