@@ -500,20 +500,23 @@ void ExportadorParaArquivo::salvarInterceptosLineares(int plano_pk, ofstream &ou
 
 void ExportadorParaArquivo::exportarFracaoLinear(){
 	locale ptBR(locale(),new WithComma);
-	ostringstream arquivoFracaoLinear;
-	arquivoFracaoLinear << this->destino << "/fracaoLinear.csv"; 
+	string nomeArquivo = this->destino + "/fracaoLinear.csv"; 
 	
-	ofstream fracaoLinearFile(arquivoFracaoLinear.str().c_str(),std::ios::out);
+	ofstream fracaoLinearFile(nomeArquivo.c_str(),std::ios::out);
 	fracaoLinearFile.imbue(ptBR);
 
 	fracaoLinearFile << "Plano; Comp. das linhas do plano; Comp. dos interceptos lineares; Fração linear" << endl;
+
 	sqlite3_stmt *stmt = 0;
 	const char *select = 0;
 	if (trabalharComPrismas()){
-		select = "select plano.rowid,sum(ip.tamanho) from planoDeCorte plano LEFT OUTER JOIN poligonos p ON plano.rowid=p.planoDeCorte_fk LEFT OUTER JOIN interceptosLineares_poligonos ip ON ip.poligono_fk=p.rowid  group by plano.rowid order by plano.rowid;";
+		select = "select plano.rowid,sum(ip.tamanho) from planoDeCorte plano LEFT OUTER JOIN poligonos p "
+			"ON plano.rowid=p.planoDeCorte_fk LEFT OUTER JOIN interceptosLineares_poligonos ip ON ip.poligono_fk=p.rowid "
+			"group by plano.rowid order by plano.rowid;";
 	}else{
-		select = "select plano.rowid, sum(id.tamanho) from planoDeCorte plano LEFT OUTER JOIN discos d ON plano.rowid=d.rowid LEFT OUTER JOIN interceptosLineares_discos id ON id.disco_fk=d.rowid group by plano.rowid order by plano.rowid;";
-		
+		select = "select plano.rowid, sum(id.tamanho) from planoDeCorte plano LEFT OUTER JOIN discos d "
+				 "ON plano.rowid=d.planoDeCorte_fk LEFT OUTER JOIN interceptosLineares_discos id ON id.disco_fk=d.rowid "
+				 "group by plano.rowid order by plano.rowid;";		
 	}
 	int res = sqlite3_prepare_v2(this->db,select,-1,&stmt,NULL);
 	if( res==SQLITE_OK && stmt ){
@@ -529,11 +532,14 @@ void ExportadorParaArquivo::exportarFracaoLinear(){
 
 		while (res != SQLITE_DONE){
 			int plano = sqlite3_column_int(stmt,0);
-			double comprimentoInterceptos = sqlite3_column_double(stmt,1);
+			double comprimentoInterceptos = sqlite3_column_double(stmt,1);	
+			if (comprimentoInterceptos == 0){
 			
+			}	
+
 			double fracaoLinear = comprimentoInterceptos/comprimentoDasLinhasDaGrade;
+
 			fracaoLinearFile <<"Plano " << plano << ";" << comprimentoDasLinhasDaGrade <<";"<< comprimentoInterceptos <<";"<<fracaoLinear<< endl;
-			
 			comprimentoTotalDasLinhasDaGrade+= comprimentoDasLinhasDaGrade;
 			comprimentoTotalDosInterceptos += comprimentoInterceptos;
 
@@ -541,6 +547,7 @@ void ExportadorParaArquivo::exportarFracaoLinear(){
 		}
 		sqlite3_finalize(stmt);	
 		fracaoLinearFile << endl << endl;
+
 		double fracaoLinearDaSimulacao = comprimentoTotalDosInterceptos/comprimentoTotalDasLinhasDaGrade;
 		fracaoLinearFile << "Fração linear da simulação;"<<fracaoLinearDaSimulacao << endl ;
 	}
