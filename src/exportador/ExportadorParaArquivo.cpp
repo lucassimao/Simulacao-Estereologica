@@ -98,13 +98,15 @@ void ExportadorParaArquivo::exportarTabelasDeProbabilidade(int qtdeClassesDeInte
 		double maiorIntercepto = processador.getMaiorIntercepto(tipoDeIntercepto);
 		double deltaIntercepto = (maiorIntercepto - menorIntercepto)/qtdeClassesDeIntercepto;
 
-		ostringstream cabecalho;
+		/*ostringstream cabecalho;
 		if (tipoDeIntercepto != Poro ){
 			for(int i=0; i<classesDeGrao.size() ;++i){ cabecalho << ";" << classesDeGrao[i]->getDiametroEquivalente(); }
 		}else{
 			cabecalho << ";" << "Quantidade";
 		}
-		arquivo << cabecalho.str() << ";Total" << std::endl;
+		arquivo << cabecalho.str() << ";Total" << std::endl;*/
+
+		arquivo << ";Quantidade;Total" << std::endl;
 		vector<vector<int>> tabelaDeDistribuicao = processador.gerarTabelaDeDistribuicaoDeInterceptos(tipoDeIntercepto,qtdeClassesDeIntercepto);
 
 		map<int,int> quantidadePorClasseDeGrao;
